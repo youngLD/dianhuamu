@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="JJRMyAreaView">
+            <rect key="frame" x="0.0" y="0.0" width="258" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2JD-zc-8XU">
+                    <rect key="frame" x="0.0" y="0.0" width="258" height="40"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山东省临沂市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nD9-vI-uic">
+                    <rect key="frame" x="9" y="10" width="249" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <color key="textColor" red="0.22745774189631143" green="0.70587560203340316" blue="0.42326187425189549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="默认" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9U7-YI-9c5">
+                    <rect key="frame" x="218" y="0.0" width="40" height="21"/>
+                    <color key="backgroundColor" red="0.60169813366944447" green="0.59752061630555553" blue="0.59554036458888893" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="4ov-cp-nUm"/>
+                        <constraint firstAttribute="width" constant="40" id="d6K-AR-zcC"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qgo-C2-YyJ">
+                    <rect key="frame" x="0.0" y="0.0" width="258" height="40"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.95996099710464478" green="0.99312061071395874" blue="0.94745892286300659" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="nD9-vI-uic" secondAttribute="bottom" constant="9" id="0eR-wO-SrX"/>
+                <constraint firstItem="Qgo-C2-YyJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1MP-Xu-2tI"/>
+                <constraint firstItem="2JD-zc-8XU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Zz-3X-eHj"/>
+                <constraint firstAttribute="trailing" secondItem="nD9-vI-uic" secondAttribute="trailing" id="Ceq-SE-VvZ"/>
+                <constraint firstAttribute="trailing" secondItem="Qgo-C2-YyJ" secondAttribute="trailing" id="G3M-1z-cEo"/>
+                <constraint firstAttribute="trailing" secondItem="2JD-zc-8XU" secondAttribute="trailing" id="JwJ-bl-d90"/>
+                <constraint firstAttribute="trailing" secondItem="9U7-YI-9c5" secondAttribute="trailing" id="edE-zn-LZe"/>
+                <constraint firstItem="nD9-vI-uic" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="9" id="gs5-hl-vF9"/>
+                <constraint firstItem="nD9-vI-uic" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="j9V-yz-chi"/>
+                <constraint firstAttribute="bottom" secondItem="Qgo-C2-YyJ" secondAttribute="bottom" id="nSo-DW-MaS"/>
+                <constraint firstAttribute="bottom" secondItem="2JD-zc-8XU" secondAttribute="bottom" id="piQ-BF-D7y"/>
+                <constraint firstItem="2JD-zc-8XU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="qco-iJ-Yhl"/>
+                <constraint firstItem="Qgo-C2-YyJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="saV-Ui-Wlg"/>
+                <constraint firstItem="9U7-YI-9c5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="woG-1M-0VX"/>
+                <constraint firstAttribute="bottom" secondItem="9U7-YI-9c5" secondAttribute="bottom" constant="19" id="xIS-cn-zbQ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionBtn" destination="Qgo-C2-YyJ" id="375-JL-ghH"/>
+                <outlet property="bgImageV" destination="2JD-zc-8XU" id="f1w-Fm-NSs"/>
+                <outlet property="moLab" destination="9U7-YI-9c5" id="jCi-iu-KB4"/>
+                <outlet property="wareLab" destination="nD9-vI-uic" id="eoZ-Hu-hAg"/>
+            </connections>
+        </view>
+    </objects>
+</document>

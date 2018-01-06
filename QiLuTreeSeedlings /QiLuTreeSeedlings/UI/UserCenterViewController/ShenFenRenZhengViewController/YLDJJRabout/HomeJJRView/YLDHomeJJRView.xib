@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YLDHomeJJRView">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jjrmorenTu.png" translatesAutoresizingMaskIntoConstraints="NO" id="3RM-pl-X56">
+                    <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="3RM-pl-X56" secondAttribute="height" multiplier="1:1" id="AxR-4C-8Pi"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UnI-bI-hwP">
+                    <rect key="frame" x="105" y="153" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="c38-g6-3bH"/>
+                        <constraint firstAttribute="width" constant="15" id="hAG-bo-m5C"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李元霸五" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9da-Ui-30N">
+                    <rect key="frame" x="34.5" y="149" width="65.5" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="QTT-np-9kn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主营：" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0w2-Cr-ex1">
+                    <rect key="frame" x="5" y="172" width="129" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="5Ae-9I-GsF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBe-Rj-aRn">
+                    <rect key="frame" x="0.0" y="0.0" width="140" height="200"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9da-Ui-30N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-2.75" id="3fG-Jw-e16"/>
+                <constraint firstItem="dBe-Rj-aRn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="APD-2j-DHJ"/>
+                <constraint firstAttribute="trailing" secondItem="dBe-Rj-aRn" secondAttribute="trailing" id="BGf-aL-6q2"/>
+                <constraint firstAttribute="trailing" secondItem="3RM-pl-X56" secondAttribute="trailing" id="CMQ-n9-gZa"/>
+                <constraint firstAttribute="bottom" secondItem="0w2-Cr-ex1" secondAttribute="bottom" constant="7" id="IH3-xG-8Hl"/>
+                <constraint firstItem="9da-Ui-30N" firstAttribute="top" secondItem="3RM-pl-X56" secondAttribute="bottom" constant="9" id="Pbp-7E-Xko"/>
+                <constraint firstItem="dBe-Rj-aRn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Sis-kc-U8I"/>
+                <constraint firstAttribute="trailing" secondItem="0w2-Cr-ex1" secondAttribute="trailing" constant="6" id="aGA-Ei-9Wx"/>
+                <constraint firstItem="0w2-Cr-ex1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="bev-gj-alY"/>
+                <constraint firstItem="UnI-bI-hwP" firstAttribute="top" secondItem="3RM-pl-X56" secondAttribute="bottom" constant="13" id="i3W-8o-n8s"/>
+                <constraint firstItem="3RM-pl-X56" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kZl-1H-Bx6"/>
+                <constraint firstItem="UnI-bI-hwP" firstAttribute="leading" secondItem="9da-Ui-30N" secondAttribute="trailing" constant="5" id="m85-hd-IJx"/>
+                <constraint firstItem="3RM-pl-X56" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uEF-ET-ZqQ"/>
+                <constraint firstAttribute="bottom" secondItem="dBe-Rj-aRn" secondAttribute="bottom" id="xKz-RD-xO6"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionBtn" destination="dBe-Rj-aRn" id="MDD-rg-AJt"/>
+                <outlet property="hicImageV" destination="3RM-pl-X56" id="0g4-mO-dYb"/>
+                <outlet property="nameLab" destination="9da-Ui-30N" id="dmy-Qy-FwL"/>
+                <outlet property="zhuyingLab" destination="0w2-Cr-ex1" id="S1T-kC-jSk"/>
+            </connections>
+            <point key="canvasLocation" x="33" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="jjrmorenTu.png" width="120" height="120"/>
+    </resources>
+</document>

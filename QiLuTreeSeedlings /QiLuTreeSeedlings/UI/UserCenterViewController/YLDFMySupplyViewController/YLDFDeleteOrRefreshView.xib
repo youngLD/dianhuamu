@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YLDFDeleteOrRefreshView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wxx-Nx-yTA">
+                    <rect key="frame" x="125" y="0.0" width="125" height="52"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96F-OA-wwL">
+                            <rect key="frame" x="0.0" y="0.0" width="1" height="52"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="XCm-J0-NMq"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="96F-OA-wwL" firstAttribute="leading" secondItem="wxx-Nx-yTA" secondAttribute="leading" id="WVn-3W-wxW"/>
+                        <constraint firstAttribute="bottom" secondItem="96F-OA-wwL" secondAttribute="bottom" id="Xpd-ky-ldh"/>
+                        <constraint firstItem="96F-OA-wwL" firstAttribute="top" secondItem="wxx-Nx-yTA" secondAttribute="top" id="m9N-hi-A2K"/>
+                        <constraint firstAttribute="width" constant="125" id="nwo-y9-shx"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8f-fp-z4Z">
+                    <rect key="frame" x="250" y="0.0" width="125" height="52"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bob-c2-pW5">
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="52"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title=" 刷新" image="MySupplyRefresh.png">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.21398353576660156" green="0.64893120527267456" blue="0.95640331506729126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Bob-c2-pW5" secondAttribute="trailing" id="5tH-p4-L2j"/>
+                        <constraint firstItem="Bob-c2-pW5" firstAttribute="leading" secondItem="f8f-fp-z4Z" secondAttribute="leading" id="LU3-FI-0WT"/>
+                        <constraint firstItem="Bob-c2-pW5" firstAttribute="top" secondItem="f8f-fp-z4Z" secondAttribute="top" id="WGH-Zq-Y7c"/>
+                        <constraint firstAttribute="bottom" secondItem="Bob-c2-pW5" secondAttribute="bottom" id="f9W-AM-JTD"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyA-z5-wBi">
+                    <rect key="frame" x="0.0" y="0.0" width="125" height="52"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHc-PO-hSd">
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="52"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <state key="normal" title=" 下架" image="mysupplyXJ.png">
+                                <color key="titleColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="rHc-PO-hSd" firstAttribute="top" secondItem="dyA-z5-wBi" secondAttribute="top" id="RCX-oU-Uti"/>
+                        <constraint firstItem="rHc-PO-hSd" firstAttribute="leading" secondItem="dyA-z5-wBi" secondAttribute="leading" id="bIm-1s-Zxu"/>
+                        <constraint firstAttribute="bottom" secondItem="rHc-PO-hSd" secondAttribute="bottom" id="cip-y3-5nm"/>
+                        <constraint firstAttribute="trailing" secondItem="rHc-PO-hSd" secondAttribute="trailing" id="zbn-qs-P3V"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBw-Is-6YH">
+                    <rect key="frame" x="125" y="0.0" width="125" height="52"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title=" 删除" image="addressDelete.png">
+                        <color key="titleColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GBw-Is-6YH" secondAttribute="bottom" id="2nP-nW-dN7"/>
+                <constraint firstItem="wxx-Nx-yTA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="AqS-aS-ir1"/>
+                <constraint firstItem="f8f-fp-z4Z" firstAttribute="leading" secondItem="wxx-Nx-yTA" secondAttribute="trailing" id="Egs-mD-jrr"/>
+                <constraint firstItem="wxx-Nx-yTA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="J8u-lb-38f"/>
+                <constraint firstAttribute="bottom" secondItem="wxx-Nx-yTA" secondAttribute="bottom" id="LgN-lc-FUh"/>
+                <constraint firstItem="dyA-z5-wBi" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="QbG-xy-Sqq"/>
+                <constraint firstItem="wxx-Nx-yTA" firstAttribute="leading" secondItem="dyA-z5-wBi" secondAttribute="trailing" id="Ree-1c-95d"/>
+                <constraint firstItem="dyA-z5-wBi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="SnN-oj-nXs"/>
+                <constraint firstAttribute="trailing" secondItem="f8f-fp-z4Z" secondAttribute="trailing" id="cGj-Jt-yc4"/>
+                <constraint firstItem="GBw-Is-6YH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="psU-28-pk5"/>
+                <constraint firstItem="GBw-Is-6YH" firstAttribute="leading" secondItem="dyA-z5-wBi" secondAttribute="trailing" id="rrK-Sf-xeF"/>
+                <constraint firstAttribute="bottom" secondItem="f8f-fp-z4Z" secondAttribute="bottom" id="vHf-hm-e45"/>
+                <constraint firstItem="f8f-fp-z4Z" firstAttribute="leading" secondItem="GBw-Is-6YH" secondAttribute="trailing" id="z4q-vv-Uqo"/>
+                <constraint firstItem="f8f-fp-z4Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zh7-47-q5Z"/>
+                <constraint firstItem="dyA-z5-wBi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zvD-oZ-Nwc"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="centerW" destination="nwo-y9-shx" id="BzL-4B-Uxi"/>
+                <outlet property="colseBtn" destination="rHc-PO-hSd" id="cIJ-yi-gZJ"/>
+                <outlet property="deleteBtn" destination="GBw-Is-6YH" id="Nc9-fb-7cH"/>
+                <outlet property="refreshBtn" destination="Bob-c2-pW5" id="2mw-BF-9k3"/>
+            </connections>
+            <point key="canvasLocation" x="35.5" y="55"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MySupplyRefresh.png" width="16" height="16"/>
+        <image name="addressDelete.png" width="16" height="16"/>
+        <image name="mysupplyXJ.png" width="16" height="16"/>
+    </resources>
+</document>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YLDJJRSQtXView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="申请人个人工作照" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n92-7Q-Cus">
+                    <rect key="frame" x="15" y="30" width="144" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="144" id="Vyc-aT-0M6"/>
+                        <constraint firstAttribute="height" constant="21" id="rAa-Tv-u6T"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eav-Dy-pet">
+                    <rect key="frame" x="15" y="79.5" width="345" height="0.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.73725490196078436" green="0.73333333333333328" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moreRow.png" translatesAutoresizingMaskIntoConstraints="NO" id="Itl-Ft-ftk">
+                    <rect key="frame" x="339" y="30" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Xze-I8-Ncv"/>
+                        <constraint firstAttribute="width" constant="20" id="w9Z-l0-Tzz"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJY-iq-CXh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jjrmorenTu.png" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-v8-nWC">
+                    <rect key="frame" x="274" y="15" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="aKq-ff-RUU"/>
+                        <constraint firstAttribute="height" constant="50" id="hFa-pq-5Ac"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="n92-7Q-Cus" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="7Iq-Iu-iod"/>
+                <constraint firstItem="OBe-v8-nWC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="MEh-ao-IkQ"/>
+                <constraint firstItem="n92-7Q-Cus" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="NZI-hL-qcq"/>
+                <constraint firstItem="Itl-Ft-ftk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="SkM-ra-1GQ"/>
+                <constraint firstAttribute="bottom" secondItem="cJY-iq-CXh" secondAttribute="bottom" id="abF-ss-d6j"/>
+                <constraint firstItem="cJY-iq-CXh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="auB-kN-EKC"/>
+                <constraint firstAttribute="trailing" secondItem="OBe-v8-nWC" secondAttribute="trailing" constant="51" id="gXU-YK-SIl"/>
+                <constraint firstAttribute="trailing" secondItem="Itl-Ft-ftk" secondAttribute="trailing" constant="16" id="hg9-1B-oJa"/>
+                <constraint firstItem="cJY-iq-CXh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mca-UD-FV7"/>
+                <constraint firstAttribute="trailing" secondItem="cJY-iq-CXh" secondAttribute="trailing" id="oV7-Re-THE"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionBtn" destination="cJY-iq-CXh" id="dpR-Lk-2Uq"/>
+                <outlet property="txImageV" destination="OBe-v8-nWC" id="Hyz-7g-a6b"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="jjrmorenTu.png" width="120" height="120"/>
+        <image name="moreRow.png" width="12" height="12"/>
+    </resources>
+</document>

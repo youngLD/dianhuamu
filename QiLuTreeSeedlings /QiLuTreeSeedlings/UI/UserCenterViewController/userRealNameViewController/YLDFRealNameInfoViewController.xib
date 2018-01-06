@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFRealNameInfoViewController">
+            <connections>
+                <outlet property="idCardLab" destination="MHf-2B-AdV" id="P1n-hw-4sM"/>
+                <outlet property="nameLab" destination="zEK-KM-wvx" id="N0h-9k-nyj"/>
+                <outlet property="topC" destination="E4X-Fh-Pls" id="ypx-77-JlM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YGE-aL-ugR">
+                    <rect key="frame" x="15" y="94.000000000000014" width="384" height="211.33333333333337"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="realNameInfoBG.png" translatesAutoresizingMaskIntoConstraints="NO" id="V8j-wb-92G">
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="211.33333333333334"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="真实姓名：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEK-KM-wvx">
+                            <rect key="frame" x="10" y="152" width="82" height="19.333333333333343"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证号：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHf-2B-AdV">
+                            <rect key="frame" x="10" y="179.33333333333331" width="82" height="19.666666666666657"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="zEK-KM-wvx" secondAttribute="bottom" constant="40" id="Kiz-Ip-Dzg"/>
+                        <constraint firstItem="MHf-2B-AdV" firstAttribute="leading" secondItem="YGE-aL-ugR" secondAttribute="leading" constant="10" id="MxI-pW-hrf"/>
+                        <constraint firstAttribute="bottom" secondItem="V8j-wb-92G" secondAttribute="bottom" id="OZa-T9-sgI"/>
+                        <constraint firstItem="MHf-2B-AdV" firstAttribute="top" secondItem="zEK-KM-wvx" secondAttribute="bottom" constant="8" id="Pim-ai-VTt"/>
+                        <constraint firstItem="V8j-wb-92G" firstAttribute="top" secondItem="YGE-aL-ugR" secondAttribute="top" id="iWb-cW-jq9"/>
+                        <constraint firstItem="zEK-KM-wvx" firstAttribute="leading" secondItem="YGE-aL-ugR" secondAttribute="leading" constant="10" id="jn1-CG-Sxp"/>
+                        <constraint firstAttribute="width" secondItem="YGE-aL-ugR" secondAttribute="height" multiplier="668:368" id="mod-D4-Mho"/>
+                        <constraint firstItem="V8j-wb-92G" firstAttribute="leading" secondItem="YGE-aL-ugR" secondAttribute="leading" id="vlV-dI-Hi8"/>
+                        <constraint firstAttribute="trailing" secondItem="V8j-wb-92G" secondAttribute="trailing" id="zYU-Na-Hrs"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="YGE-aL-ugR" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="74" id="E4X-Fh-Pls"/>
+                <constraint firstItem="YGE-aL-ugR" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="xBw-eI-6yR"/>
+                <constraint firstAttribute="trailing" secondItem="YGE-aL-ugR" secondAttribute="trailing" constant="15" id="zFu-5T-2h4"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="33.5" y="91.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="realNameInfoBG.png" width="334" height="184"/>
+    </resources>
+</document>

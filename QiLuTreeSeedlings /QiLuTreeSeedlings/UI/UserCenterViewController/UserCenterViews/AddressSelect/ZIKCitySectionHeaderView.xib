@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZIKCitySectionHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzP-mh-luY">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="EVR-Us-iwu"/>
+                        <constraint firstAttribute="width" constant="160" id="PBC-dB-VLf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAj-cO-gPy">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="35" id="4Hs-JW-GQh"/>
+                        <constraint firstAttribute="height" constant="35" id="UkO-xY-F9f"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="carat.png"/>
+                    <connections>
+                        <action selector="toggleOpen:" destination="iN0-l3-epB" eventType="touchUpInside" id="bn9-el-dWW"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzx-OX-x5f">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="WBc-Zc-3Xh"/>
+                        <constraint firstAttribute="height" constant="20" id="aNp-7P-MNz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpK-bc-ehC">
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="4m2-5o-o9v"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ZAj-cO-gPy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="2uJ-M1-Wga"/>
+                <constraint firstItem="Pzx-OX-x5f" firstAttribute="leading" secondItem="nzP-mh-luY" secondAttribute="trailing" priority="250" constant="8" id="AQh-4g-VsA"/>
+                <constraint firstAttribute="trailing" secondItem="TpK-bc-ehC" secondAttribute="trailing" id="E6R-qa-hOf"/>
+                <constraint firstItem="TpK-bc-ehC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="M7o-9T-qeL"/>
+                <constraint firstItem="nzP-mh-luY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Sz9-t6-Y02"/>
+                <constraint firstItem="Pzx-OX-x5f" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="T74-O4-A7u"/>
+                <constraint firstAttribute="bottom" secondItem="TpK-bc-ehC" secondAttribute="bottom" id="ehu-ue-SfV"/>
+                <constraint firstItem="ZAj-cO-gPy" firstAttribute="leading" secondItem="Pzx-OX-x5f" secondAttribute="trailing" constant="3" id="eyK-JA-N7U"/>
+                <constraint firstAttribute="trailing" secondItem="ZAj-cO-gPy" secondAttribute="trailing" constant="8" id="kZQ-Pa-Zml"/>
+                <constraint firstItem="nzP-mh-luY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="sm5-P6-a81"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="disclosureButton" destination="ZAj-cO-gPy" id="1XR-72-bga"/>
+                <outlet property="lineview" destination="TpK-bc-ehC" id="Afz-fZ-dHd"/>
+                <outlet property="selectHintLabel" destination="Pzx-OX-x5f" id="C3m-FR-fZH"/>
+                <outlet property="titleLable" destination="nzP-mh-luY" id="rJg-Cw-yYl"/>
+            </connections>
+            <point key="canvasLocation" x="362" y="107"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="carat.png" width="11" height="11"/>
+    </resources>
+</document>

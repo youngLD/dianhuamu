@@ -1,0 +1,402 @@
+//
+//  YLDFUserCenterViewController.m
+//  QiLuTreeSeedlings
+//
+//  Created by 杨乐栋 on 2017/12/9.
+//  Copyright © 2017年 中亿科技. All rights reserved.
+//
+
+#import "YLDFUserCenterViewController.h"
+#import "UIDefines.h"
+#import "YLFUCuserInfoTableViewCell.h"
+#import "YLDFUCSUpplyOrBuyInfoTableViewCell.h"
+#import "YLDFUCOtherInfoTableViewCell.h"
+//地址管理
+#import "YLDFAddressListViewController.h"
+#import "YLDLoginViewController.h"
+#import "UINavController.h"
+#import "YLDFabuSuccessViewController.h"
+#import "YLDFSupplyFabuViewController.h"
+#import "YLDFBuyFBViewController.h"
+#import "YLDFUserGCTableViewCell.h"
+#import "YLDFabuSuccessViewController.h"
+#import "GetCityDao.h"
+#import "YLDFabuSuccessViewController.h"
+#import "YLDFUserNormalInfoViewController.h"
+#import "YLDFMySupplyListViewController.h"
+#import "YLDFBuyListViewController.h"
+#import "YLDFRealNameViewController.h"
+#import "YLDFSFRZListViewController.h"
+#import "YLDFRealNameViewController.h"
+#import "YLDFQiYeRenZhengViewController.h"
+#import "YLDFUserSettingViewController.h"
+#import "YLDFQiYeInfoViewController.h"
+#import "YLDFRZzhongViewController.h"
+#import "YLDFRealNameInfoViewController.h"
+@interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate>
+
+@end
+
+@implementation YLDFUserCenterViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+   
+    
+    [APPDELEGATE reloadUserInfoSuccess:^(id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"]integerValue]) {
+            [self.tableView reloadData];
+         }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+ 
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
+    
+    self.tableView.bounces=NO;
+    
+            if (@available(iOS 11.0, *)) {
+                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            } else {
+                self.edgesForExtendedLayout = UIRectEdgeNone;
+                // Fallback on earlier versions
+            }
+    
+//    }
+    // Do any additional setup after loading the view from its nib.
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row==0)
+    {
+      return  118/375.f*kWidth+80;
+    }
+    if(indexPath.row==1)
+    {
+        return 180;
+    }
+    if(indexPath.row==2)
+    {
+        return 130;
+    }
+    if(indexPath.row==3)
+    {
+        return 180;
+    }
+    return 100;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row==0)
+    {
+        YLFUCuserInfoTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFUCuserInfoTableViewCell"];
+        if (!cell) {
+            cell=[YLFUCuserInfoTableViewCell yldFUCuserInfoTableViewCell];
+            [cell.userInfoBtn addTarget:self action:@selector(cell1ActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.companyInfoBtn addTarget:self action:@selector(cell1ActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.shopBtn addTarget:self action:@selector(cell1ActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.addressBtn addTarget:self action:@selector(cell1ActionWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.setBtn addTarget:self action:@selector(setBtnAction) forControlEvents:UIControlEventTouchUpInside];
+            [cell.loginAndUserInfoBtn addTarget:self action:@selector(loginAndUserInfoBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [cell reloadselfInfo];
+        return cell;
+    }
+    if(indexPath.row==1)
+    {
+        YLDFUCSUpplyOrBuyInfoTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFUCSUpplyOrBuyInfoTableViewCell"];
+        if (!cell) {
+            cell=[YLDFUCSUpplyOrBuyInfoTableViewCell yldFUCSUpplyOrBuyInfoTableViewCell];
+            [cell.fabuSupplyBtn addTarget:self action:@selector(fabusupplyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+            [cell.fabuBuyBtn addTarget:self action:@selector(fabuBuyBtnAction) forControlEvents:UIControlEventTouchUpInside];
+            [cell.mySupplyBtn addTarget:self action:@selector(mySupplyListAction) forControlEvents:UIControlEventTouchUpInside];
+            [cell.myBuyBtn addTarget:self action:@selector(myBuyLsitAction) forControlEvents:UIControlEventTouchUpInside];
+        }
+        return cell;
+    }
+    if(indexPath.row==2)
+    {
+        YLDFUserGCTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFUserGCTableViewCell"];
+        if (!cell) {
+            cell=[YLDFUserGCTableViewCell yldFUserGCTableViewCell];
+            
+        }
+        return cell;
+    }
+    if(indexPath.row==3)
+    {
+        YLDFUCOtherInfoTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFUCOtherInfoTableViewCell"];
+        if (!cell) {
+            cell=[YLDFUCOtherInfoTableViewCell yldFUCOtherInfoTableViewCell];
+            [cell.helpBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.biaoshiRZBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.myCollectBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.biaoshiRZBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.myPayListBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.shenfenRZBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.myPingLunBtn addTarget:self action:@selector(otherCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        return cell;
+    }
+    UITableViewCell *cell=[UITableViewCell new];
+    return cell;
+}
+#pragma mark -cell1点击Action
+-(void)cell1ActionWithBtn:(UIButton *)sender
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    if (sender.tag==11) {
+        if ([APPDELEGATE.userModel.roles containsObject:@"users"]) {
+//            [ToastView showTopToast:@"审核通过"];
+            YLDFRealNameInfoViewController *vc=[YLDFRealNameInfoViewController new];
+            vc.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            [HTTPCLIENT getRealNameStateSuccess:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                  
+                    NSDictionary *data=[responseObject objectForKey:@"data"];
+                    NSString *status=data[@"status"];
+
+                    if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                        YLDFRealNameViewController *vc=[YLDFRealNameViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+//                        [ToastView showTopToast:@"您的实名认证正在审核中，请耐心等待"];
+                        YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"fail"]) {
+                        YLDFRealNameViewController * vc=[YLDFRealNameViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+                        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+                        vc.dic=[responseObject objectForKey:@"data"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    
+                    
+                }else{
+                    
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+          
+        }
+    }
+    if(sender.tag==12)
+    {
+        if ([APPDELEGATE.userModel.roles containsObject:@"enterprise"]) {
+            YLDFQiYeInfoViewController *vc=[YLDFQiYeInfoViewController new];
+            vc.hidesBottomBarWhenPushed=YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            [HTTPCLIENT getEnterpriseStateSuccess:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    
+                    NSDictionary *data=[responseObject objectForKey:@"data"];
+                    NSString *status=data[@"status"];
+                    
+                    if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                        YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+//                        [ToastView showTopToast:@"您的企业认证正在审核中，请耐心等待"];
+                        YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }if ([status isEqualToString:@"fail"]) {
+                        YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+                        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+                        vc.dic=[responseObject objectForKey:@"data"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    
+                }else{
+                    
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+        }
+        
+    }
+    if (sender.tag==14) {
+        YLDFAddressListViewController *vc=[YLDFAddressListViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+-(void)otherCellClickAction:(UIButton *)sender
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    if (sender.tag==4) {
+        YLDFSFRZListViewController *vc=[YLDFSFRZListViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+-(void)setBtnAction
+{
+    YLDFUserSettingViewController *vc=[YLDFUserSettingViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)loginAndUserInfoBtnAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFUserNormalInfoViewController *vc=[YLDFUserNormalInfoViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+-(void)fabuBuyBtnAction
+{
+    YLDFBuyFBViewController *vc=[YLDFBuyFBViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.delegate=self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabuSuccessWithbuyId:(NSDictionary *)buydic
+{
+    YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.buyDic=buydic;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabusupplyBtnAction
+{
+    YLDFSupplyFabuViewController *vc=[YLDFSupplyFabuViewController new];
+    vc.delegate=self;
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabuSuccessWithSupplyId:(NSDictionary *)supplydic
+{
+    YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.supplyDic=supplydic;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)mySupplyListAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFMySupplyListViewController *vc=[YLDFMySupplyListViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)myBuyLsitAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFBuyListViewController *vc=[YLDFBuyListViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)YLfabuSuccessWithBuyDic:(NSDictionary *)buyDic
+{
+    
+}
+-(void)YLfabuSuccessWithSupplyDic:(NSDictionary *)supplydic
+{
+    
+}
+-(void)YLfabuSuccessWithContinueType:(NSInteger)type{
+    if (type==1) {
+        [self fabusupplyBtnAction];
+    }else if (type==2)
+    {
+        [self fabuBuyBtnAction];
+    }
+}
+-(void)YLfabuSuccessWithAdministrationType:(NSInteger)type{
+    if (type==1) {
+        [self mySupplyListAction];
+    }else if (type==2)
+    {
+        [self myBuyLsitAction];
+    }
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

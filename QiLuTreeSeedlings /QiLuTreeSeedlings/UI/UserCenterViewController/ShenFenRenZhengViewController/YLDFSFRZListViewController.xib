@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFSFRZListViewController">
+            <connections>
+                <outlet property="GCGSBtn" destination="rPR-x8-yck" id="DyP-0w-ndn"/>
+                <outlet property="JJRBtn" destination="GrV-r3-Fye" id="oib-JM-mfy"/>
+                <outlet property="YLHBtn" destination="gxd-TF-71p" id="mOl-sE-6KQ"/>
+                <outlet property="topC" destination="Spf-en-KOE" id="y79-6u-rKD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GrV-r3-Fye">
+                    <rect key="frame" x="15" y="90" width="345" height="96.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="GrV-r3-Fye" secondAttribute="height" multiplier="666:186" id="A9w-kW-evk"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="SFRZJJR.png"/>
+                    <connections>
+                        <action selector="jjrBtnAction:" destination="-1" eventType="touchUpInside" id="Jl6-cS-YzY"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPR-x8-yck">
+                    <rect key="frame" x="15" y="201.5" width="345" height="96.5"/>
+                    <state key="normal" backgroundImage="SFRZGCGS.png"/>
+                    <connections>
+                        <action selector="gcgsBtnAction:" destination="-1" eventType="touchUpInside" id="aiI-3D-cig"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxd-TF-71p">
+                    <rect key="frame" x="15" y="313" width="345" height="96.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gxd-TF-71p" secondAttribute="height" multiplier="666:186" id="01c-pg-bSI"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="SFRZYLH.png"/>
+                    <connections>
+                        <action selector="ylhBtnAction:" destination="-1" eventType="touchUpInside" id="r7c-B0-RBN"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="rPR-x8-yck" firstAttribute="width" secondItem="rPR-x8-yck" secondAttribute="height" multiplier="666:186" id="0nQ-tp-HwT"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="gxd-TF-71p" secondAttribute="trailing" constant="15" id="3pB-7f-WG0"/>
+                <constraint firstItem="rPR-x8-yck" firstAttribute="top" secondItem="GrV-r3-Fye" secondAttribute="bottom" constant="15" id="NoI-6u-oWV"/>
+                <constraint firstItem="GrV-r3-Fye" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="70" id="Spf-en-KOE"/>
+                <constraint firstItem="GrV-r3-Fye" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="W9o-a2-ITZ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="rPR-x8-yck" secondAttribute="trailing" constant="15" id="lfb-o7-pys"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="GrV-r3-Fye" secondAttribute="trailing" constant="15" id="sN7-Zz-mZM"/>
+                <constraint firstItem="gxd-TF-71p" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="stZ-Fn-q0b"/>
+                <constraint firstItem="rPR-x8-yck" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="xHp-JX-kN3"/>
+                <constraint firstItem="gxd-TF-71p" firstAttribute="top" secondItem="rPR-x8-yck" secondAttribute="bottom" constant="15" id="z1U-ts-Kbw"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="SFRZGCGS.png" width="333" height="93"/>
+        <image name="SFRZJJR.png" width="333" height="93"/>
+        <image name="SFRZYLH.png" width="333" height="93"/>
+    </resources>
+</document>

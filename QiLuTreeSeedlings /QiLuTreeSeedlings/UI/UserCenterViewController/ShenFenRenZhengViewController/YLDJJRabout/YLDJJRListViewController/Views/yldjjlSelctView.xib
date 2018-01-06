@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mjO-KV-ZWW" customClass="yldjjlSelctView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idf-jd-M95">
+                    <rect key="frame" x="0.0" y="0.0" width="187" height="48"/>
+                    <state key="normal" title="区域" image="arowLG.png">
+                        <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="arowLgg.png">
+                        <color key="titleColor" red="0.22727322050000001" green="0.70521918400000005" blue="0.4239963108" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zR-0q-U9U">
+                    <rect key="frame" x="187" y="0.0" width="1" height="48"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="Yih-Yq-6BQ"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crG-03-roT">
+                    <rect key="frame" x="188" y="0.0" width="187" height="48"/>
+                    <state key="normal" title="苗木树种" image="arowLG.png">
+                        <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="selected" image="arowLgg.png">
+                        <color key="titleColor" red="0.2256184896" green="0.70464952260000002" blue="0.4244574653" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="crG-03-roT" firstAttribute="top" secondItem="mjO-KV-ZWW" secondAttribute="top" id="AFE-jw-N0N"/>
+                <constraint firstItem="3zR-0q-U9U" firstAttribute="leading" secondItem="Idf-jd-M95" secondAttribute="trailing" id="IYi-uL-Cb5"/>
+                <constraint firstAttribute="bottom" secondItem="Idf-jd-M95" secondAttribute="bottom" id="Pjv-3g-in3"/>
+                <constraint firstAttribute="trailing" secondItem="crG-03-roT" secondAttribute="trailing" id="Sex-Wh-Sl5"/>
+                <constraint firstItem="Idf-jd-M95" firstAttribute="leading" secondItem="mjO-KV-ZWW" secondAttribute="leading" id="TAI-ny-27U"/>
+                <constraint firstItem="3zR-0q-U9U" firstAttribute="top" secondItem="mjO-KV-ZWW" secondAttribute="top" id="aSw-4W-44H"/>
+                <constraint firstItem="3zR-0q-U9U" firstAttribute="centerX" secondItem="mjO-KV-ZWW" secondAttribute="centerX" id="dKz-ng-yKR"/>
+                <constraint firstItem="Idf-jd-M95" firstAttribute="top" secondItem="mjO-KV-ZWW" secondAttribute="top" id="fua-C2-oBf"/>
+                <constraint firstItem="crG-03-roT" firstAttribute="leading" secondItem="3zR-0q-U9U" secondAttribute="trailing" id="ibN-SU-o4h"/>
+                <constraint firstAttribute="bottom" secondItem="3zR-0q-U9U" secondAttribute="bottom" id="qig-MN-wA0"/>
+                <constraint firstAttribute="bottom" secondItem="crG-03-roT" secondAttribute="bottom" id="wWl-M2-5Mp"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="quyuBtn" destination="Idf-jd-M95" id="UXO-dg-lUk"/>
+                <outlet property="shuzhongBtn" destination="crG-03-roT" id="k0H-N4-F3I"/>
+            </connections>
+            <point key="canvasLocation" x="66.5" y="16"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arowLG.png" width="10" height="10"/>
+        <image name="arowLgg.png" width="10" height="10"/>
+    </resources>
+</document>

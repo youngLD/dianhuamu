@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="YLDSMyFollowTableViewCell" id="KGk-i7-Jjw" customClass="YLDSMyFollowTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XPc-cb-ZvT">
+                        <rect key="frame" x="15" y="15" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="6Yr-Qy-19p"/>
+                            <constraint firstAttribute="width" constant="40" id="Qgl-eF-AUQ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="园林号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLx-M1-8WZ">
+                        <rect key="frame" x="69" y="15" width="52" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="nwY-BX-tzF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9jM-1j-Nr9">
+                        <rect key="frame" x="69" y="35" width="235" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="LKf-zb-a8k"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myfollowYLH.png" translatesAutoresizingMaskIntoConstraints="NO" id="gQX-sF-yLX">
+                        <rect key="frame" x="131" y="18" width="30" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="OIQ-vq-gSV"/>
+                            <constraint firstAttribute="width" constant="30" id="lCx-pM-A8D"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XPc-cb-ZvT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="0X0-hA-tja"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9jM-1j-Nr9" secondAttribute="trailing" constant="8" id="2Yc-7l-rbI"/>
+                    <constraint firstItem="TLx-M1-8WZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="GmP-lU-e4D"/>
+                    <constraint firstItem="TLx-M1-8WZ" firstAttribute="leading" secondItem="XPc-cb-ZvT" secondAttribute="trailing" constant="14" id="IUY-Lj-6CE"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="9jM-1j-Nr9" secondAttribute="bottom" constant="5" id="LHB-Bv-c6a"/>
+                    <constraint firstItem="XPc-cb-ZvT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="Uns-bf-WRl"/>
+                    <constraint firstItem="gQX-sF-yLX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="euf-9Z-lgU"/>
+                    <constraint firstItem="gQX-sF-yLX" firstAttribute="leading" secondItem="TLx-M1-8WZ" secondAttribute="trailing" constant="10" id="j4R-e5-UeB"/>
+                    <constraint firstItem="9jM-1j-Nr9" firstAttribute="leading" secondItem="XPc-cb-ZvT" secondAttribute="trailing" constant="14" id="wvG-iI-VSv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageV" destination="XPc-cb-ZvT" id="tQa-g3-JjP"/>
+                <outlet property="nameLab" destination="TLx-M1-8WZ" id="bXb-ge-X3F"/>
+                <outlet property="remakeLab" destination="9jM-1j-Nr9" id="p1Y-vk-Gf6"/>
+                <outlet property="sfImageV" destination="gQX-sF-yLX" id="Yeu-gM-dZ2"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="myfollowYLH.png" width="30" height="15"/>
+    </resources>
+</document>

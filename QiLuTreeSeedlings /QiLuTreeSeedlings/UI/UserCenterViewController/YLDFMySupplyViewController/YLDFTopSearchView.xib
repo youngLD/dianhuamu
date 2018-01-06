@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YLDFTopSearchView">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="33"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="searchBtnAction.png" translatesAutoresizingMaskIntoConstraints="NO" id="VVQ-7Q-v5t">
+                    <rect key="frame" x="16" y="6" width="21" height="21"/>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入搜索内容" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zqj-Tj-CfM">
+                    <rect key="frame" x="42" y="0.0" width="228" height="33"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" red="0.91754716634750366" green="0.91770458221435547" blue="0.91753727197647095" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VVQ-7Q-v5t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="3Bp-Jl-KX8"/>
+                <constraint firstItem="zqj-Tj-CfM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="5Gu-9d-pKe"/>
+                <constraint firstItem="VVQ-7Q-v5t" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="6" id="KlB-w3-eXW"/>
+                <constraint firstItem="zqj-Tj-CfM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="bMr-cd-SoN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zqj-Tj-CfM" secondAttribute="trailing" constant="10" id="fny-9Q-cgy"/>
+                <constraint firstItem="zqj-Tj-CfM" firstAttribute="leading" secondItem="VVQ-7Q-v5t" secondAttribute="trailing" constant="5" id="rtk-d0-hi7"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="textField" destination="zqj-Tj-CfM" id="gCy-L2-imM"/>
+            </connections>
+            <point key="canvasLocation" x="36" y="71.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="searchBtnAction.png" width="21" height="21"/>
+    </resources>
+</document>

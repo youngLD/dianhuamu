@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="YLDMyBuyDetialTSNumView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已推送:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="704-EN-d6e">
+                    <rect key="frame" x="10" y="10" width="50.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5a-re-nch">
+                    <rect key="frame" x="65.5" y="10" width="25" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.22745098039215686" green="0.70588235294117641" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLX-kI-MGS">
+                    <rect key="frame" x="335" y="11" width="25" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.92941176470588238" green="0.53333333333333333" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已报价:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMx-e6-SHD">
+                    <rect key="frame" x="279.5" y="11" width="50.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.88362336158752441" green="0.98151689767837524" blue="0.9405016303062439" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="704-EN-d6e" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="6QZ-R0-jfg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="JLX-kI-MGS" secondAttribute="trailing" constant="15" id="7VJ-KO-ek9"/>
+                <constraint firstItem="JLX-kI-MGS" firstAttribute="leading" secondItem="AMx-e6-SHD" secondAttribute="trailing" constant="5" id="8Mv-PV-HJs"/>
+                <constraint firstItem="D5a-re-nch" firstAttribute="leading" secondItem="704-EN-d6e" secondAttribute="trailing" constant="5" id="EuQ-3L-vl6"/>
+                <constraint firstItem="704-EN-d6e" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="M1b-mD-Y8A"/>
+                <constraint firstItem="JLX-kI-MGS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="11" id="Nqw-Eb-nig"/>
+                <constraint firstItem="AMx-e6-SHD" firstAttribute="centerY" secondItem="JLX-kI-MGS" secondAttribute="centerY" id="cZK-BJ-3Jl"/>
+                <constraint firstItem="D5a-re-nch" firstAttribute="centerY" secondItem="704-EN-d6e" secondAttribute="centerY" id="fo3-9s-RdC"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="baojianumLab" destination="JLX-kI-MGS" id="E8O-1h-ijD"/>
+                <outlet property="pushNumLab" destination="D5a-re-nch" id="vda-oP-uMM"/>
+            </connections>
+        </view>
+    </objects>
+</document>

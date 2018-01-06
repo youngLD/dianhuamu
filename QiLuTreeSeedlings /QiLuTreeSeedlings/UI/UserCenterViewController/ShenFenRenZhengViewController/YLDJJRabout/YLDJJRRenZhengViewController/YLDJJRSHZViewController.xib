@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDJJRSHZViewController">
+            <connections>
+                <outlet property="sureBtn" destination="3Q7-gC-T5X" id="hI0-Y0-859"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XX9-H6-HeT">
+                    <rect key="frame" x="0.0" y="64" width="375" height="239"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jjrshenhezhong.png" translatesAutoresizingMaskIntoConstraints="NO" id="o9j-eF-Dcu">
+                            <rect key="frame" x="127" y="31" width="120" height="120"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="120" id="5KI-M3-OPL"/>
+                                <constraint firstAttribute="width" constant="120" id="kEF-8E-CNY"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已成功提交，请耐心等待管理员审核..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMi-8V-I87">
+                            <rect key="frame" x="61" y="175" width="295" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="DV6-BP-D1C"/>
+                                <constraint firstAttribute="width" constant="295" id="YlM-XQ-ky0"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jjrshenhezhong2.png" translatesAutoresizingMaskIntoConstraints="NO" id="fC2-XW-BcW">
+                            <rect key="frame" x="28" y="173" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="G2b-iB-U7j"/>
+                                <constraint firstAttribute="height" constant="25" id="NLa-OV-p68"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="o9j-eF-Dcu" firstAttribute="top" secondItem="XX9-H6-HeT" secondAttribute="top" constant="31" id="W2v-Su-hzB"/>
+                        <constraint firstItem="fC2-XW-BcW" firstAttribute="top" secondItem="XX9-H6-HeT" secondAttribute="top" constant="173" id="bYd-F9-Trc"/>
+                        <constraint firstAttribute="height" constant="239" id="g6f-fV-GoZ"/>
+                        <constraint firstItem="FMi-8V-I87" firstAttribute="centerX" secondItem="XX9-H6-HeT" secondAttribute="centerX" constant="21" id="kEn-io-4vK"/>
+                        <constraint firstItem="FMi-8V-I87" firstAttribute="top" secondItem="o9j-eF-Dcu" secondAttribute="bottom" constant="24" id="pZ4-QY-WWe"/>
+                        <constraint firstItem="o9j-eF-Dcu" firstAttribute="centerX" secondItem="XX9-H6-HeT" secondAttribute="centerX" id="pZf-Q4-84U"/>
+                        <constraint firstItem="FMi-8V-I87" firstAttribute="leading" secondItem="fC2-XW-BcW" secondAttribute="trailing" constant="8" id="xRR-Pe-5zt"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Q7-gC-T5X">
+                    <rect key="frame" x="40" y="339" width="295" height="40"/>
+                    <color key="backgroundColor" red="0.22755257619751823" green="0.70308641592661536" blue="0.42418382565180462" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="P4E-SW-65j"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="3Q7-gC-T5X" secondAttribute="trailing" constant="40" id="31b-yA-DCQ"/>
+                <constraint firstItem="3Q7-gC-T5X" firstAttribute="top" secondItem="XX9-H6-HeT" secondAttribute="bottom" constant="36" id="3Aw-f0-Cy2"/>
+                <constraint firstAttribute="trailing" secondItem="XX9-H6-HeT" secondAttribute="trailing" id="PCh-6c-fEP"/>
+                <constraint firstItem="3Q7-gC-T5X" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="UFf-bW-o3N"/>
+                <constraint firstItem="XX9-H6-HeT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uwm-gt-eij"/>
+                <constraint firstItem="XX9-H6-HeT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="zFV-Yr-0B3"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="jjrshenhezhong.png" width="128" height="128"/>
+        <image name="jjrshenhezhong2.png" width="29" height="29"/>
+    </resources>
+</document>

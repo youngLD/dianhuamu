@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFabuSuccessViewController">
+            <connections>
+                <outlet property="btn2W" destination="Wgn-2y-rWh" id="7ew-vr-zQe"/>
+                <outlet property="fabuBtn" destination="M4T-EU-zL7" id="7mX-df-AY1"/>
+                <outlet property="guanliBtn" destination="dnj-33-W9f" id="S3V-5h-Q3q"/>
+                <outlet property="topC" destination="yH8-tY-XK4" id="yfP-xW-yiw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yulanBtn" destination="5vH-jz-Yeu" id="HpS-YA-GH6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fabusuccessV.png" translatesAutoresizingMaskIntoConstraints="NO" id="skF-mW-VjS">
+                    <rect key="frame" x="142" y="108" width="90" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="Wva-4h-wYH"/>
+                        <constraint firstAttribute="width" constant="90" id="xAD-G4-fpF"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fubusuccessD.png" translatesAutoresizingMaskIntoConstraints="NO" id="0p3-WL-ecp">
+                    <rect key="frame" x="129" y="207" width="22" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="EU8-eV-dqy"/>
+                        <constraint firstAttribute="height" constant="22" id="fnu-FW-VB3"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发布成功！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gh-je-MOl">
+                    <rect key="frame" x="158" y="207" width="102" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="RCt-5o-a9g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4T-EU-zL7">
+                    <rect key="frame" x="10" y="269" width="104" height="40"/>
+                    <color key="backgroundColor" red="0.38039215686274508" green="0.83921568627450982" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="继续发布">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vH-jz-Yeu">
+                    <rect key="frame" x="136" y="269" width="104" height="40"/>
+                    <color key="backgroundColor" red="0.21176470588235294" green="0.85490196078431369" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="9sC-Nu-F46"/>
+                        <constraint firstAttribute="width" constant="104" id="Wgn-2y-rWh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="预览效果">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnj-33-W9f">
+                    <rect key="frame" x="261" y="268.5" width="104" height="40"/>
+                    <color key="backgroundColor" red="0.41568627450980389" green="0.74901960784313726" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="管理产品">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="0p3-WL-ecp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-47.5" id="5fh-n4-I4m"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="centerY" secondItem="dnj-33-W9f" secondAttribute="centerY" id="9Tq-Jj-9qF"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="width" secondItem="M4T-EU-zL7" secondAttribute="width" id="QJP-bZ-wCZ"/>
+                <constraint firstItem="dnj-33-W9f" firstAttribute="height" secondItem="5vH-jz-Yeu" secondAttribute="height" id="QTK-UQ-UVg"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="top" secondItem="8gh-je-MOl" secondAttribute="bottom" constant="40" id="Sdj-5j-nrs"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="anp-94-dsv"/>
+                <constraint firstItem="M4T-EU-zL7" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="10" id="g4L-qL-GKq"/>
+                <constraint firstItem="skF-mW-VjS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mjS-Yj-h5i"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="width" secondItem="dnj-33-W9f" secondAttribute="width" id="mxu-8d-0nE"/>
+                <constraint firstItem="8gh-je-MOl" firstAttribute="top" secondItem="skF-mW-VjS" secondAttribute="bottom" constant="9" id="oWF-Zz-J1x"/>
+                <constraint firstItem="8gh-je-MOl" firstAttribute="leading" secondItem="0p3-WL-ecp" secondAttribute="trailing" constant="7" id="pXv-hl-D8X"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dnj-33-W9f" secondAttribute="trailing" constant="10" id="wBX-nC-mYz"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="centerY" secondItem="M4T-EU-zL7" secondAttribute="centerY" id="xpV-iG-Cj2"/>
+                <constraint firstItem="5vH-jz-Yeu" firstAttribute="height" secondItem="M4T-EU-zL7" secondAttribute="height" id="xsI-vp-n2S"/>
+                <constraint firstItem="skF-mW-VjS" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="88" id="yH8-tY-XK4"/>
+                <constraint firstItem="0p3-WL-ecp" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="187" id="yTp-FY-vQA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="fabusuccessV.png" width="90" height="90"/>
+        <image name="fubusuccessD.png" width="24" height="24"/>
+    </resources>
+</document>

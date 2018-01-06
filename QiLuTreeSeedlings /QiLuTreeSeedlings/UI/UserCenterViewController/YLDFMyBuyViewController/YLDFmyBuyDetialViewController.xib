@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFmyBuyDetialViewController">
+            <connections>
+                <outlet property="centerW" destination="gto-d5-KCU" id="mCr-0L-wan"/>
+                <outlet property="editBtn" destination="WUe-in-LWL" id="cga-mR-lC0"/>
+                <outlet property="openOrCloseBtn" destination="93P-L3-crj" id="eho-JN-LxP"/>
+                <outlet property="shareBtn" destination="g2r-74-ALi" id="Ukh-iD-VZM"/>
+                <outlet property="tableView" destination="D9q-qT-LDf" id="he1-Jt-tly"/>
+                <outlet property="topC" destination="TO7-gX-jUm" id="BK7-Ys-vVR"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBb-uz-ct8">
+                    <rect key="frame" x="0.0" y="615" width="375" height="52"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93P-L3-crj">
+                            <rect key="frame" x="124.5" y="0.0" width="125" height="52"/>
+                            <color key="backgroundColor" red="0.22745098039215686" green="0.70588235294117641" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="125" id="gto-d5-KCU"/>
+                            </constraints>
+                            <state key="normal" title=" 上架" image="mybuydetialopen.png">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <state key="selected" title=" 下架" image="mybuydetialclose.png"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUe-in-LWL">
+                            <rect key="frame" x="249.5" y="0.0" width="125.5" height="52"/>
+                            <color key="backgroundColor" red="0.21568627450980393" green="0.6470588235294118" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title=" 编辑" image="mybuydetialEdit.png">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2r-74-ALi">
+                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="52"/>
+                            <state key="normal" title=" 分享" image="mybuydetialshare.png">
+                                <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiB-7z-v6a">
+                            <rect key="frame" x="0.0" y="1" width="124.5" height="1"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="PMk-eR-QwG"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="93P-L3-crj" secondAttribute="bottom" id="27k-ar-EbC"/>
+                        <constraint firstItem="fiB-7z-v6a" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" constant="1" id="47K-5c-ugf"/>
+                        <constraint firstItem="93P-L3-crj" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" id="Hbb-hs-VjJ"/>
+                        <constraint firstAttribute="bottom" secondItem="g2r-74-ALi" secondAttribute="bottom" id="OSG-yo-m67"/>
+                        <constraint firstAttribute="trailing" secondItem="WUe-in-LWL" secondAttribute="trailing" id="TKq-K3-3Mt"/>
+                        <constraint firstItem="93P-L3-crj" firstAttribute="leading" secondItem="fiB-7z-v6a" secondAttribute="trailing" id="aua-Pp-P5O"/>
+                        <constraint firstItem="g2r-74-ALi" firstAttribute="leading" secondItem="qBb-uz-ct8" secondAttribute="leading" id="fqz-8z-cKT"/>
+                        <constraint firstItem="WUe-in-LWL" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" id="fv1-eL-DGK"/>
+                        <constraint firstItem="93P-L3-crj" firstAttribute="leading" secondItem="g2r-74-ALi" secondAttribute="trailing" id="gGR-VI-keF"/>
+                        <constraint firstItem="WUe-in-LWL" firstAttribute="leading" secondItem="93P-L3-crj" secondAttribute="trailing" id="hUT-14-M3H"/>
+                        <constraint firstItem="93P-L3-crj" firstAttribute="centerX" secondItem="qBb-uz-ct8" secondAttribute="centerX" id="lbO-e3-PCp"/>
+                        <constraint firstItem="g2r-74-ALi" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" id="ngP-hg-iWU"/>
+                        <constraint firstAttribute="bottom" secondItem="WUe-in-LWL" secondAttribute="bottom" id="uLc-z8-uTw"/>
+                        <constraint firstAttribute="height" constant="52" id="vgD-sk-zAE"/>
+                        <constraint firstItem="fiB-7z-v6a" firstAttribute="leading" secondItem="qBb-uz-ct8" secondAttribute="leading" id="y83-M8-7Sf"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-qT-LDf">
+                    <rect key="frame" x="0.0" y="84" width="375" height="531"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="n5O-NZ-PjD"/>
+                        <outlet property="delegate" destination="-1" id="PUP-Ya-Oio"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="qBb-uz-ct8" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="8Q0-Mm-aSl"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="D9q-qT-LDf" secondAttribute="trailing" id="DUh-Ls-Rox"/>
+                <constraint firstItem="D9q-qT-LDf" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Lxz-OV-q2Y"/>
+                <constraint firstItem="D9q-qT-LDf" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="TO7-gX-jUm"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="D9q-qT-LDf" secondAttribute="bottom" constant="52" id="UpN-I7-INA"/>
+                <constraint firstItem="qBb-uz-ct8" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="WuG-pZ-AUS"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="qBb-uz-ct8" secondAttribute="bottom" id="iHT-Q0-PrJ"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="35.5" y="71.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="mybuydetialEdit.png" width="16" height="16"/>
+        <image name="mybuydetialclose.png" width="16" height="16"/>
+        <image name="mybuydetialopen.png" width="16" height="16"/>
+        <image name="mybuydetialshare.png" width="16" height="16"/>
+    </resources>
+</document>
