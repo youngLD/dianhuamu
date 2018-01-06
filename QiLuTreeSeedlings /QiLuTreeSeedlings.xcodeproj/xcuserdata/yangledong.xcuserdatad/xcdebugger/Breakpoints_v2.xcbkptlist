@@ -41,8 +41,8 @@
                   symbolName = "__38-[ZIKAddShowListViewController initUI]_block_invoke.47"
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "536912484.990169"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
+                  timestampString = "536921284.896904"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -56,8 +56,8 @@
                   symbolName = "__copy_helper_block_.60"
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "536912484.99183"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
+                  timestampString = "536921284.898608"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -71,8 +71,8 @@
                   symbolName = "__destroy_helper_block_.61"
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "536912484.993845"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
+                  timestampString = "536921284.900543"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -121,11 +121,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.645829"
+            timestampString = "536921284.59829"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4304"
-            endingLineNumber = "4304"
+            startingLineNumber = "4278"
+            endingLineNumber = "4278"
             landmarkName = "-stationShareSuccess:failure:"
             landmarkType = "7">
          </BreakpointContent>
@@ -153,7 +153,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.645923"
+            timestampString = "536921284.598399"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2540"
@@ -185,7 +185,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.645997"
+            timestampString = "536921284.598473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2560"
@@ -201,7 +201,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.64604"
+            timestampString = "536921284.5985219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2582"
@@ -217,7 +217,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.646081"
+            timestampString = "536921284.59857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2579"
@@ -265,11 +265,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.646172"
+            timestampString = "536921284.598655"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4781"
-            endingLineNumber = "4781"
+            startingLineNumber = "4755"
+            endingLineNumber = "4755"
             landmarkName = "-groupShareWithProductUid:productName:province:city:county:startTime:searchStatus:spec_XXXXXX:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
@@ -505,7 +505,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536912484.6466841"
+            timestampString = "536921284.5989079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "762"
@@ -616,109 +616,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536913424.137779"
+            filePath = "QiLuTreeSeedlings/UI/UserCenterViewController/ShenFenRenZhengViewController/YLDJJRabout/YLDJJRRenZhengViewController/YLDJJRenShenQing1ViewController.m"
+            timestampString = "536921284.599057"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8419"
-            endingLineNumber = "8419"
-            landmarkName = "-jjrshenheStatueSuccess:failure:"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "-nextBtnAction"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HttpClient systemMessageListWithType:WithLastTime:Success:failure:]"
-                  moduleName = "QiLuTreeSeedlings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/NetWorking/HttpClient.m"
-                  timestampString = "536913424.366419"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "8420"
-                  endingLineNumber = "8420"
-                  offsetFromSymbolStart = "696">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[HttpClient systemMessageListWithType:WithLastTime:Success:failure:]_block_invoke"
-                  moduleName = "QiLuTreeSeedlings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/NetWorking/HttpClient.m"
-                  timestampString = "536913424.368191"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "8422"
-                  endingLineNumber = "8422"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "QiLuTreeSeedlings/NetWorking/HttpClient.m"
-            timestampString = "536913425.22972"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8422"
-            endingLineNumber = "8422"
-            landmarkName = "-jjrshenheStatueSuccess:failure:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HttpClient systemMessageListWithType:WithLastTime:Success:failure:]"
-                  moduleName = "QiLuTreeSeedlings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/NetWorking/HttpClient.m"
-                  timestampString = "536913425.459847"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "8422"
-                  endingLineNumber = "8422"
-                  offsetFromSymbolStart = "716">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[HttpClient systemMessageListWithType:WithLastTime:Success:failure:]_block_invoke"
-                  moduleName = "QiLuTreeSeedlings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/NetWorking/HttpClient.m"
-                  timestampString = "536913425.461527"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "8422"
-                  endingLineNumber = "8422"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[HttpClient systemMessageListWithType:WithLastTime:Success:failure:]_block_invoke_2"
-                  moduleName = "QiLuTreeSeedlings"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/yangledong/Desktop/miaoxintong1/QiLuTreeSeedlings%203/QiLuTreeSeedlings/NetWorking/HttpClient.m"
-                  timestampString = "536913425.4631341"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "8422"
-                  endingLineNumber = "8422"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -728,12 +633,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/UI/UserCenterViewController/ShenFenRenZhengViewController/YLDFSFRZListViewController.m"
-            timestampString = "536913497.3777111"
+            timestampString = "536921284.599111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "-jjrBtnAction:"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-gcgsBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

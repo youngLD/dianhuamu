@@ -10,6 +10,7 @@
 #import "YLDFRealNameViewController.h"
 #import "YLDJJRenShenQing1ViewController.h"
 #import "YLDFRZzhongViewController.h"
+#import "YLDGCGSZiZhiTiJiaoViewController.h"
 @interface YLDFSFRZListViewController ()
 
 @end
@@ -49,20 +50,18 @@
                     
                     if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
                         YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
+                        vc.type=1;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
-                        //                        [ToastView showTopToast:@"您的实名认证正在审核中，请耐心等待"];
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"fail"]) {
-
                         [ToastView showTopToast:@"您的经纪人认证已被退回，请重新编辑"];
                         YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
                         vc.dic=[responseObject objectForKey:@"data"];
                         [self.navigationController pushViewController:vc animated:YES];
-//
  
                     }
                     
@@ -81,8 +80,33 @@
     }
 }
 - (IBAction)gcgsBtnAction:(UIButton *)sender {
-    if ([APPDELEGATE.userModel.roles containsObject:@"users"]) {
-        
+    if ([APPDELEGATE.userModel.roles containsObject:@"enterprise"]) {
+        [HTTPCLIENT projectCompanyStatusSuccess:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSDictionary *data=[responseObject objectForKey:@"data"];
+                NSString *status=data[@"status"];
+                
+                if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                    YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+                    YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                if ([status isEqualToString:@"fail"]) {
+                    [ToastView showTopToast:@"您的工程公司申请已被退回，请重新编辑"];
+                    YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    //
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+
     }else{
         [ToastView showTopToast:@"请先实名认证"];
         YLDFRealNameViewController *vc=[YLDFRealNameViewController new];

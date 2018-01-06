@@ -7,7 +7,6 @@
 //
 
 #import "YLDJJRenShenQing1ViewController.h"
-#import "YLDJJRenShenQing2ViewController.h"
 #import "YLDJJRSQtXView.h"
 #import "YLDJJRSRView.h"
 #import "YLDJJRSCSFView.h"
@@ -31,7 +30,14 @@
 @end
 
 @implementation YLDJJRenShenQing1ViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ( self.navigationController.navigationBar.hidden==NO) {
+        self.navigationController.navigationBar.hidden=YES;
+        
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"经纪人认证";
@@ -52,7 +58,7 @@
     wareLab.text=@"您所提供的所有资料只做认证使用，系统保证用户资料的安全!";
     [wareV addSubview:wareLab];
     [self.backScrollView addSubview:wareV];
-    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(0, 50, kWidth, 260)];
+    UIView *view1=[[UIView alloc]initWithFrame:CGRectMake(0, 50, kWidth, 140)];
     [view1 setBackgroundColor:[UIColor whiteColor]];
     
     YLDJJRSQtXView *txv=[YLDJJRSQtXView yldJJRSQtXView];
@@ -62,27 +68,14 @@
     txv.frame=tempframe;
     [txv.actionBtn addTarget:self action:@selector(txAction) forControlEvents:UIControlEventTouchUpInside];
     [view1 addSubview:txv];
-    
-    YLDJJRSRView *JJRSRView1=[YLDJJRSRView yldJJRSRView];
-    JJRSRView1.titleLab.text=@"姓名";
-    self.xingmingField=JJRSRView1.textField;
-    JJRSRView1.textField.placeholder=@"请输入姓名";
-    JJRSRView1.textField.delegate=self;
-    JJRSRView1.textField.rangeNumber=8;
-    JJRSRView1.textField.tag=11;
-    tempframe=JJRSRView1.frame;
-    tempframe.origin.y=80;
-    tempframe.size.width=kWidth;
-    JJRSRView1.frame=tempframe;
-    [view1 addSubview:JJRSRView1];
-    
+  
   
     YLDJJRSRView *JJRSRView3=[YLDJJRSRView yldJJRSRView];
     JJRSRView3.textField.rangeNumber=18;
     JJRSRView3.textField.keyboardType=UIKeyboardTypeNumberPad;
     JJRSRView3.titleLab.text=@"员工编号";
     tempframe=JJRSRView3.frame;
-    tempframe.origin.y=140;
+    tempframe.origin.y=80;
     tempframe.size.width=kWidth;
     JJRSRView3.textField.placeholder=@"请输入员工编号";
     JJRSRView3.frame=tempframe;
@@ -101,33 +94,7 @@
     [self.view setBackgroundColor:BGColor];
     
 }
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField.tag==11) {
-        NSUserDefaults *userDefau = [NSUserDefaults standardUserDefaults];
-        NSDictionary *dic1 =  [userDefau objectForKey:@"jjrRenZheng"];
-        NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dic1];
-        if (textField.text.length==0) {
-            [dic  removeObjectForKey:@"name"];
-        }else{
-           dic[@"name"]=textField.text;
-        }
-        [userDefau setObject:dic forKey:@"jjrRenZheng"];
-        [userDefau synchronize];
-    }
-    if (textField.tag==12) {
-        NSUserDefaults *userDefau = [NSUserDefaults standardUserDefaults];
-        NSDictionary *dic1 =  [userDefau objectForKey:@"jjrRenZheng"];
-        NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dic1];
-        if (textField.text.length==0) {
-            [dic removeObjectForKey:@"phone"];
-        }else{
-            dic[@"phone"]=textField.text;
-        }
-        [userDefau setObject:dic forKey:@"jjrRenZheng"];
-        [userDefau synchronize];
-    }
-}
+
 -(void)txAction
 {
     self.imageType=1;
@@ -148,9 +115,9 @@
 
     dic[@"csNumber"]=self.IDcardField.text;
 
-
+    NSString *bodyStr= [ZIKFunction convertToJsonData:dic];
     ShowActionV();
-    [HTTPCLIENT jjrshenheWithDic:dic Success:^(id responseObject) {
+    [HTTPCLIENT jjrshenheWithDic:bodyStr Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
 
             NSString *uid=[responseObject objectForKey:@"result"];
@@ -293,9 +260,8 @@
 
 - (void)upDataIamge:(UIImage *)croppedImage
 {
-//  [ToastView showTopToast:@"正在上传图片"];
-    
-//    ShowActionV();
+
+    ShowActionV();
     //先把图片转成NSData
     NSData *imageData;
     
@@ -306,129 +272,28 @@
     NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_id] WithTypeStr:@"agent"];
    
     imageData=UIImagePNGRepresentation(croppedImage);
-    NSMutableDictionary *imageDic=[NSMutableDictionary dictionary];
-    NSString *imagePath;
+
     NSString *urlstr;
     if (imageData) {
-         put.objectKey = [NSString stringWithFormat:@"%@.png",nameStr];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *ary=[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"pathsOfRZImage"]];
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *path = [paths objectAtIndex:0];
-        //设置一个图片的存储路径
-        imagePath = [path stringByAppendingString:[NSString stringWithFormat:@"/agent%ld.png",ary.count]];
-        //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
-        
-        [imageDic setObject:[NSString stringWithFormat:@"/agent%ld.png",ary.count] forKey:@"path"];
-        [imageDic setObject:put.objectKey forKey:@"name"];
-        [imageDic setObject:@"image/png" forKey:@"type"];
-        [ary addObject:imageDic];
-        [userDefaults setObject:ary forKey:@"RZImageAry"];
-        [userDefaults synchronize];
-    }else{
-         put.objectKey = [NSString stringWithFormat:@"%@.jpeg",nameStr];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSMutableArray *ary=[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"pathsOfRZImage"]];
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *path = [paths objectAtIndex:0];
-        //设置一个图片的存储路径
-        imagePath = [path stringByAppendingString:[NSString stringWithFormat:@"/agent%ld.jpeg",ary.count]];
-        //把图片直接保存到指定的路径（同时应该把图片的路径imagePath存起来，下次就可以直接用来取）
-        [imageDic setObject:[NSString stringWithFormat:@"/agent%ld.jpeg",ary.count] forKey:@"path"];
-        [imageDic setObject:put.objectKey forKey:@"name"];
-        [imageDic setObject:@"image/png" forKey:@"type"];
-        [ary addObject:imageDic];
-        [userDefaults setObject:ary forKey:@"RZImageAry"];
-        [userDefaults synchronize];
+        //返回为png图像。
+        put.objectKey = [NSString stringWithFormat:@"%@.png",nameStr];
+        imageData = UIImagePNGRepresentation(croppedImage);
+        put.contentType=@"image/png";
+   }else{
+       //返回为JPEG图像。
+        put.objectKey = [NSString stringWithFormat:@"%@.jpeg",nameStr];
+       imageData = UIImageJPEGRepresentation(croppedImage, 0.5);
+       put.contentType=@"image/jpeg";
     }
     urlstr=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
-    if (self.imageType==1) {
-//        dispatch_sync(dispatch_get_main_queue(), ^{
+
+
         RemoveActionV();
-            self.txurl=urlstr;
-            [self.txV setImage:croppedImage];
-            NSUserDefaults *userDefau = [NSUserDefaults standardUserDefaults];
-            NSDictionary *dic1 =  [userDefau objectForKey:@"jjrRenZheng"];
-            NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dic1];
-            if (urlstr.length==0) {
-                [dic removeObjectForKey:@"photo"];
-            }else{
-                dic[@"photo"]=urlstr;
-            }
-            [userDefau setObject:dic forKey:@"jjrRenZheng"];
-            [userDefau synchronize];
-            
-//        });
-        
-    }
-    if (self.imageType==2) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            //Update UI in UI thread here
-            RemoveActionV();
-            self.cardFurl=urlstr;
-            [self.sfV1.shangchuanImagV setImage:croppedImage];
-            NSUserDefaults *userDefau = [NSUserDefaults standardUserDefaults];
-            NSDictionary *dic1 =  [userDefau objectForKey:@"jjrRenZheng"];
-            NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dic1];
-            if (urlstr.length==0) {
-                [dic removeObjectForKey:@"idCardPicFront"];
-            }else{
-                dic[@"idCardPicFront"]=urlstr;
-            }
-            [userDefau setObject:dic forKey:@"jjrRenZheng"];
-            [userDefau synchronize];
-            
-            
-        });
-    }
-    if (self.imageType==3) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            //Update UI in UI thread here
-          RemoveActionV();
-            self.cardBurl=urlstr;
-            [self.sfV2.shangchuanImagV setImage:croppedImage];
-            NSUserDefaults *userDefau = [NSUserDefaults standardUserDefaults];
-            NSDictionary *dic1 =  [userDefau objectForKey:@"jjrRenZheng"];
-            NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithDictionary:dic1];
-            if (urlstr.length==0) {
-                [dic removeObjectForKey:@"idCardPicBack"];
-            }else{
-                dic[@"idCardPicBack"]=urlstr;
-            }
-            [userDefau setObject:dic forKey:@"jjrRenZheng"];
-            [userDefau synchronize];
-            
-            
-        });
-        
-    }
-    if (imageData) {
-        //返回为png图像。
-//        imageData = UIImagePNGRepresentation(croppedImage);
-        put.contentType=@"image/png";
-
-        
-    }else {
-        //返回为JPEG图像。
-    
-        imageData = UIImageJPEGRepresentation(croppedImage, 0.5);
-        put.contentType=@"image/jpeg";
        
-        
-    }
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        [imageData writeToFile:imagePath atomically:YES];
-    });
-
-    if (imageData.length>=1024*1024&&self.imageType!=1) {
-        NSInteger x=2;
-        if (self.imageType!=1) {
-            x=6;
-        }
-        CGFloat xD=(1024*1024.f)/(CGFloat)imageData.length*x;
-        CGSize newSize = {croppedImage.size.width*xD,croppedImage.size.height*xD};
+    if (croppedImage.size.width>150) {
+      
+       
+        CGSize newSize = {150,150};
         imageData =  [self imageWithImageSimple:croppedImage scaledToSize:newSize];
         
     }
@@ -446,18 +311,15 @@
 
             dispatch_sync(dispatch_get_main_queue(), ^{
                 //Update UI in UI thread here
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                NSMutableArray *ary=[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"RZImageAry"]];
-                [ary removeObject:imageDic];
-                [userDefaults setObject:ary forKey:@"RZImageAry"];
-                [userDefaults synchronize];
-
+                RemoveActionV();
+                self.txurl=urlstr;
+                [self.txV setImage:croppedImage];
                 
             });
             
         } else {
             //                NSLog(@"upload object failed, error: %@" , task.error);
-//            RemoveActionV();
+            RemoveActionV();
 //            [ToastView showTopToast:@"上传图片失败"];
             
         }
