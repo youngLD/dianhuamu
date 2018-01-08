@@ -113,7 +113,7 @@
         if (self.baojiaTypeBtn.tag==3) {
             baojiatype=@"buy_price";
         }
-        [party setObject:baojiatype forKey:@"quoteTypeId"];
+        party[@"quoteTypeId"]=baojiatype;
     }
     if (self.numTextField.text.length>0) {
         [party setObject:self.numTextField.text forKey:@"quantity"];

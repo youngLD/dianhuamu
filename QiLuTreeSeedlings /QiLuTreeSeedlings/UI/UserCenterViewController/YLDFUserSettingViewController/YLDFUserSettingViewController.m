@@ -7,7 +7,7 @@
 //
 
 #import "YLDFUserSettingViewController.h"
-
+#import"AbountUsViewController.h"
 @interface YLDFUserSettingViewController ()
 
 @end
@@ -30,6 +30,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)aboutUsBtn:(id)sender {
+    AbountUsViewController *abountUnsVC=[[AbountUsViewController alloc]init];
+    [self.navigationController pushViewController:abountUnsVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

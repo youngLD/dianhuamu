@@ -33,6 +33,8 @@
     self.vcTitle=@"求购发布";
     self.shuomingTextView.placeholder=@"请输入订单说明（不超过70个字）";
     self.shuomingTextView.Rdelegate=self;
+    self.shuomingTextView.rangeNumber=70;
+    self.nameTextField.rangeNumber=50;
     self.LineImageV.image =   [ZIKFunction imageWithSize:self.LineImageV.frame.size borderColor:kLineColor borderWidth:1];
     self.addAddImageV.image=[ZIKFunction  imageWithSize:self.addAddImageV.frame.size borderColor:kLineColor borderWidth:1];
     [self.shangchejiaBtn addTarget:self action:@selector(baojiayaoqiuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -113,7 +115,40 @@
     self.addressLab.text=model.area;
 }
 - (IBAction)nextBtnAction:(UIButton *)sender {
-    
+    if (self.nameTextField.text.length==0) {
+        [ToastView showTopToast:@"请输入订单名称"];
+        return;
+    }
+    if (self.shuomingTextView.text.length==0) {
+        [ToastView showTopToast:@"请输入订单说明"];
+        return;
+    }
+    if (self.timeStr.length==0) {
+        [ToastView showTopToast:@"请选择截止日期"];
+        return;
+    }
+    if (self.addressId.length==0) {
+        [ToastView showTopToast:@"请选择用苗地信息"];
+        return;
+    }
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    dic[@"addressId"]=self.addressId;
+    dic[@"description"]=self.shuomingTextView.text;
+    dic[@"engineeringProcurementName"]=self.nameTextField.text;
+    dic[@"partyId"]=APPDELEGATE.userModel.partyId;
+    NSString *baojiatype=nil;
+    if (self.baojiaTypeBtn.tag==1) {
+        baojiatype=@"car_price";
+    }
+    if (self.baojiaTypeBtn.tag==2) {
+        baojiatype=@"arrival_price";
+    }
+    if (self.baojiaTypeBtn.tag==3) {
+        baojiatype=@"buy_price";
+    }
+    dic[@"quoteTypeId"]=baojiatype;
+    dic[@"thruDate"]=self.timeStr;
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

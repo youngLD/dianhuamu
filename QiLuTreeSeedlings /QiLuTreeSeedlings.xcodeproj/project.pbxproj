@@ -928,6 +928,9 @@
 		EAD65D451FF22FB900F4BD18 /* areadbs1.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = EAD65D441FF22FB900F4BD18 /* areadbs1.sqlite */; };
 		EAD8CDBD2003147F00FDC31C /* YLDFEOrderFaBuOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD8CDBB2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.m */; };
 		EAD8CDBE2003147F00FDC31C /* YLDFEOrderFaBuOneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CDBC2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.xib */; };
+		EAD8CDC220035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD8CDC020035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.m */; };
+		EAD8CDC320035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CDC120035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.xib */; };
+		EAD8CDC520035F0700FDC31C /* GCDDLiteSZ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD8CDC420035F0700FDC31C /* GCDDLiteSZ@2x.png */; };
 		EAD984701EF7C3BD00683864 /* jingjiren@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD9846F1EF7C3BD00683864 /* jingjiren@2x.png */; };
 		EAD984721EF7C83100683864 /* jjrmorenTu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAD984711EF7C83100683864 /* jjrmorenTu@2x.png */; };
 		EADCB6A31EF4FF850075C832 /* YLDJJRChangeAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCB6A11EF4FF850075C832 /* YLDJJRChangeAreaViewController.m */; };
@@ -3095,6 +3098,10 @@
 		EAD8CDBA2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFEOrderFaBuOneViewController.h; sourceTree = "<group>"; };
 		EAD8CDBB2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFEOrderFaBuOneViewController.m; sourceTree = "<group>"; };
 		EAD8CDBC2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFEOrderFaBuOneViewController.xib; sourceTree = "<group>"; };
+		EAD8CDBF20035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFEOrderFaBuTwoViewController.h; sourceTree = "<group>"; };
+		EAD8CDC020035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFEOrderFaBuTwoViewController.m; sourceTree = "<group>"; };
+		EAD8CDC120035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFEOrderFaBuTwoViewController.xib; sourceTree = "<group>"; };
+		EAD8CDC420035F0700FDC31C /* GCDDLiteSZ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GCDDLiteSZ@2x.png"; sourceTree = "<group>"; };
 		EAD9846F1EF7C3BD00683864 /* jingjiren@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jingjiren@2x.png"; sourceTree = "<group>"; };
 		EAD984711EF7C83100683864 /* jjrmorenTu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jjrmorenTu@2x.png"; sourceTree = "<group>"; };
 		EADCB6A01EF4FF850075C832 /* YLDJJRChangeAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDJJRChangeAreaViewController.h; sourceTree = "<group>"; };
@@ -5291,6 +5298,7 @@
 		EA2726F81C8A735F000B0719 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAD8CDC420035F0700FDC31C /* GCDDLiteSZ@2x.png */,
 				EAE282822000A16A00B47FF7 /* SFRZGCGSL@2x.png */,
 				EAE2827E2000A14600B47FF7 /* SFRZJJRL@2x.png */,
 				EAE2827C2000A14400B47FF7 /* SFRZJLJL@2x.png */,
@@ -7627,6 +7635,9 @@
 				EAD8CDBA2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.h */,
 				EAD8CDBB2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.m */,
 				EAD8CDBC2003147E00FDC31C /* YLDFEOrderFaBuOneViewController.xib */,
+				EAD8CDBF20035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.h */,
+				EAD8CDC020035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.m */,
+				EAD8CDC120035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.xib */,
 			);
 			path = FabuEngineeringOrderViewController;
 			sourceTree = "<group>";
@@ -10941,6 +10952,7 @@
 				FC7EAFEE1D13C63200F4043D /* ico_顶部搜索.png in Resources */,
 				EA88872C1E0A6D2C0058EECE /* huihuaoff@2x.png in Resources */,
 				FC11CBF91D37886900C3F47D /* 圆角矩形-3.png in Resources */,
+				EAD8CDC320035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.xib in Resources */,
 				EA6BDA471D45FE5F00F317F2 /* 我的店铺-店铺装修.png in Resources */,
 				EA5136001EFBA18700A19E13 /* jjrnotPass@2x.png in Resources */,
 				EA6EAF3F1D93722200D050F5 /* 底部菜单-我的订单on@2x.png in Resources */,
@@ -11139,6 +11151,7 @@
 				FC74AD6C1D349F99009D8409 /* 站长通.png in Resources */,
 				EAB7819D1C8EA55600807B44 /* UserImage@2x.png in Resources */,
 				EAF5A6B11E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.xib in Resources */,
+				EAD8CDC520035F0700FDC31C /* GCDDLiteSZ@2x.png in Resources */,
 				EA833D8A1CFE81B600D56AFB /* kefuweixin@2x.png in Resources */,
 				FC50B1601CAE243F0022A24C /* UMSocialLocalizable.strings in Resources */,
 				EA662A0A1D825EBE007E8BD6 /* 底部菜单-工程中心On.png in Resources */,
@@ -11998,6 +12011,7 @@
 				EAC95E1C1F29C50300F7C8B9 /* YLDADClickActionListViewController.m in Sources */,
 				FCC291131DAB6F330019DFB9 /* ContactView.m in Sources */,
 				FCC2918F1DAB6F330019DFB9 /* PSTGridLayoutInfo.m in Sources */,
+				EAD8CDC220035C3800FDC31C /* YLDFEOrderFaBuTwoViewController.m in Sources */,
 				FC50B34A1CAE4C4A0022A24C /* openssl_wrapper.m in Sources */,
 				EA3D4DAE1F38549D00491BBE /* YLDTabBar.m in Sources */,
 				FCC2910D1DAB6F330019DFB9 /* CallViewController.m in Sources */,

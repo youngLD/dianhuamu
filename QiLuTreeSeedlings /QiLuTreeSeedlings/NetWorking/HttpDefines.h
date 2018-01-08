@@ -13,8 +13,9 @@
 
 
 #pragma mark -测试地址
-static NSString * const AFBaseURLString = @"https://m.api.test.somiao.top/";//测试
+//static NSString * const AFBaseURLString = @"https://m.api.test.somiao.top/";//测试
 //static NSString * const AFBaseURLString = @"https://192.168.0.137:8443/";//测试
+static NSString * const AFBaseURLString = @"https://test.api.dianhuamu.com/";//测试
 static NSString *const ShopBaseURLString = @"http://shop.m.test.somiao.top/";//测试
 static NSString *const NEWSBaseURLString = @"http://news.test.somiao.top/";//测试
 static NSString *const ADBaseURLString = @"http://ad.test.somiao.top/";//测试
