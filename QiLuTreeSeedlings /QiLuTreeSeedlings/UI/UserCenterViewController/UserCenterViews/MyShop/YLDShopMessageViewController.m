@@ -13,7 +13,7 @@
 #import "YLDShopIndexinfoCell.h"
 #import "YLDShopIndexModel.h"
 #import "YLDShopYuanCell.h"
-#import "buyFabuViewController.h"
+//#import "buyFabuViewController.h"
 #import "ZIKSupplyPublishVC.h"
 #import "BuyMessageAlertView.h"
 #import "NuseryDetialViewController.h"
@@ -131,8 +131,8 @@
             [self.navigationController pushViewController:nuseryDetialVC animated:YES];
             return;
         }
-        buyFabuViewController *fabuVC=[[buyFabuViewController alloc]init];
-        [self.navigationController pushViewController:fabuVC animated:YES];
+//        buyFabuViewController *fabuVC=[[buyFabuViewController alloc]init];
+//        [self.navigationController pushViewController:fabuVC animated:YES];
 
     }
     if (index==2) {

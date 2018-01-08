@@ -64,28 +64,7 @@
                 self.nameLab.text=[dic2 objectForKey:@"name"];
                 [self normalViewWithDic:dic2];
             }
-            if (type==1) {
-               NSDictionary *dic3=[dic objectForKey:@"kehu"];
-                NSInteger allNum=[[dic3 objectForKey:@"allKehu"] integerValue];
-                NSInteger unchongzhiNum=[[dic3 objectForKey:@"rechargeKehu"] integerValue];
-                NSString *allStr=[NSString stringWithFormat:@"%ld",(long)allNum];
-                NSString *unchongzhiStr=[NSString stringWithFormat:@"%ld",(long)unchongzhiNum];
-                NSString *ssssStr=[NSString stringWithFormat:@"当前服务会员%@人，尚有%@人未进行充值",allStr,unchongzhiStr];
-                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:ssssStr];
-                
-                [str addAttribute:NSForegroundColorAttributeName value:NavColor range:NSMakeRange(6,allStr.length)]; //设置字体颜色
-                
-                [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:25.0] range:NSMakeRange(6,allStr.length)]; //设置字体字号和字体类别
-                
-                [str addAttribute:NSForegroundColorAttributeName value:NavYellowColor range:NSMakeRange(10+allStr.length, unchongzhiStr.length)]; //设置字体颜色
-                
-                [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial" size:25.0] range:NSMakeRange(10+allStr.length, unchongzhiStr.length)];
-                self.nameLab.attributedText = str;
-                [self.dataAry addObjectsFromArray:[dic3 objectForKey:@"infoList"]];
-                 [self kefupersonViewWithDic:dic3];
-                [self.tableView reloadData];
-            
-            }
+
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
@@ -93,73 +72,8 @@
         
     }];
 }
--(void)kefupersonViewWithDic:(NSDictionary *)normalDic{
-    UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 185, kWidth, kHeight-175)];
-    self.tableView=tableView;
-    tableView.delegate=self;
-    //[tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    tableView.dataSource=self;
-    __weak typeof(self) weakSelf=self;
-    [tableView addHeaderWithCallback:^{
-        weakSelf.pageNum=1;
-        [weakSelf getDataList];
-    }];
-    [tableView addFooterWithCallback:^{
-        weakSelf.pageNum+=1;
-        [weakSelf getDataList];
-    }];
-    [self.view addSubview:tableView];
-}
--(void)getDataList
-{
-    [HTTPCLIENT kefuXiTongWithPage:PageSize WithPageNumber:[NSString stringWithFormat:@"%ld",(long)self.pageNum] WithIsLoad:@"1" Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            
-            NSDictionary *dic=[responseObject objectForKey:@"result"];
-            NSDictionary *infoDic=[dic objectForKey:@"kehu"];
-            NSArray *dddAry=[infoDic objectForKey:@"infoList"];
-            if (dddAry.count>0) {
-                
-                if (self.pageNum==1) {
-                    [self.dataAry removeAllObjects];
-                    [self.dataAry addObjectsFromArray:dddAry];
-                    [self.tableView reloadData];
-                }else{
-                    NSDictionary *oldDic=[self.dataAry lastObject];
-                    NSDictionary *newDic=[dddAry lastObject];
-                    NSString *oldStr=[oldDic objectForKey:@"uid"];
-                    NSString *newStr=[newDic objectForKey:@"uid"];
-                    if ([newStr isEqualToString:oldStr]) {
-                       [ToastView showTopToast:@"已无更多信息"];
-                        self.pageNum-=1;
-                        if (self.pageNum<=1) {
-                            self.pageNum=1;
-                        }
-                    }else{
-                      [self.dataAry addObjectsFromArray:dddAry];
-                        [self.tableView reloadData];
-                    }
-                }
-            }else{
-                [ToastView showTopToast:@"已无更多信息"];
-                self.pageNum-=1;
-                if (self.pageNum<=1) {
-                    self.pageNum=1;
-                }
-            }
-          
-        }else
-        {
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-        
-        [self.tableView footerEndRefreshing];
-        [self.tableView headerEndRefreshing];
-    } failure:^(NSError *error) {
-        [self.tableView footerEndRefreshing];
-        [self.tableView headerEndRefreshing];
-    }];
-}
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataAry.count;
 }

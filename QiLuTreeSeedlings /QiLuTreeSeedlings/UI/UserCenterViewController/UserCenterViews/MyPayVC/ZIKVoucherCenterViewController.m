@@ -30,6 +30,7 @@
 @synthesize payTableView;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.price=self.dic[@"amount"];
     // Do any additional setup after loading the view.
     self.vcTitle             = @"支付订单";
     UIView *backView         = [[UIView alloc] init];
@@ -235,7 +236,32 @@
         if (self.infoType == 3)
         {
             type = @"3";
-        }if (self.infoType==7) {
+        }
+        if (self.infoType==6) {
+            NSString *roleApplyAuditId=self.dic[@"roleApplyAuditId"];
+            [HTTPCLIENT JJRWeChatPayWithroleApplyAuditId:roleApplyAuditId Success:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    NSDictionary *dic=[responseObject objectForKey:@"data"];
+                    NSMutableString *stamp  = [dic objectForKey:@"timestamp"];
+                    //调起微信支付
+                    PayReq* req             = [[PayReq alloc] init];
+                    req.partnerId           = [dic objectForKey:@"partnerid"];//商户号
+                    req.prepayId            = [dic objectForKey:@"prepayid"];//预支付交易ID
+                    req.nonceStr            = [dic objectForKey:@"noncestr"];//随机字符串
+                    req.timeStamp           = stamp.intValue;//时间戳
+                    req.package             = [dic objectForKey:@"package"];
+                    req.sign                = [dic objectForKey:@"sign"];
+                    
+                    [WXApi sendReq:req];
+                }else
+                {
+                    [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+            
+        }else if (self.infoType==7) {
 //            HttpClient *tt=[HttpClient sharedADClient];
             [HTTPADCLIENT weixinADwithUid:APPDELEGATE.userModel.access_id pice:self.price Success:^(id responseObject) {
                 NSDictionary *dict = responseObject[@"result"];
@@ -311,22 +337,7 @@
         //NSLog(@"银联支付");
         [ToastView showToast:@"银联支付暂未开通" withOriginY:Width/3 withSuperView:self.view];
         return;
-        //[self getUPPay];
-//        [HTTPCLIENT weixinPayOrder:@"0.01" Success:^(id responseObject) {
-//            NSLog(@"%@",responseObject);
-//            if ([[responseObject objectForKey:@"success"] integerValue] == 1) {
-//                NSString *  tnSring = [responseObject[@"result"] objectForKey:@"tn"];
-//                NSLog(@"tnSring= %@",tnSring);
-//                [UPPayPlugin startPay:tnSring mode:@"00" viewController:self delegate:self];
-//
-//            }
-//            else {
-//                NSLog(@"%@",responseObject[@"msg"]);
-//            }
-//            //return [responseObject[@"result"] objectForKey:@"tn"];
-//        } failure:^(NSError *error) {
-//            
-//        }];
+
         [HTTPCLIENT getUnioPayTnString:self.price Success:^(id responseObject) {
             //NSLog(@"%@",responseObject);
         } failure:^(NSError *error) {

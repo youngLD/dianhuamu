@@ -19,7 +19,7 @@
     _model=model;
     self.nameLab.text=model.linkman;
     self.phoneLab.text=model.phone;
-    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",model.province,model.city,model.county];
+    self.addressLab.text=_model.area;
     if (model.defaultAddress) {
         self.selectBtn.selected=YES;
     }else{

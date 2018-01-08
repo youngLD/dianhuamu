@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZIKArrowViewController.h"
-@interface YLDGCGSZiZhiTiJiaoViewController : ZIKArrowViewController
--(id)initWithUid:(NSString *)uid;
+#import "ZIKRightBtnSringViewController.h"
+@interface YLDGCGSZiZhiTiJiaoViewController : ZIKRightBtnSringViewController
+@property (nonatomic,copy) NSDictionary *dic;
 @end

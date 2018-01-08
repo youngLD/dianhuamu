@@ -33,6 +33,8 @@
         [_sharedClient.requestSerializer willChangeValueForKey:@"timeoutInterval"];
          _sharedClient.requestSerializer.timeoutInterval = 30.f;
         [_sharedClient.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        [_sharedClient.requestSerializer setValue:kclient_id forHTTPHeaderField:@"client_id"];
+        [_sharedClient.requestSerializer setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
         
         
     });
@@ -1663,7 +1665,7 @@
                Success:(void (^)(id responseObject))success
                failure:(void (^)(NSError *error))failure {
 
-    NSString *postURL            = @"apimember/pay/wx/order";
+    NSString *postURL            = @"wxpay/broker";
 
     NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
     parmers[@"total_fee"]        = price;
@@ -3387,53 +3389,7 @@
     }];
     
 }
-#pragma mark ---------- 工程助手－提交资质升级 -----------
--(void)shengjiGCGSWithcompanyName:(NSString *)companyName WithlegalPerson:(NSString *)legalPerson Withphone:(NSString *)phone
-                      Withzipcode:(NSString *)zipcode
-                        Withbrief:(NSString *)brief
-                     Withprovince:(NSString *)province
-                         Withcity:(NSString *)city
-                       Withcounty:(NSString *)county
-                      Withaddress:(NSString *)address
-                     WithqualJson:(NSString *)qualJson
-                          Success:(void (^)(id responseObject))success
-                          failure:(void (^)(NSError *error))failure
-{
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSString *str                = [userdefaults objectForKey:kdeviceToken];
-    NSString *postURL            = @"api/apply/company/update";
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"access_token"]     = APPDELEGATE.userModel.access_token;
-    parmers[@"access_id"]        = APPDELEGATE.userModel.access_id;
-    parmers[@"client_id"]        = kclient_id;
-    parmers[@"client_secret"]    = kclient_secret;
-    parmers[@"device_id"]        = str;
-    parmers[@"companyName"]      = companyName;
-    parmers[@"legalPerson"]      = legalPerson;
-    parmers[@"phone"]            = phone;
-    parmers[@"brief"]            = brief;
-    parmers[@"brief"]            = brief;
-    parmers[@"province"]         = province;
-    parmers[@"zipcode"]          = zipcode;
-    if (city) {
-        parmers[@"city"]         = city;
-    }
-    if (county) {
-        parmers[@"county"]        = county;
-    }
-    parmers[@"address"]         = address;
-    parmers[@"qualJson"]        = qualJson;
-    ShowActionV();
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
+
 #pragma mark ---------- 工程助手－工程中心----------
 -(void)gongchengZhongXinInfoSuccess:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure
@@ -7220,6 +7176,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7305,6 +7263,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7403,6 +7363,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7751,6 +7713,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7885,6 +7849,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7965,6 +7931,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -7992,6 +7960,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8043,6 +8013,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8071,6 +8043,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8121,6 +8095,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8171,6 +8147,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8198,7 +8176,7 @@
     NSString *str = [userdefaults objectForKey:kdeviceToken];
     
     if (!str) {
-        str=@"用户未授权";
+        str=@"userrefuse";
     }
     NSString *postURL = @"verification_code/reset";
     [self.requestSerializer setValue:kclient_id forHTTPHeaderField:@"client_id"];
@@ -8283,6 +8261,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8361,6 +8341,8 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
     request.timeoutInterval= 30.f;
     [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     // 设置body
     [request setHTTPBody:postData];
@@ -8419,5 +8401,87 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
-
+#pragma mark ---------- 工程公司认证-----------
+-(void)shengjiGCGSWithqualJson:(NSString *)qualJson
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"%@party/engineering_company/apply",AFBaseURLString];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [qualJson dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+    
+}
+#pragma mark ---------- 工程公司认证退回后重新提交
+-(void)shengjiGCGSWithqualJson:(NSString *)qualJson
+          WithroleApplyAuditId:(NSString *)roleApplyAuditId
+                       Success:(void (^)(id responseObject))success
+                       failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"%@party/engineering_company/apply/%@",AFBaseURLString,roleApplyAuditId];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [qualJson dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+    
+}
+#pragma mark ---------- 经纪人认证微信下单
+-(void)JJRWeChatPayWithroleApplyAuditId:(NSString *)roleApplyAuditId
+                            Success:(void (^)(id responseObject))success
+                            failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = @"wxpay/broker";
+    
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    //    ShowActionV();
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"roleApplyAuditId"]=roleApplyAuditId;
+    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
 @end

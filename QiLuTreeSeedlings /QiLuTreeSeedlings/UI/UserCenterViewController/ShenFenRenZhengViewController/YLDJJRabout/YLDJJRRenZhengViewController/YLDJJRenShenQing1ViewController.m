@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"经纪人认证";
-    [YLDJJRTSView showAction];
+//    [YLDJJRTSView showAction];
     CGRect tempframe;
     self.backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64-80)];
     [self.backScrollView setBackgroundColor:BGColor];
@@ -124,7 +124,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 RemoveActionV();
-                     [ToastView showTopToast:@"提交资料中，请两分钟内勿关闭应用或网络"         ];
+                     [ToastView showTopToast:@"提交资料中，请两分钟内勿关闭应用或网络"];
                 
                 if (self.type==2) {
                    [self.navigationController popToRootViewControllerAnimated:YES];

@@ -36,12 +36,20 @@
         UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
         // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
         if (!position) {
+            
             if (toBeString.length > kssss) {
                 // NSLog(@"最多%d个字符!!!",kMaxLength);
                 [ToastView showToast:[NSString stringWithFormat:@"最多%ld个字符",(long)kssss] withOriginY:250 withSuperView:self];
                 //[XtomFunction openIntervalHUD:[NSString stringWithFormat:@"最多%d个字符",kMaxLength] view:nil];
                 textField.text = [toBeString substringToIndex:kssss];
+                if (self.Rdelegate) {
+                    [self.Rdelegate textChangeNowLength:textField.text.length];
+                }
                 return;
+            }else{
+                if (self.Rdelegate) {
+                    [self.Rdelegate textChangeNowLength:textField.text.length];
+                }
             }
         }
         // 有高亮选择的字符串，则暂不对文字进行统计和限制
@@ -56,7 +64,14 @@
             //NSLog(@"最多%d个字符!!!",kMaxLength);
             [ToastView showToast:[NSString stringWithFormat:@"最多%ld个字符",(long)kssss] withOriginY:250 withSuperView:self];
             textField.text = [toBeString substringToIndex:kssss];
+            if (self.Rdelegate) {
+                [self.Rdelegate textChangeNowLength:textField.text.length];
+            }
             return;
+        }else{
+            if (self.Rdelegate) {
+                [self.Rdelegate textChangeNowLength:textField.text.length];
+            }
         }
     }
 }

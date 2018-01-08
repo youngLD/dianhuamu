@@ -11,6 +11,8 @@
 #import "YLDJJRenShenQing1ViewController.h"
 #import "YLDFRZzhongViewController.h"
 #import "YLDGCGSZiZhiTiJiaoViewController.h"
+#import "ZIKVoucherCenterViewController.h"
+
 @interface YLDFSFRZListViewController ()
 
 @end
@@ -40,7 +42,7 @@
     if ([APPDELEGATE.userModel.roles containsObject:@"users"]) {
         if ([APPDELEGATE.userModel.roles containsObject:@"broker"])
         {
-            
+            [ToastView showTopToast:@"您已通过经纪人认证"];
         }else{
             ShowActionV();
             [HTTPCLIENT jjrshenheStatueSuccess:^(id responseObject) {
@@ -64,6 +66,14 @@
                         [self.navigationController pushViewController:vc animated:YES];
  
                     }
+                    if ([status isEqualToString:@"unpaid"]) {
+                        [ToastView showTopToast:@"您还未支付经纪人审核费"];
+                        ZIKVoucherCenterViewController *vc=[ZIKVoucherCenterViewController new];
+                        vc.dic=[responseObject objectForKey:@"data"];
+                        vc.infoType=6;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
                     
                 }else{
                     [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -81,32 +91,42 @@
 }
 - (IBAction)gcgsBtnAction:(UIButton *)sender {
     if ([APPDELEGATE.userModel.roles containsObject:@"enterprise"]) {
-        [HTTPCLIENT projectCompanyStatusSuccess:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                NSDictionary *data=[responseObject objectForKey:@"data"];
-                NSString *status=data[@"status"];
-                
-                if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
-                    YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
-                    YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                if ([status isEqualToString:@"fail"]) {
-                    [ToastView showTopToast:@"您的工程公司申请已被退回，请重新编辑"];
-                    YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
+        if ([APPDELEGATE.userModel.roles containsObject:@"engineering_company"])
+        {
+            [ToastView showTopToast:@"您已通过工程公司认证"];
+        }else{
+            [HTTPCLIENT projectCompanyStatusSuccess:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    NSDictionary *data=[responseObject objectForKey:@"data"];
+                    NSString *status=data[@"status"];
+                    
+                    if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                        YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+                        YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"fail"]) {
+                        [ToastView showTopToast:@"您的工程公司申请已被退回，请重新编辑"];
+                        YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+                        vc.dic=data;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"normal"]) {
+                        [ToastView showTopToast:@"您已通过工程公司认证"];
+                    }
                     //
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
+                }else{
+                    [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
 
+        }
+        
     }else{
         [ToastView showTopToast:@"请先实名认证"];
         YLDFRealNameViewController *vc=[YLDFRealNameViewController new];

@@ -27,6 +27,8 @@
     model.partyId=dic[@"partyId"];
     model.phone=dic[@"phone"];
     model.province=dic[@"province"];
+    model.area=dic[@"area"];
+    
     return model;
 }
 +(NSArray *)creatAryWithary:(NSArray *)ary

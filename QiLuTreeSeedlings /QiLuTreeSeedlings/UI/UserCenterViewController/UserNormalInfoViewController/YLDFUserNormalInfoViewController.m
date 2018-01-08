@@ -250,9 +250,9 @@
     }
     
  
-    if (croppedImage.size.width>400) {
-        CGFloat xD=400.f/croppedImage.size.width;
-        CGSize newSize = {400,croppedImage.size.height*xD};
+    if (croppedImage.size.width>200) {
+        CGFloat xD=200.f/croppedImage.size.width;
+        CGSize newSize = {200,croppedImage.size.height*xD};
         imageData =  [self imageWithImageSimple:croppedImage scaledToSize:newSize];
         
     }

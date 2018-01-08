@@ -108,7 +108,7 @@
                 
                 if (APPDELEGATE.userModel.projectCompanyStatus==0) {
                     [ToastView showTopToast:@"审核未通过"];
-                    YLDGCGSZiZhiTiJiaoViewController *yldsda=[[YLDGCGSZiZhiTiJiaoViewController alloc]initWithUid:@"xxxxxx"];
+                    YLDGCGSZiZhiTiJiaoViewController *yldsda=[[YLDGCGSZiZhiTiJiaoViewController alloc]init];
                     
                     [self.navigationController pushViewController:yldsda animated:YES];
                     return;

@@ -9,7 +9,7 @@
 #import "YLDSimpleBuyDetialViewController.h"
 #import "HttpClient.h"
 #import "ZIKFunction.h"
-#import "buyFabuViewController.h"
+//#import "buyFabuViewController.h"
 @interface YLDSimpleBuyDetialViewController ()
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UILabel *titleLab;
@@ -114,9 +114,9 @@
 }
 -(void)editingBtnAction
 {
-    buyFabuViewController *fabuVC=[[buyFabuViewController alloc]initWithsimelpeModel:self.model];
-    _go=YES;
-    [self.navigationController pushViewController:fabuVC animated:YES];
+//    buyFabuViewController *fabuVC=[[buyFabuViewController alloc]initWithsimelpeModel:self.model];
+//    _go=YES;
+//    [self.navigationController pushViewController:fabuVC animated:YES];
 }
 -(void)reoladAction
 {

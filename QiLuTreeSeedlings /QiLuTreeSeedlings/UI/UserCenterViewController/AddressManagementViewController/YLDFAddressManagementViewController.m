@@ -46,18 +46,21 @@
         self.personTextField.text=_model.linkman;
         self.lat=[_model.lat floatValue];
         self.lng=[_model.lng floatValue];
-        [self.addressBtn setTitle:[NSString stringWithFormat:@"%@%@%@",_model.province,_model.city,_model.county] forState:UIControlStateNormal];
-        self.shengModel=[CityModel new];
-        self.shengModel.cityName=_model.province;
-        self.shiModel=[CityModel new];
-        self.shiModel.cityName=_model.city;
-        self.xianModel=[CityModel new];
-        self.xianModel.cityName=_model.county;
+        [self.addressBtn setTitle:_model.area forState:UIControlStateNormal];
+        GetCityDao *dao=[GetCityDao new];
+        [dao openDataBase];
+        self.shengModel=[dao getcityModelByCityCode:_model.province];
+        self.shiModel=[dao getcityModelByCityCode:_model.city];
+        self.xianModel=[dao getcityModelByCityCode:_model.county];
+
+        [dao closeDataBase];
+        
         self.province=_model.province;
         self.city=_model.city;
         self.county=_model.county;
         self.vcTitle=@"编辑地址";
-     
+//       NSArray *cityNameAry=[]
+        
     }else
     {
         [self.deleteView removeFromSuperview];
@@ -95,9 +98,9 @@
     NSMutableDictionary *party  =[NSMutableDictionary dictionary];
     [party setObject:_personTextField.text forKey:@"linkman"];
     [party setObject:_phoneTextField.text forKey:@"phone"];
-    [party setObject:_shengModel.cityName forKey:@"province"];
-    [party setObject:_shiModel.cityName forKey:@"city"];
-    [party setObject:_xianModel.cityName forKey:@"county"];
+    [party setObject:_shengModel.code forKey:@"province"];
+    [party setObject:_shiModel.code forKey:@"city"];
+    [party setObject:_xianModel.code forKey:@"county"];
     if ([_morenSWBtn isOn]) {
         [party setObject:@"1" forKey:@"defaultAddress"];
     }else{
@@ -210,7 +213,7 @@
     self.shengModel=sheng;
     self.shiModel=shi;
     self.xianModel=xian;
-    [self.addressBtn setTitle:[NSString stringWithFormat:@"%@%@%@",sheng.cityName,shi.cityName,xian.cityName] forState:UIControlStateNormal];
+    [self.addressBtn setTitle:[NSString stringWithFormat:@"%@ %@ %@",sheng.cityName,shi.cityName,xian.cityName] forState:UIControlStateNormal];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

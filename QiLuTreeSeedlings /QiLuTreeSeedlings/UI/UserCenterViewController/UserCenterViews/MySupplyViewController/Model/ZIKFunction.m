@@ -72,7 +72,7 @@
 //#warning 注释
     NSString * updateURL = AFBaseURLString;
     // NSString * updateURL = RequestURL;
-    updateURL = [updateURL stringByAppendingString:@"apimember/pay/alipay/notify"];
+    updateURL = [updateURL stringByAppendingString:@"alipay/notify"];
 
     if ([type isEqualToString:@"0"]) {
     order.notifyURL =  [NSString stringWithFormat:@"%@?access_id=%@&type=%@",updateURL,orderId,type]; //回调URL

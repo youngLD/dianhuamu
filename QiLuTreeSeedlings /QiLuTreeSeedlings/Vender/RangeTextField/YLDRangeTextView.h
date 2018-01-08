@@ -7,7 +7,11 @@
 //
 
 #import "BWTextView.h"
-
+@protocol YLDRangeTextViewDelegate
+@optional
+-(void)textChangeNowLength:(NSInteger)length;
+@end
 @interface YLDRangeTextView : BWTextView
 @property (nonatomic,assign)NSInteger rangeNumber;
+@property (nonatomic,weak) id <YLDRangeTextViewDelegate> Rdelegate;
 @end

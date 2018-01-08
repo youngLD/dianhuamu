@@ -18,4 +18,5 @@ typedef NS_ENUM(NSUInteger, PayWay) {
 @property (nonatomic, copy) NSString *uid;
 @property (nonatomic, assign)NSInteger infoType;
 @property (nonatomic, copy) NSString *wareStr;
+@property (nonatomic, copy) NSDictionary *dic;
 @end

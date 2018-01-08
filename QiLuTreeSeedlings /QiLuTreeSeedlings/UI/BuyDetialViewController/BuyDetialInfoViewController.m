@@ -16,7 +16,7 @@
 #import "HotBuyModel.h"
 #import "BuySearchTableViewCell.h"
 #import "BuyDetialModel.h"
-#import "buyFabuViewController.h"
+//#import "buyFabuViewController.h"
 #import "UIButton+ZIKEnlargeTouchArea.h"
 #import "BuyMessageAlertView.h"
 #import <MessageUI/MessageUI.h>
@@ -1142,14 +1142,14 @@ static BOOL isHezuo = NO;
 }
 -(void)editingBtn:(UIButton *)sender
 {
-    if (self.model.state==1||self.model.state==3) {
-        self.model.uid=self.uid;
-        buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithModel:self.model];
-        [self.navigationController pushViewController:buyFabuVC animated:YES];
-    }else{
-        [ToastView showTopToast:@"该条求购不可编辑"];
-        return;
-    }
+//    if (self.model.state==1||self.model.state==3) {
+//        self.model.uid=self.uid;
+//        buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithModel:self.model];
+//        [self.navigationController pushViewController:buyFabuVC animated:YES];
+//    }else{
+//        [ToastView showTopToast:@"该条求购不可编辑"];
+//        return;
+//    }
     
 }
 -(void)openAndColseBtn:(UIButton *)sender

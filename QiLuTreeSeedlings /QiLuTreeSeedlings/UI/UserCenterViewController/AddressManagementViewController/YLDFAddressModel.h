@@ -24,6 +24,7 @@
 @property (copy,nonatomic) NSString *partyId;
 @property (copy,nonatomic) NSString *phone;
 @property (copy,nonatomic) NSString *province;
+@property (copy,nonatomic) NSString *area;
 +(YLDFAddressModel *)creatModelWithDic:(NSDictionary *)dic;
 +(NSArray *)creatAryWithary:(NSArray *)ary;
 @end

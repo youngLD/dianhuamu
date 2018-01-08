@@ -7,7 +7,7 @@
 //
 
 #import "YLDMyBuyListViewController.h"
-#import "buyFabuViewController.h"
+//#import "buyFabuViewController.h"
 #import "KMJRefresh.h"
 #import "MybuyListTableViewCell.h"
 #import "HotBuyModel.h"
@@ -363,8 +363,8 @@
                 
                 BuyDetialModel *buyDetialModel=[BuyDetialModel  creatBuyDetialModelByDic:[[responseObject objectForKey:@"result"] objectForKey:@"detail"] withResult:[responseObject objectForKey:@"result"]];
                 buyDetialModel.uid=model.uid;
-                buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithModel:buyDetialModel];
-                [self.navigationController pushViewController:buyFabuVC animated:YES];
+//                buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithModel:buyDetialModel];
+//                [self.navigationController pushViewController:buyFabuVC animated:YES];
             }else
             {
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -375,8 +375,8 @@
         
 
     }else{
-        buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithsimelpeModel:model];
-        [self.navigationController pushViewController:buyFabuVC animated:YES];
+//        buyFabuViewController *buyFabuVC=[[buyFabuViewController alloc]initWithsimelpeModel:model];
+//        [self.navigationController pushViewController:buyFabuVC animated:YES];
 
     }
     [BuyMessageAlertView removeActionView];
@@ -471,8 +471,8 @@
             
             return;
         }
-        buyFabuViewController *buyFaBuVC=[[buyFabuViewController alloc]init];
-        [weakSelf.navigationController pushViewController:buyFaBuVC animated:YES];
+//        buyFabuViewController *buyFaBuVC=[[buyFabuViewController alloc]init];
+//        [weakSelf.navigationController pushViewController:buyFaBuVC animated:YES];
     };
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

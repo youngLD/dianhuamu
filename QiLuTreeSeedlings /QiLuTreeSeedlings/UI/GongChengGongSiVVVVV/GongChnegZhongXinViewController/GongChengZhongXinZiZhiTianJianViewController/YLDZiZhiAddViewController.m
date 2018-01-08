@@ -28,6 +28,14 @@
 @end
 
 @implementation YLDZiZhiAddViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ( self.navigationController.navigationBar.hidden==NO) {
+        self.navigationController.navigationBar.hidden=YES;
+        
+    }
+}
 -(id)initWithType:(NSInteger)type
 {
     self=[super init];
@@ -48,27 +56,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"资质添加";
-//    if (self.modelType==0) {
-//        self.modelType=1;
-//    }
+
     UIScrollView *backScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     [backScrollView setBackgroundColor:BGColor];
     self.backScrollView=backScrollView;
     [self.view addSubview:backScrollView];
-    CGRect tempFrame=CGRectMake(0, 5, kWidth, 50);
-    
-    self.typeBtn=[self danxuanViewWithName:@"资料类别" alortStr:@"请选择资料类别" andFrame:tempFrame];
-    [self.typeBtn addTarget:self action:@selector(modelTypeAction) forControlEvents:UIControlEventTouchUpInside];
+
     [self reloadBackScrollView];
     if (self.model) {
-        if ([_model.type isEqualToString:@"个人荣誉"]) {
-            self.modelType=4;
-            [self reloadBackScrollView];
-        }
-        if ([_model.type isEqualToString:@"公司资质"]) {
-            self.modelType=5;
-            [self reloadBackScrollView];
-        }
+        
         self.nameTextField.text=self.model.companyQualification;
         self.rankTextField.text=self.model.level;
         self.organizationalField.text=self.model.issuingAuthority;
@@ -81,85 +77,23 @@
     }
     // Do any additional setup after loading the view.
 }
--(void)modelTypeAction
-{
-    NSString *title = NSLocalizedString(@"资料类型", nil);
-    NSString *message = NSLocalizedString(@"请选择资料类型。", nil);
-//    NSString *cancelButtonTitle = NSLocalizedString(@"取消", nil);
-//    NSString *otherButtonTitle = NSLocalizedString(@"", nil);
-//    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    // Create the actions.
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"营业执照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//        NSLog(@"The \"Okay/Cancel\" alert's cancel action occured.");
-        self.modelType=1;
-        [self.typeBtn setTitle:@"营业执照" forState:UIControlStateNormal];
-        [self reloadBackScrollView];
-    }];
-    
-    UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"办公场所" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.modelType=2;
-        [self.typeBtn setTitle:@"办公场所" forState:UIControlStateNormal];
-        [self reloadBackScrollView];
-    }];
-    UIAlertAction *other2Action = [UIAlertAction actionWithTitle:@"苗圃" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.modelType=3;
-        [self.typeBtn setTitle:@"苗圃" forState:UIControlStateNormal];
-        [self reloadBackScrollView];
-    }];
-    UIAlertAction *other3Action = [UIAlertAction actionWithTitle:@"个人荣誉" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.modelType=4;
-        [self.typeBtn setTitle:@"个人荣誉" forState:UIControlStateNormal];
-        [self reloadBackScrollView];
-    }];
-    UIAlertAction *other4Action = [UIAlertAction actionWithTitle:@"公司资质" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        self.modelType=5;
-        [self.typeBtn setTitle:@"公司资质" forState:UIControlStateNormal];
-        [self reloadBackScrollView];
-        
-        }];
-    
-    // Add the actions.
-    [alertController addAction:cancelAction];
-    [alertController addAction:otherAction];
-    [alertController addAction:other2Action];
-    [alertController addAction:other3Action];
-    [alertController addAction:other4Action];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
+
 -(void)reloadBackScrollView
 {
-    int i=1;
-    for(UIView *view in [self.backScrollView subviews])
-    {
-        if (i!=1) {
-           [view removeFromSuperview];
-        }
-        i++;
-        
-    }
-    self.timeStr=nil;
-    self.compressurl=nil;
-    self.url=nil;
+ 
     CGRect tempFrame=CGRectMake(0, 5, kWidth, 50);
-    tempFrame.origin.y+=50;
+//    tempFrame.origin.y+=50;
     self.nameTextField=[self makeViewWithName:@"资料名称" alert:@"请输入名称" unit:@"" withFrame:tempFrame];
     self.nameTextField.tag=20;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
                                                  name:UITextFieldTextDidChangeNotification
                                                object:self.nameTextField];
-    if (self.modelType==4) {
-        tempFrame.origin.y+=50;
-        self.timeBtn=[self danxuanViewWithName:@"获取时间" alortStr:@"请选择获取时间" andFrame:tempFrame];
-        [self.timeBtn addTarget:self action:@selector(timeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-    if (self.modelType==5) {
-        tempFrame.origin.y+=50;
-        self.timeBtn=[self danxuanViewWithName:@"获取时间" alortStr:@"请选择获取时间" andFrame:tempFrame];
-        [self.timeBtn addTarget:self action:@selector(timeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+   
+
+//        tempFrame.origin.y+=50;
+//        self.timeBtn=[self danxuanViewWithName:@"获取时间" alortStr:@"请选择获取时间" andFrame:tempFrame];
+//        [self.timeBtn addTarget:self action:@selector(timeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         tempFrame.origin.y+=50;
         self.rankTextField=[self makeViewWithName:@"资质等级" alert:@"请输入资质等级" unit:@"" withFrame:tempFrame];
         self.rankTextField.tag=10;
@@ -169,7 +103,7 @@
                                                    object:self.rankTextField];
         tempFrame.origin.y+=50;
         self.organizationalField=[self makeViewWithName:@"发证机关" alert:@"请输入发证机关" unit:@"" withFrame:tempFrame];
-    }
+    
     
    
     tempFrame.origin.y+=55;
@@ -205,90 +139,50 @@
 }
 -(void)sureBtnAction
 {
-  
-    if (self.modelType==0) {
-        [ToastView showTopToast:@"请选择资料类型"];
-        return;
-    }
     if (self.nameTextField.text.length<=0) {
         [ToastView showTopToast:@"请输入资料名称"];
         return;
     }
-    if (self.modelType==4) {
-        if (self.timeStr.length<=0) {
-            [ToastView showTopToast:@"请选择获得时间"];
-            return;
-        }
+
+    if (self.rankTextField.text.length<=0) {
+        [ToastView showTopToast:@"请输入资质等级"];
+        return;
     }
-    if (self.modelType==5) {
-        if (self.rankTextField.text.length<=0) {
-            [ToastView showTopToast:@"请输入资质等级"];
-            return;
-        }
         
-        if (self.organizationalField.text.length<=0) {
-            [ToastView showTopToast:@"请输入发证机关"];
-            return;
-        }
-        if (self.timeStr.length<=0) {
-            [ToastView showTopToast:@"请选择获得时间"];
-            return;
-        }
- 
+    if (self.organizationalField.text.length<=0) {
+        [ToastView showTopToast:@"请输入发证机关"];
+        return;
     }
-        if (self.compressurl.length<=0) {
+//    if (self.timeStr.length<=0) {
+//        [ToastView showTopToast:@"请选择获得时间"];
+//        return;
+//    }
+
+    if (self.compressurl.length<=0) {
         [ToastView showTopToast:@"请上传资料图片"];
         return;
     }
     if (self.type==1) {
         NSMutableDictionary *dic=[NSMutableDictionary new];
-        dic[@"companyQualification"]=self.nameTextField.text;
+        dic[@"name"]=self.nameTextField.text;
         dic[@"level"]=self.rankTextField.text;
         dic[@"issuingAuthority"]=self.organizationalField.text;
-        dic[@"acqueTime"]=self.timeStr;
-        dic[@"attachment"]=self.compressurl;
+        dic[@"photo"]=self.compressurl;
         if (self.delegate) {
             [self.delegate reloadViewWithModel:self.model andDic:dic];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
-    if (self.type==2) {
-        NSString *typeStr;
-        switch (self.modelType) {
-            case 1:
-                typeStr=@"营业执照";
-                break;
-            case 2:
-                typeStr=@"办公场所";
-                break;
-            case 3:
-                typeStr=@"苗圃";
-                break;
-            case 4:
-                typeStr=@"个人荣誉";
-                break;
-            case 5:
-                typeStr=@"公司资质";
-                break;
-            default:
-                break;
-        }
-        [HTTPCLIENT GCGSRongYuTijiaoWithuid:self.model.uid WtihcompanyQualification:self.nameTextField.text WithacquisitionTime:self.timeStr With:self.rankTextField.text WithcompanyUid:APPDELEGATE.GCGSModel.uid WithissuingAuthority:self.organizationalField.text WithType:typeStr Withattachment:self.compressurl Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                [ToastView showTopToast:@"保存成功"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-    }
+ 
+    
    
 }
 -(void)imageBtnAction:(UIButton *)sender
 {
-    [self addPicture];
+    [self.nameTextField resignFirstResponder];
+    [self.rankTextField resignFirstResponder];
+    [self.organizationalField resignFirstResponder];
+    [self openMenu];
 }
 -(UITextField *)makeViewWithName:(NSString *)name alert:(NSString *)alert unit:(NSString *)unit withFrame:(CGRect)frame
 {
@@ -367,75 +261,93 @@
 }
 #pragma mark - 图片添加
 //头像点击事件
-- (void)addPicture
-{
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"上传图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍摄新照片",@"从相册选取", nil];
-    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [sheet showInView:self.view];
-}
-
-#pragma mark - UIActionSheet
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+-(void)openMenu
 {
     
-    if (buttonIndex == 1) {
+    __weak typeof(self)weakself =self;
+    //在这里呼出下方菜单按钮项
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传视频或照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
-        }
-        pickerImage.delegate = self;
-        pickerImage.allowsEditing = NO;
-        [self presentViewController:pickerImage animated:YES completion:^{
-            
-        }];
-        //[self presentModalViewController:pickerImage animated:YES];
-    }else if (buttonIndex == 0) {
         
-        //先设定sourceType为相机，然后判断相机是否可用（ipod）没相机，不可用将sourceType设定为相片库
-        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-        if (![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        }
-        //sourceType = UIImagePickerControllerSourceTypeCamera; //照相机
-        //sourceType = UIImagePickerControllerSourceTypePhotoLibrary; //图片库
-        //sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum; //保存的相片
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"拍摄新照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [weakself takePhoto];
+        
+    }]];
+    
+    
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"从相册中选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+        [weakself LocalPhoto];
+    }]];
+
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+
+//开始拍照
+-(void)takePhoto
+{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.allowsEditing = YES;//设置可编辑
+        //设置拍照后的图片可被编辑
+        //        picker.allowsEditing = YES;
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:^{
-            
-        }];
-        //[self presentModalViewController:picker animated:YES];//进入照相界面
+        [self presentViewController:picker animated:YES completion:nil];
+        //        isPicture  = YES;
+    }else
+    {
+        //NSLog(@"模拟其中无法打开照相机,请在真机中使用");
     }
-    
 }
 
+//打开本地相册
+-(void)LocalPhoto
+{
+    UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
+    }
+    pickerImage.delegate = self;
+    pickerImage.allowsEditing = NO;
+    [self presentViewController:pickerImage animated:YES completion:^{
+        
+    }];
+    
+}
 #pragma mark UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    //修改图片
+    
     [self chooseUserPictureChange:image];
+    
 }
-
-#pragma mark - RSKImageCropViewControllerDelegate
-- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage
 {
-
-    [self requestUploadHeadImage:croppedImage];
+    [ToastView showTopToast:@"正在上传图片"];
+    ShowActionV();
+    [self upDataIamge:croppedImage];
+    
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
-
 - (void)chooseUserPictureChange:(UIImage*)image
 {
     //UIImage *photo = [UIImage imageNamed:@"photo"];
@@ -444,54 +356,24 @@
     imageCropVC.delegate = self;
     [self.navigationController pushViewController:imageCropVC animated:YES];
 }
-#pragma mark - 请求上传图片
-- (void)requestUploadHeadImage:(UIImage *)image {
-   
-    NSData* imageData;
-    //判断图片是不是png格式的文件
-    if (UIImagePNGRepresentation(image)) {
-        //返回为png图像。
-        imageData = UIImagePNGRepresentation(image);
-    }else {
-        //返回为JPEG图像。
-        imageData = UIImageJPEGRepresentation(image, 0.0001);
-    }
-    if (imageData.length>=1024*1024) {
-        if (image.size.width>600 && image.size.height>600) {
-            CGSize newSize = {300,300};
-            imageData =  [self imageWithImageSimple:image scaledToSize:newSize];
-            
-        } else {
-            CGFloat mywidth = image.size.width/2;
-            CGFloat myheight = image.size.height/2;
-            CGSize newSize = {mywidth,myheight};
-            imageData =  [self imageWithImageSimple:image scaledToSize:newSize];
-        }
-    }
-    NSString *myStringImageFile = [imageData base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
-//    NSData *newimage=[[NSData alloc]initWithBase64EncodedString:myStringImageFile options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//     UIImage *newjiaban=[[UIImage alloc] initWithData:newimage];
-//    [self.imageBtn setImage:newjiaban forState:UIControlStateNormal];
-    [HTTPCLIENT upDataImageIOS:myStringImageFile workstationUid:nil companyUid:nil type:@"3" saveTyep:nil Success:^(id responseObject) {
-        if ([responseObject[@"success"] integerValue] == 0) {
-            [ToastView showTopToast:[NSString stringWithFormat:@"%@",responseObject[@"msg"]]];
-            return ;
-        } else if ([[responseObject objectForKey:@"success"] integerValue] == 1) {
-            [ToastView showTopToast:@"添加成功"];
-            NSDictionary *result = responseObject[@"result"];
-            
-            self.compressurl   = result[@"compressurl"];
-            self.url         = result[@"url"];
-      NSURL *url = [NSURL URLWithString:self.compressurl];
-   [self.imageBtn setImageForState:UIControlStateNormal withURL:url placeholderImage:[UIImage imageNamed:@"添加图片"]];
-        }
-        
-        
-    } failure:^(NSError *error) {
-       
-    }];
-}
 
+-(NSData *)imageData:(UIImage *)myimage
+{
+    __weak typeof(myimage) weakImage = myimage;
+    NSData *data = UIImageJPEGRepresentation(weakImage, 1.0);
+    if (data.length>100*1024) {
+        if (data.length>1024*1024) {//1M以及以上
+            data = UIImageJPEGRepresentation(weakImage, 0.1);
+        }
+        else if (data.length>512*1024) {//0.5M-1M
+            data = UIImageJPEGRepresentation(weakImage, 0.9);
+        }
+        else if (data.length>200*1024) {//0.25M-0.5M
+            data=UIImageJPEGRepresentation(weakImage, 0.9);
+        }
+    }
+    return data;
+}
 -(NSData*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
 {
     // Create a graphics image context
@@ -506,6 +388,96 @@
     // Return the new image.
     
     return UIImagePNGRepresentation(newImage);
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+#pragma mark - RSKImageCropViewControllerDelegate
+- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)upDataIamge:(UIImage *)croppedImage
+{
+    //  [ToastView showTopToast:@"正在上传图片"];
+    
+    //    ShowActionV();
+    //先把图片转成NSData
+    __weak typeof(self) weakSelf=self;
+    NSData *imageData;
+    
+    OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+    // 必填字段
+    put.bucketName = @"miaoxintong";
+    
+    NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_token] WithTypeStr:@"engineeringZZ"];
+    
+    imageData=UIImagePNGRepresentation(croppedImage);
+    
+    NSString *urlstr;
+    if (imageData) {
+        put.objectKey = [NSString stringWithFormat:@"%@.png",nameStr];
+        
+    }else{
+        put.objectKey = [NSString stringWithFormat:@"%@.jpeg",nameStr];
+        
+    }
+    urlstr=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
+    
+    //        dispatch_sync(dispatch_get_main_queue(), ^{
+    
+    self.compressurl=urlstr;
+//    [self.imageBtn  setTitleColor:croppedImage forState:UIControlStateNormal];
+     [self.imageBtn  setImage:croppedImage forState:UIControlStateNormal];
+    
+    //        });
+    
+    if (imageData) {
+        //返回为png图像。
+        //        imageData = UIImagePNGRepresentation(croppedImage);
+        put.contentType=@"image/png";
+        
+        
+    }else {
+        //返回为JPEG图像。
+        
+        imageData = UIImageJPEGRepresentation(croppedImage, 0.5);
+        put.contentType=@"image/jpeg";
+        
+        
+    }
+    
+    
+    if (croppedImage.size.width>150) {
+        CGFloat xD=150.f/croppedImage.size.width;
+        CGSize newSize = {150,croppedImage.size.height*xD};
+        imageData =  [self imageWithImageSimple:croppedImage scaledToSize:newSize];
+        
+    }
+    
+    put.uploadingData = imageData; // 直接上传NSData
+    // 可选字段，可不设置
+    put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+        // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
+    };
+    
+    OSSTask * putTask = [APPDELEGATE.client putObject:put];
+    RemoveActionV();
+    [putTask continueWithBlock:^id(OSSTask *task) {
+        
+        if (!task.error) {
+            weakSelf.compressurl=urlstr;
+        
+            
+        }
+        return nil;
+    }];
+    
+    
+    
+    
 }
 
 - (void)textFieldChanged:(NSNotification *)obj {

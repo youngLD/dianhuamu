@@ -467,7 +467,7 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
     self.personNameLab.text=model.linkman;
     self.addressId=model.addressId;
     self.phoneLab.text=model.phone;
-    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",model.province,model.city,model.county];
+    self.addressLab.text=model.area;
 }
 -(void)deleteWithYLDFAddressModel:(YLDFAddressModel *)model{
     if ([self.addressId isEqualToString:model.addressId]) {
@@ -491,7 +491,7 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
     
  self.personNameLab.text=addressdic[@"linkman"];
     self.phoneLab.text=addressdic[@"phone"];
-    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",addressdic[@"province"],addressdic[@"city"],addressdic[@"county"]];
+    self.addressLab.text=addressdic[@"area"];
 }
 -(void)deleteImageBtnAction:(UIButton *)sender
 {

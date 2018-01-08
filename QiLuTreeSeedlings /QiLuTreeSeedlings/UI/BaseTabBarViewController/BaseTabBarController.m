@@ -67,12 +67,15 @@
     orderVC.tabBarItem.title = @"首页";
     orderVC.navigationController.navigationBar.hidden = YES;
     orderVC.tabBarItem.image = [[UIImage imageNamed:@"shouyeoff"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    orderNav.interactivePopGestureRecognizer.enabled = NO;
     orderVC.tabBarItem.selectedImage =[[UIImage imageNamed:@"shouyeon"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //发布
     SDTimeLineTableViewController *MQvc=[[SDTimeLineTableViewController alloc]init];
     MQvc.navigationController.navigationBar.hidden=NO;
+    
     UINavigationController *fbNav = [[UINavigationController alloc] initWithRootViewController:MQvc];
+    fbNav.interactivePopGestureRecognizer.enabled = NO;
     MQvc.title=@"微苗商";
 //    MQvc.hidesBottomBarWhenPushed=YES;
     MQvc.tabBarItem.title = @"微苗商";
@@ -84,6 +87,7 @@
     //消息中心
     YLDFMessageViewController *messageVC = [[YLDFMessageViewController alloc] init];
     UINavController *messageNav = [[UINavController alloc] initWithRootViewController:messageVC];
+    messageNav.interactivePopGestureRecognizer.enabled = NO;
     messageVC.tabBarItem.title = @"消息";
     messageVC.navigationController.navigationBar.hidden = YES;
     messageVC.tabBarItem.image = [[UIImage imageNamed:@"xiaoxioff"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -91,7 +95,7 @@
     //个人中心
     YLDFUserCenterViewController *userVC = [[YLDFUserCenterViewController alloc] init];
     UINavigationController *userNav = [[UINavigationController alloc] initWithRootViewController:userVC];
-    
+    userNav.interactivePopGestureRecognizer.enabled = NO;
     userVC.tabBarItem.title = @"我的";
     userVC.navigationController.navigationBar.hidden = YES;
     userVC.tabBarItem.image = [[UIImage imageNamed:@"useroff"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

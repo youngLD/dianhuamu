@@ -173,7 +173,7 @@
     
     self.addressPersonLab.text=addressdic[@"linkman"];
     self.addressPhoneLab.text=addressdic[@"phone"];
-    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",addressdic[@"province"],addressdic[@"city"],addressdic[@"county"]];
+    self.addressLab.text=addressdic[@"area"];
 }
 -(IBAction)selectAddressBtnAction
 {
@@ -185,7 +185,7 @@
     self.addressPersonLab.text=model.linkman;
     self.addressId=model.addressId;
     self.addressPhoneLab.text=model.phone;
-    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",model.province,model.city,model.county];
+    self.addressLab.text=model.area;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

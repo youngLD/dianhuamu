@@ -326,40 +326,7 @@ success:(void (^)(id))success failure:(void (^)(NSError *))failure;
            failure:(void (^)(NSError *error))failure;
 
 #pragma mark ---------- 上传图片 -----------
-//-(void)upDataImageIOS:(NSString *)imageString
-//              Success:(void (^)(id responseObject))success
-//              failure:(void (^)(NSError *error))failure;
-//-(void)upDataImageIOS:(NSString *)imageString
-//       workstationUid:(NSString *)workstationUid
-//                 type:(NSString *)type
-//              Success:(void (^)(id responseObject))success
-//              failure:(void (^)(NSError *error))failure;
-/**
- *  上传图片
- *
- *  @param imageString    imageString description
- *  @param workstationUid 工作站ID，添加站长头像时，必传
- *  @param companyUid     企业ID，工程公司上传头像时，必传
- *  @param type           默认1，1 供应上传(原图、缩略图、详情图，加水印)；2：站长头像上传（原图）；3：工作站荣誉/报价（原图/缩略图）
- *  @param saveType       保存类型，默认1,；
- 1:默认不保存，2：app头像上传（原图），3：工程公司头像
 
- *  @param success        {
-	"result":
- {
- "url":"xxx.jpg",	--原图
- "compressurl":"xxx-compress.jpg"	--压缩图
- "detailurl":"xxx-detail.jpg"	--详情轮播图
- },
-	"success":true
- }
- *  @param failure        {
-	"error_code":"500",
-	"msg":"文件上传失败",
-	"success":false
- }
-
- */
 -(void)upDataImageIOS:(NSString *)imageString
        workstationUid:(NSString *)workstationUid
            companyUid:(NSString *)companyUid
@@ -1096,9 +1063,7 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 工程中心分享 -----------
 - (void)GCZXShareSuccess:(void (^)(id responseObject))success
                     failure:(void (^)(NSError *error))failure;
-#pragma mark ---------- 工程公司资质申请状态 -----------
-- (void)projectCompanyStatusSuccess:(void (^)(id responseObject))success
-                 failure:(void (^)(NSError *error))failure;
+
 #pragma mark ---------- 站长助手－报价获取苗木信息 -----------
 - (void)getstationBaoJiaMessageWithUid:(NSString *)uid Success:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure;
@@ -1931,4 +1896,20 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark -经纪人审核状态
 -(void)jjrshenheStatueSuccess:(void (^)(id responseObject))success
                       failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程公司资质申请状态 -----------
+- (void)projectCompanyStatusSuccess:(void (^)(id responseObject))success
+                            failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程公司认证
+-(void)shengjiGCGSWithqualJson:(NSString *)qualJson
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程公司认证退回后重新提交
+-(void)shengjiGCGSWithqualJson:(NSString *)qualJson
+          WithroleApplyAuditId:(NSString *)roleApplyAuditId
+                       Success:(void (^)(id responseObject))success
+                       failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 经纪人认证微信下单
+-(void)JJRWeChatPayWithroleApplyAuditId:(NSString *)roleApplyAuditId
+                            Success:(void (^)(id responseObject))success
+                            failure:(void (^)(NSError *error))failure;
 @end

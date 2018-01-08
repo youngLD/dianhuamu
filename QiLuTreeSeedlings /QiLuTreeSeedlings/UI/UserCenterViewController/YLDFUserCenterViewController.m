@@ -33,6 +33,8 @@
 #import "YLDFQiYeInfoViewController.h"
 #import "YLDFRZzhongViewController.h"
 #import "YLDFRealNameInfoViewController.h"
+#import "KeFuViewController.h"
+#import "YLDFEOrderFaBuOneViewController.h"
 @interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate>
 
 @end
@@ -90,7 +92,12 @@
     }
     if(indexPath.row==2)
     {
-        return 130;
+        if ([APPDELEGATE.userModel.roles containsObject:@"broker"]||[APPDELEGATE.userModel.roles containsObject:@"engineering_company"]) {
+            return 130;
+        }else{
+            return 0.01;
+        }
+        
     }
     if(indexPath.row==3)
     {
@@ -128,12 +135,18 @@
     }
     if(indexPath.row==2)
     {
-        YLDFUserGCTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFUserGCTableViewCell"];
-        if (!cell) {
-            cell=[YLDFUserGCTableViewCell yldFUserGCTableViewCell];
-            
+        if ([APPDELEGATE.userModel.roles containsObject:@"broker"]||[APPDELEGATE.userModel.roles containsObject:@"engineering_company"]) {
+            YLDFUserGCTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFUserGCTableViewCell"];
+            if (!cell) {
+                cell=[YLDFUserGCTableViewCell yldFUserGCTableViewCell];
+                [cell.wodedingdanBtn addTarget:self action:@selector(privilegeCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.fabuDingdanBtn addTarget:self action:@selector(privilegeCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.jingrenZLBtn addTarget:self action:@selector(privilegeCellClickAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [cell cellReoldAction];
+            return cell;
         }
-        return cell;
+        
     }
     if(indexPath.row==3)
     {
@@ -254,6 +267,27 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+#pragma mark -特权功能资料点击Action
+-(void)privilegeCellClickAction:(UIButton *)sender
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    if (sender.tag==12) {
+        YLDFEOrderFaBuOneViewController *vc=[YLDFEOrderFaBuOneViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+#pragma mark -其它资料点击Action
 -(void)otherCellClickAction:(UIButton *)sender
 {
     if(![APPDELEGATE isNeedLogin])
@@ -269,6 +303,12 @@
     }
     if (sender.tag==4) {
         YLDFSFRZListViewController *vc=[YLDFSFRZListViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if(sender.tag==6)
+    {
+        KeFuViewController *vc=[[KeFuViewController alloc]init];
         vc.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
