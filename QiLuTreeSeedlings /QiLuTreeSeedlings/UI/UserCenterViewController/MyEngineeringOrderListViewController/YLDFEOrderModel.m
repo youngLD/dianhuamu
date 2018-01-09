@@ -7,7 +7,8 @@
 //
 
 #import "YLDFEOrderModel.h"
-
+#import "ZIKFunction.h"
+#import "UIDefines.h"
 @implementation YLDFEOrderModel
 +(YLDFEOrderModel *)creatModeByDic:(NSDictionary *)dic
 {
@@ -15,7 +16,7 @@
     model.area=dic[@"area"];
     model.Description=dic[@"description"];
     model.engineeringProcurementId=dic[@"engineeringProcurementId"];
-    model.engineeringProcurementId=dic[@"engineeringProcurementName"];
+    model.engineeringProcurementName=dic[@"engineeringProcurementName"];
     model.enterpriseName=dic[@"enterpriseName"];
     model.itemName=dic[@"itemName"];
     model.lastTime=dic[@"lastTime"];
@@ -23,6 +24,7 @@
     model.quoteTypeId=dic[@"quoteTypeId"];
     model.status=dic[@"status"];
     model.thruDate=dic[@"thruDate"];
+    model.itemNameH=[ZIKFunction getCGRectWithContent:model.itemName width:kWidth-110 font:15].size.height;
     return model;
 }
 +(NSMutableArray *)creatModeByAry:(NSArray *)ary

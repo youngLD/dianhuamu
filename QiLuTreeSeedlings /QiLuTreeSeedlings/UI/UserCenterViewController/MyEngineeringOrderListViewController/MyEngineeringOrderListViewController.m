@@ -8,7 +8,8 @@
 
 #import "MyEngineeringOrderListViewController.h"
 #import "YLDFEOrderModel.h"
-@interface MyEngineeringOrderListViewController ()
+#import "YLDEngineeringOrderTableViewCell.h"
+@interface MyEngineeringOrderListViewController ()<UITableViewDelegate,UITableViewDataSource,YLDEngineeringOrderTableViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *dataAry;
 @property (nonatomic,copy)NSString *lastTime;
 @end
@@ -48,6 +49,33 @@
     } failure:^(NSError *error) {
         
     }];
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.dataAry.count;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
+    tableView.estimatedRowHeight = 185;
+    return tableView.rowHeight;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    YLDEngineeringOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDEngineeringOrderTableViewCell"];
+    if (!cell) {
+        cell=[YLDEngineeringOrderTableViewCell yldEngineeringOrderTableViewCell];
+        cell.delegate=self;
+    }
+    cell.model=self.dataAry[indexPath.row];
+    return cell;
+}
+-(void)cellOpenBtnActionWithCell:(YLDEngineeringOrderTableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

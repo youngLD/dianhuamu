@@ -20,6 +20,8 @@
 @property (nonatomic,copy)NSString *quoteTypeId;
 @property (nonatomic,copy)NSString *status;
 @property (nonatomic,copy)NSString *thruDate;
+@property (nonatomic,assign)CGFloat itemNameH;
+@property (nonatomic,assign)BOOL isOpen;
 +(YLDFEOrderModel *)creatModeByDic:(NSDictionary *)dic;
 +(NSMutableArray *)creatModeByAry:(NSArray *)ary;
 @end
