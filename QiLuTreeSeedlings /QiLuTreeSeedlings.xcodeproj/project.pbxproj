@@ -4952,7 +4952,6 @@
 			children = (
 				EA8A29911DB0D171002DA953 /* QiLuTreeSeedlings.entitlements */,
 				EA2726FF1C8A7C98000B0719 /* BaseDao */,
-				EA4F4D1C1CBF5FDF006E4988 /* LinSHIziyuan */,
 				EA2726F81C8A735F000B0719 /* Resource */,
 				EAF8A53F1C867D56008B99D2 /* Model */,
 				EA0B2BC91C59F6930018A7BD /* Appdelegate */,
@@ -6108,13 +6107,6 @@
 				EA4EEED51F2329E800032F83 /* MYKeyChainTool.m */,
 			);
 			path = MYVendorToll;
-			sourceTree = "<group>";
-		};
-		EA4F4D1C1CBF5FDF006E4988 /* LinSHIziyuan */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LinSHIziyuan;
 			sourceTree = "<group>";
 		};
 		EA5108A41FF368D900859F54 /* YLDFMySupplyViewController */ = {

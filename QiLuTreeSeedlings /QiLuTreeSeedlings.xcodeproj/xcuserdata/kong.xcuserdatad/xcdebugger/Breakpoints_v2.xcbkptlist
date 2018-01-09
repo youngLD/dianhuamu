@@ -42,7 +42,7 @@
             startingLineNumber = "93"
             endingLineNumber = "93"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -90,7 +90,7 @@
             startingLineNumber = "95"
             endingLineNumber = "95"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,7 +185,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1787"
             endingLineNumber = "1787"
-            landmarkName = "-saveMyCustomizedInfo:productUid:usedProvince:usedCity:withSpecificationAttributes:Success:failure:"
+            landmarkName = "-mySupplyUpdataWithUid:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -201,7 +201,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1780"
             endingLineNumber = "1780"
-            landmarkName = "-saveMyCustomizedInfo:productUid:usedProvince:usedCity:withSpecificationAttributes:Success:failure:"
+            landmarkName = "-mySupplyUpdataWithUid:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,7 +217,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1679"
             endingLineNumber = "1679"
-            landmarkName = "-getUnioPayTnString:Success:failure:"
+            landmarkName = "-weixinPayOrder:supplyBuyUid:recordUid:type:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -585,7 +585,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "460"
             endingLineNumber = "460"
-            landmarkName = "-deleteMySupplyInfo:Success:failure:"
+            landmarkName = "-myCollectionYouLikeSupplyWithPage:WithPageSize:Success:failure:"
             landmarkType = "6">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1161,7 +1161,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2819"
             endingLineNumber = "2819"
-            landmarkName = "-fabuGongChengDingDanWithUid:WithprojectName:WithorderName:WithorderTypeUid:WithusedProvince:WithusedCity:WithendDate:WithchargePerson:Withphone:WithqualityRequirement:WithquotationRequires:Withdbh:WithgroundDiameter:Withdescription:With:Success:failure:"
+            landmarkName = "-stationGetOrderTypeSuccess:failure:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1306,7 +1306,7 @@
             startingLineNumber = "101"
             endingLineNumber = "101"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1338,7 +1338,7 @@
             startingLineNumber = "71"
             endingLineNumber = "71"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1354,7 +1354,7 @@
             startingLineNumber = "96"
             endingLineNumber = "96"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1370,7 +1370,7 @@
             startingLineNumber = "142"
             endingLineNumber = "142"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1386,7 +1386,7 @@
             startingLineNumber = "141"
             endingLineNumber = "141"
             landmarkName = "+zhiFuBao:name:titile:price:orderId:supplyBuyUid:type:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1479,7 +1479,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3291"
             endingLineNumber = "3291"
-            landmarkName = "-ZhanZhanggongyingListWithPage:WithPageSize:Withgoldsupplier:WithProductUid:WithProductName:WithProvince:WithCity:WithCounty:WithAry:WithSearchTime:Success:failure:"
+            landmarkName = "-zhanzhanggongyingListWithPageNum:WithPageSize:WithsearchTime:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1511,7 +1511,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3298"
             endingLineNumber = "3298"
-            landmarkName = "-ZhanZhanggongyingListWithPage:WithPageSize:Withgoldsupplier:WithProductUid:WithProductName:WithProvince:WithCity:WithCounty:WithAry:WithSearchTime:Success:failure:"
+            landmarkName = "-zhanzhanggongyingListWithPageNum:WithPageSize:WithsearchTime:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2195,7 +2195,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4686"
             endingLineNumber = "4686"
-            landmarkName = "-groupShareWithProductUid:productName:province:city:county:startTime:spec_XXXXXX:Success:failure:"
+            landmarkName = "-groupShareWithProductUid:productName:province:city:county:startTime:searchStatus:spec_XXXXXX:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2547,7 +2547,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1732"
             endingLineNumber = "1732"
-            landmarkName = "-mySupplyUpdataWithUid:Success:failure:"
+            landmarkName = "-getUnioPayTnString:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2851,7 +2851,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5344"
             endingLineNumber = "5344"
-            landmarkName = "-cooperationCompanyHonorsWithMemberUid:type:page:pageSize:Success:failure:"
+            landmarkName = "-cooperationCompanyHonorWithUid:Success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

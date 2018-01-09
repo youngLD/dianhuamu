@@ -44,16 +44,18 @@
         if (!self.zhankaiBtn.selected) {
             self.zhankaiBtn.selected=YES;
         }
-        if (self.pinzhongLab.numberOfLines!=0) {
-            self.pinzhongLab.numberOfLines=0;
+        if (self.pinzhongLabH.constant!=model.itemNameH+5) {
+        self.pinzhongLabH.constant=model.itemNameH+5;
         }
     }else{
         if (self.zhankaiBtn.selected) {
             self.zhankaiBtn.selected=NO;
+
         }
-        if (self.pinzhongLab.numberOfLines!=1) {
-            self.pinzhongLab.numberOfLines=1;
+        if (self.pinzhongLabH.constant!=18) {
+            self.pinzhongLabH.constant=18;
         }
+        
     }
 }
 - (IBAction)zhankaiBtnAction:(UIButton *)sender {

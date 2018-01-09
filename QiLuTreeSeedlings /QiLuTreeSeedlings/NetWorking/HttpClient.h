@@ -1877,11 +1877,7 @@ failure:(void (^)(NSError *error))failure;
                          state:(NSString *)state
                        Success:(void (^)(id responseObject))success
                        failure:(void (^)(NSError *error))failure;
-#pragma mark -消息管理
--(void)systemMessageListWithType:(NSString *)noticeType
-                    WithLastTime:(NSString *)lastTime
-                         Success:(void (^)(id responseObject))success
-                         failure:(void (^)(NSError *error))failure;
+
 #pragma mark -经纪人提交审核
 -(void)jjrshenheWithDic:(NSString *)bodyStr
                 Success:(void (^)(id responseObject))success
@@ -1927,4 +1923,40 @@ failure:(void (^)(NSError *error))failure;
 -(void)myGongChengDingDanWithLastTime:(NSString *)lastTime
                               Success:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单详情 -----------
+-(void)MyGongChengDingDanDetialWithorderId:(NSString *)orderId Success:(void (^)(id responseObject))success
+                                   failure:(void (^)(NSError *error))failure;
+
+#pragma mark ---------- 工程订单明细关闭 -----------
+-(void)MyGongChengDingDanItemCloseWithitemId:(NSString *)itemId WithorderId:(NSString *)orderId Success:(void (^)(id responseObject))success
+                                   failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单明细报价列表 -----------
+-(void)MyGongChengDingDanItemQuotesListWithitemId:(NSString *)itemId WithorderId:(NSString *)orderId Success:(void (^)(id responseObject))success
+                                     failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单明细分页
+-(void)MyGongChengDingDanItemsListWithengineeringProcurementId:(NSString *)engineeringProcurementId
+                                                      lastTime:(NSString *)lastTime
+                                                       Success:(void (^)(id responseObject))success
+                                          failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单列表获取工程订单详情，用于工程订单信息修改
+-(void)EOrderListWithLastTime:(NSString *)lastTime
+                      Success:(void (^)(id responseObject))success
+                      failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 获取工程订单详情，用于工程订单信息修改
+-(void)EOrderDetialWithengineeringProcurementId:(NSString *)engineeringProcurementId
+                                                       Success:(void (^)(id responseObject))success
+                                                       failure:(void (^)(NSError *error))failure;
+#pragma mark -获取消息列表
+-(void)systemMessageListWithType:(NSString *)noticeType
+                    WithLastTime:(NSString *)lastTime
+                         Success:(void (^)(id responseObject))success
+                         failure:(void (^)(NSError *error))failure;
+#pragma mark -设置消息已读
+-(void)readedMessageWithmessageIds:(NSString *)messageIds
+                           Success:(void (^)(id responseObject))success
+                           failure:(void (^)(NSError *error))failure;
+#pragma mark -获取消息未读数量
+-(void)messageUnReadNumWithpartyId:(NSString *)partyId
+                           Success:(void (^)(id responseObject))success
+                           failure:(void (^)(NSError *error))failure;
 @end
