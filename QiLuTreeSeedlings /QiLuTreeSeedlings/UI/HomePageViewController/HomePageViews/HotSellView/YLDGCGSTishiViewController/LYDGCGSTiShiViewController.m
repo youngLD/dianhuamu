@@ -33,26 +33,26 @@
      [tixinglab sizeToFit];
     [backSvrollV addSubview:tixinglab];
     UIButton *kefuBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(tixinglab.frame) +10, kWidth, 50)];
-    [HTTPCLIENT kefuXiTongWithPage:@"2" WithPageNumber:@"1" WithIsLoad:@"0" Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            NSDictionary *dic=[responseObject objectForKey:@"result"];
-            NSInteger type=[[dic objectForKey:@"type"] integerValue];
-            if (type==2) {
-                NSDictionary *dic2=[dic objectForKey:@"kehu"];
-                self.phone=dic2[@"phone"];
-//                self.nameLab.text=[dic2 objectForKey:@"name"];
-//                [self normalViewWithDic:dic2];
-                 [kefuBtn setTitle:[NSString stringWithFormat:@"客服电话%@",self.phone] forState:UIControlStateNormal];
-            }
-            if (type==1) {
-                [ToastView showTopToast:@"您本身是点花木客服人员"];
-            }
-        }else{
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+//    [HTTPCLIENT kefuXiTongWithPage:@"2" WithPageNumber:@"1" WithIsLoad:@"0" Success:^(id responseObject) {
+//        if ([[responseObject objectForKey:@"success"] integerValue]) {
+//            NSDictionary *dic=[responseObject objectForKey:@"result"];
+//            NSInteger type=[[dic objectForKey:@"type"] integerValue];
+//            if (type==2) {
+//                NSDictionary *dic2=[dic objectForKey:@"kehu"];
+//                self.phone=dic2[@"phone"];
+////                self.nameLab.text=[dic2 objectForKey:@"name"];
+////                [self normalViewWithDic:dic2];
+//                 [kefuBtn setTitle:[NSString stringWithFormat:@"客服电话%@",self.phone] forState:UIControlStateNormal];
+//            }
+//            if (type==1) {
+//                [ToastView showTopToast:@"您本身是点花木客服人员"];
+//            }
+//        }else{
+//            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//        
+//    }];
 
     [kefuBtn setTitle:@"客服电话400 168 6717" forState:UIControlStateNormal];
     [kefuBtn setTitleColor:detialLabColor forState:UIControlStateNormal];

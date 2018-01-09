@@ -18,15 +18,9 @@
 @interface YLDJJRenShenQing1ViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,UIAlertViewDelegate,UITextFieldDelegate,RSKImageCropViewControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic,strong)UIScrollView *backScrollView;
 @property (nonatomic,strong)UIImageView *txV;
-@property (nonatomic,strong)YLDJJRSCSFView *sfV1;
-@property (nonatomic,strong)YLDJJRSCSFView *sfV2;
 @property (nonatomic,copy)NSString  *txurl;
-@property (nonatomic,copy)NSString  *cardFurl;
-@property (nonatomic,copy)NSString  *cardBurl;
-@property (nonatomic,strong)YLDRangeTextField *xingmingField;
-@property (nonatomic,strong)YLDRangeTextField *phoneField;
 @property (nonatomic,strong)YLDRangeTextField *IDcardField;
-@property (nonatomic,assign)NSInteger imageType;
+@property (nonatomic,copy)NSString *roleApplyAuditId;
 @end
 
 @implementation YLDJJRenShenQing1ViewController
@@ -92,12 +86,19 @@
     [self.view addSubview:nextBtn];
     [nextBtn addTarget:self action:@selector(nextBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view setBackgroundColor:BGColor];
+    if (self.dic) {
+        NSDictionary *brokerApply=self.dic[@"brokerApply"];
+        self.IDcardField.text=brokerApply[@"csNumber"];
+        self.txurl=brokerApply[@"photo"];
+        self.roleApplyAuditId=brokerApply[@"roleApplyAuditId"];
+        [self.txV setImageWithURL:[NSURL URLWithString:self.txurl]];
+    }
     
 }
 
 -(void)txAction
 {
-    self.imageType=1;
+
     [self openMenu];
 }
 
@@ -117,46 +118,44 @@
 
     NSString *bodyStr= [ZIKFunction convertToJsonData:dic];
     ShowActionV();
-    [HTTPCLIENT jjrshenheWithDic:bodyStr Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-
-            NSString *uid=[responseObject objectForKey:@"result"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-
-                RemoveActionV();
-                     [ToastView showTopToast:@"提交资料中，请两分钟内勿关闭应用或网络"];
+    if (self.roleApplyAuditId) {
+        [HTTPCLIENT jjrShenHetuihuiWithRoleApplyAuditId:self.roleApplyAuditId WithBodyStr:bodyStr Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                [ToastView showTopToast:@"提交成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }else{
+        [HTTPCLIENT jjrshenheWithDic:bodyStr Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
                 
-                if (self.type==2) {
-                   [self.navigationController popToRootViewControllerAnimated:YES];
-                }else{
-                    ShowActionV();
-                    [HTTPCLIENT jjrshenheGetMoneyNumSuccess:^(id responseObject) {
-                        if ([[responseObject objectForKey:@"success"] integerValue]) {
-                            ZIKVoucherCenterViewController *voucherVC = [[ZIKVoucherCenterViewController alloc] init];
-                            voucherVC.price = [responseObject objectForKey:@"result"];
-                            voucherVC.wareStr=@"支付认证费用(元):";
-                            voucherVC.uid=uid;
-                            voucherVC.infoType=6;
-                            voucherVC.hidesBottomBarWhenPushed=YES;
-                            [self.navigationController pushViewController:voucherVC animated:YES];
-                        }else{
-                            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-                        }
-                    } failure:^(NSError *error) {
-                        
-                    }];
-                    
+                [ToastView showTopToast:@"提交成功"];
+                [self.navigationController popViewControllerAnimated:NO];
+                if (self.deleagte) {
+                    [self.deleagte jjrTiJiaoSuccessWithDic:responseObject];
                 }
                 
-            });
-        }else{
+                //            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                RemoveActionV();
+                //                [ToastView showTopToast:@"提交资料中，请两分钟内勿关闭应用或网络"];
+                
+                
+                //            });
+            }else{
+                RemoveActionV();
+                [ToastView showTopToast:@"请求失败"];
+            }
+        } failure:^(NSError *error) {
             RemoveActionV();
-            [ToastView showTopToast:@"请求失败"];
-        }
-    } failure:^(NSError *error) {
-        RemoveActionV();
-    }];
+        }];
 
+    }
+    
 }
 -(void)openMenu
 {
@@ -237,17 +236,9 @@
     
     
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+        [self chooseUserPictureChange:image];
         
-        if (self.imageType==1) {
-            [self chooseUserPictureChange:image];
-        }else{
-            __weak typeof(self) blockself=self;
-            [ToastView showTopToast:@"正在上传图片"];
-            ShowActionV();
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                 [blockself upDataIamge:image];
-                });
-        }
     
     
 }

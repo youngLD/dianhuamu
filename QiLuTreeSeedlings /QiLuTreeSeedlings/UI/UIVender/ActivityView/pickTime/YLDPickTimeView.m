@@ -81,22 +81,17 @@
 }
 - (void)createAddressToolBar:(CGRect)rect
 {
-    UIToolbar *pickerDateToolbar = [[UIToolbar alloc] initWithFrame:rect];
-    pickerDateToolbar.barStyle =  UIBarStyleDefault;
-    pickerDateToolbar.translucent = YES;
-    [pickerDateToolbar sizeToFit];
+    UIView *pickerDateToolbar = [[UIView alloc] initWithFrame:rect];
+   
     [pickerDateToolbar setBackgroundColor:NavColor];
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"   取消" style:UIBarButtonItemStyleDone target:self action:@selector(pickerCancel:)];
-    [barItems addObject:cancelButton];
-    
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    [barItems addObject:flexSpace];
-    
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成   " style:UIBarButtonItemStyleDone target:self action:@selector(pickerDone:)];
-    [barItems addObject:doneButton];
-    
-    [pickerDateToolbar setItems:barItems animated:YES];
+    UIButton *quxiaoBtn=[[UIButton alloc]initWithFrame:CGRectMake(15, 0, 70, rect.size.height)];
+    [quxiaoBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [quxiaoBtn addTarget:self action:@selector(pickerCancel:) forControlEvents:UIControlEventTouchUpInside];
+    [pickerDateToolbar addSubview:quxiaoBtn];
+    UIButton *doneBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-85, 0, 70, rect.size.height)];
+    [doneBtn setTitle:@"完成" forState:UIControlStateNormal];
+    [doneBtn addTarget:self action:@selector(pickerDone:) forControlEvents:UIControlEventTouchUpInside];
+    [pickerDateToolbar addSubview:doneBtn];
     [self addSubview:pickerDateToolbar];
 }
 

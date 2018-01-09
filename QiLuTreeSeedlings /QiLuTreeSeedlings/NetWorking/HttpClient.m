@@ -2680,37 +2680,6 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
-#pragma mark ---------- 客服系统 -----------
--(void)kefuXiTongWithPage:(NSString *)pageSize
-           WithPageNumber:(NSString *)pageNum
-               WithIsLoad:(NSString *)isLoad
-                  Success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL            = @"api/kefu";
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSString *str                = [userdefaults objectForKey:kdeviceToken];
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"access_token"]     = APPDELEGATE.userModel.access_token;
-    parmers[@"access_id"]        = APPDELEGATE.userModel.access_id;
-    parmers[@"client_id"]        = kclient_id;
-    parmers[@"client_secret"]    = kclient_secret;
-    parmers[@"device_id"]        = str;
-    parmers[@"pageSize"]     = pageSize;
-    parmers[@"pageNumber"]     = pageNum;
-     parmers[@"isLoad"]     = isLoad;
-    ShowActionV();
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
 
 #pragma mark ---------- 积分兑换规则 -----------
 - (void)integraRuleSuccess:(void (^)(id responseObject))success
@@ -5124,38 +5093,7 @@
 }
 
 
-#pragma mark ---------- 意见反馈 -----------
-- (void)yijianfankuiWithcontent:(NSString *)content Withpic:(NSString *)pic WithTitle:(NSString *)title Success:(void (^)(id responseObject))success
-                        failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL            = @"api/opinion/save";
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSString *str                = [userdefaults objectForKey:kdeviceToken];
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"access_token"]     = APPDELEGATE.userModel.access_token;
-    parmers[@"access_id"]        = APPDELEGATE.userModel.access_id;
-    parmers[@"client_id"]        = kclient_id;
-    parmers[@"client_secret"]    = kclient_secret;
-    parmers[@"device_id"]        = str;
-     parmers[@"terminal"] = @"2";
-    parmers[@"title"]            = title;
-    parmers[@"content"]          = content;
-    parmers[@"pic"]              = pic;
-    ShowActionV();
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
 
-        
-}
 
     
 
@@ -8380,6 +8318,36 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
+#pragma mark -经纪人退回重新提交
+-(void)jjrShenHetuihuiWithRoleApplyAuditId:(NSString *)applyAuditId
+                               WithBodyStr:(NSString *)bodyStr
+                                   Success:(void (^)(id responseObject))success
+                                   failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"%@party/brokers/apply/%@",AFBaseURLString,applyAuditId];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+}
 #pragma mark ---------- 工程公司资质申请状态 -----------
 - (void)projectCompanyStatusSuccess:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure
@@ -8464,6 +8432,7 @@
 }
 #pragma mark ---------- 经纪人认证微信下单
 -(void)JJRWeChatPayWithroleApplyAuditId:(NSString *)roleApplyAuditId
+                      WithoutTradeNo:(NSString *)outTradeNo
                             Success:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure
 {
@@ -8473,6 +8442,7 @@
     //    ShowActionV();
     NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
     parmers[@"roleApplyAuditId"]=roleApplyAuditId;
+    parmers[@"outTradeNo"]=outTradeNo;
     [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -8483,5 +8453,109 @@
         RemoveActionV();
         [HttpClient HTTPERRORMESSAGE:error];
     }];
+}
+#pragma mark ---------- 帮助中心-----------
+-(void)kefuXiTongSuccess:(void (^)(id responseObject))success
+                 failure:(void (^)(NSError *error))failure;
+{
+    NSString *postURL            = @"help";
+    
+//    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+        ShowActionV();
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
+#pragma mark ---------- 意见反馈 -----------
+- (void)yijianfankuiWithBodyStr:(NSString *)bodystr Success:(void (^)(id responseObject))success
+                        failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"%@opinion",AFBaseURLString];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [bodystr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+   
+    
+}
+#pragma mark ---------- 工程订单发布 -----------
+-(void)fabuGongChengDingDanWithBodyStr:(NSString *)bodyStr
+                               Success:(void (^)(id responseObject))success
+                               failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"%@party/procurement",AFBaseURLString];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+    
+}
+#pragma mark ---------- 我得工程订单列表 -----------
+-(void)myGongChengDingDanWithLastTime:(NSString *)lastTime
+                              Success:(void (^)(id responseObject))success
+                              failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = @"party/procurement";
+    
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    ShowActionV();
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"lastTime"]=lastTime;
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+    
 }
 @end

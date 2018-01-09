@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet YLDRangeTextView *shuomingTextView;
 @property (weak, nonatomic) IBOutlet UILabel *textNumLab;
 @property (weak, nonatomic) IBOutlet UIButton *addMMBtn;
-
+@property (weak, nonatomic) IBOutlet UIView *addMMBGV;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,copy)NSDictionary *dic;
+@property (weak, nonatomic) IBOutlet UIButton *shangyibuBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
 @end

@@ -13,7 +13,7 @@
 #import "YLDGCGSZiZhiTiJiaoViewController.h"
 #import "ZIKVoucherCenterViewController.h"
 
-@interface YLDFSFRZListViewController ()
+@interface YLDFSFRZListViewController ()<YLDJJRenShenQing1ViewControllerDelegate>
 
 @end
 @implementation YLDFSFRZListViewController
@@ -53,6 +53,7 @@
                     if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
                         YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
                         vc.type=1;
+                        vc.deleagte=self;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
@@ -88,6 +89,12 @@
         YLDFRealNameViewController *vc=[YLDFRealNameViewController new];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+-(void)jjrTiJiaoSuccessWithDic:(NSDictionary *)dic{
+    ZIKVoucherCenterViewController *vc=[ZIKVoucherCenterViewController new];
+    vc.dic=[dic objectForKey:@"data"];
+    vc.infoType=6;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)gcgsBtnAction:(UIButton *)sender {
     if ([APPDELEGATE.userModel.roles containsObject:@"enterprise"]) {

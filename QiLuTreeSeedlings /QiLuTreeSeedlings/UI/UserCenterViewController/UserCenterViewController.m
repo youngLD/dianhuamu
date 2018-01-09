@@ -33,7 +33,7 @@
 #import "ZIKMySupplyVC.h"//我的供应列表
 #import "ZIKPurchaseRecordsViewController.h"//购买记录
 #import "MyMessageViewController.h"
-#import "KeFuViewController.h"
+#import "YLDFKeFuViewController.h"
 #import "YLDShengJiViewViewController.h"
 #import "YLDGCGSZiZhiTiJiaoViewController.h"
 #import "ZIKMyShopViewController.h"//我的店铺
@@ -530,7 +530,7 @@
    
       if (indexPath.section==5) {
           if (indexPath.row==0) {
-            KeFuViewController *kefuViewC=[[KeFuViewController alloc]init];
+            YLDFKeFuViewController *kefuViewC=[[YLDFKeFuViewController alloc]init];
             
             kefuViewC.hidesBottomBarWhenPushed=YES;
             [self.navigationController pushViewController:kefuViewC animated:YES];

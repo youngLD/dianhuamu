@@ -239,7 +239,10 @@
         }
         if (self.infoType==6) {
             NSString *roleApplyAuditId=self.dic[@"roleApplyAuditId"];
-            [HTTPCLIENT JJRWeChatPayWithroleApplyAuditId:roleApplyAuditId Success:^(id responseObject) {
+            NSString *outTradeNo=self.dic[@"outTradeNo"];
+            [HTTPCLIENT JJRWeChatPayWithroleApplyAuditId:roleApplyAuditId
+                                                 WithoutTradeNo:outTradeNo
+                                                 Success:^(id responseObject) {
                 if ([[responseObject objectForKey:@"success"] integerValue]) {
                     NSDictionary *dic=[responseObject objectForKey:@"data"];
                     NSMutableString *stamp  = [dic objectForKey:@"timestamp"];

@@ -33,8 +33,9 @@
 #import "YLDFQiYeInfoViewController.h"
 #import "YLDFRZzhongViewController.h"
 #import "YLDFRealNameInfoViewController.h"
-#import "KeFuViewController.h"
+#import "YLDFKeFuViewController.h"
 #import "YLDFEOrderFaBuOneViewController.h"
+#import "MyEngineeringOrderListViewController.h"
 @interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate>
 
 @end
@@ -281,6 +282,11 @@
         }];
         return;
     }
+    if (sender.tag==11) {
+        MyEngineeringOrderListViewController *vc=[MyEngineeringOrderListViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     if (sender.tag==12) {
         YLDFEOrderFaBuOneViewController *vc=[YLDFEOrderFaBuOneViewController new];
         vc.hidesBottomBarWhenPushed=YES;
@@ -308,7 +314,7 @@
     }
     if(sender.tag==6)
     {
-        KeFuViewController *vc=[[KeFuViewController alloc]init];
+        YLDFKeFuViewController *vc=[[YLDFKeFuViewController alloc]init];
         vc.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

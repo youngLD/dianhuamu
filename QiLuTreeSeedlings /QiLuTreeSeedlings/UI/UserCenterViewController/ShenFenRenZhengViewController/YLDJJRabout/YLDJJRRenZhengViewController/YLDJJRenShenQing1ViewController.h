@@ -8,7 +8,12 @@
 
 #import "ZIKArrowViewController.h"
 #import "YLDJJrModel.h"
+@protocol YLDJJRenShenQing1ViewControllerDelegate
+@optional
+-(void)jjrTiJiaoSuccessWithDic:(NSDictionary *)dic;
+@end
 @interface YLDJJRenShenQing1ViewController : ZIKArrowViewController
 @property (nonatomic,assign)NSInteger type;
 @property (nonatomic,copy)NSDictionary *dic;
+@property (nonatomic,weak)id<YLDJJRenShenQing1ViewControllerDelegate> deleagte;
 @end

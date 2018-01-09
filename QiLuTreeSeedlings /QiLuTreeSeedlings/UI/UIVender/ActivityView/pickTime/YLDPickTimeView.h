@@ -14,7 +14,7 @@
 @end
 @interface YLDPickTimeView : UIView
 @property (nonatomic,  strong) UIDatePicker *pickerView;
-@property (nonatomic) id<YLDPickTimeDelegate> delegate;
+@property (nonatomic,weak) id<YLDPickTimeDelegate> delegate;
 @property (nonatomic,strong) NSDate *selectDate;
 @property (nonatomic, copy) NSString *type;//0,默认;1,求购列表多条分享选择时间;
 - (void)showInView;

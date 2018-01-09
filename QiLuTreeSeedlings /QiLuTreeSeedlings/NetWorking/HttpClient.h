@@ -583,12 +583,7 @@ success:(void (^)(id))success failure:(void (^)(NSError *))failure;
                               Success:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
 
-#pragma mark ---------- 客服系统 -----------
--(void)kefuXiTongWithPage:(NSString *)pageSize
-           WithPageNumber:(NSString *)pageNum
-               WithIsLoad:(NSString *)isLoad
-                  Success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark ---------- 积分兑换规则 -----------
 - (void)integraRuleSuccess:(void (^)(id responseObject))success
@@ -1318,9 +1313,7 @@ failure:(void (^)(NSError *error))failure;
                               Success:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
 
-#pragma mark ---------- 意见反馈 -----------
-- (void)yijianfankuiWithcontent:(NSString *)content Withpic:(NSString *)pic WithTitle:(NSString *)title Success:(void (^)(id responseObject))success
-                        failure:(void (^)(NSError *error))failure;
+
 
 
 #pragma mark ---------- 合作苗企-合作苗企首页 -----------
@@ -1896,6 +1889,16 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark -经纪人审核状态
 -(void)jjrshenheStatueSuccess:(void (^)(id responseObject))success
                       failure:(void (^)(NSError *error))failure;
+#pragma mark -经纪人退回重新提交
+-(void)jjrShenHetuihuiWithRoleApplyAuditId:(NSString *)applyAuditId
+                               WithBodyStr:(NSString *)bodyStr
+                                   Success:(void (^)(id responseObject))success
+                                   failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 经纪人认证微信下单
+-(void)JJRWeChatPayWithroleApplyAuditId:(NSString *)roleApplyAuditId
+                         WithoutTradeNo:(NSString *)outTradeNo
+                                Success:(void (^)(id responseObject))success
+                                failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 工程公司资质申请状态 -----------
 - (void)projectCompanyStatusSuccess:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure;
@@ -1908,8 +1911,20 @@ failure:(void (^)(NSError *error))failure;
           WithroleApplyAuditId:(NSString *)roleApplyAuditId
                        Success:(void (^)(id responseObject))success
                        failure:(void (^)(NSError *error))failure;
-#pragma mark ---------- 经纪人认证微信下单
--(void)JJRWeChatPayWithroleApplyAuditId:(NSString *)roleApplyAuditId
-                            Success:(void (^)(id responseObject))success
-                            failure:(void (^)(NSError *error))failure;
+
+#pragma mark ---------- 帮助中心-----------
+-(void)kefuXiTongSuccess:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 意见反馈 -----------
+- (void)yijianfankuiWithBodyStr:(NSString *)bodystr
+                        Success:(void (^)(id responseObject))success
+                        failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单发布 -----------
+-(void)fabuGongChengDingDanWithBodyStr:(NSString *)bodyStr
+                               Success:(void (^)(id responseObject))success
+                               failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 我得工程订单列表 -----------
+-(void)myGongChengDingDanWithLastTime:(NSString *)lastTime
+                              Success:(void (^)(id responseObject))success
+                              failure:(void (^)(NSError *error))failure;
 @end

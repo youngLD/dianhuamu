@@ -10,10 +10,12 @@
 #import "YLDFAddressManagementViewController.h"
 #import "YLDFAddressListViewController.h"
 #import "YLDPickTimeView.h"
+#import "YLDFEOrderFaBuTwoViewController.h"
 @interface YLDFEOrderFaBuOneViewController ()<YLDFAddressListViewControllerDelegate,YLDFAddressManagementDelegate,YLDPickTimeDelegate,YLDRangeTextViewDelegate>
 @property (nonatomic,copy)NSString *addressId;
 @property (nonatomic,strong)UIButton *baojiaTypeBtn;
 @property (nonatomic,copy)NSString *timeStr;
+@property (nonatomic,strong)YLDFEOrderFaBuTwoViewController *nextvc;
 @end
 
 @implementation YLDFEOrderFaBuOneViewController
@@ -30,7 +32,7 @@
         self.phoneLab.text=APPDELEGATE.addressModel.phone;
         self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",APPDELEGATE.addressModel.province,APPDELEGATE.addressModel.city,APPDELEGATE.addressModel.county];
     }
-    self.vcTitle=@"求购发布";
+    self.vcTitle=@"工程订单发布";
     self.shuomingTextView.placeholder=@"请输入订单说明（不超过70个字）";
     self.shuomingTextView.Rdelegate=self;
     self.shuomingTextView.rangeNumber=70;
@@ -43,7 +45,10 @@
     [self.daohuajiaBtn addTarget:self action:@selector(baojiayaoqiuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.miaomiaojiaBtn addTarget:self action:@selector(baojiayaoqiuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.pickTimeBtn addTarget:self action:@selector(timeBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.companyNameLab.text=APPDELEGATE.qyModel.name;
+    //self.companyNameLab.text=APPDELEGATE.qyModel.name;
+    self.nextvc=[YLDFEOrderFaBuTwoViewController new];
+  
+    
     
 //    [self. addTarget:self action:@selector(fabuAction) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view from its nib.
@@ -148,6 +153,9 @@
     }
     dic[@"quoteTypeId"]=baojiatype;
     dic[@"thruDate"]=self.timeStr;
+   
+    self.nextvc.dic=dic;
+    [self.navigationController pushViewController:self.nextvc animated:YES];
 
 }
 - (void)didReceiveMemoryWarning {

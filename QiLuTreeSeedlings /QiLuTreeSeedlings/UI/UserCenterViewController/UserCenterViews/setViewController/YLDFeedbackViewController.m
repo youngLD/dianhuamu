@@ -21,7 +21,14 @@
 @end
 
 @implementation YLDFeedbackViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ( self.navigationController.navigationBar.hidden==NO) {
+        self.navigationController.navigationBar.hidden=YES;
+        
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"意见反馈";
@@ -70,7 +77,7 @@
     [imgLabb setFont:[UIFont systemFontOfSize:15]];
     [imgLabb setText:@"图片"];
     UIButton *iamgeBtn=[[UIButton alloc]initWithFrame:CGRectMake(120, 10, 70, 80)];
-    [iamgeBtn addTarget:self action:@selector(addPicture) forControlEvents:UIControlEventTouchUpInside];
+    [iamgeBtn addTarget:self action:@selector(openMenu) forControlEvents:UIControlEventTouchUpInside];
     [iamgeBtn setImage:[UIImage imageNamed:@"添加图片"] forState:UIControlStateNormal];
     [view2 addSubview:iamgeBtn];
     self.imageBtn = iamgeBtn;
@@ -115,9 +122,15 @@
         [ToastView showTopToast:@"内容不能为空格"];
         return;
     }
-    [HTTPCLIENT yijianfankuiWithcontent:self.messageField.text Withpic:self.url WithTitle:self.titleField.text Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]==1) {
-            [ToastView showTopToast:@"提交成功，即将返回上一页"];
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    dic[@"title"]=titleStr;
+    dic[@"content"]=messageStr;
+    dic[@"pic"]=self.url;
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+    ShowActionV();
+    [HTTPCLIENT yijianfankuiWithBodyStr:bodyStr Success:^(id responseObject) {
+        if ([[responseObject objectForKey:@"success"] integerValue]) {
+            [ToastView showTopToast:@"您的反馈已提交"];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -133,62 +146,90 @@
     self.deleteBtn.hidden=YES;
 }
 #pragma mark - 图片添加
-//头像点击事件
-- (void)addPicture
+-(void)openMenu
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"上传图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从相册选取", nil];
-    sheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [sheet showInView:self.view];
+    __weak typeof(self)weakself =self;
+    //在这里呼出下方菜单按钮项
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传视频或照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"拍摄新照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [weakself takePhoto];
+        
+    }]];
+    
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"从相册中选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        
+        [weakself LocalPhoto];
+    }]];
+    //    [alertController addAction:[UIAlertAction actionWithTitle:@"拍摄新视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    //
+    //
+    //        [weakself takeVideo];
+    //    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+    
 }
 
-#pragma mark - UIActionSheet
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+
+
+//开始拍照
+-(void)takePhoto
+{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = NO;
+        picker.sourceType = sourceType;
+        [self presentViewController:picker animated:YES completion:nil];
+        //        isPicture  = YES;
+    }else
+    {
+        //NSLog(@"模拟其中无法打开照相机,请在真机中使用");
+    }
+}
+
+//打开本地相册
+-(void)LocalPhoto
 {
     
-    if (buttonIndex == 0) {
-        
-        UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
-        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-            pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-            pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
-        }
-        pickerImage.delegate = self;
-        pickerImage.allowsEditing = NO;
-        [self presentViewController:pickerImage animated:YES completion:^{
-            
-        }];
-        //[self presentModalViewController:pickerImage animated:YES];
+    UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //pickerImage.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
     }
-//    else if (buttonIndex == 0) {
-//        
-//        //先设定sourceType为相机，然后判断相机是否可用（ipod）没相机，不可用将sourceType设定为相片库
-//        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-//        if (![UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
-//            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//        }
-//        //sourceType = UIImagePickerControllerSourceTypeCamera; //照相机
-//        //sourceType = UIImagePickerControllerSourceTypePhotoLibrary; //图片库
-//        //sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum; //保存的相片
-//        UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
-//        picker.delegate = self;
-//        picker.allowsEditing = YES;//设置可编辑
-//        picker.sourceType = sourceType;
-//        [self presentViewController:picker animated:YES completion:^{
-//            
-//        }];
-//        //[self presentModalViewController:picker animated:YES];//进入照相界面
-//    }
-//    
+    pickerImage.delegate = self;
+    pickerImage.allowsEditing = NO;
+    [self presentViewController:pickerImage animated:YES completion:^{
+        
+    }];
 }
-
 #pragma mark UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    //修改图片
+    
     [self chooseUserPictureChange:image];
+    
+    
+    
 }
 
 #pragma mark - RSKImageCropViewControllerDelegate
@@ -197,61 +238,110 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage
+- (void)upDataIamge:(UIImage *)croppedImage
 {
     
-    [self requestUploadHeadImage:croppedImage];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)chooseUserPictureChange:(UIImage*)image
-{
-    //UIImage *photo = [UIImage imageNamed:@"photo"];
-    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image cropMode:RSKImageCropModeCustom cropSize:CGSizeMake(kWidth, 1.2*kWidth)];
-//    imageCropVC.cropMode = RSKImageCropModeSquare;
-    imageCropVC.delegate = self;
-    [self.navigationController pushViewController:imageCropVC animated:YES];
-}
-#pragma mark - 请求上传图片
-- (void)requestUploadHeadImage:(UIImage *)image {
+    ShowActionV();
+    //先把图片转成NSData
+    NSData *imageData;
     
-    NSData* imageData;
+    OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+    // 必填字段
+    put.bucketName = @"miaoxintong";
     
-    //判断图片是不是png格式的文件
-    if (UIImagePNGRepresentation(image)) {
+    NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_id] WithTypeStr:@"opinion"];
+    
+    imageData=UIImagePNGRepresentation(croppedImage);
+    
+    NSString *urlstr;
+    if (imageData) {
         //返回为png图像。
-        imageData = UIImagePNGRepresentation(image);
-    }else {
+        put.objectKey = [NSString stringWithFormat:@"%@.png",nameStr];
+        imageData = UIImagePNGRepresentation(croppedImage);
+        put.contentType=@"image/png";
+    }else{
         //返回为JPEG图像。
-        imageData = UIImageJPEGRepresentation(image, 0.0001);
+        put.objectKey = [NSString stringWithFormat:@"%@.jpeg",nameStr];
+        imageData = UIImageJPEGRepresentation(croppedImage, 0.5);
+        put.contentType=@"image/jpeg";
     }
-    if (imageData.length>=1024*1024) {
-        CGSize newSize = {400,600};
-        imageData =  [self imageWithImageSimple:image scaledToSize:newSize];
-    }
-    NSString *myStringImageFile = [imageData base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
+    urlstr=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
     
-    [HTTPCLIENT upDataImageIOS:myStringImageFile workstationUid:nil companyUid:APPDELEGATE.GCGSModel.uid type:@"3" saveTyep:@"1" Success:^(id responseObject) {
-        if ([responseObject[@"success"] integerValue] == 0) {
-            [ToastView showTopToast:[NSString stringWithFormat:@"%@",responseObject[@"msg"]]];
-            return ;
-        } else if ([[responseObject objectForKey:@"success"] integerValue] == 1) {
-            [ToastView showTopToast:@"添加成功"];
-            NSDictionary *result = responseObject[@"result"];
+    
+    RemoveActionV();
+    
+    if (croppedImage.size.width>150) {
+        
+        
+        CGSize newSize = {150,150};
+        imageData =  [self imageWithImageSimple:croppedImage scaledToSize:newSize];
+        
+    }
+    
+    put.uploadingData = imageData; // 直接上传NSData
+    // 可选字段，可不设置
+    put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+        // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
+    };
+    
+    OSSTask * putTask = [APPDELEGATE.client putObject:put];
+    
+    [putTask continueWithBlock:^id(OSSTask *task) {
+        if (!task.error) {
             
-             NSString * compressurl   = result[@"compressurl"];
-            [self.imageBtn setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:compressurl] placeholderImage:[UIImage imageNamed:@"MoRentu"]];
-            self.url         = result[@"url"];
-            self.deleteBtn.hidden=NO;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                //Update UI in UI thread here
+                RemoveActionV();
 
+                self.url=urlstr;
+                [self.imageBtn setImage:croppedImage forState:UIControlStateNormal];
+                
+            });
+            
+        } else {
+            //                NSLog(@"upload object failed, error: %@" , task.error);
+            RemoveActionV();
+            //            [ToastView showTopToast:@"上传图片失败"];
+            
         }
-        
-        
-    } failure:^(NSError *error) {
-        ;
+        return nil;
     }];
 }
 
+- (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage
+{
+    [ToastView showTopToast:@"正在上传图片"];
+    ShowActionV();
+    [self upDataIamge:croppedImage];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)chooseUserPictureChange:(UIImage*)image
+{
+    //UIImage *photo = [UIImage imageNamed:@"photo"];
+    RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image cropMode:RSKImageCropModeCircle];
+    imageCropVC.cropMode = RSKImageCropModeSquare;
+    imageCropVC.delegate = self;
+    [self.navigationController pushViewController:imageCropVC animated:YES];
+}
+
+-(NSData *)imageData:(UIImage *)myimage
+{
+    __weak typeof(myimage) weakImage = myimage;
+    NSData *data = UIImageJPEGRepresentation(weakImage, 1.0);
+    if (data.length>100*1024) {
+        if (data.length>1024*1024) {//1M以及以上
+            data = UIImageJPEGRepresentation(weakImage, 0.1);
+        }
+        else if (data.length>512*1024) {//0.5M-1M
+            data = UIImageJPEGRepresentation(weakImage, 0.9);
+        }
+        else if (data.length>200*1024) {//0.25M-0.5M
+            data=UIImageJPEGRepresentation(weakImage, 0.9);
+        }
+    }
+    return data;
+}
 -(NSData*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
 {
     // Create a graphics image context
@@ -266,6 +356,11 @@
     // Return the new image.
     
     return UIImagePNGRepresentation(newImage);
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
