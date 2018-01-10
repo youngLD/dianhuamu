@@ -64,7 +64,7 @@
 #import "YLFMySupplyTableViewCell.h"
 #import "YLDFHomeFenYeViewConroller.h"
 #import "ZIKOrderViewController.h"
-//#import "<#header#>"
+
 #define TopBtnW 90
 @interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate>
 @property (nonatomic,strong)UITableView *tableView;
@@ -98,6 +98,7 @@
 @property (nonatomic,copy)NSString *supplyLastTime;
 @property (nonatomic,copy)NSString *newsFirstTime;
 @property (nonatomic,copy)NSString *newsLastTime;
+@property (nonatomic,strong)UIView *hearActionView;
 @end
 
 @implementation YLDSHomePageViewController
@@ -128,8 +129,6 @@
     if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
         
     {
-        //            [self.locationManager requestAlwaysAuthorization]; // 永久授权
-        
         [self.locationManager requestWhenInUseAuthorization]; //使用中授权
         
     }
@@ -139,8 +138,12 @@
     self.qiugouState=@"free";
     self.topActionV=[self creatGBTypeV];
     self.qiugouView=[self creatHomeQiuGouStateView];
-    
+
     UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,kWidth , kHeight-44) style:UITableViewStylePlain];
+    UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
+    [heardView setBackgroundColor:[UIColor clearColor]];
+    tableView.tableHeaderView=heardView;
+
 #ifdef __IPHONE_11_0
     if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
         if (@available(iOS 11.0, *)) {
@@ -160,7 +163,7 @@
     [btn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
     tableView.tableFooterView =view;
-    [tableView setBackgroundColor:BGColor];
+    [tableView setBackgroundColor:[UIColor clearColor]];
     tableView.tag=112;
     tableView.dataSource=self;
     tableView.delegate=self;
@@ -191,28 +194,28 @@
     
     
     
-    NSMutableArray *pullingImages = [NSMutableArray array];
-    
-    UIImage *image = [UIImage imageNamed:@"runningC1"];
-    
-    [pullingImages addObject:image];
-    
-        __weak typeof(self) weakSelf=self;
+//    NSMutableArray *pullingImages = [NSMutableArray array];
+//
+//    UIImage *image = [UIImage imageNamed:@"runningC1"];
+//
+//    [pullingImages addObject:image];
+//
+//        __weak typeof(self) weakSelf=self;
 
-    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-        weakSelf.PageCount=1;
-        [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
-    }];
-    
+//    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+//        weakSelf.PageCount=1;
+//        [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
+//    }];
+
     //给MJRefreshStateIdle状态设置一组图片，可以是一张，idleImages为数组
     
-    [header setImages:idleImages duration:1.2 forState:MJRefreshStateIdle];
-    
-    //[header setImages:idleImages forState:MJRefreshStatePulling];
-    
-    [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
-    
-    self.tableView.mj_header = header;
+//    [header setImages:idleImages duration:1.2 forState:MJRefreshStateIdle];
+//
+//    //[header setImages:idleImages forState:MJRefreshStatePulling];
+//
+//    [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
+//
+//    self.tableView.mj_header = header;
     self.topView1=[self creatTopSeachV];
     [self.view addSubview:self.topView1];
  
@@ -228,6 +231,10 @@
     [self.goTopBtn addTarget:self action:@selector(gotopBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.goTopBtn.hidden=YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMessageForDingzhiXinXi:) name:@"dingzhixinxituisong" object:nil];
+    UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
+    [hearActionV setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:hearActionV];
+    self.hearActionView=hearActionV;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(nonnull UIViewController *)viewController
 {
@@ -781,71 +788,86 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.tag==112) {
+        if (self.tableView.tableHeaderView!=nil) {
+            if (scrollView.contentOffset.y>=1) {
+                [self.view insertSubview:self.hearActionView belowSubview:self.tableView];
+            if(scrollView.contentOffset.y>=200&&self.tableView.tableHeaderView!=nil) {
+                    self.tableView.tableHeaderView=nil;
 
-        if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y<-5) {
-            if(self.topView1.hidden==NO)
-            {
-                self.topView1.hidden=YES;
-            }
-            
-        }else if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y>=-5) {
-            [self.topView1 setBackgroundColor:[UIColor clearColor]];
-            
-            if(self.topView1.hidden==YES)
-            {
-                self.topView1.hidden=NO;
-            }
-            UIImageView *imageV=[self.topView1 viewWithTag:3];
-            if (imageV.hidden==YES) {
-                imageV.hidden=NO;
-            }
-            
-            UIButton *saomaBtn=[self.topView1 viewWithTag:2];
-            [saomaBtn setImage:[UIImage imageNamed:@"saomaW"] forState:UIControlStateNormal];
-            [_cityBtn setImage:[UIImage imageNamed:@"selectAreaR"] forState:UIControlStateNormal];
-            [self.cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            
-        }else if(scrollView.contentOffset.y>1&&scrollView.contentOffset.y<kWidth*0.368){
-            CGFloat xx=scrollView.contentOffset.y/(kWidth*0.368);
-            UIImageView *imageV=[self.topView1 viewWithTag:3];
-            if (imageV.hidden==NO) {
-                imageV.hidden=YES;
-            }
-            [self.topView1 setBackgroundColor:kRGB(250, 250, 250, 1*xx)];
-            if(scrollView.contentOffset.y>50&&scrollView.contentOffset.y<kWidth*0.368)
-            {
-                UIView *searchV=[self.topView1 viewWithTag:1];
-                [searchV setBackgroundColor:[UIColor whiteColor]];
-                UILabel *lab=[searchV viewWithTag:11];
-                [lab setTextColor:kRGB(153, 153,153, 1)];
-                
-            }
-           
-            
+                }
+            }else{
+                [self.view insertSubview:self.hearActionView aboveSubview:self.tableView];
 
-        }else if(scrollView.contentOffset.y>=kWidth*0.368&&scrollView.contentOffset.y<=kWidth*0.368+150){
-            [self changeNav];
-        }
-        
-        if(scrollView.contentOffset.y>kWidth*0.368+100){
-            if (scrollView.frame.origin.y<64) {
-                CGRect frame=self.tableView.frame;
-                frame.origin.y=64;
-                frame.size.height=kHeight-47-64;
-                self.tableView.frame=frame;
-                
-            }
-        }else{
-            if (scrollView.frame.origin.y>=64) {
-                CGRect frame=self.tableView.frame;
-                frame.origin.y=0;
-                frame.size.height=kHeight-47;
-                self.tableView.frame=frame;
             }
         }
-       
-        
-}
+
+    }
+//    if (scrollView.tag==112) {
+//
+//        if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y<-5) {
+//            if(self.topView1.hidden==NO)
+//            {
+//                self.topView1.hidden=YES;
+//            }
+//
+//        }else if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y>=-5) {
+//            [self.topView1 setBackgroundColor:[UIColor clearColor]];
+//
+//            if(self.topView1.hidden==YES)
+//            {
+//                self.topView1.hidden=NO;
+//            }
+//            UIImageView *imageV=[self.topView1 viewWithTag:3];
+//            if (imageV.hidden==YES) {
+//                imageV.hidden=NO;
+//            }
+//
+//            UIButton *saomaBtn=[self.topView1 viewWithTag:2];
+//            [saomaBtn setImage:[UIImage imageNamed:@"saomaW"] forState:UIControlStateNormal];
+//            [_cityBtn setImage:[UIImage imageNamed:@"selectAreaR"] forState:UIControlStateNormal];
+//            [self.cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//
+//        }else if(scrollView.contentOffset.y>1&&scrollView.contentOffset.y<kWidth*0.368){
+//            CGFloat xx=scrollView.contentOffset.y/(kWidth*0.368);
+//            UIImageView *imageV=[self.topView1 viewWithTag:3];
+//            if (imageV.hidden==NO) {
+//                imageV.hidden=YES;
+//            }
+//            [self.topView1 setBackgroundColor:kRGB(250, 250, 250, 1*xx)];
+//            if(scrollView.contentOffset.y>50&&scrollView.contentOffset.y<kWidth*0.368)
+//            {
+//                UIView *searchV=[self.topView1 viewWithTag:1];
+//                [searchV setBackgroundColor:[UIColor whiteColor]];
+//                UILabel *lab=[searchV viewWithTag:11];
+//                [lab setTextColor:kRGB(153, 153,153, 1)];
+//
+//            }
+//
+//
+//
+//        }else if(scrollView.contentOffset.y>=kWidth*0.368&&scrollView.contentOffset.y<=kWidth*0.368+150){
+//            [self changeNav];
+//        }
+//
+//        if(scrollView.contentOffset.y>kWidth*0.368+100){
+//            if (scrollView.frame.origin.y<64) {
+//                CGRect frame=self.tableView.frame;
+//                frame.origin.y=64;
+//                frame.size.height=kHeight-47-64;
+//                self.tableView.frame=frame;
+//
+//            }
+//        }else{
+//            if (scrollView.frame.origin.y>=64) {
+//                CGRect frame=self.tableView.frame;
+//                frame.origin.y=0;
+//                frame.size.height=kHeight-47;
+//                self.tableView.frame=frame;
+//            }
+//        }
+//
+//
+// }
 }
 -(void)changeNav
 {
