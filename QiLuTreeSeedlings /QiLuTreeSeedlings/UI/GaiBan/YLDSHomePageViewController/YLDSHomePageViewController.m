@@ -99,6 +99,7 @@
 @property (nonatomic,copy)NSString *newsFirstTime;
 @property (nonatomic,copy)NSString *newsLastTime;
 @property (nonatomic,strong)UIView *hearActionView;
+@property (nonatomic,strong)UIView *CBGV;
 @end
 
 @implementation YLDSHomePageViewController
@@ -143,6 +144,7 @@
     UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
     [heardView setBackgroundColor:[UIColor clearColor]];
     tableView.tableHeaderView=heardView;
+
 
 #ifdef __IPHONE_11_0
     if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -232,9 +234,16 @@
     self.goTopBtn.hidden=YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMessageForDingzhiXinXi:) name:@"dingzhixinxituisong" object:nil];
     UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
-    [hearActionV setBackgroundColor:[UIColor redColor]];
+    [hearActionV setBackgroundColor:[UIColor grayColor]];
     [self.view addSubview:hearActionV];
     self.hearActionView=hearActionV;
+    CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth, 100)];
+//    circleViews.selectionStyle = UITableViewCellSelectionStyleNone;
+    circleViews.delegate=self;
+    UIView *circleViewsBGV=[[UIView alloc]initWithFrame:CGRectMake(0, 100, kWidth, 100)];
+    [circleViewsBGV addSubview:circleViews];
+    [hearActionV addSubview:circleViewsBGV];
+    _CBGV=circleViewsBGV;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(nonnull UIViewController *)viewController
 {
@@ -354,7 +363,7 @@
         return 0.368*kWidth;
     }
     if (indexPath.section==1) {
-        return 100;
+        return 0.01;
     }
     if (indexPath.section==2) {
         double  kkk = kWidth*(11/30.f-0.0417);
@@ -484,12 +493,9 @@
         [adView adStart];
         return adView;
     }
-    if (indexPath.section==1) {
-        CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth, 100)];
-        circleViews.selectionStyle = UITableViewCellSelectionStyleNone;
-        circleViews.delegate=self;
-        return circleViews;
-    }
+//    if (indexPath.section==1) {
+//
+//    }
     if (indexPath.section==2) {
         YLDHomeJJRCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDHomeJJRCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -791,7 +797,9 @@
         if (self.tableView.tableHeaderView!=nil) {
             if (scrollView.contentOffset.y>=1) {
                 [self.view insertSubview:self.hearActionView belowSubview:self.tableView];
-            if(scrollView.contentOffset.y>=200&&self.tableView.tableHeaderView!=nil) {
+                if (scrollView.contentOffset.y>1&&scrollView.contentOffset.y<100) {
+                    self.CBGV.alpha =1-scrollView.contentOffset.y/100.f;
+                }else if(scrollView.contentOffset.y>=200&&self.tableView.tableHeaderView!=nil) {
                     self.tableView.tableHeaderView=nil;
 
                 }

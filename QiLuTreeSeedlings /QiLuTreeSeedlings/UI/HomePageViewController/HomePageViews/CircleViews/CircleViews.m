@@ -28,7 +28,7 @@
     scrollView.delegate=self;
     scrollView.showsVerticalScrollIndicator=NO;
     scrollView.showsHorizontalScrollIndicator=NO;
-    [self.contentView addSubview:scrollView];
+    [self addSubview:scrollView];
     if (self) {
         
         dataAry =@[@"求购信息",@"供应信息",@"工程订单",@"更多…"];
@@ -43,7 +43,7 @@
         UIView *viewa = [[UIView alloc] initWithFrame:pageFrame];
         
         [viewa setBackgroundColor:BGColor];
-        [self.contentView addSubview:viewa];
+        [self addSubview:viewa];
         
 
     }
