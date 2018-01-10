@@ -328,8 +328,17 @@
         
         if (self.infoType==6) {
             nameStr=@"经纪人认证服务费";
-        }
-        if (self.infoType==7) {
+            NSDictionary *payTypeDic;
+            NSArray *payTypeAry=self.dic[@"payType"];
+            for (NSDictionary *dic in payTypeAry) {
+                NSString *payTypeStr=dic[@"payType"];
+                if ([payTypeStr isEqualToString:@"ali_pay"]) {
+                    payTypeDic=dic;
+                }
+            }
+            NSDictionary *attributes=payTypeDic[@"attributes"];
+            [ZIKFunction zhiFuBao:self name:@"经纪人认证服务费" titile:payTypeDic[@"description"] price:self.dic[@"amount"] outTradeNo:self.dic[@"outTradeNo"] notify_url:attributes[@"notify_url"] roleApplyAuditId:self.dic[@"roleApplyAuditId"]];
+        }else if (self.infoType==7) {
             [ZIKFunction ADzhiFuBao:self name:@"广告费充值" titile:@"广告费充值" price:self.price orderId:APPDELEGATE.userModel.access_id supplyBuyUid:nil type:@"7"];
         }else{
            [ZIKFunction zhiFuBao:self name:nameStr titile:nameStr price:self.price orderId:APPDELEGATE.userModel.access_id supplyBuyUid:self.uid type:type]; 

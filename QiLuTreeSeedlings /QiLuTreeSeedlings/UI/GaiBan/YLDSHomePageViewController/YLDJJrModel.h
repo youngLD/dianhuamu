@@ -19,6 +19,7 @@
 @property (nonatomic,copy) NSString *phone;
 @property (nonatomic,copy) NSString *defaultArea;
 @property (nonatomic,copy) NSString *defaultAreaName;
+@property (nonatomic,copy) NSString *partyId;
 @property (nonatomic,assign) NSInteger comments;
 @property (nonatomic,assign)BOOL selected;
 +(YLDJJrModel *)yldJJrModelByDic:(NSDictionary *)dic;

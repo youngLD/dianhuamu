@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyEngineeringOrderListViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyEngineeringOrderDetialViewController">
             <connections>
-                <outlet property="tableView" destination="pgq-Cj-A0w" id="Dyl-CI-ZWD"/>
-                <outlet property="topC" destination="elr-FP-6sT" id="MOn-Va-bGb"/>
+                <outlet property="tableView" destination="PRO-NV-tHu" id="kLu-p6-XSw"/>
+                <outlet property="topC" destination="ACI-Mr-T3l" id="fkt-e2-UHP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,21 +22,21 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pgq-Cj-A0w">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="PRO-NV-tHu">
                     <rect key="frame" x="0.0" y="84" width="375" height="583"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="shg-AP-rk1"/>
-                        <outlet property="delegate" destination="-1" id="8qa-GE-ikm"/>
+                        <outlet property="dataSource" destination="-1" id="HqD-fJ-bL6"/>
+                        <outlet property="delegate" destination="-1" id="4bC-Nh-RKu"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="pgq-Cj-A0w" secondAttribute="trailing" id="IbB-nh-YXy"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="pgq-Cj-A0w" secondAttribute="bottom" id="P4f-ef-S2U"/>
-                <constraint firstItem="pgq-Cj-A0w" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="VdS-AE-s26"/>
-                <constraint firstItem="pgq-Cj-A0w" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="elr-FP-6sT"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="PRO-NV-tHu" secondAttribute="trailing" id="5gp-np-Ac2"/>
+                <constraint firstItem="PRO-NV-tHu" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="ACI-Mr-T3l"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="PRO-NV-tHu" secondAttribute="bottom" id="S1D-yi-tCD"/>
+                <constraint firstItem="PRO-NV-tHu" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="cqd-L3-4yX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

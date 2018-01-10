@@ -33,7 +33,134 @@
 //#define APPDELEGATE     ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 @implementation ZIKFunction
-
++ (void)zhiFuBao:(UIViewController *)controller name:(NSString*)name titile:(NSString*)title price:(NSString*)price outTradeNo:(NSString *)outTradeNo notify_url:(NSString *)notify_url roleApplyAuditId:(NSString *)roleApplyAuditId
+{
+    NSString *partner    = kwshZhiFuBaoZhangHao;
+    NSString *seller     = kzhifubaoSeller;
+    NSString *privateKey = kzhifubaoMiYao;
+    
+    //partner和seller获取失败,提示
+    if ([partner length] == 0 || [seller length] == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"缺少partner或者seller。"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    /*
+     *生成订单信息及签名
+     */
+    //将商品信息赋予AlixPayOrder的成员变量
+    Order *order = [[Order alloc] init];
+    order.partner = partner;
+    order.seller = seller;
+    order.tradeNO = outTradeNo; //订单ID（由商家自行制定）
+    order.productName = name; //商品标题
+    order.productDescription = title; //商品描述
+    order.amount = price; //商品价格
+    
+    // NSMutableDictionary *infor = [[XtomManager sharedManager] myinitInfor];
+    //NSString * updateURL = [infor objectForKey:@"mall_server_ip"];
+    //#warning 注释
+//    NSString * updateURL = AFBaseURLString;
+//    // NSString * updateURL = RequestURL;
+//    updateURL = [updateURL stringByAppendingString:@"alipay/notify"];
+    
+    
+        order.notifyURL = notify_url; //回调URL
+    
+    //    order.notifyURL =  [NSString stringWithFormat:@"%@?access_id=%@&supplyBuyUid=\"%@\"&type=\"%@\"",updateURL,orderId,supplyBuyUid,type]; //回调URL
+    
+    
+    order.service = @"mobile.securitypay.pay";
+    order.paymentType = @"1";
+    order.inputCharset = @"utf-8";
+    order.itBPay = @"30m";
+    order.showUrl = @"m.alipay.com";
+    order.extraParams[@"roleApplyAuditId"]=roleApplyAuditId;
+    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
+    NSString *appScheme = @"miaoxintong";
+    
+    //将商品信息拼接成字符串
+    NSString *orderSpec = [order description];
+    //NSLog(@"orderSpec = %@",orderSpec);
+    
+    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
+    //NSLog(@"%@",privateKey);
+    //orderSpec = [orderSpec stringByAppendingString:[NSString stringWithFormat:@"?access_id=\"%@\"",orderId]];
+    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    NSString *signedString = [signer signString:orderSpec];
+    
+    //将签名成功字符串格式化为订单字符串,请严格按照该格式
+    NSString *orderString = nil;
+    if (signedString != nil) {
+        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                       orderSpec, signedString, @"RSA"];
+        // NSLog(@"str=%@",orderString);
+        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            
+            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                //                [kApp telSevicePaySuccess:self.oderID];
+                //                UIAlertView *seccuss = [[UIAlertView alloc]initWithTitle:@"提示" message:@"支付成功！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                //                seccuss.tag = 166;
+                //                [seccuss show];
+                //                if (APPDELEGATE.isFromSingleVoucherCenter) {
+                //
+                //                } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"PaySuccessNotification" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CaiGouSinglePaySuccessNotification" object:nil];
+                
+                if (!APPDELEGATE.isFromSingleVoucherCenter) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"SinglePaySuccessNotification" object:nil];
+                }
+                
+                //}
+                
+                [[[UIAlertView alloc] initWithTitle:@"提示"
+                                            message:@"支付成功!"
+                                   cancelButtonItem:[RIButtonItem itemWithLabel:@"确定" action:^{
+                    if (controller) {
+                        //                          [controller.navigationController popViewControllerAnimated:YES];
+                    }
+                    
+                    //[controller.navigationController popToRootViewControllerAnimated:YES];
+                    
+                    
+                }] otherButtonItems:nil, nil] show];
+                
+                
+            }
+            else if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"4000"]) {
+                //NSLog(@"订单交易失败");
+                // NSLog(@"%@",resultDic[@"memo"]);
+                [[[UIAlertView alloc] initWithTitle:@"提示"
+                                            message:@"支付失败!"
+                                   cancelButtonItem:[RIButtonItem itemWithLabel:@"确定" action:^{
+                    
+                    //[controller.navigationController popToRootViewControllerAnimated:YES];
+                    
+                }] otherButtonItems:nil, nil] show];
+            } else {
+                NSLog(@"%@",resultDic);
+                NSLog(@"%@",resultDic[@"memo"]);
+                [[[UIAlertView alloc] initWithTitle:@"提示"
+                                            message:@"支付失败!"
+                                   cancelButtonItem:[RIButtonItem itemWithLabel:@"确定" action:^{
+                    
+                    //[controller.navigationController popToRootViewControllerAnimated:YES];
+                    
+                }] otherButtonItems:nil, nil] show];
+                
+            }
+        }];
+        
+        
+    }
+}
 
 + (void)zhiFuBao:(UIViewController *)controller name: (NSString*)name titile:(NSString*)title price:(NSString*)price orderId:(NSString*)orderId supplyBuyUid:(NSString *)supplyBuyUid type:(NSString *)type
 {
@@ -66,7 +193,7 @@
     order.productName = name; //商品标题
     order.productDescription = title; //商品描述
     order.amount = price; //商品价格
-
+    
     // NSMutableDictionary *infor = [[XtomManager sharedManager] myinitInfor];
     //NSString * updateURL = [infor objectForKey:@"mall_server_ip"];
 //#warning 注释

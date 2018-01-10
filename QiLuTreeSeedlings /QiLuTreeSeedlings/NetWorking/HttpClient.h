@@ -162,18 +162,7 @@
                  WithType:(NSString *)type
                   Success:(void (^)(id responseObject))success
                   failure:(void (^)(NSError *error))failure;
-#pragma mark-登录
--(void)loginInWithPhone:(NSString *)phone
-            andPassWord:(NSString *)passWord
-                Success:(void (^)(id responseObject))success
-                failure:(void (^)(NSError *error))failure;
-#pragma mark-帐号注册
--(void)registeredUserWithPhone:(NSString *)phone
-                  withPassWord:(NSString *)password
-                withRepassWord:(NSString *)repassword
-                      withCode:(NSString *)code
-                       Success:(void (^)(id responseObject))success
-                       failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark-检查用户名是否已存在
 -(void)checkUserNameByloginName:(NSString *)loginName
@@ -186,11 +175,7 @@
                   failure:(void (^)(NSError *error))failure;
 
 
-#pragma mark -退出登录
--(void)logoutInfoByToken:(NSString *)token
-              byAccessId:(NSString *)accessId
-                 Success:(void (^)(id responseObject))success
-                 failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark -保存供应信息收藏
 -(void)collectSupplyWithSupplyNuresyid:(NSString *)nuresyid
@@ -1584,16 +1569,8 @@ failure:(void (^)(NSError *error))failure;
             WithproductUid:(NSString *)productUid
                    Success:(void (^)(id responseObject))success
                    failure:(void (^)(NSError *error))failure;
-#pragma mark -经纪人详情
--(void)jjrDetialWithUid:(NSString *)uid
-                Success:(void (^)(id responseObject))success
-                failure:(void (^)(NSError *error))failure;
-#pragma mark -经纪人修改
--(void)jjrdetialChangeWithKey:(NSString *)key
-                        Value:(NSString *)value
-                  defaultArea:(NSString *)defaultArea
-                      Success:(void (^)(id responseObject))success
-                      failure:(void (^)(NSError *error))failure;
+
+
 #pragma mark -经纪人供求列表
 -(void)jjrgqListWithUid:(NSString *)uid
                WtihType:(NSString *)type
@@ -1895,6 +1872,14 @@ failure:(void (^)(NSError *error))failure;
                          WithoutTradeNo:(NSString *)outTradeNo
                                 Success:(void (^)(id responseObject))success
                                 failure:(void (^)(NSError *error))failure;
+#pragma mark -经纪人详情
+-(void)jjrDetialWithUid:(NSString *)uid
+                Success:(void (^)(id responseObject))success
+                failure:(void (^)(NSError *error))failure;
+#pragma mark -经纪人修改自我介绍、经营品种、主营区域
+-(void)jjrdetialChangeWithbodyStr:(NSString *)bodyStr
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 工程公司资质申请状态 -----------
 - (void)projectCompanyStatusSuccess:(void (^)(id responseObject))success
                             failure:(void (^)(NSError *error))failure;
@@ -1959,4 +1944,19 @@ failure:(void (^)(NSError *error))failure;
 -(void)messageUnReadNumWithpartyId:(NSString *)partyId
                            Success:(void (^)(id responseObject))success
                            failure:(void (^)(NSError *error))failure;
+#pragma mark-登录
+-(void)loginInWithPhone:(NSString *)phone
+            andPassWord:(NSString *)passWord
+                Success:(void (^)(id responseObject))success
+                failure:(void (^)(NSError *error))failure;
+#pragma mark-帐号注册
+-(void)registeredUserWithPhone:(NSString *)phone
+                  withPassWord:(NSString *)password
+                withRepassWord:(NSString *)repassword
+                      withCode:(NSString *)code
+                       Success:(void (^)(id responseObject))success
+                       failure:(void (^)(NSError *error))failure;
+#pragma mark -退出登录
+-(void)logoutSuccess:(void (^)(id responseObject))success
+                 failure:(void (^)(NSError *error))failure;
 @end

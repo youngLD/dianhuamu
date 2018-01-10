@@ -14,12 +14,12 @@
 #import "YLDLoginViewController.h"
 #import "YLDSHomePageViewController.h"
 #import "YLDFMessageViewController.h"
-#import "YLDTabBar.h"
+//#import "YLDTabBar.h"
 #import "SDTimeLineTableViewController.h"
 #define kTABBARH 50
-@interface BaseTabBarController ()<YLDTabBarViewDelegate>
-@property UIView *BTabBar;
-@property BOOL TabBarHiden;
+@interface BaseTabBarController ()
+//@property UIView *BTabBar;
+//@property BOOL TabBarHiden;
 
 @end
 
@@ -69,6 +69,7 @@
     orderVC.tabBarItem.image = [[UIImage imageNamed:@"shouyeoff"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     orderNav.interactivePopGestureRecognizer.enabled = NO;
     orderVC.tabBarItem.selectedImage =[[UIImage imageNamed:@"shouyeon"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.delegate=(id)orderVC;
     
     //发布
     SDTimeLineTableViewController *MQvc=[[SDTimeLineTableViewController alloc]init];
@@ -113,7 +114,8 @@
                                                        titleHighlightedColor, NSForegroundColorAttributeName,
                                                        [UIFont fontWithName:@"Helvetica" size:14.0], NSFontAttributeName,
                                                        nil] forState:UIControlStateSelected];
-    [self showBadgeOnItemIndex:2];
+//    [self showBadgeOnItemIndex:2];
+    
 }
 
 
@@ -175,21 +177,21 @@
     view.hidden=YES;
 }
 //代理方法 ，自定义按钮点击
--(void)mainTabBarViewDidClick:(YLDTabBar *)hBTabBarView{
-    
-  
-    UINavigationController* nav = [self.viewControllers objectAtIndex:self.selectedIndex];
-    
-    UIViewController *rootview = [nav.viewControllers objectAtIndex:0];
-    
-    SDTimeLineTableViewController *vc=[[SDTimeLineTableViewController alloc]init];
-    vc.navigationController.navigationBar.hidden=NO;
-    vc.hidesBottomBarWhenPushed=YES;
-    
-    
-    [rootview.navigationController pushViewController:vc animated:YES];
-
-}
+//-(void)mainTabBarViewDidClick:(YLDTabBar *)hBTabBarView{
+//    
+//  
+//    UINavigationController* nav = [self.viewControllers objectAtIndex:self.selectedIndex];
+//    
+//    UIViewController *rootview = [nav.viewControllers objectAtIndex:0];
+//    
+//    SDTimeLineTableViewController *vc=[[SDTimeLineTableViewController alloc]init];
+//    vc.navigationController.navigationBar.hidden=NO;
+//    vc.hidesBottomBarWhenPushed=YES;
+//    
+//    
+//    [rootview.navigationController pushViewController:vc animated:YES];
+//
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

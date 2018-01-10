@@ -13,7 +13,9 @@
 @end
 
 @implementation YLDJJRChangeAreaViewController
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"主营品种";

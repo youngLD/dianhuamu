@@ -633,6 +633,11 @@
     self.addressAry =nil;
     self.qyModel=nil;
     self.isCanPublishBuy=NO;
+    [HTTPCLIENT logoutSuccess:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 #pragma mark - 用户通知(推送) _自定义方法
 #pragma mark SDK Init

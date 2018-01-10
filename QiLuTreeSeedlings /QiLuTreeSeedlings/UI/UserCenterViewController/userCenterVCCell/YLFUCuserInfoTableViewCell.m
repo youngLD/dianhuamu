@@ -26,6 +26,9 @@
 -(void)reloadselfInfo
 {
     if (![APPDELEGATE isNeedLogin]) {
+        self.nameLab.text=@"登录";
+        self.phoneLab.text=nil;
+        [self.userImageV setImage:[UIImage imageNamed:@"userImageMR.png"]];
         return;
     }
     if (APPDELEGATE.userModel.nickname.length>0) {

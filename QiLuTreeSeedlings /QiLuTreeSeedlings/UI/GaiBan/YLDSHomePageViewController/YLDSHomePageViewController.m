@@ -14,49 +14,24 @@
 #import "UIDefines.h"
 #import "AdvertView.h"
 #import "CircleViews.h"
-#import "ZIKStationOrderTableViewCell.h"
-#import "YLDTBuyListCell.h"
-#import "YLDSsupplyBaseCell.h"
-#import "HotBuyModel.h"
-#import "HotSellModel.h"
-#import "ZIKStationOrderModel.h"
 #import "YYModel.h"
 #import "SearchViewController.h"
 #import "YLDLoginViewController.h"
-#import "YLDJPGYSBaseTabBarController.h"
-#import "ZIKStationTabBarViewController.h"
 #import "YLDGongChengGongSiViewController.h"
-#import "ZIKMiaoQiTabBarViewController.h"
-#import "YLDMXETabBarViewController.h"
-#import "YLDChatBaseTabBarController.h"
-#import "YLDZBLmodel.h"
-#import "YLDZXLmodel.h"
 
-#import "YLDPenJingMiMuViewController.h"
-#import "YLDZaoXingMMViewController.h"
-#import "YLDZiCaiShangChengViewController.h"
 #import "ZIKFunction.h"
-#import "YLDSadvertisementModel.h"
-#import "BuyDetialInfoViewController.h"
+
 #import "SellDetialViewController.h"
-#import "ZIKStationOrderDetailViewController.h"
-#import "YLDSMiaoShangNewsViewController.h"
-#import "ZIKOrderViewController.h"
+
 #import "YLDSBigImageVadCell.h"
 #import "YLDStextAdCell.h"
-#import "ZIKMyShopViewController.h"
 #import "YLDSADViewController.h"
-#import "ZIKNewsDetialViewController.h"
-#import "YLDSMiaoShangNewsViewController.h"
 #import "YLDLoginViewController.h"
 #import "UINavController.h"
-#import "YLDShengJiViewViewController.h"
 #import "ZIKMyShopViewController.h"
 #import "UIButton+ZIKEnlargeTouchArea.h"
 #import "YLDSearchActionViewController.h"
-#import "YLDSNewsListNoPicCell.h"
-#import "YLDSNewsListOnePicCell.h"
-#import "YLDSNewsListThreePicCell.h"
+
 #import "ZIKVoucherCenterViewController.h"
 #import "YLDSPinDaoViewController.h"
 //朋友圈
@@ -82,16 +57,21 @@
 #import "YLDTLeftTextAdCell.h"
 #import "YLDTMoreBigImageADCell.h"
 #import "YLDTHZDWViewController.h"
+
+
+//第四版
+#import "YLDFSupplyModel.h"
+#import "YLFMySupplyTableViewCell.h"
+#import "YLDFHomeFenYeViewConroller.h"
+#import "ZIKOrderViewController.h"
+//#import "<#header#>"
 #define TopBtnW 90
-@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate>
+@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *searchTopV;
 @property (nonatomic,strong)NSMutableArray *orderMArr;//工程订单
-@property (nonatomic,strong)NSMutableArray *supplyDataAry;//热门供应
+@property (nonatomic,strong)NSArray *supplyDataAry;//热门供应
 @property (nonatomic,strong)NSArray *BuyDataAry;//热门求购
-@property (nonatomic,strong)NSArray *zbDataAry;//招标
-@property (nonatomic,strong)NSArray *zxDataAry;//资讯
-@property (nonatomic,strong)NSArray *jmDataAry;//加盟
 @property (nonatomic,strong)NSArray *lunboAry;
 @property (nonatomic)NSInteger PageCount;
 @property (nonatomic,strong)NSArray *classAry;
@@ -103,7 +83,7 @@
 @property (nonatomic)CGRect rect;
 @property (nonatomic)BOOL what;
 @property (nonatomic,strong)UIView *topView1;
-@property (nonatomic,strong)YLDZXLmodel *payZBModel;
+
 @property (nonatomic)BOOL paySuccess;
 @property (nonatomic,strong)UIButton *goTopBtn;
 @property (nonatomic,strong)NSArray *borkers;
@@ -129,28 +109,14 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    if (_paySuccess) {
-        ZIKNewsDetialViewController *zikNDVC=[[ZIKNewsDetialViewController alloc]init];
-        zikNDVC.urlString=_payZBModel.uid;
-        zikNDVC.newstitle=_payZBModel.articleCategoryName;
-        zikNDVC.newstext=_payZBModel.title;
-        zikNDVC.newsimageUrl=[_payZBModel.picAry firstObject];
-        zikNDVC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:zikNDVC animated:YES];
-        _paySuccess=NO;
-        _payZBModel =nil;
-    }else{
-        _paySuccess=NO;
-        _payZBModel =nil;
-    }
+    
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessageForSaoMa:) name:@"saosaokanxinwen" object:nil];
     self.PageCount=1;
-    self.supplyDataAry=[NSMutableArray array];
+    
     self.orderMArr=[NSMutableArray array];
     self.newsDataAry=[NSMutableArray array];
     self.locationManager = [[CLLocationManager alloc] init];
@@ -205,42 +171,10 @@
     //缓存
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *result = [userDefaults objectForKey:@"homePageCaches1"];
+    NSDictionary *result = [userDefaults objectForKey:@"homePageCaches2"];
     self.supplyDataAry=[NSMutableArray array];
     if (result) {
-        self.zbDataAry=[YLDZBLmodel creatByAry:[result objectForKey:@"tenders"]];
-        self.zxDataAry=[YLDZXLmodel yldZXLmodelbyAry:[result objectForKey:@"articles"]];
-        NSArray *orderListArr=[[result objectForKey:@"order"] objectForKey:@"orders"];
-        [orderListArr enumerateObjectsUsingBlock:^(NSDictionary *orderDic, NSUInteger idx, BOOL * _Nonnull stop) {
-                ZIKStationOrderModel *model = [ZIKStationOrderModel yy_modelWithDictionary:orderDic];
-                [model initStatusType];
-                [self.orderMArr addObject:model];
-        }];
-        NSString *orderAdvertisementsStr=[[result objectForKey:@"order"] objectForKey:@"advertisements"];
-        NSDictionary *orderAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:orderAdvertisementsStr];
-            
-        NSArray *orderAdAry=[YLDSadvertisementModel aryWithAry:[orderAdvertisementsDic objectForKey:@"result"]];
-        [self.orderMArr addObjectsFromArray:orderAdAry];
-        NSDictionary *buydic=[result objectForKey:@"buy"];
-        NSString *buyAdvertisementsStr=[buydic objectForKey:@"advertisements"];
-        NSDictionary *buyAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:buyAdvertisementsStr];
-        NSArray *buyADAry=[YLDSadvertisementModel aryWithAry:buyAdvertisementsDic[@"result"]];
-        NSArray *buyDataAry=[HotBuyModel creathotBuyModelAryByAry:[buydic objectForKey:@"buys"]];
-        NSArray *borkers = result[@"borkers"];
-            self.borkers=[YLDJJrModel yldJJrModelByAry:borkers];
-            self.BuyDataAry = [ZIKFunction aryWithMessageAry:buyDataAry withADAry:buyADAry];
-        NSDictionary *supply1=[result objectForKey:@"supply"];
-        NSArray *supplyAry=[HotSellModel hotSellAryByAry:[supply1 objectForKey:@"supplys"]];
-        NSString *supplyAdvertisementsStr=[supply1 objectForKey:@"advertisements"];
-        NSDictionary *supplyAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:supplyAdvertisementsStr];
-        NSArray *supplyadAry=[YLDSadvertisementModel aryWithAry:[supplyAdvertisementsDic objectForKey:@"result"]];;
-        [self.supplyDataAry addObjectsFromArray:[ZIKFunction aryWithMessageAry:supplyAry withADAry:supplyadAry]];
-        self.jmDataAry=[result objectForKey:@"joins"];
-            
-        NSString *carouselsAdvertisementsStr=[result objectForKey:@"carousels"];
-        NSDictionary *carouselsAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:carouselsAdvertisementsStr];
-        self.lunboAry=[YLDSadvertisementModel aryWithAry:[carouselsAdvertisementsDic objectForKey:@"result"]];
-
+       
     }
     
 
@@ -283,21 +217,9 @@
     [self.view addSubview:self.topView1];
  
     [self getDataListWithPageNum:@"1"];
-    [HTTPCLIENT getNewsClassSuccess:^(id responseObject) {
-        RemoveActionV();
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            self.classAry=[[responseObject objectForKey:@"result"] objectForKey:@"ArticleCategory"];
-        
-            [self topActionWithAry:self.classAry];
-        }else{
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        RemoveActionV();
-    }];
+   
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(paySccessAction) name:@"PaySuccessNotification" object:nil];
-    
+
  
     self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-60, kHeight-110, 50, 50)];
     [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateNormal];
@@ -307,7 +229,15 @@
     self.goTopBtn.hidden=YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMessageForDingzhiXinXi:) name:@"dingzhixinxituisong" object:nil];
 }
-
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(nonnull UIViewController *)viewController
+{
+    
+    
+}
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    return YES;
+}
 -(void)pushMessageForDingzhiXinXi:(NSNotification *)notification
 {
     
@@ -317,16 +247,6 @@
 -(void)gotopBtnAction
 {
     [self.tableView setContentOffset:CGPointMake(0,0) animated:YES];
-}
--(void)paySccessAction
-{
-    if (self.payZBModel) {
-        _paySuccess =YES;
-        self.payZBModel.isbuy=1;
-        self.payZBModel.readed=YES;
-        self.payZBModel.viewTimes+=1;
-    }
-    
 }
 
 
@@ -356,28 +276,20 @@
     }
     NSDictionary *dic=self.classAry[self.nowBtn.tag-1];
     self.PageCount=1;
-    [self getNewsdataWithPage:[NSString stringWithFormat:@"%ld",self.PageCount] withzhonglei:dic[@"uid"] withKeyWord:nil];
+
     
 }
 -(void)topActionVBtnAction:(UIButton *)sender
 {
-//    if (sender.selected) {
-//        return;
-//    }
-  
     self.ActionVNowBtn.selected=NO;
     sender.selected=YES;
     self.lastType=sender.tag;
     self.ActionVNowBtn=sender;
     CGRect frame=self.topActionMoveV.frame;
     frame.origin.x=sender.tag*(kWidth/4);
-    [UIView animateWithDuration:0.3 animations:^{
-        self.topActionMoveV.frame=frame;
-        [self reloadTableVVVWithLastType];
-    }];
-    
-    
-    
+    self.topActionMoveV.frame=frame;
+    YLDFHomeFenYeViewConroller *vc=[YLDFHomeFenYeViewConroller new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)qiugouSteteBtnAction:(UIButton *)sender
 {
@@ -400,145 +312,7 @@
 -(void)reloadTableVVVWithLastType
 {
     
-    if(_lastType==1)
-    {
-        ShowActionV();
-        [HTTPCLIENT buySearchWithPage:@"1" WithPageSize:@"15" Withgoldsupplier:nil WithproductUid:nil WithproductName:nil WithProvince:nil WithCity:nil WithCounty:nil WithsearchTime:nil WithSearchStatus:self.qiugouState WithAry:nil   Success:^(id responseObject) {
-            NSDictionary *dic=[responseObject objectForKey:@"result"];
-            NSString *advertisementsStr=[dic objectForKey:@"advertisements"];
-            NSDictionary *advertisementsDic=[ZIKFunction dictionaryWithJsonString:advertisementsStr];
-            NSArray *adary=[YLDSadvertisementModel aryWithAry:[advertisementsDic objectForKey:@"result"]];
-            
-            NSArray *buyzDataAry=[HotBuyModel creathotBuyModelAryByAry:[dic objectForKey:@"buys"]];
-            
-            if (buyzDataAry.count>0) {
-              _BuyDataAry =  [ZIKFunction aryWithMessageAry:buyzDataAry withADAry:adary];
-                
-            }else{
-                _BuyDataAry=@[];
-                [ToastView showTopToast:@"已无更多信息"];
-            }
-            
-            RemoveActionV();
-            [self.tableView reloadData];
-            if (buyzDataAry.count>0) {
-                [self.tableView layoutIfNeeded];
-                NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:5];
-                [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-           
-            
-           
-            dispatch_async(dispatch_get_main_queue(), ^{
-            [self changeNav];
-                
-            });
-        } failure:^(NSError *error) {
-            RemoveActionV();
-            
-        }];
-    }
-    if(_lastType==0)
-    {
-        ShowActionV();
-        [HTTPCLIENT SellListWithWithPageSize:@"20" WithPage:_supplyFirstTime Withgoldsupplier:@"0" WithSerachTime:_supplyLastTime  Success:^(id responseObject) {
-            
-            NSDictionary *dic=[responseObject objectForKey:@"result"];
-            self.supplyFirstTime=dic[@"fristTime"];
-            self.supplyLastTime=dic[@"lastTime"];
-            NSString *advertisementsStr=[dic objectForKey:@"advertisements"];
-            NSDictionary *advertisementsDic=[ZIKFunction dictionaryWithJsonString:advertisementsStr];
-            NSArray *adary=[YLDSadvertisementModel aryWithAry:[advertisementsDic objectForKey:@"result"]];
-            NSArray *aryzz=[HotSellModel hotSellAryByAry:[dic objectForKey:@"supplys"]];
-            if (aryzz.count > 0) {
-                [self.supplyDataAry removeAllObjects];
-                [self.supplyDataAry addObjectsFromArray:[ZIKFunction aryWithMessageAry:aryzz withADAry:adary]];
-                
-                
-            }
-
-            
-            [self.tableView reloadData];
-            if (aryzz.count > 0) {
-                [self.tableView layoutIfNeeded];
-                NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:5];
-                
-                [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self changeNav];
-
-            });
-            RemoveActionV();
-        } failure:^(NSError *error) {
-            RemoveActionV();
-            
-        }];
-
-    }
-    if(_lastType==2)
-    {
-        
-       [self.tableView reloadData];
-       [self.tableView layoutIfNeeded];
-        [HTTPCLIENT getHomePageInfoSuccess:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]!=0) {
-                
-               
-                [self.orderMArr removeAllObjects];
-                NSDictionary *result = [responseObject objectForKey:@"result"];
-               
-                NSArray *orderListArr=[[result objectForKey:@"order"] objectForKey:@"orders"];
-                NSMutableArray *orderAry=[NSMutableArray array];
-                [orderListArr enumerateObjectsUsingBlock:^(NSDictionary *orderDic, NSUInteger idx, BOOL * _Nonnull stop) {
-                    ZIKStationOrderModel *model = [ZIKStationOrderModel yy_modelWithDictionary:orderDic];
-                    [model initStatusType];
-                    [orderAry addObject:model];
-                }];
-                NSString *orderAdvertisementsStr=[[result objectForKey:@"order"] objectForKey:@"advertisements"];
-                NSDictionary *orderAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:orderAdvertisementsStr];
-                
-                NSArray *orderAdAry=[YLDSadvertisementModel aryWithAry:[orderAdvertisementsDic objectForKey:@"result"]];
-                self.orderMArr=[ZIKFunction aryWithMessageAry:orderAry withADAry:orderAdAry andIndex:2];
-                [self.tableView reloadData];
-                if (self.orderMArr.count > 0) {
-                    [self.tableView layoutIfNeeded];
-                    NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:5];
-                    
-                    [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:NO];
-                }
-                
-                
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-            
-        } failure:^(NSError *error) {
-            
-        }];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-        
-          [self changeNav];
-        });
-        RemoveActionV();
-       
-    }
-    if(_lastType==3)
-    {
-        
-        [self.tableView reloadData];
-        [self.tableView layoutIfNeeded];
-        NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:5];
-        
-        [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        dispatch_async(dispatch_get_main_queue(), ^{
-         [self changeNav];
-        });
-        RemoveActionV();
-        
-    }
+   
 }
 
 #pragma mark ---------TableView相关----------
@@ -552,18 +326,18 @@
         return 1;
     }
     if (section == 5) {
-        if (_lastType==1) {
-            return self.BuyDataAry.count;
-        }
-        if (_lastType==0) {
+//        if (_lastType==1) {
+//            return self.BuyDataAry.count;
+//        }
+//        if (_lastType==0) {
             return  self.supplyDataAry.count;
-        }
-        if (_lastType==2) {
-            return self.orderMArr.count;
-        }
-        if (_lastType==3) {
-            return self.newsDataAry.count;
-        }
+//        }
+//        if (_lastType==2) {
+//            return self.orderMArr.count;
+//        }
+//        if (_lastType==3) {
+//            return self.newsDataAry.count;
+//        }
         
     }
     return 1;
@@ -586,128 +360,7 @@
         return 0.01;
     }
     if (indexPath.section==5) {
-        if (_lastType==1) {
-            id model=self.BuyDataAry[indexPath.row];
-            if ([model isKindOfClass:[YLDSadvertisementModel class]]) {
-                YLDSadvertisementModel *model=self.BuyDataAry[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-
-            }else{
-                return 90;
-            }
-            
-            
-        }
-        if (_lastType==0) {
-            id model=self.supplyDataAry[indexPath.row];
-            if ([model isKindOfClass:[YLDSadvertisementModel class]]) {
-                YLDSadvertisementModel * model=self.supplyDataAry[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-
-            }
-            return 190;
-        }
-        if (_lastType==2) {
-            id model=self.orderMArr[indexPath.row];
-            if ([model isKindOfClass:[YLDSadvertisementModel class]])
-            {
-                YLDSadvertisementModel *model=self.orderMArr[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-                
-            }else{
-                self.tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                self.tableView.estimatedRowHeight = 185;
-                return tableView.rowHeight;
-            }
-
-            
-        }
-        if (_lastType==3) {
-            id model=self.newsDataAry[indexPath.row];
-            if ([model isKindOfClass:[YLDZXLmodel class]]) {
-                YLDZXLmodel *model=self.newsDataAry[indexPath.row];
-                if (model.picAry.count<=0) {
-                    return 90;
-                }
-                if (model.picAry.count>0&&model.picAry.count<3) {
-                    
-                    return 130;
-                }
-                if (model.picAry.count>=3) {
-                    return 180;
-                }
-            }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-            {
-                YLDSadvertisementModel *model=self.newsDataAry[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-                
-            }
-        }
-        
+        return 182;
         
     }
     return 44;
@@ -805,175 +458,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section==5&&_lastType==0) {
-        id model=self.supplyDataAry[indexPath.row];
+    if (indexPath.section==5) {
         
-        if ([model isKindOfClass:[HotSellModel class]]) {
-            HotSellModel *model=self.supplyDataAry[indexPath.row];
-            
-            SellDetialViewController *sellDetialViewC=[[SellDetialViewController alloc]initWithUid:model];
-            sellDetialViewC.hidesBottomBarWhenPushed=YES;
-            [self.navigationController pushViewController:sellDetialViewC animated:YES];
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel *model=self.supplyDataAry[indexPath.row];
-            if (model.adType==0) {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.content;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==1)
-            {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.link;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==2)
-            {
-                ZIKMyShopViewController *shopVC = [[ZIKMyShopViewController alloc] init];
-                shopVC.memberUid = model.shop;
-                shopVC.type = 1;
-                shopVC.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:shopVC animated:YES];
-            }
-        }
-    }
-    if (indexPath.section==5&&_lastType==2) {
-        
-        id model=self.orderMArr[indexPath.row];
-        
-        if ([model isKindOfClass:[ZIKStationOrderModel class]]) {
-            if (![APPDELEGATE isNeedLogin]) {
-                YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
-                [ToastView showTopToast:@"请先登录"];
-                UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
-                
-                [self presentViewController:navVC animated:YES completion:^{
-                    
-                }];
-                return;
-            }
-            
-            ZIKStationOrderModel *model=self.orderMArr[indexPath.row];
-            ZIKStationOrderDetailViewController *orderDetailVC = [[ZIKStationOrderDetailViewController alloc] init];
-            
-            orderDetailVC.orderUid   = model.uid;
-            orderDetailVC.statusType = model.statusType;
-            orderDetailVC.hidesBottomBarWhenPushed=YES;
-            [self.navigationController pushViewController:orderDetailVC animated:YES];
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel *model=self.orderMArr[indexPath.row];
-            if (model.adType==0) {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.content;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==1)
-            {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.link;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==2)
-            {
-                ZIKMyShopViewController *shopVC = [[ZIKMyShopViewController alloc] init];
-                shopVC.memberUid = model.shop;
-                shopVC.type = 1;
-                shopVC.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:shopVC animated:YES];
-            }
-        }
-        
-    }
-    if (indexPath.section==5&&_lastType==1) {
-        id model = self.BuyDataAry[indexPath.row];
-        if ([model isKindOfClass:[HotBuyModel class]]) {
-            HotBuyModel *model=self.BuyDataAry[indexPath.row];
-            BuyDetialInfoViewController *vc=[[BuyDetialInfoViewController alloc]initWithSaercherInfo:model.uid];
-            vc.hidesBottomBarWhenPushed=YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        if ([model isKindOfClass:[YLDSadvertisementModel class]]) {
-            YLDSadvertisementModel *model=self.BuyDataAry[indexPath.row];
-            if (model.adType==0) {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.content;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==1)
-            {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.link;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==2)
-            {
-                ZIKMyShopViewController *shopVC = [[ZIKMyShopViewController alloc] init];
-                shopVC.memberUid = model.shop;
-                shopVC.type = 1;
-                shopVC.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:shopVC animated:YES];
-            }
-        }
-        
-    }
-    if (indexPath.section==5&&_lastType==3) {
-        id model=self.newsDataAry[indexPath.row];
-        
-        if ([model isKindOfClass:[YLDZXLmodel class]]) {
-            YLDZXLmodel *model=self.newsDataAry[indexPath.row];
-            if (model.tenderBuy==YES && model.isbuy== 0&&model.tenderPrice>0) {
-                if (![APPDELEGATE isNeedLogin]) {
-                    YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
-                    [ToastView showTopToast:@"请先登录"];
-                    UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
-                    
-                    [self presentViewController:navVC animated:YES completion:^{
-                        
-                    }];
-                    return;
-                }
-                self.payZBModel=model;
-                ZIKVoucherCenterViewController *vc=[[ZIKVoucherCenterViewController alloc]init];
-                vc.infoType=4;
-                vc.uid=model.uid;
-                vc.wareStr=@"查看此招标信息";
-                vc.price=[NSString stringWithFormat:@"%.2lf",model.tenderPrice];
-                vc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }else{
-                ZIKNewsDetialViewController *zikNDVC=[[ZIKNewsDetialViewController alloc]init];
-                zikNDVC.urlString=model.uid;
-                zikNDVC.newstitle=model.articleCategoryName;
-                zikNDVC.newstext=model.title;
-                zikNDVC.hidesBottomBarWhenPushed=YES;
-                zikNDVC.newsimageUrl=[model.picAry firstObject];
-                [self.navigationController pushViewController:zikNDVC animated:YES];
-            }
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel *model=self.newsDataAry[indexPath.row];
-            if (model.adType==0) {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.content;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==1)
-            {
-                YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                advc.urlString=model.link;
-                advc.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:advc animated:YES];
-            }else if (model.adType==2)
-            {
-                ZIKMyShopViewController *shopVC = [[ZIKMyShopViewController alloc] init];
-                shopVC.memberUid = model.shop;
-                shopVC.type = 1;
-                shopVC.hidesBottomBarWhenPushed=YES;
-                [self.navigationController pushViewController:shopVC animated:YES];
-            }
-        }
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -1008,192 +494,18 @@
         cell.modelAry=self.borkers;
         return cell;
     }
-    
-    if (indexPath.section==5&&_lastType==2) {
+    if (indexPath.section==5) {
         
-        id model=self.orderMArr[indexPath.row];
-        if ([model isKindOfClass:[ZIKStationOrderModel class]]) {
-            __block  ZIKStationOrderTableViewCell *cell = [ZIKStationOrderTableViewCell cellWithTableView:tableView];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if (self.orderMArr.count > 0) {
-                __block  ZIKStationOrderModel *model = self.orderMArr[indexPath.row];
-                [cell configureCell:model];
-                cell.indexPath = indexPath;
-                //按钮点击展开隐藏
-                cell.openButtonBlock = ^(NSIndexPath *indexPath){
-                    model.isShow = !model.isShow;
-                    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
-                };
-            }
-            return cell;
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel * model=self.orderMArr[indexPath.row];
-            if (model.adsType==0) {
-                YLDSBigImageVadCell *cell=[YLDSBigImageVadCell yldSBigImageVadCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==1){
-                YLDStextAdCell *cell=[YLDStextAdCell yldStextAdCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==2){
-                YLDTMoreBigImageADCell *cell=[YLDTMoreBigImageADCell yldTMoreBigImageADCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==3){
-                YLDTADThreePicCell *cell=[YLDTADThreePicCell yldTADThreePicCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==6){
-                YLDTLeftTextAdCell *cell=[YLDTLeftTextAdCell yldTLeftTextAdCell];
-                cell.model=model;
-                return cell;
-            }
+        YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
+        if (!cell) {
+            cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
+
         }
-        
+        cell.model=self.supplyDataAry[indexPath.row];
+        return cell;
         
     }
-    if (indexPath.section==5&&_lastType==1) {
-        id model=self.BuyDataAry[indexPath.row];
-        if ([model isKindOfClass:[HotBuyModel class]]) {
-            YLDTBuyListCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDTBuyListCell"];
-            if (!cell) {
-                cell=[YLDTBuyListCell yldTBuyListCell];
-                
-            }
-            cell.model=model;
-            return cell;
-        }else if([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel *model=self.BuyDataAry[indexPath.row];
-            if (model.adsType==0) {
-                YLDSBigImageVadCell *cell=[YLDSBigImageVadCell yldSBigImageVadCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==1){
-                YLDStextAdCell *cell=[YLDStextAdCell yldStextAdCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==2){
-                YLDTMoreBigImageADCell *cell=[YLDTMoreBigImageADCell yldTMoreBigImageADCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==3){
-                YLDTADThreePicCell *cell=[YLDTADThreePicCell yldTADThreePicCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==6){
-                YLDTLeftTextAdCell *cell=[YLDTLeftTextAdCell yldTLeftTextAdCell];
-                cell.model=model;
-                return cell;
-            }
-        }
-    }
-    if (indexPath.section==5&&_lastType==0) {
-        
-        id model=self.supplyDataAry[indexPath.row];
-        if ([model isKindOfClass:[HotSellModel class]]) {
-            YLDSsupplyBaseCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSsupplyBaseCell"];
-            if (!cell) {
-                cell=[YLDSsupplyBaseCell yldSsupplyBaseCell];
-            }
-            cell.model=model;
-            
-            
-            return cell;
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel * model=self.supplyDataAry[indexPath.row];
-            if (model.adsType==0) {
-                YLDSBigImageVadCell *cell=[YLDSBigImageVadCell yldSBigImageVadCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==1){
-                YLDStextAdCell *cell=[YLDStextAdCell yldStextAdCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==2){
-                YLDTMoreBigImageADCell *cell=[YLDTMoreBigImageADCell yldTMoreBigImageADCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==3){
-                YLDTADThreePicCell *cell=[YLDTADThreePicCell yldTADThreePicCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==6){
-                YLDTLeftTextAdCell *cell=[YLDTLeftTextAdCell yldTLeftTextAdCell];
-                cell.model=model;
-                return cell;
-            }
-        }
-        
-    }
-    if (indexPath.section==5&&_lastType==3) {
-        id model=self.newsDataAry[indexPath.row];
-        if ([model isKindOfClass:[YLDZXLmodel class]]) {
-            YLDZXLmodel *model=self.newsDataAry[indexPath.row];
-            if (model.picAry.count<=0) {
-                YLDSNewsListNoPicCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YLDSNewsListNoPicCell"];
-                if (!cell) {
-                    cell=[YLDSNewsListNoPicCell yldSNewsListNoPicCell];
-                    UIView *lineV=[[UIView alloc]initWithFrame:CGRectMake(10, cell.frame.size.height-0.5, kWidth-20, 0.5)];
-                    [lineV setBackgroundColor:kLineColor];
-                    [cell addSubview:lineV];
-                }
-                cell.model=model;
-                return cell;
-            }
-            if (model.picAry.count>0&&model.picAry.count<3) {
-                YLDSNewsListOnePicCell  *cell= [tableView dequeueReusableCellWithIdentifier:@"YLDSNewsListOnePicCell"];
-                if (!cell) {
-                    cell = [YLDSNewsListOnePicCell yldSNewsListOnePicCell];
-                    UIView *lineV=[[UIView alloc]initWithFrame:CGRectMake(10, cell.frame.size.height-0.5, kWidth-20, 0.5)];
-                    [lineV setBackgroundColor:kLineColor];
-                    [cell addSubview:lineV];
-                }
-                cell.model=model;
-                return cell;
-            }
-            if (model.picAry.count>=3) {
-                YLDSNewsListThreePicCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSNewsListThreePicCell"];
-                if (!cell) {
-                    cell=[YLDSNewsListThreePicCell yldSNewsListThreePicCell];
-                    UIView *lineV=[[UIView alloc]initWithFrame:CGRectMake(10, cell.frame.size.height-0.5, kWidth-20, 0.5)];
-                    [lineV setBackgroundColor:kLineColor];
-                    [cell addSubview:lineV];
-                }
-                cell.model=model;
-                return cell;
-            }
-        }else if ([model isKindOfClass:[YLDSadvertisementModel class]])
-        {
-            YLDSadvertisementModel *model=self.newsDataAry[indexPath.row];
-            if (model.adsType==0) {
-                YLDSBigImageVadCell *cell=[YLDSBigImageVadCell yldSBigImageVadCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==1){
-                YLDStextAdCell *cell=[YLDStextAdCell yldStextAdCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==2){
-                YLDTMoreBigImageADCell *cell=[YLDTMoreBigImageADCell yldTMoreBigImageADCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==3){
-                YLDTADThreePicCell *cell=[YLDTADThreePicCell yldTADThreePicCell];
-                cell.model=model;
-                return cell;
-            }else if (model.adsType==6){
-                YLDTLeftTextAdCell *cell=[YLDTLeftTextAdCell yldTLeftTextAdCell];
-                cell.model=model;
-                return cell;
-            }
-            
-        }
-        
-    }
+
     UITableViewCell *cell=[UITableViewCell new];
     
     return cell;
@@ -1217,11 +529,7 @@
             }];
             return ;
         }
-        ZIKOrderViewController *orderVC=[[ZIKOrderViewController alloc]init];
-        orderVC.vcTitle=@"工程订单";
-        orderVC.title=@" 工程订单 ";
-        orderVC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:orderVC animated:YES];
+        
     }
     if (sender.tag==4&&_lastType==1) {
         NSInteger type=3;
@@ -1238,9 +546,7 @@
         [self.navigationController pushViewController:searVC animated:YES];
     }
     if (sender.tag==4&&_lastType==3) {
-        YLDSMiaoShangNewsViewController *newsVC=[[YLDSMiaoShangNewsViewController alloc]init];
-        newsVC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:newsVC animated:YES];
+        
 
     }
    
@@ -1329,7 +635,7 @@
         if (i==0) {
             self.nowBtn=btn;
             btn.selected=YES;
-            [self getNewsdataWithPage:[NSString stringWithFormat:@"%ld",self.PageCount] withzhonglei:dic[@"uid"] withKeyWord:nil];
+
             
         }
     }
@@ -1555,108 +861,24 @@
     [self.cityBtn setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
     [_cityBtn setImage:[UIImage imageNamed:@"selectAreaRB"] forState:UIControlStateNormal];
 }
-#pragma mark ---------新闻接口----------
--(void)getNewsdataWithPage:(NSString *)page withzhonglei:(NSString *)zhonglei withKeyWord:(NSString *)keyWrod
-{
-    [HTTPCLIENT getNewsListWitharticleCategory:zhonglei pageNumber:_newsFirstTime pageSize:@"15" keywords:_newsLastTime Success:^(id responseObject) {
-        
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            
-            NSDictionary *result=[responseObject objectForKey:@"result"];
-            _newsFirstTime=[result objectForKey:@"firstTime"];
-            _newsLastTime=[result objectForKey:@"lastTime"];
-            NSString *AdvertisementsStr=[result objectForKey:@"advertisements"];
-            NSDictionary *AdvertisementsDic=[ZIKFunction dictionaryWithJsonString:AdvertisementsStr];
-            NSArray *adAry=[YLDSadvertisementModel aryWithAry:[AdvertisementsDic objectForKey:@"result"]];
-            NSArray *newsAry=[YLDZXLmodel yldZXLmodelbyAry:[result objectForKey:@"article"]];
-            if (newsAry.count>0) {
-                [self.newsDataAry removeAllObjects];
-            }else if([page isEqualToString:@"1"])
-            {
-                [self.newsDataAry removeAllObjects];
-            }
-            [self.newsDataAry addObjectsFromArray:[ZIKFunction aryWithMessageAry:newsAry withADAry:adAry andIndex:2]];
-            
-        }else{
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-        if(self.what==YES)
-        {
-            [self.tableView reloadData];
-            if (self.newsDataAry.count > 0) {
-                [self.tableView layoutIfNeeded];
-                NSIndexPath * dayOne = [NSIndexPath indexPathForRow:0 inSection:5];
-                
-                [self.tableView scrollToRowAtIndexPath:dayOne atScrollPosition:UITableViewScrollPositionTop animated:NO];
-            }
-        ;
-        }
-        
-        
-        self.what=YES;
-    } failure:^(NSError *error) {
-        
-    }];
-}
 
 -(void)getDataListWithPageNum:(NSString *)num
 {
     [HTTPCLIENT getHomePageInfoSuccess:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]!=0) {
             
-                [self.supplyDataAry removeAllObjects];
+//                [self.supplyDataAry removeAllObjects];
                 [self.orderMArr removeAllObjects];
-            NSDictionary *result = [responseObject objectForKey:@"result"];
+            NSDictionary *result = [responseObject objectForKey:@"data"];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:result forKey:@"homePageCaches1"];
+            [userDefaults setObject:result forKey:@"homePageCaches2"];
             [userDefaults synchronize];
 
-            NSArray *borkers = result[@"borkers"];
+            NSArray *borkers = result[@"brokers"];
             self.borkers=[YLDJJrModel yldJJrModelByAry:borkers];
-                self.zbDataAry=[YLDZBLmodel creatByAry:[result objectForKey:@"tenders"]];
-                self.zxDataAry=[YLDZXLmodel yldZXLmodelbyAry:[result objectForKey:@"articles"]];
-                NSArray *orderListArr=[[result objectForKey:@"order"] objectForKey:@"orders"];
-            NSMutableArray *orderAry=[NSMutableArray array];
-                [orderListArr enumerateObjectsUsingBlock:^(NSDictionary *orderDic, NSUInteger idx, BOOL * _Nonnull stop) {
-                    ZIKStationOrderModel *model = [ZIKStationOrderModel yy_modelWithDictionary:orderDic];
-                    [model initStatusType];
-                    [orderAry addObject:model];
-                }];
-            NSString *orderAdvertisementsStr=[[result objectForKey:@"order"] objectForKey:@"advertisements"];
-            NSDictionary *orderAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:orderAdvertisementsStr];
-            
-            NSArray *orderAdAry=[YLDSadvertisementModel aryWithAry:[orderAdvertisementsDic objectForKey:@"result"]];
-            self.orderMArr=[ZIKFunction aryWithMessageAry:orderAry withADAry:orderAdAry andIndex:2];
-            
-            NSDictionary *buydic=[result objectForKey:@"buy"];
-            
-            NSString *buyAdvertisementsStr=[buydic objectForKey:@"advertisements"];
-            NSDictionary *buyAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:buyAdvertisementsStr];
-            NSArray *buyADAry=[YLDSadvertisementModel aryWithAry:buyAdvertisementsDic[@"result"]];
-            NSArray *buyDataAry=[HotBuyModel creathotBuyModelAryByAry:[buydic objectForKey:@"buys"]];
-            NSMutableArray *tempAry =nil;
-            if (buyADAry.count>0) {
-              tempAry = [ZIKFunction aryWithMessageAry:buyDataAry withADAry:[NSArray arrayWithObject:[buyADAry firstObject]]];
-            }else{
-                tempAry=[NSMutableArray arrayWithArray:buyDataAry];
-            }
-            
-            if (buyADAry.count>1) {
-                [tempAry addObject:[buyADAry lastObject]];
-            }
-            self.BuyDataAry=tempAry;
-                NSDictionary *supply1=[result objectForKey:@"supply"];
-                NSArray *supplyAry=[HotSellModel hotSellAryByAry:[supply1 objectForKey:@"supplys"]];
-            NSString *supplyAdvertisementsStr=[supply1 objectForKey:@"advertisements"];
-            NSDictionary *supplyAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:supplyAdvertisementsStr];
-            NSArray *supplyadAry=[YLDSadvertisementModel aryWithAry:[supplyAdvertisementsDic objectForKey:@"result"]];
-            [self.supplyDataAry addObjectsFromArray:[ZIKFunction aryWithMessageAry:supplyAry withADAry:supplyadAry]];
-                self.jmDataAry=[result objectForKey:@"joins"];
-            NSString *carouselsAdvertisementsStr=[result objectForKey:@"carousels"];
-            NSDictionary *carouselsAdvertisementsDic=[ZIKFunction dictionaryWithJsonString:carouselsAdvertisementsStr];
-            self.lunboAry=[YLDSadvertisementModel aryWithAry:[carouselsAdvertisementsDic objectForKey:@"result"]];
+            NSArray *supplysAry=result[@"supplys"];
+            self.supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
 
-                
             [self.tableView reloadData];
 
         }else{
@@ -1676,7 +898,6 @@
 {
     QRCodeViewController *qrcodevc = [[QRCodeViewController alloc] init];
     qrcodevc.QRCodeSuccessBlock = ^(QRCodeViewController *aqrvc,NSString *qrString){
-        //self.saomiaoLabel.text = qrString;
         [aqrvc dismissViewControllerAnimated:NO completion:nil];
         if ([qrString containsString:@"http"])
         {
@@ -1716,12 +937,12 @@
     if( range1.location != NSNotFound){
         if ([APPDELEGATE isNeedLogin]) {
             NSString *uid=[qrString substringWithRange:NSMakeRange(range1.location+range1.length, qrString.length-range1.location-range1.length)];
-            ZIKStationOrderDetailViewController *orderDetailVC = [[ZIKStationOrderDetailViewController alloc] init];
-            
-            orderDetailVC.orderUid   = uid;
-            orderDetailVC.statusType = 1;
-            orderDetailVC.hidesBottomBarWhenPushed=YES;
-            [self.navigationController pushViewController:orderDetailVC animated:YES];
+//            ZIKStationOrderDetailViewController *orderDetailVC = [[ZIKStationOrderDetailViewController alloc] init];
+//
+//            orderDetailVC.orderUid   = uid;
+//            orderDetailVC.statusType = 1;
+//            orderDetailVC.hidesBottomBarWhenPushed=YES;
+//            [self.navigationController pushViewController:orderDetailVC animated:YES];
         }else{
             YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
             [ToastView showTopToast:@"请先登录"];
@@ -1739,10 +960,10 @@
     if( range2.location != NSNotFound){
         
         NSString *uid=[qrString substringWithRange:NSMakeRange(range2.location+range2.length, qrString.length-range2.location-range2.length)];
-        BuyDetialInfoViewController *buydetialVC=[[BuyDetialInfoViewController alloc]
-                                                  initWithSaercherInfo:uid];
-        buydetialVC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:buydetialVC animated:YES];
+//        BuyDetialInfoViewController *buydetialVC=[[BuyDetialInfoViewController alloc]
+//                                                  initWithSaercherInfo:uid];
+//        buydetialVC.hidesBottomBarWhenPushed=YES;
+//        [self.navigationController pushViewController:buydetialVC animated:YES];
     }
     
     NSRange range3 = [qrString rangeOfString:@"supplyDetailUid="];
@@ -1760,11 +981,11 @@
     if( range4.location != NSNotFound){
         
         NSString *uid=[qrString substringWithRange:NSMakeRange(range4.location+range4.length, qrString.length-range4.location-range4.length)];
-        ZIKNewsDetialViewController *zikNDVC=[[ZIKNewsDetialViewController alloc]init];
-        zikNDVC.hidesBottomBarWhenPushed=YES;
-        zikNDVC.urlString=uid;
-        
-        [self.navigationController pushViewController:zikNDVC animated:YES];
+//        ZIKNewsDetialViewController *zikNDVC=[[ZIKNewsDetialViewController alloc]init];
+//        zikNDVC.hidesBottomBarWhenPushed=YES;
+//        zikNDVC.urlString=uid;
+//        
+//        [self.navigationController pushViewController:zikNDVC animated:YES];
         
     }
 

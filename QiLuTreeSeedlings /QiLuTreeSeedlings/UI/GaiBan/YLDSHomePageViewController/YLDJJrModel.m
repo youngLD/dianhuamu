@@ -49,6 +49,7 @@
     model.productNames=dic[@"product"];
     model.uid=dic[@"uid"];
     model.photo=dic[@"photo"];
+    model.partyId=dic[@"partyId"];
 //    model.comments=[[dic[@"comments"] objectForKey:@"comments"] integerValue];
     model.explain=dic[@"explain"];
     model.defaultArea=dic[@"defaultArea"];

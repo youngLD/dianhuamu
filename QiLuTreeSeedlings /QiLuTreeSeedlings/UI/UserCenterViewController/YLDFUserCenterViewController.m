@@ -36,22 +36,25 @@
 #import "YLDFKeFuViewController.h"
 #import "YLDFEOrderFaBuOneViewController.h"
 #import "MyEngineeringOrderListViewController.h"
+#import "YLDJJRMyViewController.h"
 @interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate>
 
 @end
 
 @implementation YLDFUserCenterViewController
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    
-   
-    
     [APPDELEGATE reloadUserInfoSuccess:^(id responseObject) {
         
         if ([[responseObject objectForKey:@"success"]integerValue]) {
-            [self.tableView reloadData];
+            
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+
          }
         
     } failure:^(NSError *error) {
@@ -62,23 +65,21 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
     self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     self.tableView.bounces=NO;
     
-            if (@available(iOS 11.0, *)) {
-                _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            } else {
-                self.edgesForExtendedLayout = UIRectEdgeNone;
+        if (@available(iOS 11.0, *)) {
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
                 // Fallback on earlier versions
-            }
-    
-//    }
+        }
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logoutSuccess) name:@"logoutSuccess" object:nil];
     // Do any additional setup after loading the view from its nib.
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 4;
 }
@@ -292,6 +293,11 @@
         vc.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
+    if (sender.tag==13) {
+        YLDJJRMyViewController *vc=[YLDJJRMyViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 #pragma mark -其它资料点击Action
 -(void)otherCellClickAction:(UIButton *)sender
@@ -429,6 +435,10 @@
     {
         [self myBuyLsitAction];
     }
+}
+-(void)logoutSuccess
+{
+    [self.tableView reloadData];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

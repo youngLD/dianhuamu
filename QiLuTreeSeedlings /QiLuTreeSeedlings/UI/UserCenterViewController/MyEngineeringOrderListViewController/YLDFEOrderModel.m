@@ -24,6 +24,7 @@
     model.quoteTypeId=dic[@"quoteTypeId"];
     model.status=dic[@"status"];
     model.thruDate=dic[@"thruDate"];
+    model.linkman=dic[@"linkman"];
     model.itemNameH=[ZIKFunction getCGRectWithContent:model.itemName width:kWidth-110 font:15].size.height;
     return model;
 }

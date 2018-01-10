@@ -28,6 +28,7 @@
     
     [APPDELEGATE logoutAction];
     [self.navigationController popViewControllerAnimated:YES];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccess" object:nil];
 }
 - (IBAction)aboutUsBtn:(id)sender {
     AbountUsViewController *abountUnsVC=[[AbountUsViewController alloc]init];

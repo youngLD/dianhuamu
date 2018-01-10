@@ -88,16 +88,19 @@
                         <color key="textColor" red="0.22745098039215686" green="0.70588235294117641" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6u-jh-cmg">
-                        <rect key="frame" x="270" y="104" width="40" height="30"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6u-jh-cmg">
+                        <rect key="frame" x="270" y="99" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="hWa-lL-WFC"/>
-                            <constraint firstAttribute="height" constant="30" id="lOz-4B-xsI"/>
+                            <constraint firstAttribute="height" constant="40" id="lOz-4B-xsI"/>
                         </constraints>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <state key="normal" title="展开">
                             <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
-                        <state key="selected" title="收起"/>
+                        <state key="selected" title="收起">
+                            <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46474066840277778" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
                         <connections>
                             <action selector="zhankaiBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="5v6-xZ-AkR"/>
                         </connections>
@@ -132,7 +135,7 @@
                     <constraint firstItem="b3Y-bQ-uKE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="0AI-JM-l7E"/>
                     <constraint firstItem="fun-gg-PSe" firstAttribute="top" secondItem="9j9-fJ-e7Q" secondAttribute="bottom" constant="10" id="2mi-Kc-C2F"/>
                     <constraint firstItem="TJK-qF-O0N" firstAttribute="leading" secondItem="8Nt-Cg-dRs" secondAttribute="trailing" constant="10" id="52W-TT-H1n"/>
-                    <constraint firstItem="f6u-jh-cmg" firstAttribute="bottom" secondItem="1wa-lS-dUf" secondAttribute="bottom" constant="6" id="7UN-fe-Up2"/>
+                    <constraint firstItem="f6u-jh-cmg" firstAttribute="bottom" secondItem="1wa-lS-dUf" secondAttribute="bottom" constant="11" id="7UN-fe-Up2"/>
                     <constraint firstAttribute="trailing" secondItem="9j9-fJ-e7Q" secondAttribute="trailing" constant="15" id="7i8-OG-OOG"/>
                     <constraint firstItem="rla-vr-uBa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="BjD-2v-k98"/>
                     <constraint firstItem="pz5-MP-6ed" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Bxr-ma-gIx"/>
@@ -155,7 +158,7 @@
                     <constraint firstAttribute="trailing" secondItem="oc2-Hb-iMh" secondAttribute="trailing" constant="15" id="kGQ-59-h7c"/>
                     <constraint firstItem="rla-vr-uBa" firstAttribute="top" secondItem="oc2-Hb-iMh" secondAttribute="bottom" constant="7" id="lQd-3g-6DJ"/>
                     <constraint firstItem="WAo-f4-2NI" firstAttribute="leading" secondItem="TJK-qF-O0N" secondAttribute="trailing" constant="-7" id="mPC-gf-gDf"/>
-                    <constraint firstItem="oc2-Hb-iMh" firstAttribute="top" secondItem="f6u-jh-cmg" secondAttribute="bottom" constant="8" id="nqT-f8-vMC"/>
+                    <constraint firstItem="oc2-Hb-iMh" firstAttribute="top" secondItem="f6u-jh-cmg" secondAttribute="bottom" constant="3" id="nqT-f8-vMC"/>
                     <constraint firstItem="8Nt-Cg-dRs" firstAttribute="top" secondItem="b3Y-bQ-uKE" secondAttribute="bottom" constant="10" id="p2U-88-OCB"/>
                     <constraint firstItem="9j9-fJ-e7Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="pVt-zn-6n4"/>
                     <constraint firstItem="xrn-5Y-Q4E" firstAttribute="top" secondItem="rla-vr-uBa" secondAttribute="bottom" constant="6.5" id="pvd-IW-lMY"/>

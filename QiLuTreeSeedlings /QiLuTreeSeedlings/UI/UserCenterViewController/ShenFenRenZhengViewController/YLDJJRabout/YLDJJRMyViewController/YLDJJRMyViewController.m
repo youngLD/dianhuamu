@@ -16,7 +16,7 @@
 #import "JJRMyAreaView.h"
 #import "ZIKFunction.h"
 #import "UIView+SDAutoLayout.h"
-@interface YLDJJRMyViewController ()<ZIKCityListViewControllerDelegate,YLDJJRChangeAreaViewControllerDelegate,YLDJJRhangePheonViewControllerDelegate,YLDjjrJieShaoChangViewControllerDelegate>
+@interface YLDJJRMyViewController ()<ZIKCityListViewControllerDelegate,YLDJJRChangeAreaViewControllerDelegate,YLDjjrJieShaoChangViewControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *citys;
 @property (nonatomic, strong) NSString       *citysStr;
 @property (nonatomic, strong) NSString       *pzStr;
@@ -33,73 +33,63 @@
     self.txImagV.layer.masksToBounds=YES;
     self.txImagV.layer.cornerRadius=25;
     self.xingmingTextF.enabled=NO;
+    self.phoneLab.enabled=NO;
     self.chageBtn.layer.masksToBounds=YES;
     self.chageBtn.layer.cornerRadius=4;
     self.areaView.hidden=YES;
     self.ziwojieshaoTextV.editable=NO;
     
     self.ziwojieshaoTextV.placeholder=@"请输入自我介绍";
-//    self.quyuBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    self.phoneBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    self.pinzhongBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
     [self.quyuBtn addTarget:self action:@selector(quyuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.chageBtn addTarget:self action:@selector(quyuBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.pinzhongBtn addTarget:self action:@selector(pinzhongBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.JieshaoBtn addTarget:self action:@selector(jieshaoBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.phoneBtn addTarget:self action:@selector(phoneChangeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bankerNameBtn addTarget:self action:@selector(phoneChangeAction:) forControlEvents:UIControlEventTouchUpInside];
-     [self.bankNumBtn addTarget:self action:@selector(phoneChangeAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bankNameBtn addTarget:self action:@selector(phoneChangeAction:) forControlEvents:UIControlEventTouchUpInside];
+
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         self.citys=(NSMutableArray *)[self citysz];
     });
     ShowActionV();
     [HTTPCLIENT jjrDetialWithUid:APPDELEGATE.userModel.access_id Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
-            NSDictionary *dic=[[responseObject objectForKey:@"result"] objectForKey:@"broker"];
-            YLDJJrModel *model=[YLDJJrModel yldJJrdetialModelByDic:dic];
+            NSDictionary *dic=[responseObject objectForKey:@"data"];
+//            YLDJJrModel *model=[YLDJJrModel yldJJrdetialModelByDic:dic];
             
-            NSArray *cityAry=[[[responseObject objectForKey:@"result"] objectForKey:@"broker"] objectForKey:@"areas"];
+            NSArray *cityCodeAry=dic[@"area"];
             NSMutableString *cityStr=[NSMutableString new];
+            NSMutableArray *cityAry=[NSMutableArray array];
+            GetCityDao *citydao=[GetCityDao new];
+            [citydao openDataBase];
+            [cityCodeAry enumerateObjectsUsingBlock:^(NSString *cityCode, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary *dic=[citydao getcityDicByCityCode:cityCode];
+            
+                [cityAry addObject:dic];
+            }];
+            [citydao closeDataBase];
             self.cityAry=cityAry;
-            self.mrcode=model.defaultArea;
-            for (NSDictionary *dic in cityAry) {
-                 [cityStr appendFormat:@"%@,",dic[@"code"]];
+            self.mrcode=dic[@"defaultArea"];
+            for (NSString *code in cityAry) {
+                 [cityStr appendFormat:@"%@,",code];
                
             }
             
             NSString *strs=[NSString stringWithFormat:@"%@",cityStr];
             if (strs.length>0) {
                 strs = [strs substringToIndex:[strs length] - 1];
+                self.citysStr=strs;
             }
-            self.citysStr=strs;
+            if (dic[@"product"]) {
+                [self.pinzhongBtn setTitle:dic[@"product"] forState:UIControlStateNormal];
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self.txImagV setImageWithURL:[NSURL URLWithString:model.photo]];
-                self.xingmingTextF.text=model.name;
-                [self.phoneBtn setTitle:model.phone forState:UIControlStateNormal];
-                if (model.explain) {
-                    self.ziwojieshaoTextV.text=model.explain;
-                }
-                
-                if (model.areaNames) {
-                    [self.quyuBtn setTitle:model.areaNames forState:UIControlStateNormal];
-                }
-                if (model.productNames) {
-                    [self.pinzhongBtn setTitle:model.productNames forState:UIControlStateNormal];
-                }
-                
-                NSString  *accountHolder=dic[@"accountHolder"];
-                if (accountHolder) {
-                    [self.bankerNameBtn setTitle:accountHolder forState:UIControlStateNormal];
-                }
-                NSString  *bankCardNumber=dic[@"bankCardNumber"];
-                if (bankCardNumber) {
-                    [self.bankNumBtn setTitle:bankCardNumber forState:UIControlStateNormal];
-                }
-                NSString  *openingBank=dic[@"openingBank"];
-                if (openingBank) {
-                    [self.bankNameBtn setTitle:openingBank forState:UIControlStateNormal];
+                [self.txImagV setImageWithURL:[NSURL URLWithString:dic[@"photo"]]];
+                self.xingmingTextF.text=dic[@"name"];
+
+                self.phoneLab.text=dic[@"partyId"];
+                if (dic[@"explain"]) {
+                    self.ziwojieshaoTextV.text=dic[@"explain"];
                 }
                 
                 if (cityAry.count>0) {
@@ -117,12 +107,12 @@
                         tempFrame.size.height=40;
                         tempFrame.origin.y=60+50*i;
                         view.frame=tempFrame;
-                       
+
                         view.wareLab.text=dic[@"name"];
                         [view.actionBtn addTarget:self action:@selector(selectMrCodeAction:) forControlEvents:UIControlEventTouchUpInside];
                         view.actionBtn.tag=i;
                         NSString *code=dic[@"code"];
-                        
+
                         if ([code isEqualToString:self.mrcode]) {
                             [view setBackgroundColor:kRGB(245, 253, 242, 1)];
                             self.mrAreaV=view;
@@ -137,10 +127,10 @@
                         }
                         [self.areaView addSubview:view];
                     }
-                    
-                    
+
+
                 }
-                
+
             });
             
            
@@ -152,79 +142,9 @@
     }];
     // Do any additional setup after loading the view from its nib.
 }
--(void)phoneChangeAction:(UIButton *)sender
-{
-    YLDJJRhangePheonViewController *vc=[YLDJJRhangePheonViewController new];
-    if (sender.tag==0) {
-        vc.phone=self.phoneBtn.titleLabel.text;
-    }
-    if (sender.tag==1) {
-        if (![self.bankerNameBtn.titleLabel.text isEqualToString:@"请输入开户人姓名"]) {
-          vc.phone=self.bankerNameBtn.titleLabel.text;
-        }
-        
-    }
-    if (sender.tag==2) {
-        if (![self.bankNumBtn.titleLabel.text isEqualToString:@"请输入银行卡号"]) {
-            vc.phone=self.bankNumBtn.titleLabel.text;
-        }
-        
-    }
-    if (sender.tag==3) {
-        if (![self.bankNameBtn.titleLabel.text isEqualToString:@"请输入开户银行"]) {
-            vc.phone=self.bankNameBtn.titleLabel.text;
-        }
 
-    }
 
-    
-    vc.delgete=self;
-    vc.type=sender.tag;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
-- (void)sureWithphoneStr:(NSString *)Str withType:(NSInteger)type
-{
-    ShowActionV();
-    NSString *str=nil;
-    if (type==0) {
-        str=@"phone";
-    }
-    if (type==1) {
-        str=@"accountHolder";
-    }
-    if (type==2) {
-        str=@"bankCardNumber";
-    }
-    if (type==3) {
-        str=@"openingBank";
-    }
-    [HTTPCLIENT jjrdetialChangeWithKey:str Value:Str defaultArea:nil  Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            [ToastView showTopToast:@"修改成功"];
-            if(type==0)
-            {
-               [self.phoneBtn setTitle:Str forState:UIControlStateNormal]; 
-            }
-            if(type==1)
-            {
-                [self.bankerNameBtn setTitle:Str forState:UIControlStateNormal];
-            }
-            if(type==2)
-            {
-                [self.bankNumBtn setTitle:Str forState:UIControlStateNormal];
-            }
-            if(type==3)
-            {
-                [self.bankNameBtn setTitle:Str forState:UIControlStateNormal];
-            }
-            
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-
-}
 -(void)jieshaoBtnAction:(UIButton *)sender
 {
     YLDjjrJieShaoChangViewController *vc=[YLDjjrJieShaoChangViewController new];
@@ -235,7 +155,10 @@
 -(void)sureWithJieShaoStr:(NSString *)Str
 {
     ShowActionV();
-    [HTTPCLIENT jjrdetialChangeWithKey:@"explain" Value:Str defaultArea:nil  Success:^(id responseObject){
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    dic[@"explain"]=Str;
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+    [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr Success:^(id responseObject){
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"修改成功"];
             self.ziwojieshaoTextV.text=Str;
@@ -269,9 +192,14 @@
 {
     ShowActionV();
     Str=[Str stringByReplacingOccurrencesOfString:@"，" withString:@","];
-    [HTTPCLIENT jjrdetialChangeWithKey:@"product" Value:Str defaultArea:nil  Success:^(id responseObject){
+  
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    dic[@"product"]=Str;
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+    [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr Success:^(id responseObject){
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"修改成功"];
+
             [self.pinzhongBtn setTitle:Str forState:UIControlStateNormal];
             
         }
@@ -293,10 +221,16 @@
         [view.wareLab setText:dic[@"name"]];
         self.mrcode=dic[@"code"];
         [view.bgImageV setImage:[ZIKFunction imageWithSize:view.bgImageV.frame.size borderColor:NavColor borderWidth:1]];
-        [HTTPCLIENT jjrdetialChangeWithKey:@"areaCodes" Value:_citysStr defaultArea:self.mrcode  Success:^(id responseObject){
+        NSMutableDictionary *dics=[NSMutableDictionary dictionary];
+        dics[@"defaultArea"]=self.mrcode;
+        NSString *bodyStr=[ZIKFunction convertToJsonData:dics];
+        [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr Success:^(id responseObject){
             if ([[responseObject objectForKey:@"success"] integerValue]) {
                 [ToastView showTopToast:@"修改成功"];
-              }
+                
+        
+                
+            }
         } failure:^(NSError *error) {
             
         }];
@@ -321,7 +255,10 @@
             [view.wareLab setText:dic[@"name"]];
             self.mrcode=dic[@"code"];
             [view.bgImageV setImage:[ZIKFunction imageWithSize:view.bgImageV.frame.size borderColor:NavColor borderWidth:1]];
-            [HTTPCLIENT jjrdetialChangeWithKey:@"areaCodes" Value:_citysStr defaultArea:self.mrcode  Success:^(id responseObject){
+            NSMutableDictionary *dics=[NSMutableDictionary dictionary];
+            dics[@"defaultArea"]=self.mrcode;
+            NSString *bodyStr=[ZIKFunction convertToJsonData:dics];
+            [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr Success:^(id responseObject){
                 if ([[responseObject objectForKey:@"success"] integerValue]) {
                     [ToastView showTopToast:@"修改成功"];
                 }
@@ -362,8 +299,11 @@
         self.mrcode=[cityArray firstObject];
     }
     ShowActionV();
-   
-    [HTTPCLIENT jjrdetialChangeWithKey:@"areaCodes" Value:citysStr defaultArea:self.mrcode  Success:^(id responseObject){
+    NSMutableDictionary *dics=[NSMutableDictionary dictionary];
+    dics[@"defaultArea"]=self.mrcode;
+    dics[@"businessArea"]=citysStr;
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dics];
+    [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr  Success:^(id responseObject){
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"修改成功"];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -441,7 +381,7 @@
         
         
         NSMutableDictionary *dicionary = [NSMutableDictionary dictionary];
-        [dicionary setObject:cityModel.province.provinceID forKey:@"id"];
+//        [dicionary setObject:cityModel.province.provinceID forKey:@"id"];
         [dicionary setObject:cityModel.province.code forKey:@"code"];
         [dicionary setObject:cityModel.province.parent_code forKey:@"parent_code"];
         [dicionary setObject:@"全省" forKey:@"name"];

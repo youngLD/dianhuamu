@@ -50,6 +50,7 @@
 +(NSDate *)getDateFromString:(NSString *)dateString;
 
 + (NSString *)weixinPayWithOrderID:(NSString *)orderID;
++ (void)zhiFuBao:(UIViewController *)controller name:(NSString*)name titile:(NSString*)title price:(NSString*)price outTradeNo:(NSString *)outTradeNo notify_url:(NSString *)notify_url roleApplyAuditId:(NSString *)roleApplyAuditId;
 + (void)zhiFuBao:(UIViewController *)controller name: (NSString*)name titile:(NSString*)title price:(NSString*)price orderId:(NSString*)orderId supplyBuyUid:(NSString *)supplyBuyUid type:(NSString *)type
 ;
 + (void)ADzhiFuBao:(UIViewController *)controller name: (NSString*)name titile:(NSString*)title price:(NSString*)price orderId:(NSString*)orderId supplyBuyUid:(NSString *)supplyBuyUid type:(NSString *)type

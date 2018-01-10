@@ -408,21 +408,21 @@
 #pragma mark-退出登录
 -(void)logoutAction
 {
-   [HTTPCLIENT logoutInfoByToken:APPDELEGATE.userModel.access_token byAccessId:APPDELEGATE.userModel.access_id Success:^(id responseObject) {
-       
-       if ([[responseObject objectForKey:@"success"] integerValue]) {
-          
-           self.logoutView.hidden=NO;
-           [APPDELEGATE logoutAction];
-           self.userBigInfoV.model=APPDELEGATE.userModel;
-           [self.tableView reloadData];
-            
-       }else{
-           [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-       }
-   } failure:^(NSError *error) {
-       
-   }];
+//   [HTTPCLIENT logoutInfoByToken:APPDELEGATE.userModel.access_token byAccessId:APPDELEGATE.userModel.access_id Success:^(id responseObject) {
+//       
+//       if ([[responseObject objectForKey:@"success"] integerValue]) {
+//          
+//           self.logoutView.hidden=NO;
+//           [APPDELEGATE logoutAction];
+//           self.userBigInfoV.model=APPDELEGATE.userModel;
+//           [self.tableView reloadData];
+//            
+//       }else{
+//           [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+//       }
+//   } failure:^(NSError *error) {
+//       
+//   }];
     
 }
 -(void)hiddingSelfTabBar

@@ -12,7 +12,7 @@
 @interface YLDJJRMyViewController : ZIKArrowViewController
 @property (weak, nonatomic) IBOutlet UIImageView *txImagV;
 @property (weak, nonatomic) IBOutlet YLDRangeTextField *xingmingTextF;
-@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
+@property (weak, nonatomic) IBOutlet YLDRangeTextField *phoneLab;
 @property (weak, nonatomic) IBOutlet YLDRangeTextView *ziwojieshaoTextV;
 @property (weak, nonatomic) IBOutlet UIButton *quyuBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pinzhongBtn;
@@ -21,7 +21,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *chageBtn;
 @property (weak, nonatomic) IBOutlet UIView *areaView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *areaVH;
-@property (weak, nonatomic) IBOutlet UIButton *bankerNameBtn;
-@property (weak, nonatomic) IBOutlet UIButton *bankNumBtn;
-@property (weak, nonatomic) IBOutlet UIButton *bankNameBtn;
+
 @end

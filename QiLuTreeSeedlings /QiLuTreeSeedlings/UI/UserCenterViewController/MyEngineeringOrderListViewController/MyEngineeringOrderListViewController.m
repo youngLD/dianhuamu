@@ -9,6 +9,8 @@
 #import "MyEngineeringOrderListViewController.h"
 #import "YLDFEOrderModel.h"
 #import "YLDEngineeringOrderTableViewCell.h"
+#import "KMJRefresh.h"
+#import "MyEngineeringOrderDetialViewController.h"
 @interface MyEngineeringOrderListViewController ()<UITableViewDelegate,UITableViewDataSource,YLDEngineeringOrderTableViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *dataAry;
 @property (nonatomic,copy)NSString *lastTime;
@@ -23,12 +25,22 @@
         self.topC.constant=44.f;
     }
     self.dataAry=[NSMutableArray array];
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self getdataList];
+    __weak typeof(self) weakSlef=self;
+    [self.tableView addHeaderWithCallback:^{
+        weakSlef.lastTime=nil;
+        [weakSlef getdataList];
+    }];
+    [self.tableView addFooterWithCallback:^{
+
+        [weakSlef getdataList];
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)getdataList
 {
-    [HTTPCLIENT myGongChengDingDanWithLastTime:nil Success:^(id responseObject) {
+    [HTTPCLIENT myGongChengDingDanWithLastTime:_lastTime Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             if (_lastTime==nil) {
                 [self.dataAry removeAllObjects];
@@ -39,15 +51,28 @@
                 [ToastView showTopToast:@"已无更多数据"];
             }else{
                 [self.dataAry addObjectsFromArray:modelAry];
+                YLDFEOrderModel* model=[self.dataAry lastObject];
+                self.lastTime=model.lastTime;
                 
             }
             [self.tableView reloadData];
-//            se
+            
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
+        if ([self.tableView isHeaderRefreshing]) {
+            [self.tableView headerEndRefreshing];
+        }
+        if ([self.tableView isFooterRefreshing]) {
+            [self.tableView footerEndRefreshing];
+        }
     } failure:^(NSError *error) {
-        
+        if ([self.tableView isHeaderRefreshing]) {
+            [self.tableView headerEndRefreshing];
+        }
+        if ([self.tableView isFooterRefreshing]) {
+            [self.tableView footerEndRefreshing];
+        }
     }];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -71,11 +96,15 @@
 -(void)cellOpenBtnActionWithCell:(YLDEngineeringOrderTableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YLDFEOrderModel *model=self.dataAry[indexPath.row];
+    MyEngineeringOrderDetialViewController *vc=[MyEngineeringOrderDetialViewController new];
+    vc.orderId=model.engineeringProcurementId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
