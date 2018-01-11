@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,11 +62,11 @@
                 <constraint firstItem="dBe-Rj-aRn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Sis-kc-U8I"/>
                 <constraint firstAttribute="trailing" secondItem="0w2-Cr-ex1" secondAttribute="trailing" constant="6" id="aGA-Ei-9Wx"/>
                 <constraint firstItem="0w2-Cr-ex1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="bev-gj-alY"/>
-                <constraint firstItem="UnI-bI-hwP" firstAttribute="top" secondItem="3RM-pl-X56" secondAttribute="bottom" constant="13" id="i3W-8o-n8s"/>
                 <constraint firstItem="3RM-pl-X56" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kZl-1H-Bx6"/>
                 <constraint firstItem="UnI-bI-hwP" firstAttribute="leading" secondItem="9da-Ui-30N" secondAttribute="trailing" constant="5" id="m85-hd-IJx"/>
                 <constraint firstItem="3RM-pl-X56" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uEF-ET-ZqQ"/>
                 <constraint firstAttribute="bottom" secondItem="dBe-Rj-aRn" secondAttribute="bottom" id="xKz-RD-xO6"/>
+                <constraint firstItem="UnI-bI-hwP" firstAttribute="centerY" secondItem="9da-Ui-30N" secondAttribute="centerY" id="zRC-ZZ-nmc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

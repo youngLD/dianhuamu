@@ -1443,9 +1443,7 @@ failure:(void (^)(NSError *error))failure;
 - (void)getGroupmembersWithGroupUid:(NSString *)uid
                          Success:(void (^)(id responseObject))success
                          failure:(void (^)(NSError *error))failure;
-#pragma mark ---------- 获取新闻分类列表 -----------
-- (void)getNewsClassSuccess:(void (^)(id responseObject))success
-                            failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark -供求评论发布
 - (void)gongqiucommentsFabuWithsupplybuyUid:(NSString *)supplybuyUid withcomment:(NSString *)comment
@@ -1693,7 +1691,7 @@ failure:(void (^)(NSError *error))failure;
                      Success:(void (^)(id responseObject))success
                      failure:(void (^)(NSError *error))failure;
 #pragma mark -new供应列表
--(void)mySupplynewLsitWithQuery:(NSString *)query
+-(void)SupplynewLsitWithQuery:(NSString *)query
                          WithlastTime:(NSString *)lastTime
                               Success:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
@@ -1931,6 +1929,10 @@ failure:(void (^)(NSError *error))failure;
 -(void)EOrderDetialWithengineeringProcurementId:(NSString *)engineeringProcurementId
                                                        Success:(void (^)(id responseObject))success
                                                        failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单列表
+-(void)getEOrderListWithLastTime:(NSString *)lastTime
+                         Success:(void (^)(id responseObject))success
+                         failure:(void (^)(NSError *error))failure;
 #pragma mark -获取消息列表
 -(void)systemMessageListWithType:(NSString *)noticeType
                     WithLastTime:(NSString *)lastTime
@@ -1959,4 +1961,7 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark -退出登录
 -(void)logoutSuccess:(void (^)(id responseObject))success
                  failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 获取新闻分类列表 -----------
+- (void)getNewsClassSuccess:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure;
 @end

@@ -61,17 +61,20 @@
 
 //第四版
 #import "YLDFSupplyModel.h"
+#import "YLDFBuyModel.h"
 #import "YLFMySupplyTableViewCell.h"
 #import "YLDFHomeFenYeViewConroller.h"
 #import "ZIKOrderViewController.h"
-
+#import "YLDFMyBuyTableViewCell.h"
+#import "YLDFEOrderModel.h"
+#import "YLDEngineeringOrderTableViewCell.h"
 #define TopBtnW 90
-@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate>
+@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDEngineeringOrderTableViewCellDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *searchTopV;
 @property (nonatomic,strong)NSMutableArray *orderMArr;//工程订单
-@property (nonatomic,strong)NSArray *supplyDataAry;//热门供应
-@property (nonatomic,strong)NSArray *BuyDataAry;//热门求购
+@property (nonatomic,strong)NSMutableArray *dataAry;//热门供应
+
 @property (nonatomic,strong)NSArray *lunboAry;
 @property (nonatomic)NSInteger PageCount;
 @property (nonatomic,strong)NSArray *classAry;
@@ -91,15 +94,18 @@
 @property (nonatomic,strong)UIButton *ActionVNowBtn;
 @property (nonatomic,strong)UIButton *qiugouNowBtn;
 @property (nonatomic,copy)NSString *qiugouState;
-@property (nonatomic,strong)UIView *qiugouView;
 @property (nonatomic,strong)UIButton *cityBtn;
 @property (nonatomic,strong)CLLocationManager *locationManager;
-@property (nonatomic,copy)NSString *supplyFirstTime;
-@property (nonatomic,copy)NSString *supplyLastTime;
-@property (nonatomic,copy)NSString *newsFirstTime;
-@property (nonatomic,copy)NSString *newsLastTime;
+@property (nonatomic,copy)NSString *lastTime;
+@property (nonatomic,strong)UIView *heardView;
 @property (nonatomic,strong)UIView *hearActionView;
 @property (nonatomic,strong)UIView *CBGV;
+@property (nonatomic,strong)UIView *adBGView;
+@property (nonatomic,strong)UIView *JJRMView;
+
+@property (nonatomic,strong)YLDHomeJJRCell *JJRLView;
+@property (nonatomic,assign)CGFloat GGW;
+@property (nonatomic,assign)CGFloat JJRW;
 @end
 
 @implementation YLDSHomePageViewController
@@ -116,9 +122,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataAry =[NSMutableArray array];
+    [self getnewClassAction];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessageForSaoMa:) name:@"saosaokanxinwen" object:nil];
     self.PageCount=1;
-    
+    _GGW=0.368*kWidth;
+    double  kkk = kWidth*(12/40.f-0.0417);
+    _JJRW=kkk+70;
     self.orderMArr=[NSMutableArray array];
     self.newsDataAry=[NSMutableArray array];
     self.locationManager = [[CLLocationManager alloc] init];
@@ -138,13 +148,12 @@
     
     self.qiugouState=@"free";
     self.topActionV=[self creatGBTypeV];
-    self.qiugouView=[self creatHomeQiuGouStateView];
 
     UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,kWidth , kHeight-44) style:UITableViewStylePlain];
-    UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
+    UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
     [heardView setBackgroundColor:[UIColor clearColor]];
     tableView.tableHeaderView=heardView;
-
+    self.heardView=heardView;
 
 #ifdef __IPHONE_11_0
     if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
@@ -155,6 +164,47 @@
         }
     }
 #endif
+   
+    [self getDataListWithPageNum:@"1"];
+   
+    
+
+ 
+  
+    UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
+    [hearActionV setBackgroundColor:BGColor];
+    [heardView addSubview:hearActionV];
+    self.hearActionView=hearActionV;
+    
+    AdvertView * adView=[[AdvertView alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AdvertView"];
+    
+    adView.delegate=self;
+    adView.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    [adView setAdInfoWithAry:self.lunboAry];
+    [adView adStart];
+    UIView *adBGView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW)];
+    _adBGView=adBGView;
+    [adBGView addSubview:adView];
+    [hearActionV addSubview:adBGView];
+    CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth,100)];
+    
+    circleViews.delegate=self;
+    UIView *circleViewsBGV=[[UIView alloc]initWithFrame:CGRectMake(0, _GGW, kWidth, 100)];
+    [circleViewsBGV addSubview:circleViews];
+    [hearActionV addSubview:circleViewsBGV];
+    _CBGV=circleViewsBGV;
+    _JJRMView =[self JJRMoreView];
+    _JJRMView.frame=CGRectMake(0, _GGW+100, kWidth, 40);
+    [hearActionV addSubview:_JJRMView];
+    _JJRLView=[[YLDHomeJJRCell alloc]init];
+        _JJRLView.delegate=self;
+    _JJRLView.frame=CGRectMake(0, _GGW+40+100, kWidth, _JJRW);
+
+    [hearActionV addSubview:_JJRLView];
+   
+    
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 55)];
     [view setBackgroundColor:[UIColor whiteColor]];
     UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, kWidth, 55)];
@@ -172,60 +222,23 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView=tableView;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
+    [self talbeviewsetRefreshHead];
     //缓存
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *result = [userDefaults objectForKey:@"homePageCaches2"];
-    self.supplyDataAry=[NSMutableArray array];
+
     if (result) {
-       
+        
     }
     
-
+    
     [self.view addSubview:tableView];
-    NSMutableArray *idleImages = [NSMutableArray array];
-    
-    for (int i = 1; i <= 30; i ++) {
-        
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"runningC%d",i]];
-        
-        [idleImages addObject:image];
-        
-    }
-    
-    
-    
-//    NSMutableArray *pullingImages = [NSMutableArray array];
-//
-//    UIImage *image = [UIImage imageNamed:@"runningC1"];
-//
-//    [pullingImages addObject:image];
-//
-//        __weak typeof(self) weakSelf=self;
-
-//    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-//        weakSelf.PageCount=1;
-//        [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
-//    }];
-
-    //给MJRefreshStateIdle状态设置一组图片，可以是一张，idleImages为数组
-    
-//    [header setImages:idleImages duration:1.2 forState:MJRefreshStateIdle];
-//
-//    //[header setImages:idleImages forState:MJRefreshStatePulling];
-//
-//    [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
-//
-//    self.tableView.mj_header = header;
+  
     self.topView1=[self creatTopSeachV];
     [self.view addSubview:self.topView1];
- 
-    [self getDataListWithPageNum:@"1"];
-   
     
-
- 
+    
     self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-60, kHeight-110, 50, 50)];
     [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateNormal];
     [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateHighlighted];
@@ -233,17 +246,6 @@
     [self.goTopBtn addTarget:self action:@selector(gotopBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.goTopBtn.hidden=YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMessageForDingzhiXinXi:) name:@"dingzhixinxituisong" object:nil];
-    UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 200)];
-    [hearActionV setBackgroundColor:[UIColor grayColor]];
-    [self.view addSubview:hearActionV];
-    self.hearActionView=hearActionV;
-    CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth, 100)];
-//    circleViews.selectionStyle = UITableViewCellSelectionStyleNone;
-    circleViews.delegate=self;
-    UIView *circleViewsBGV=[[UIView alloc]initWithFrame:CGRectMake(0, 100, kWidth, 100)];
-    [circleViewsBGV addSubview:circleViews];
-    [hearActionV addSubview:circleViewsBGV];
-    _CBGV=circleViewsBGV;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(nonnull UIViewController *)viewController
 {
@@ -252,6 +254,9 @@
 }
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
+    if (viewController==self.navigationController) {
+        
+    }
     return YES;
 }
 -(void)pushMessageForDingzhiXinXi:(NSNotification *)notification
@@ -260,19 +265,11 @@
     [self.navigationController popToRootViewControllerAnimated:NO];
     
 }
--(void)gotopBtnAction
-{
-    [self.tableView setContentOffset:CGPointMake(0,0) animated:YES];
-}
-
-
-
 #pragma mark ---------TOPBtnAction----------
--(void)topBtnAction:(UIButton *)sender
+-(void)topBtnAction:(UIButton *)sender//新闻的头部
 {
     if (self.nowBtn!=sender) {
-        _newsFirstTime=nil;
-        _newsLastTime=nil;
+        _lastTime=nil;
     }
     self.nowBtn.selected=NO;
     self.nowBtn=sender;
@@ -298,158 +295,104 @@
 -(void)topActionVBtnAction:(UIButton *)sender
 {
     self.ActionVNowBtn.selected=NO;
+    _lastTime=nil;
     sender.selected=YES;
     self.lastType=sender.tag;
     self.ActionVNowBtn=sender;
     CGRect frame=self.topActionMoveV.frame;
     frame.origin.x=sender.tag*(kWidth/4);
-    self.topActionMoveV.frame=frame;
-    YLDFHomeFenYeViewConroller *vc=[YLDFHomeFenYeViewConroller new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
--(void)qiugouSteteBtnAction:(UIButton *)sender
-{
-//    if (sender.selected) {
-//        return;
-//    }
-    self.qiugouNowBtn.selected=NO;
-    sender.selected=YES;
-    
-    self.qiugouNowBtn=sender;
-    if (sender.tag==1) {
-      self.qiugouState=@"free";
-    }
-    if (sender.tag==2) {
-        self.qiugouState=@"new";
-    }
-    [self reloadTableVVVWithLastType];
-    
-}
--(void)reloadTableVVVWithLastType
-{
-    
    
+    [UIView animateWithDuration:0.3 animations:^{
+        if(self.tableView.tableHeaderView!=nil)
+        {
+            self.tableView.tableHeaderView=nil;
+            [self.tableView setBackgroundColor:BGColor];
+            if (self.goTopBtn.hidden==YES) {
+                self.goTopBtn.hidden=NO;
+            }
+            if (self.tableView.frame.origin.y!=64) {
+                self.tableView.frame=CGRectMake(0,64,kWidth, kHeight-44-64);
+            }
+            if (self.topView1.alpha!=1) {
+                self.topView1.alpha=1;
+                
+            }
+            [self changeNav];
+        }
+        self.topActionMoveV.frame=frame;
+        [self reloadTableVVVWithLastType];
+    }];
 }
 
+
+
 #pragma mark ---------TableView相关----------
+-(void)cellOpenBtnActionWithCell:(YLDEngineeringOrderTableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 6;
+    return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section < 5) {
-        return 1;
-    }
-    if (section == 5) {
-//        if (_lastType==1) {
-//            return self.BuyDataAry.count;
-//        }
-//        if (_lastType==0) {
-            return  self.supplyDataAry.count;
-//        }
-//        if (_lastType==2) {
-//            return self.orderMArr.count;
-//        }
-//        if (_lastType==3) {
-//            return self.newsDataAry.count;
-//        }
-        
+//    if (section < 5) {
+//        return 1;
+//    }
+    if (section == 0) {
+        return  self.dataAry.count;
+ 
     }
     return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if (indexPath.section==0) {
-        return 0.368*kWidth;
-    }
-    if (indexPath.section==1) {
-        return 0.01;
-    }
-    if (indexPath.section==2) {
-        double  kkk = kWidth*(11/30.f-0.0417);
-        return kkk+60+50;
-    }
-    if (indexPath.section==3) {
-        return 0.01;
-    }
-    if (indexPath.section==4) {
-        return 0.01;
-    }
-    if (indexPath.section==5) {
-        return 182;
+        id model=self.dataAry[indexPath.row];
+        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+           return 182;
+        }
+        if ([model isKindOfClass:[YLDFBuyModel class]]) {
+            return 141;
+        }
+        if ([model isKindOfClass:[YLDFEOrderModel class]]) {
+            tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
+            tableView.estimatedRowHeight = 185;
+            return tableView.rowHeight;
+        }
         
     }
+   
     return 44;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==2) {
-        return 40;
-    }
-    
-    if (section==5) {
-        if (_lastType==1) {
-            return 90;
-        }
+
+    if (section==0) {
+
         if (_lastType==3) {
-            return 90;
+            return 100;
         }
         return 50;
     }
-    if (section==6) {
-        return 40;
-    }
-    if (section==7) {
-        return 40;
-    }
-    if (section==8) {
-        return 50;
-    }
+
     return 0.01;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section==2) {
-        
-        UIView *xxview=[self makeTitleViewWithTitle:@"" AndColor:NavColor andY:0];
-        UIButton *jjrtjBuyBtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 0, 270, 36)];
-        jjrtjBuyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [jjrtjBuyBtn setTitle:@"苗木经纪人" forState:UIControlStateNormal];
-        jjrtjBuyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
 
-        [jjrtjBuyBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
-
-        [jjrtjBuyBtn setTitleColor:NavColor forState:UIControlStateNormal];
-        [xxview addSubview:jjrtjBuyBtn];
-        [xxview setBackgroundColor:[UIColor whiteColor]];
-        UIImageView *liImagV=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 1)];
-        [liImagV setBackgroundColor:BGColor];
-        [xxview addSubview:liImagV];
-        UIButton *moreHotBuyBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-110, 0, 80, 36)];
-        [moreHotBuyBtn setTitle:@"查看更多" forState:UIControlStateNormal];
-        [moreHotBuyBtn setTitleColor:titleLabColor forState:UIControlStateNormal];
-        moreHotBuyBtn.tag=2;
-        UIImageView *hotMoreRowImgV=[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-35, 10.5, 15, 15)];
-        [hotMoreRowImgV setImage:[UIImage imageNamed:@"moreRow"]];
-        [xxview addSubview:hotMoreRowImgV];
-        [moreHotBuyBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
-        [moreHotBuyBtn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [xxview addSubview:moreHotBuyBtn];
-        
-        return xxview;
-    }
-    if (section==5) {
+    if (section==0) {
         
         if (_lastType==1) {
             CGRect frame=self.topActionV.frame;
-            frame.size.height=100;
+            frame.size.height=50;
             self.topActionV.frame=frame;
             [self.topScrollV removeFromSuperview];
-            [self.topActionV addSubview:self.qiugouView];
             return self.topActionV;
         }else if (_lastType==3) {
             CGRect frame=self.topActionV.frame;
             frame.size.height=100;
             self.topActionV.frame=frame;
-            [self.qiugouView removeFromSuperview];
             [self.topActionV addSubview:self.topScrollV];
             return self.topActionV;
         }else
@@ -457,7 +400,7 @@
             CGRect frame=self.topActionV.frame;
             frame.size.height=50;
             self.topActionV.frame=frame;
-            [self.qiugouView removeFromSuperview];
+
             [self.topScrollV removeFromSuperview];
             return self.topActionV;
         }
@@ -474,48 +417,41 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section==5) {
+    if (indexPath.section==0) {
         
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     if (indexPath.section==0) {
-        AdvertView *adView=[tableView dequeueReusableCellWithIdentifier:@"AdvertView"];
-        if (!adView) {
-            adView=[[AdvertView alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AdvertView"];
-            
-            
-            adView.delegate=self;
-            adView.selectionStyle = UITableViewCellSelectionStyleNone;
+        id model=self.dataAry[indexPath.row];
+        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+            YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
+            if (!cell) {
+                cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
+                
+            }
+            cell.model=self.dataAry[indexPath.row];
+            return cell;
+        }
+        if ([model  isKindOfClass:[YLDFBuyModel class]]) {
+            YLDFMyBuyTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFMyBuyTableViewCell"];
+            if (!cell) {
+                cell=[YLDFMyBuyTableViewCell yldFListBuyTableViewCell];
+            }
+            cell.model=self.dataAry[indexPath.row];
+            return cell;
+        }
+        if ([model  isKindOfClass:[YLDFEOrderModel class]]) {
+            YLDEngineeringOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDEngineeringOrderTableViewCell"];
+            if (!cell) {
+                cell=[YLDEngineeringOrderTableViewCell yldEngineeringOrderTableViewCell];
+                cell.delegate=self;
+            }
+            cell.model=self.dataAry[indexPath.row];
+            return cell;
         }
         
-        [adView setAdInfoWithAry:self.lunboAry];
-        [adView adStart];
-        return adView;
-    }
-//    if (indexPath.section==1) {
-//
-//    }
-    if (indexPath.section==2) {
-        YLDHomeJJRCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDHomeJJRCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (!cell) {
-            cell=[[YLDHomeJJRCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLDHomeJJRCell"];
-            cell.delegate=self;
-
-        }
-        cell.modelAry=self.borkers;
-        return cell;
-    }
-    if (indexPath.section==5) {
-        
-        YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
-        if (!cell) {
-            cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
-
-        }
-        cell.model=self.supplyDataAry[indexPath.row];
-        return cell;
         
     }
 
@@ -596,24 +532,17 @@
 #pragma mark ---------构建小标题----------
 -(UIView *)makeTitleViewWithTitle:(NSString *)title AndColor:(UIColor *)color andY:(CGFloat )y
 {
-    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, y, kWidth, 36)];
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, y, kWidth, 40)];
     [view setBackgroundColor:BGColor];
-    UIImageView *imageV=[[UIImageView alloc]initWithFrame:CGRectMake(10, 7, 5, 22)];
+    UIImageView *imageV=[[UIImageView alloc]initWithFrame:CGRectMake(10, 9, 5, 22)];
     [imageV setBackgroundColor:color];
     [view addSubview:imageV];
-    UILabel *titleLab=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 220, 36)];
+    UILabel *titleLab=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 220, 40)];
     titleLab.text=title;
     [titleLab setTextColor:color];
     [titleLab setFont:[UIFont systemFontOfSize:18]];
     [view addSubview:titleLab];
-    if ([title isEqualToString:@"热门求购"]) {
-        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(kWidth/2-60, 0, 120,36)];
-        [lab setFont:[UIFont systemFontOfSize:14]];
-        [lab setTextColor:titleLabColor];
-        [lab setTextAlignment:NSTextAlignmentCenter];
-        lab.text=@"下拉刷新";
-        [view addSubview:lab];
-    }
+
     return view;
     
 }
@@ -732,46 +661,7 @@
     
     return view;
 }
--(UIView *)creatHomeQiuGouStateView
-{
-    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 50, kWidth, 40)];
-    [view setBackgroundColor:[UIColor whiteColor]];
-    view.tag=11;
-    UIButton *btn1=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,kWidth/2, 40)];
-    [btn1 setTitle:@"免费求购" forState:UIControlStateNormal];
-    btn1.tag=1;
-    [btn1 addTarget:self action:@selector(qiugouSteteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [btn1 setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
-    [btn1 setTitleColor:NgreenColor forState:UIControlStateSelected];
-    [btn1.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [view addSubview:btn1];
 
-    self.qiugouNowBtn=btn1;
-    btn1.selected=YES;
-
-    UIButton *btn2=[[UIButton alloc]initWithFrame:CGRectMake(kWidth/2, 0, kWidth/2, 40)];
-    
-    [btn2 setTitle:@"精品求购" forState:UIControlStateNormal];
-
-    [btn2 setImage:[UIImage imageNamed:@"jingpinXX"] forState:UIControlStateNormal];
-    [btn2 setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
-    [btn2 setTitleColor:NgreenColor forState:UIControlStateSelected];
-    btn2.tag=2;
-    [btn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn2.imageView.image.size.width, 0, btn2.imageView.image.size.width)];
-    [btn2 setImageEdgeInsets:UIEdgeInsetsMake(0, btn2.titleLabel.bounds.size.width, 0, -btn2.titleLabel.bounds.size.width)];
-    [btn2 addTarget:self action:@selector(qiugouSteteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [btn2.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [view addSubview:btn2];
-    
-    UIView *lineView1=[[UIView alloc]initWithFrame:CGRectMake(kWidth/2, 5, 0.5, 30)];
-    [lineView1 setBackgroundColor:kLineColor];
-    [view addSubview:lineView1];
-    UIView *lineView2=[[UIView alloc]initWithFrame:CGRectMake(0, 39.5, kWidth, 0.5)];
-    [lineView2 setBackgroundColor:kLineColor];
-    [view addSubview:lineView2];
-
-    return view;
-}
 #pragma mark ---------搜索相关----------
 -(void)searchBtnAction
 {
@@ -791,91 +681,137 @@
     [self.navigationController pushViewController:searchV animated:NO];
 }
 #pragma mark ---------滑动改变nav----------
+-(void)gotopBtnAction
+{
+    self.goTopBtn.hidden=YES;
+    self.adBGView.alpha=1;
+    self.CBGV.alpha=1;
+    self.JJRLView.alpha=1;
+    self.JJRMView.alpha=1;
+    self.tableView.frame=CGRectMake(0, 0, kWidth, kHeight-44);
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
+    [UIView animateWithDuration:0.3 animations:^{
+        [self BackchangeNav];
+        self.tableView.tableHeaderView=self.heardView;
+        [self.tableView.tableHeaderView addSubview:self.hearActionView];
+    } completion:^(BOOL finished) {
+//    [self setBgContentOffsetAnimation:0];
+        
+    }];
+    
+    
+//
+
+    
+    
+    
+}
+-(void)setBgContentOffsetAnimation:(CGFloat )OffsetY
+
+{    [UIView animateWithDuration:0.3 animations:^
+      
+    {
+        self.tableView.contentOffset = CGPointMake(0, OffsetY);
+        
+    }];
+    
+}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.tag==112) {
         if (self.tableView.tableHeaderView!=nil) {
+            if(scrollView.contentOffset.y<_JJRW+_GGW+100+20)
+            {
+                if (self.goTopBtn.hidden==NO) {
+                    self.goTopBtn.hidden=YES;
+                }
+            }
+            if (scrollView.contentOffset.y<-2)
+            {
+                [self.tableView.tableHeaderView addSubview:self.hearActionView];
+                if(self.topView1.hidden==NO)
+               {
+                   self.topView1.hidden=YES;
+                }
+            }
+            
+            if (scrollView.contentOffset.y>=-2){
+                if(self.topView1.hidden==YES)
+                {
+                        self.topView1.hidden=NO;
+                }
+            }
+            
             if (scrollView.contentOffset.y>=1) {
+              
                 [self.view insertSubview:self.hearActionView belowSubview:self.tableView];
-                if (scrollView.contentOffset.y>1&&scrollView.contentOffset.y<100) {
-                    self.CBGV.alpha =1-scrollView.contentOffset.y/100.f;
-                }else if(scrollView.contentOffset.y>=200&&self.tableView.tableHeaderView!=nil) {
-                    self.tableView.tableHeaderView=nil;
 
+                
+
+                
+            if(scrollView.contentOffset.y>1&&scrollView.contentOffset.y<_JJRW) {
+                    self.JJRLView.alpha =1-scrollView.contentOffset.y/_JJRW;
+                }
+                if(scrollView.contentOffset.y>=_JJRW&&scrollView.contentOffset.y<_JJRW+40)
+                {
+                    self.JJRMView.alpha=1-(scrollView.contentOffset.y-_JJRW)/40;
+                } if(scrollView.contentOffset.y>=_JJRW+40&&scrollView.contentOffset.y<_JJRW+140)
+                {
+                    self.CBGV.alpha=1-(scrollView.contentOffset.y-_JJRW-40)/100;
+                    self.topView1.alpha=1-(scrollView.contentOffset.y-_JJRW-40)/100;
+                } if(scrollView.contentOffset.y>=_JJRW+40+100&&scrollView.contentOffset.y<=_JJRW+140+_GGW)
+                {
+                    self.adBGView.alpha=1-(scrollView.contentOffset.y-_JJRW-140)/_GGW;
+                   self.tableView.frame=CGRectMake(0,(scrollView.contentOffset.y-_JJRW-140)/_GGW*64,kWidth, kHeight-44-(scrollView.contentOffset.y-_JJRW-140)/_GGW*64);
+//                    NSLog(@"%lf--%lf",scrollView.contentOffset.y-_JJRW-140);
+                   
+                } if(scrollView.contentOffset.y>=_JJRW+_GGW+100+39&&self.tableView.tableHeaderView!=nil) {
+                    self.tableView.tableHeaderView=nil;
+                    [self.tableView setBackgroundColor:BGColor];
+                    if (self.goTopBtn.hidden==YES) {
+                        self.goTopBtn.hidden=NO;
+                    }
+                    if (self.tableView.frame.origin.y!=64) {
+                       self.tableView.frame=CGRectMake(0,64,kWidth, kHeight-44-64);
+                    }
+                    if (self.topView1.alpha!=1) {
+                        self.topView1.alpha=1;
+                        [self changeNav];
+
+                    }
+                    
+                    [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+                    
                 }
             }else{
-                [self.view insertSubview:self.hearActionView aboveSubview:self.tableView];
+//                [self.view insertSubview:self.hearActionView aboveSubview:self.tableView];
+                [self.tableView.tableHeaderView addSubview:self.hearActionView];
 
+            }
+        }else{
+            if (self.goTopBtn.hidden==YES) {
+                self.goTopBtn.hidden=NO;
             }
         }
 
     }
-//    if (scrollView.tag==112) {
-//
-//        if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y<-5) {
-//            if(self.topView1.hidden==NO)
-//            {
-//                self.topView1.hidden=YES;
-//            }
-//
-//        }else if (scrollView.contentOffset.y<=1&&scrollView.contentOffset.y>=-5) {
-//            [self.topView1 setBackgroundColor:[UIColor clearColor]];
-//
-//            if(self.topView1.hidden==YES)
-//            {
-//                self.topView1.hidden=NO;
-//            }
-//            UIImageView *imageV=[self.topView1 viewWithTag:3];
-//            if (imageV.hidden==YES) {
-//                imageV.hidden=NO;
-//            }
-//
-//            UIButton *saomaBtn=[self.topView1 viewWithTag:2];
-//            [saomaBtn setImage:[UIImage imageNamed:@"saomaW"] forState:UIControlStateNormal];
-//            [_cityBtn setImage:[UIImage imageNamed:@"selectAreaR"] forState:UIControlStateNormal];
-//            [self.cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//
-//        }else if(scrollView.contentOffset.y>1&&scrollView.contentOffset.y<kWidth*0.368){
-//            CGFloat xx=scrollView.contentOffset.y/(kWidth*0.368);
-//            UIImageView *imageV=[self.topView1 viewWithTag:3];
-//            if (imageV.hidden==NO) {
-//                imageV.hidden=YES;
-//            }
-//            [self.topView1 setBackgroundColor:kRGB(250, 250, 250, 1*xx)];
-//            if(scrollView.contentOffset.y>50&&scrollView.contentOffset.y<kWidth*0.368)
-//            {
-//                UIView *searchV=[self.topView1 viewWithTag:1];
-//                [searchV setBackgroundColor:[UIColor whiteColor]];
-//                UILabel *lab=[searchV viewWithTag:11];
-//                [lab setTextColor:kRGB(153, 153,153, 1)];
-//
-//            }
-//
-//
-//
-//        }else if(scrollView.contentOffset.y>=kWidth*0.368&&scrollView.contentOffset.y<=kWidth*0.368+150){
-//            [self changeNav];
-//        }
-//
-//        if(scrollView.contentOffset.y>kWidth*0.368+100){
-//            if (scrollView.frame.origin.y<64) {
-//                CGRect frame=self.tableView.frame;
-//                frame.origin.y=64;
-//                frame.size.height=kHeight-47-64;
-//                self.tableView.frame=frame;
-//
-//            }
-//        }else{
-//            if (scrollView.frame.origin.y>=64) {
-//                CGRect frame=self.tableView.frame;
-//                frame.origin.y=0;
-//                frame.size.height=kHeight-47;
-//                self.tableView.frame=frame;
-//            }
-//        }
-//
-//
-// }
+
+}
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    if (scrollView.tag==112) {
+    if (self.tableView.tableHeaderView!=nil) {
+        if (targetContentOffset->y>=_JJRW) {
+            [scrollView setContentOffset:CGPointMake(0, _JJRW+_GGW+40+100) animated:YES];
+
+        }else{
+//            [self setBgContentOffsetAnimation:0];
+            [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }
+    }
+    }
+    
 }
 -(void)changeNav
 {
@@ -891,13 +827,103 @@
     [self.cityBtn setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
     [_cityBtn setImage:[UIImage imageNamed:@"selectAreaRB"] forState:UIControlStateNormal];
 }
-
+-(void)BackchangeNav
+{
+    [self.topView1 setBackgroundColor:[UIColor clearColor]];
+    
+    if(self.topView1.hidden==YES)
+    {
+        self.topView1.hidden=NO;
+    }
+    UIImageView *imageV=[self.topView1 viewWithTag:3];
+    if (imageV.hidden==YES) {
+        imageV.hidden=NO;
+    }
+    
+    UIButton *saomaBtn=[self.topView1 viewWithTag:2];
+    [saomaBtn setImage:[UIImage imageNamed:@"saomaW"] forState:UIControlStateNormal];
+    [_cityBtn setImage:[UIImage imageNamed:@"selectAreaR"] forState:UIControlStateNormal];
+    [self.cityBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    CGRect frame =  self.topView1.frame;
+    frame.origin.y=0;
+    self.topView1.frame=frame;
+}
+#pragma mark ---------网络请求----------
+-(void)reloadTableVVVWithLastType
+{
+    //供应
+    if (_lastType==0) {
+        [HTTPCLIENT SupplynewLsitWithQuery:nil WithlastTime:_lastTime Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                if (!_lastTime) {
+                    [self.dataAry removeAllObjects];
+                }
+                NSDictionary *data=[responseObject objectForKey:@"data"];
+                NSArray *supplys=data[@"supplys"];
+                NSArray *supplysModelAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplys];
+                [self.dataAry addObjectsFromArray:supplysModelAry];
+                [self.tableView reloadData];
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView footerEndRefreshing];
+        } failure:^(NSError *error) {
+            [self.tableView footerEndRefreshing];
+            [self.tableView.mj_header endRefreshing];
+        }];
+    }
+    if (_lastType==1) {
+        [HTTPCLIENT BuysNewLsitWithQuery:nil WithlastTime:_lastTime Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                if (!_lastTime) {
+                    [self.dataAry removeAllObjects];
+                }
+                NSDictionary *data=[responseObject objectForKey:@"data"];
+                NSArray *buys=data[@"buys"];
+                NSArray *buysModelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buys];
+                [self.dataAry addObjectsFromArray:buysModelAry];
+                [self.tableView reloadData];
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+            [self.tableView footerEndRefreshing];
+            [self.tableView.mj_header endRefreshing];
+        } failure:^(NSError *error) {
+          
+            [self.tableView footerEndRefreshing];
+            [self.tableView.mj_header endRefreshing];
+        }];
+    }
+    if (_lastType==2) {
+        [HTTPCLIENT getEOrderListWithLastTime:_lastTime Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                if (!_lastTime) {
+                    [self.dataAry removeAllObjects];
+                }
+                NSArray *order=[responseObject objectForKey:@"data"];
+               
+                NSArray *orderModelAry=[YLDFEOrderModel creatModeByAry:order];
+                [self.dataAry addObjectsFromArray:orderModelAry];
+                [self.tableView reloadData];
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+            [self.tableView footerEndRefreshing];
+            [self.tableView.mj_header endRefreshing];
+        } failure:^(NSError *error) {
+            [self.tableView footerEndRefreshing];
+            [self.tableView.mj_header endRefreshing];
+        }];
+    }
+    
+}
 -(void)getDataListWithPageNum:(NSString *)num
 {
     [HTTPCLIENT getHomePageInfoSuccess:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]!=0) {
             
-//                [self.supplyDataAry removeAllObjects];
+                [self.dataAry removeAllObjects];
                 [self.orderMArr removeAllObjects];
             NSDictionary *result = [responseObject objectForKey:@"data"];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -906,10 +932,17 @@
 
             NSArray *borkers = result[@"brokers"];
             self.borkers=[YLDJJrModel yldJJrModelByAry:borkers];
-            NSArray *supplysAry=result[@"supplys"];
-            self.supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
-
-            [self.tableView reloadData];
+            _JJRLView.modelAry=self.borkers;
+            if (self.lastType==0) {
+                NSArray *supplysAry=result[@"supplys"];
+                NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+                YLDFSupplyModel *model=[supplyDataAry lastObject];
+                _lastTime=model.lastTime;
+                [self.dataAry addObjectsFromArray:supplyDataAry];
+                
+                [self.tableView reloadData];
+            }
+      
 
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -944,7 +977,6 @@
         
     };
     qrcodevc.QRCodeFailBlock = ^(QRCodeViewController *aqrvc){
-        //self.saomiaoLabel.text = @"fail~";
         [ToastView showTopToast:@"扫描失败"];
         [aqrvc dismissViewControllerAnimated:NO completion:nil];
     };
@@ -1060,7 +1092,35 @@
     }
 }
 #pragma mark ----------经纪人相关----------
-
+-(UIView *)JJRMoreView
+{
+        UIView *xxview=[self makeTitleViewWithTitle:@"" AndColor:NavColor andY:0];
+        UIButton *jjrtjBuyBtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 0, 270, 40)];
+        jjrtjBuyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [jjrtjBuyBtn setTitle:@"苗木经纪人" forState:UIControlStateNormal];
+        jjrtjBuyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    
+        [jjrtjBuyBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
+    
+        [jjrtjBuyBtn setTitleColor:NavColor forState:UIControlStateNormal];
+        [xxview addSubview:jjrtjBuyBtn];
+        [xxview setBackgroundColor:[UIColor whiteColor]];
+        UIImageView *liImagV=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 1)];
+        [liImagV setBackgroundColor:BGColor];
+        [xxview addSubview:liImagV];
+        UIButton *moreHotBuyBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-110, 0, 80, 40)];
+        [moreHotBuyBtn setTitle:@"查看更多" forState:UIControlStateNormal];
+        [moreHotBuyBtn setTitleColor:titleLabColor forState:UIControlStateNormal];
+        moreHotBuyBtn.tag=2;
+        UIImageView *hotMoreRowImgV=[[UIImageView alloc]initWithFrame:CGRectMake(kWidth-35, 10.5, 15, 15)];
+        [hotMoreRowImgV setImage:[UIImage imageNamed:@"moreRow"]];
+        [xxview addSubview:hotMoreRowImgV];
+        [moreHotBuyBtn.titleLabel setFont:[UIFont systemFontOfSize:18]];
+        [moreHotBuyBtn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [xxview addSubview:moreHotBuyBtn];
+    
+        return xxview;
+}
 -(void)yxmqActionWithTag:(NSInteger)tag
 {
     YLDTHZDWViewController *vc=[YLDTHZDWViewController new];
@@ -1119,6 +1179,21 @@
         
     }];
 }
+#pragma mark ----------获取新闻分类----------
+-(void)getnewClassAction
+{
+    [HTTPCLIENT getNewsClassSuccess:^(id responseObject) {
+        if ([[responseObject objectForKey:@"success"] integerValue]) {
+            self.classAry=[responseObject objectForKey:@"data"];
+            [self topActionWithAry:self.classAry];
+        }else
+        {
+            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 #pragma mark ----------定位相关----------
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 
@@ -1164,5 +1239,48 @@
     //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
     [manager stopUpdatingLocation];
 }
+-(void)talbeviewsetRefreshHead
+{
+    NSMutableArray *idleImages = [NSMutableArray array];
+    
+    for (int i = 1; i <= 30; i ++) {
+        
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"runningC%d",i]];
+        
+        [idleImages addObject:image];
+        
+    }
+    
+    
+    
+    NSMutableArray *pullingImages = [NSMutableArray array];
 
+    UIImage *image = [UIImage imageNamed:@"runningC1"];
+
+    [pullingImages addObject:image];
+
+        __weak typeof(self) weakSelf=self;
+    
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
+        if (weakSelf.tableView.tableHeaderView!=nil) {
+            weakSelf.PageCount=1;
+            [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
+        }else{
+            self.lastTime=nil;
+            [weakSelf reloadTableVVVWithLastType];
+        }
+        
+        
+    }];
+    
+    //给MJRefreshStateIdle状态设置一组图片，可以是一张，idleImages为数组
+    
+    [header setImages:idleImages duration:1.2 forState:MJRefreshStateIdle];
+
+    //[header setImages:idleImages forState:MJRefreshStatePulling];
+    //
+   [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
+
+     self.tableView.mj_header = header;
+}
 @end

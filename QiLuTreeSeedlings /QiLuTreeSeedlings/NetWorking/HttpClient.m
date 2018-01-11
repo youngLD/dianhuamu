@@ -5856,24 +5856,7 @@
     }];
     
 }
-#pragma mark ---------- 获取新闻分类列表 -----------
-- (void)getNewsClassSuccess:(void (^)(id responseObject))success
-                    failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL            = @"articleCategorys";
 
-    ShowActionV();
-    [self GET:postURL parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
-    
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-//        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
 
 
 #pragma mark -供求评论发布
@@ -7236,7 +7219,7 @@
     }] resume];
 }
 #pragma mark -new供应列表
--(void)mySupplynewLsitWithQuery:(NSString *)query
+-(void)SupplynewLsitWithQuery:(NSString *)query
                    WithlastTime:(NSString *)lastTime
                         Success:(void (^)(id responseObject))success
                         failure:(void (^)(NSError *error))failure
@@ -8526,6 +8509,29 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
+#pragma mark ---------- 工程订单列表
+-(void)getEOrderListWithLastTime:(NSString *)lastTime
+                         Success:(void (^)(id responseObject))success
+                         failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = @"procurements";
+    
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    ShowActionV();
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"lastTime"]=lastTime;
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+    
+}
 #pragma mark ---------- 工程订单明细报价列表 -----------
 -(void)MyGongChengDingDanItemQuotesListWithitemId:(NSString *)itemId WithorderId:(NSString *)orderId Success:(void (^)(id responseObject))success
                                           failure:(void (^)(NSError *error))failure
@@ -8720,5 +8726,23 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
     
+}
+#pragma mark ---------- 获取新闻分类列表 -----------
+- (void)getNewsClassSuccess:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = @"news/type";
+    
+    ShowActionV();
+    [self GET:postURL parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        //        [HttpClient HTTPERRORMESSAGE:error];
+    }];
 }
 @end

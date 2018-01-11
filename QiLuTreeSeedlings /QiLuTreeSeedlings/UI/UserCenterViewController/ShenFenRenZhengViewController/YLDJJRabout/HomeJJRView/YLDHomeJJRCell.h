@@ -16,7 +16,7 @@
 -(void)yxmqActionWithTag:(NSInteger)tag;
 @optional
 @end
-@interface YLDHomeJJRCell : UITableViewCell <UIScrollViewDelegate,YLDTYXMQHomeViewDelegate>
+@interface YLDHomeJJRCell : UIView <UIScrollViewDelegate,YLDTYXMQHomeViewDelegate>
 @property (nonatomic,strong)UIScrollView *backscrollview;
 @property (nonatomic,strong)NSMutableArray *viewAry;
 @property (nonatomic,strong)NSArray *modelAry;

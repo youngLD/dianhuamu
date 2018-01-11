@@ -12,15 +12,16 @@
 #import "UIImageView+AFNetworking.h"
 
 @implementation YLDHomeJJRCell 
--(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(id)init
 {
-    self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self=[super init];
     if (self) {
-        double  kkk = [UIScreen mainScreen].bounds.size.width*(11/30.f-0.0417);
-        double  fff = [UIScreen mainScreen].bounds.size.width*0.0417;
-        self.hearView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-50, 5, 50, kkk+80)];
+        double  kkk = kWidth*(12/40.f-0.0417);
+        
+        double  fff = kWidth*0.0417;
+        self.hearView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-50, 5, 50, kkk+70)];
 
-        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(10, 40, 20, kkk)];
+        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, 20, kkk+20)];
         lab.textAlignment=NSTextAlignmentCenter;
 ;
         [lab setFont:[UIFont systemFontOfSize:12]];
@@ -30,13 +31,13 @@
         [lab setTextColor:MoreDarkTitleColor];
         [self.hearView addSubview:lab];
         
-        [self.contentView addSubview:self.hearView];
+        [self addSubview:self.hearView];
         self.viewAry=[NSMutableArray arrayWithCapacity:10];
-        self.frame=CGRectMake(0, 0, kkk, kkk+80+60);
-        self.backscrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 5, kWidth,kkk+80)];
+        self.frame=CGRectMake(0, 0, kkk, kkk+70);
+        self.backscrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 5, kWidth,kkk+70)];
 //        [self.backscrollview setBackgroundColor:[UIColor whiteColor]];
         self.backscrollview.delegate=self;
-        [self.contentView addSubview:self.backscrollview];
+        [self addSubview:self.backscrollview];
         for (int i=0; i<10; i++) {
             UIView *vvvv=[[UIView alloc]initWithFrame:CGRectMake(10+fff*(i-1)+i*kkk, 0, fff, kkk+60)];
             [vvvv setBackgroundColor:[UIColor whiteColor]];
@@ -54,9 +55,10 @@
         
         [self.backscrollview setContentSize:CGSizeMake(kkk*10+fff*10+10, 0)];
         
-        self.sqV=[[YLDTYXMQHomeView alloc]initWithFrame:CGRectMake(0, kkk+60, kWidth, 50)];
-        self.sqV.delegate=self;
-        [self.contentView addSubview:self.sqV];
+        UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height-10, kWidth, 10)];
+        [lineView setBackgroundColor:BGColor];
+        [self addSubview:lineView];
+
         
     }
     
@@ -133,10 +135,5 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

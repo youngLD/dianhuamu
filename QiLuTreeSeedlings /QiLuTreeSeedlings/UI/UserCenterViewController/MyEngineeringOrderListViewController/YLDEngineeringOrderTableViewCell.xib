@@ -94,7 +94,7 @@
                             <constraint firstAttribute="width" constant="40" id="hWa-lL-WFC"/>
                             <constraint firstAttribute="height" constant="40" id="lOz-4B-xsI"/>
                         </constraints>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <state key="normal" title="展开">
                             <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
