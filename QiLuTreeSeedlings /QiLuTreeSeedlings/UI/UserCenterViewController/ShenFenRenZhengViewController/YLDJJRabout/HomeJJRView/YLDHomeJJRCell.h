@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "YLDJJrModel.h"
-#import "YLDTYXMQHomeView.h"
+//#import "YLDTYXMQHomeView.h"
 @protocol YLDHomeJJRCellDelegate // 必须实现的方法
 @required
 -(void)jjrActionWithModel:(YLDJJrModel *)model;
@@ -16,11 +16,11 @@
 -(void)yxmqActionWithTag:(NSInteger)tag;
 @optional
 @end
-@interface YLDHomeJJRCell : UIView <UIScrollViewDelegate,YLDTYXMQHomeViewDelegate>
+@interface YLDHomeJJRCell : UIView <UIScrollViewDelegate>
 @property (nonatomic,strong)UIScrollView *backscrollview;
 @property (nonatomic,strong)NSMutableArray *viewAry;
 @property (nonatomic,strong)NSArray *modelAry;
-@property (nonatomic,strong)YLDTYXMQHomeView *sqV;
+//@property (nonatomic,strong)YLDTYXMQHomeView *sqV;
 @property (nonatomic,strong)UIView *hearView;
 @property (nonatomic,strong)UILabel *hearlab;
 @property (nonatomic,weak) id <YLDHomeJJRCellDelegate> delegate;

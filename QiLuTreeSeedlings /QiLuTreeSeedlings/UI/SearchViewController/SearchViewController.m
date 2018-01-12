@@ -155,7 +155,7 @@
     UITextField * searchMessageField=[[UITextField alloc]initWithFrame:CGRectMake(0, 0, backView.frame.size.width-50, 34)];
     [searchMessageField setEnabled:NO];
     self.searchMessageField=searchMessageField;
-    searchMessageField.placeholder=@"请输入关键词";
+    searchMessageField.placeholder=@"请输入搜索关键词";
     if (self.searchStr.length>0) {
         searchMessageField.text=self.searchStr;
         

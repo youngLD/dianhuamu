@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *GCGSDDView;
 @property (weak, nonatomic) IBOutlet UIView *JJRView;
 @property (weak, nonatomic) IBOutlet UIView *lineV;
+@property (weak, nonatomic) IBOutlet UIView *ffVVV;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *JJRW;
 +(YLDFUserGCTableViewCell *)yldFUserGCTableViewCell;
 -(void)cellReoldAction;
 @end

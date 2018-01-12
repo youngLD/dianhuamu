@@ -21,6 +21,7 @@
     cell.lineW.constant=1;
     cell.lineTotimeLabC=0;
     [cell.btnView removeFromSuperview];
+    [cell.bottomLineV setBackgroundColor:kLineColor];
     return cell;
 }
 - (IBAction)deleteBtnAction:(id)sender {

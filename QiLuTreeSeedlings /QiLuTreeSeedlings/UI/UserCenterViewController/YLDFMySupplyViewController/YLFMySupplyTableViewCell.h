@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *lineTotimeLabC;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineW;
 @property (weak, nonatomic) IBOutlet UIView *btnView;
+@property (weak, nonatomic) IBOutlet UIView *bottomLineV;
 +(YLFMySupplyTableViewCell *)yldFMySupplyTableViewCell;
 +(YLFMySupplyTableViewCell *)yldFListSupplyTableViewCell;
 @end

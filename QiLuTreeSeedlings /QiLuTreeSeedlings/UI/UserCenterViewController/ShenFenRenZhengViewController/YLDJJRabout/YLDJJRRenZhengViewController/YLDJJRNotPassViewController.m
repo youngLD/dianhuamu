@@ -14,18 +14,23 @@
 
 @implementation YLDJJRNotPassViewController
 - (IBAction)bianjiBtnAction:(id)sender {
-    YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
-    
-    vc.type=2;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
+    if (self.delegate) {
+        [self.delegate shenheweitongguoChongxintijiaoDic:self.dic WithwareStr:self.wareStr];
+
+    }
+   
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.vcTitle=@"经纪人认证";
-    NSMutableAttributedString *textStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"未通过原因：%@",self.wareStr]];
+    self.vcTitle=[NSString stringWithFormat:@"%@认证",self.wareStr];
+    self.nicaiLab.text=[NSString stringWithFormat:@"对不起，您的%@审核暂未通过...",self.wareStr];
+    NSDictionary *roleApplyAudit=self.dic[@"roleApplyAudit"];
+    NSString *resonStr=roleApplyAudit[@"auditReason"];
+    NSMutableAttributedString *textStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"未通过原因：%@",resonStr]];
     
-    [textStr addAttribute:NSForegroundColorAttributeName value:NavYellowColor range:NSMakeRange(6, self.wareStr.length)];//从0位置开始的长度为2的红色
+    [textStr addAttribute:NSForegroundColorAttributeName value:NavYellowColor range:NSMakeRange(6,resonStr.length)];//从0位置开始的长度为2的红色
 
     self.notPassLab.attributedText = textStr;
     // Do any additional setup after loading the view from its nib.

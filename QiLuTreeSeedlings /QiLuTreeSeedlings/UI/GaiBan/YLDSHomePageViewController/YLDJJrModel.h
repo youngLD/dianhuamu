@@ -21,6 +21,7 @@
 @property (nonatomic,copy) NSString *defaultAreaName;
 @property (nonatomic,copy) NSString *partyId;
 @property (nonatomic,assign) NSInteger comments;
+@property (nonatomic,copy) NSArray *area;
 @property (nonatomic,assign)BOOL selected;
 +(YLDJJrModel *)yldJJrModelByDic:(NSDictionary *)dic;
 +(NSArray *)yldJJrModelByAry:(NSArray *)ary;

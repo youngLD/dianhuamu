@@ -365,7 +365,6 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     tableView.estimatedRowHeight=190.0;
-    
     tableView.rowHeight=UITableViewAutomaticDimension;
     return tableView.rowHeight;
 }

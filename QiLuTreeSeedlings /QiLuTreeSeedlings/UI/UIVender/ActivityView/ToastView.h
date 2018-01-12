@@ -21,7 +21,7 @@
 //#define iPhone6P ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 
 #define kToastTopYOffset         66.0f
-#define kToastViewYOffset        iPhone4 ? 390 : 480
+#define kToastViewYOffset        iPhone4 ? 200 : 240
 #define kSizeScreenWidth         [[UIScreen mainScreen] bounds].size.width
 
 

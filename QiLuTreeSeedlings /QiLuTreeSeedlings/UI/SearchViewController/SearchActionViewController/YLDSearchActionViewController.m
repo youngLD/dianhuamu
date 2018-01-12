@@ -12,6 +12,7 @@
 #import "UIDefines.h"
 @interface YLDSearchActionViewController ()<SearchRecommendViewDelegate>
 @property (nonatomic,weak) UIButton *nowBtn;
+@property (nonatomic,strong)UIView *moveView;
 @end
 
 @implementation YLDSearchActionViewController
@@ -65,29 +66,36 @@
 }
 - (void)creatNavView {
     UIView *searchBackV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 64)];
-    [searchBackV setBackgroundColor:BGColor];
+    [searchBackV setBackgroundColor:kRGB(240, 240, 240, 1)];
     [self.view addSubview:searchBackV];
     
-    UIButton *backBtn=[[UIButton alloc]initWithFrame:CGRectMake(12, 27, 30, 30)];
-    [backBtn setBackgroundImage:[UIImage imageNamed:@"backBtnBlack"] forState:UIControlStateNormal];
-    [backBtn setEnlargeEdgeWithTop:15 right:20 bottom:10 left:10];
-    [searchBackV addSubview:backBtn];
-    [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UITextField * searchMessageField=[[UITextField alloc]initWithFrame:CGRectMake(60, 25,kWidth-120, 34)];
-    searchMessageField.layer.masksToBounds=YES;
-    searchMessageField.layer.cornerRadius=3;
-    [searchMessageField setBackgroundColor:[UIColor whiteColor]];
+//    UIButton *backBtn=[[UIButton alloc]initWithFrame:CGRectMake(12, 27, 30, 30)];
+//    [backBtn setBackgroundImage:[UIImage imageNamed:@"backBtnBlack"] forState:UIControlStateNormal];
+//    [backBtn setEnlargeEdgeWithTop:15 right:20 bottom:10 left:10];
+//    [searchBackV addSubview:backBtn];
+//    [backBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIView * searchsssskV=[[UIView alloc]initWithFrame:CGRectMake(20, 25,kWidth-80, 34)];
+    searchsssskV.layer.masksToBounds=YES;
+    searchsssskV.layer.cornerRadius=17;
+    [searchsssskV setBackgroundColor:[UIColor whiteColor]];
+    UIImageView *searchIamV=[[UIImageView alloc]initWithFrame:CGRectMake(10, 4.5, 25, 25)];
+    searchIamV.tag=12;
+    searchIamV.image=[UIImage imageNamed:@"serachSG"];
+    [searchsssskV addSubview:searchIamV];
+    [searchBackV addSubview:searchsssskV];
+    UITextField * searchMessageField=[[UITextField alloc]initWithFrame:CGRectMake(40, 0,kWidth-120, 34)];
+
+    [searchMessageField setBackgroundColor:[UIColor clearColor]];
     [searchMessageField setTextColor:titleLabColor];
     searchMessageField.placeholder=@"请输入搜索关键词";
-    [searchMessageField setFont:[UIFont systemFontOfSize:14]];
+    [searchMessageField setFont:[UIFont systemFontOfSize:15]];
     self.searchTextField=searchMessageField;
     searchMessageField.clearButtonMode=UITextFieldViewModeWhileEditing;
-    [searchBackV addSubview:searchMessageField];
+    [searchsssskV addSubview:searchMessageField];
     
     UIButton *searchBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-60, 27, 50, 30)];
-    [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [searchBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(backBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [searchBtn setTitleColor:titleLabColor forState:UIControlStateNormal];
     [searchBackV addSubview:searchBtn];
     UIView *typeView=[[UIView alloc]initWithFrame:CGRectMake(0, 64, kWidth, 50)];
@@ -96,7 +104,7 @@
     NSArray *btnAry=@[@"供应",@"求购",@"工程订单",@"企业"];
     for (int i=0; i<btnAry.count; i++) {
         NSString *title=btnAry[i];
-        UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth/3*i, 0, kWidth/3, 50)];
+        UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth/4*i, 0, kWidth/4, 50)];
         [btn setTitleColor:DarkTitleColor forState:UIControlStateNormal];
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitleColor:NavColor forState:UIControlStateSelected];
@@ -110,6 +118,10 @@
             self.nowBtn=btn;
         }
     }
+    UIView *moveView=[[UIView alloc]initWithFrame:CGRectMake(12, 47.5, kWidth/4-24, 2.5)];
+    self.moveView=moveView;
+    [moveView setBackgroundColor:NavColor];
+    [typeView addSubview:moveView];
 }
 -(void)searchBtnAction
 {
@@ -127,6 +139,12 @@
     sender.selected=YES;
     self.nowBtn.selected=NO;
     self.nowBtn=sender;
+    CGRect frame=self.moveView.frame;
+    frame.origin.x=kWidth/4*(sender.tag-1)+12;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.moveView.frame=frame;
+    }];
+    
     
 }
 -(void)backBtnAction:(UIButton *)sender

@@ -1560,14 +1560,6 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark -经纪人列表分享
 -(void)jjrGetListShareSuccess:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
-#pragma mark -经纪人列表
--(void)jjrListWithareaCode:(NSString *)areaCode
-                  withPage:(NSString *)page
-              withPageSize:(NSString *)pageSize
-            WithproductUid:(NSString *)productUid
-                   Success:(void (^)(id responseObject))success
-                   failure:(void (^)(NSError *error))failure;
-
 
 #pragma mark -经纪人供求列表
 -(void)jjrgqListWithUid:(NSString *)uid
@@ -1933,6 +1925,10 @@ failure:(void (^)(NSError *error))failure;
 -(void)getEOrderListWithLastTime:(NSString *)lastTime
                          Success:(void (^)(id responseObject))success
                          failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单详情
+-(void)getEOrderDetialWithEngineeringProcurementId:(NSString *)engineeringProcurementId
+                         Success:(void (^)(id responseObject))success
+                         failure:(void (^)(NSError *error))failure;
 #pragma mark -获取消息列表
 -(void)systemMessageListWithType:(NSString *)noticeType
                     WithLastTime:(NSString *)lastTime
@@ -1964,4 +1960,12 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 获取新闻分类列表 -----------
 - (void)getNewsClassSuccess:(void (^)(id responseObject))success
                     failure:(void (^)(NSError *error))failure;
+#pragma mark -经纪人列表
+-(void)jjrListWithareaCode:(NSString *)areaCode
+                  lastTime:(NSString *)lastTime
+            WithproductUid:(NSString *)productUid
+                   Success:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure;
+
+
 @end

@@ -6614,36 +6614,7 @@
     
     
 }
-#pragma mark -经纪人列表
--(void)jjrListWithareaCode:(NSString *)areaCode
-                  withPage:(NSString *)page
-              withPageSize:(NSString *)pageSize
-            WithproductUid:(NSString *)productUid
-                   Success:(void (^)(id responseObject))success
-                   failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL            =@"brokers";
-    
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"areaCode"]             = areaCode;
-    parmers[@"access_id"]            = APPDELEGATE.userModel.access_id;
-    parmers[@"page"]                 = page;
-    parmers[@"pageSize"]             = pageSize;
-    parmers[@"product"]           = productUid;
-    parmers[@"sortArea"]           = APPDELEGATE.cityModel.code;
-    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
 
-}
 
 
 #pragma mark -经纪人供求列表
@@ -8583,7 +8554,7 @@
                       failure:(void (^)(NSError *error))failure
 {
 
-    NSString *postURL            = @"procurement";
+    NSString *postURL            = @"procurements";
 
     [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
     ShowActionV();
@@ -8599,6 +8570,29 @@
         RemoveActionV();
         [HttpClient HTTPERRORMESSAGE:error];
     }];
+}
+#pragma mark ---------- 工程订单详情
+-(void)getEOrderDetialWithEngineeringProcurementId:(NSString *)engineeringProcurementId
+                                           Success:(void (^)(id responseObject))success
+                                           failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = [NSString stringWithFormat:@"procurements/%@",engineeringProcurementId];
+    
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    ShowActionV();
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+//    parmers[@"lastTime"]=lastTime;
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+    
 }
 #pragma mark ---------- 获取工程订单详情，用于工程订单信息修改
 -(void)EOrderDetialWithengineeringProcurementId:(NSString *)engineeringProcurementId
@@ -8696,7 +8690,7 @@
                 failure:(void (^)(NSError *error))failure
 {
     NSString *postURL            =@"party/brokers";
-        [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
     [self GET:postURL parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
         
         
@@ -8744,5 +8738,32 @@
         RemoveActionV();
         //        [HttpClient HTTPERRORMESSAGE:error];
     }];
+}
+#pragma mark -经纪人列表
+-(void)jjrListWithareaCode:(NSString *)areaCode
+                  lastTime:(NSString *)lastTime
+            WithproductUid:(NSString *)productUid
+                   Success:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =@"brokers";
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"areaCode"]             = areaCode;
+    parmers[@"lastTime"]             = lastTime;
+    parmers[@"product"]              = productUid;
+    parmers[@"sortArea"]             = APPDELEGATE.cityModel.code;
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+    
 }
 @end

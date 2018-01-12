@@ -37,10 +37,7 @@
 //朋友圈
 #import "SDTimeLineTableViewController.h"
 
-#import "YLDHomeJJRCell.h"
-#import "YLDJJrModel.h"
-#import "YLDJJRListViewController.h"
-#import "YLDJJRDeitalViewController.h"
+
 #import "YLDJJRMyViewController.h"
 #import "YLDJJRSHZViewController.h"
 #import "YLDJJRenShenQing1ViewController.h"
@@ -68,8 +65,18 @@
 #import "YLDFMyBuyTableViewCell.h"
 #import "YLDFEOrderModel.h"
 #import "YLDEngineeringOrderTableViewCell.h"
+#import "YLDFSupplyFabuViewController.h"
+#import "YLDFBuyFBViewController.h"
+#import "YLDFabuSuccessViewController.h"
+#import "YLDFMySupplyListViewController.h"
+#import "YLDFBuyListViewController.h"
+#import "YLDHomeJJRCell.h"
+#import "YLDJJrModel.h"
+#import "YLDJJRListViewController.h"
+#import "YLDJJRDeitalViewController.h"
+#import "YLDFEOrderDetialViewController.h"
 #define TopBtnW 90
-@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDEngineeringOrderTableViewCellDelegate>
+@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDEngineeringOrderTableViewCellDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *searchTopV;
 @property (nonatomic,strong)NSMutableArray *orderMArr;//工程订单
@@ -93,7 +100,7 @@
 @property (nonatomic,assign)NSInteger lastType;
 @property (nonatomic,strong)UIButton *ActionVNowBtn;
 @property (nonatomic,strong)UIButton *qiugouNowBtn;
-@property (nonatomic,copy)NSString *qiugouState;
+//@property (nonatomic,copy)NSString *qiugouState;
 @property (nonatomic,strong)UIButton *cityBtn;
 @property (nonatomic,strong)CLLocationManager *locationManager;
 @property (nonatomic,copy)NSString *lastTime;
@@ -131,98 +138,15 @@
     _JJRW=kkk+70;
     self.orderMArr=[NSMutableArray array];
     self.newsDataAry=[NSMutableArray array];
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
     
-    self.locationManager.distanceFilter = 1.0;
-    
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
-        
-    {
-        [self.locationManager requestWhenInUseAuthorization]; //使用中授权
-        
-    }
-    
-    [self.locationManager startUpdatingLocation];
-    
-    self.qiugouState=@"free";
+    [self openDingweiAction];
+
     self.topActionV=[self creatGBTypeV];
 
-    UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,kWidth , kHeight-44) style:UITableViewStylePlain];
-    UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
-    [heardView setBackgroundColor:[UIColor clearColor]];
-    tableView.tableHeaderView=heardView;
-    self.heardView=heardView;
 
-#ifdef __IPHONE_11_0
-    if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-        if (@available(iOS 11.0, *)) {
-            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-#endif
    
+    [self creatTableViewHearder];
     [self getDataListWithPageNum:@"1"];
-   
-    
-
- 
-  
-    UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
-    [hearActionV setBackgroundColor:BGColor];
-    [heardView addSubview:hearActionV];
-    self.hearActionView=hearActionV;
-    
-    AdvertView * adView=[[AdvertView alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AdvertView"];
-    
-    adView.delegate=self;
-    adView.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    
-    [adView setAdInfoWithAry:self.lunboAry];
-    [adView adStart];
-    UIView *adBGView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW)];
-    _adBGView=adBGView;
-    [adBGView addSubview:adView];
-    [hearActionV addSubview:adBGView];
-    CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth,100)];
-    
-    circleViews.delegate=self;
-    UIView *circleViewsBGV=[[UIView alloc]initWithFrame:CGRectMake(0, _GGW, kWidth, 100)];
-    [circleViewsBGV addSubview:circleViews];
-    [hearActionV addSubview:circleViewsBGV];
-    _CBGV=circleViewsBGV;
-    _JJRMView =[self JJRMoreView];
-    _JJRMView.frame=CGRectMake(0, _GGW+100, kWidth, 40);
-    [hearActionV addSubview:_JJRMView];
-    _JJRLView=[[YLDHomeJJRCell alloc]init];
-        _JJRLView.delegate=self;
-    _JJRLView.frame=CGRectMake(0, _GGW+40+100, kWidth, _JJRW);
-
-    [hearActionV addSubview:_JJRLView];
-   
-    
-    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 55)];
-    [view setBackgroundColor:[UIColor whiteColor]];
-    UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, kWidth, 55)];
-    btn.tag=4;
-    [btn setTitle:@"查看更多" forState:UIControlStateNormal];
-    [btn setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [btn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:btn];
-    tableView.tableFooterView =view;
-    [tableView setBackgroundColor:[UIColor clearColor]];
-    tableView.tag=112;
-    tableView.dataSource=self;
-    tableView.delegate=self;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView=tableView;
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self talbeviewsetRefreshHead];
     //缓存
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -232,19 +156,10 @@
         
     }
     
-    
-    [self.view addSubview:tableView];
-  
     self.topView1=[self creatTopSeachV];
     [self.view addSubview:self.topView1];
     
-    
-    self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-60, kHeight-110, 50, 50)];
-    [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateNormal];
-    [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateHighlighted];
-    [self.view addSubview:self.goTopBtn];
-    [self.goTopBtn addTarget:self action:@selector(gotopBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.goTopBtn.hidden=YES;
+    [self CreatXuanfuBtn];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMessageForDingzhiXinXi:) name:@"dingzhixinxituisong" object:nil];
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(nonnull UIViewController *)viewController
@@ -255,6 +170,9 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     if (viewController==self.navigationController) {
+        if (self.tableView.tableHeaderView==nil) {
+            [self gotopBtnAction];
+        }
         
     }
     return YES;
@@ -320,8 +238,10 @@
             [self changeNav];
         }
         self.topActionMoveV.frame=frame;
-        [self reloadTableVVVWithLastType];
+        
     }];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 
@@ -338,9 +258,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (section < 5) {
-//        return 1;
-//    }
+
     if (section == 0) {
         return  self.dataAry.count;
  
@@ -418,6 +336,15 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section==0) {
+        id model=self.dataAry[indexPath.row];
+        if ([model  isKindOfClass:[YLDFEOrderModel class]])
+        {
+            YLDFEOrderModel *modelz=self.dataAry[indexPath.row];
+            YLDFEOrderDetialViewController *vc=[YLDFEOrderDetialViewController new];
+            vc.hidesBottomBarWhenPushed=YES;
+            vc.orderId=modelz.engineeringProcurementId;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         
     }
 }
@@ -482,9 +409,9 @@
     }
     if (sender.tag==4&&_lastType==1) {
         NSInteger type=3;
-        if ([self.qiugouState isEqualToString:@"new"]) {
-            type=2;
-        }
+//        if ([self.qiugouState isEqualToString:@"new"]) {
+//            type=2;
+//        }
         SearchViewController *searVC=[[SearchViewController alloc]initWithSearchType:type];
         searVC.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:searVC animated:YES];
@@ -667,7 +594,7 @@
 {
     YLDSearchActionViewController *yldsaVC=[[YLDSearchActionViewController alloc]init];
     yldsaVC.delegate=self;
-    yldsaVC.searchType=3;
+    yldsaVC.searchType=1;
     [self presentViewController:yldsaVC animated:NO completion:^{
         
     }];
@@ -746,10 +673,6 @@
             if (scrollView.contentOffset.y>=1) {
               
                 [self.view insertSubview:self.hearActionView belowSubview:self.tableView];
-
-                
-
-                
             if(scrollView.contentOffset.y>1&&scrollView.contentOffset.y<_JJRW) {
                     self.JJRLView.alpha =1-scrollView.contentOffset.y/_JJRW;
                 }
@@ -797,6 +720,14 @@
 
     }
 
+}
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if (scrollView.tag==112) {
+        if (self.JJRLView.alpha!=1) {
+            self.JJRLView.alpha=1;
+        }
+    }
 }
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
@@ -861,6 +792,8 @@
                 NSDictionary *data=[responseObject objectForKey:@"data"];
                 NSArray *supplys=data[@"supplys"];
                 NSArray *supplysModelAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplys];
+                YLDFSupplyModel *model=[supplysModelAry lastObject];
+                self.lastTime=model.lastTime;
                 [self.dataAry addObjectsFromArray:supplysModelAry];
                 [self.tableView reloadData];
             }else{
@@ -882,6 +815,8 @@
                 NSDictionary *data=[responseObject objectForKey:@"data"];
                 NSArray *buys=data[@"buys"];
                 NSArray *buysModelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buys];
+                YLDFBuyModel *model=[buysModelAry lastObject];
+                self.lastTime=model.lastTime;
                 [self.dataAry addObjectsFromArray:buysModelAry];
                 [self.tableView reloadData];
             }else{
@@ -904,7 +839,10 @@
                 NSArray *order=[responseObject objectForKey:@"data"];
                
                 NSArray *orderModelAry=[YLDFEOrderModel creatModeByAry:order];
+                YLDFEOrderModel *model=[orderModelAry lastObject];
+                self.lastTime=model.lastTime;
                 [self.dataAry addObjectsFromArray:orderModelAry];
+                
                 [self.tableView reloadData];
             }else{
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -915,6 +853,10 @@
             [self.tableView footerEndRefreshing];
             [self.tableView.mj_header endRefreshing];
         }];
+    }
+    if (_lastType==2) {
+        [self.tableView footerEndRefreshing];
+        [self.tableView.mj_header endRefreshing];
     }
     
 }
@@ -1194,7 +1136,85 @@
         
     }];
 }
+#pragma mark --生成tableview--
+-(void)creatTableViewHearder
+{
+    UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,kWidth , kHeight-44) style:UITableViewStylePlain];
+    [self.view addSubview:tableView];
+    self.tableView=tableView;
+#ifdef __IPHONE_11_0
+    if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        if (@available(iOS 11.0, *)) {
+            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+#endif
+    UIView *heardView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
+    [heardView setBackgroundColor:[UIColor clearColor]];
+    _tableView.tableHeaderView=heardView;
+    self.heardView=heardView;
+    UIView *hearActionV=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW+40+100+_JJRW)];
+    [hearActionV setBackgroundColor:BGColor];
+    [heardView addSubview:hearActionV];
+    self.hearActionView=hearActionV;
+    
+    AdvertView * adView=[[AdvertView alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AdvertView"];
+    
+    adView.delegate=self;
+    adView.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    [adView setAdInfoWithAry:self.lunboAry];
+    [adView adStart];
+    UIView *adBGView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, _GGW)];
+    _adBGView=adBGView;
+    [adBGView addSubview:adView];
+    [hearActionV addSubview:adBGView];
+    CircleViews *circleViews=[[CircleViews alloc]initWithFrame:CGRectMake(0, 0, kWidth,100)];
+    
+    circleViews.delegate=self;
+    UIView *circleViewsBGV=[[UIView alloc]initWithFrame:CGRectMake(0, _GGW, kWidth, 100)];
+    [circleViewsBGV addSubview:circleViews];
+    [hearActionV addSubview:circleViewsBGV];
+    _CBGV=circleViewsBGV;
+    _JJRMView =[self JJRMoreView];
+    _JJRMView.frame=CGRectMake(0, _GGW+100, kWidth, 40);
+    [hearActionV addSubview:_JJRMView];
+    _JJRLView=[[YLDHomeJJRCell alloc]init];
+    _JJRLView.delegate=self;
+    _JJRLView.frame=CGRectMake(0, _GGW+40+100, kWidth, _JJRW);
+    
+    [hearActionV addSubview:_JJRLView];
+    [_tableView setBackgroundColor:[UIColor clearColor]];
+    _tableView.tag=112;
+    _tableView.dataSource=self;
+    _tableView.delegate=self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self talbeviewsetRefreshHead];
+}
 #pragma mark ----------定位相关----------
+
+-(void)openDingweiAction
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    self.locationManager.distanceFilter = 1.0;
+    
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    if([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+        
+    {
+        [self.locationManager requestWhenInUseAuthorization]; //使用中授权
+        
+    }
+    
+    [self.locationManager startUpdatingLocation];
+}
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 
 {
@@ -1282,5 +1302,166 @@
    [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
 
      self.tableView.mj_header = header;
+    
+    
+    [self.tableView addFooterWithCallback:^{
+        [weakSelf reloadTableVVVWithLastType];
+    }];
 }
+#pragma mark ----------悬浮按钮----------
+-(void)CreatXuanfuBtn
+{
+    UIButton *fabuQiuGBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-170, 70, 70)];
+    [fabuQiuGBtn setImage:[UIImage imageNamed:@"shouyeQiugouxuanfu"] forState:UIControlStateNormal];
+    [fabuQiuGBtn setImage:[UIImage imageNamed:@"shouyeQiugouxuanfu"] forState:UIControlStateHighlighted];
+    [fabuQiuGBtn addTarget:self action:@selector(wodeqiugouFabuBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:fabuQiuGBtn];
+    UIButton *fabuGongyingBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-240, 70, 70)];
+    [fabuGongyingBtn setImage:[UIImage imageNamed:@"shouyeGongyingxuanfu"] forState:UIControlStateNormal];
+    [fabuGongyingBtn setImage:[UIImage imageNamed:@"shouyeGongyingxuanfu"] forState:UIControlStateHighlighted];
+    [fabuGongyingBtn addTarget:self action:@selector(wodegongyingFabuAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:fabuGongyingBtn];
+    self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-70, kHeight-100, 50, 50)];
+    [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateNormal];
+    [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateHighlighted];
+    [self.view addSubview:self.goTopBtn];
+    [self.goTopBtn addTarget:self action:@selector(gotopBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.goTopBtn.hidden=YES;
+}
+#pragma mark ----------发布相关----------
+-(void)wodeqiugouFabuBtnAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFBuyFBViewController *vc=[YLDFBuyFBViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.delegate=self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)wodegongyingFabuAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFSupplyFabuViewController *vc=[YLDFSupplyFabuViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.delegate=self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)YLfabuSuccessWithBuyDic:(NSDictionary *)buyDic
+{
+    
+}
+-(void)YLfabuSuccessWithSupplyDic:(NSDictionary *)supplydic
+{
+    
+}
+-(void)YLfabuSuccessWithContinueType:(NSInteger)type{
+    if (type==1) {
+        [self wodegongyingFabuAction];
+    }else if (type==2)
+    {
+        [self wodeqiugouFabuBtnAction];
+    }
+//    else if (type==3)
+//    {
+//        YLDFEOrderFaBuOneViewController *vc=[YLDFEOrderFaBuOneViewController new];
+//        vc.hidesBottomBarWhenPushed=YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+}
+-(void)YLfabuSuccessWithAdministrationType:(NSInteger)type{
+    if (type==1) {
+        [self mySupplyListAction];
+    }else if (type==2)
+    {
+        [self myBuyLsitAction];
+    }
+//    else if (type==3)
+//    {
+//        YLDJJRMyViewController *vc=[YLDJJRMyViewController new];
+//        vc.hidesBottomBarWhenPushed=YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+}
+-(void)fabuSuccessWithbuyId:(NSDictionary *)buydic
+{
+    YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.delegate=self;
+    vc.buyDic=buydic;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabuSuccessWithOrderId:(NSNotification *)obj
+{
+
+}
+-(void)fabusupplyBtnAction
+{
+    YLDFSupplyFabuViewController *vc=[YLDFSupplyFabuViewController new];
+    vc.delegate=self;
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabuSuccessWithSupplyId:(NSDictionary *)supplydic
+{
+    YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.supplyDic=supplydic;
+    vc.delegate=self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)mySupplyListAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFMySupplyListViewController *vc=[YLDFMySupplyListViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)myBuyLsitAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFBuyListViewController *vc=[YLDFBuyListViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 @end

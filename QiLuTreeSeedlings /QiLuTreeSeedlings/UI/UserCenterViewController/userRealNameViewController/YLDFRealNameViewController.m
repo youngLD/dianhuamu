@@ -35,8 +35,7 @@
         self.idCardPicBack=usersApply[@"idCardPicBack"];
         
         self.idCardPicFront=usersApply[@"idCardPicFront"];
-        NSDictionary *roleApplyAudit=self.dic[@"roleApplyAudit"];
-        self.resonLab.text=[NSString stringWithFormat:@"退回原因：%@",roleApplyAudit[@"auditReason"]];
+       
         [self.zhengmianImageV setImageWithURL:[NSURL URLWithString:self.idCardPicFront]];
         [self.beimiamImageV setImageWithURL:[NSURL URLWithString:self.idCardPicBack]];
     }

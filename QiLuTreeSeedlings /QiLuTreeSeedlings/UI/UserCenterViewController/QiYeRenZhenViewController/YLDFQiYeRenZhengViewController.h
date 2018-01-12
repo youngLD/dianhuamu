@@ -7,13 +7,13 @@
 //
 
 #import "ZIKRightBtnSringViewController.h"
-
+#import "YLDRangeTextField.h"
 @interface YLDFQiYeRenZhengViewController : ZIKRightBtnSringViewController
 @property (weak, nonatomic) IBOutlet UIButton *zhizhaoIamgeVBtn;
-@property (weak, nonatomic) IBOutlet UITextField *qiyeNameTexfField;
-@property (weak, nonatomic) IBOutlet UITextField *qiyeAddressTexfField;
-@property (weak, nonatomic) IBOutlet UITextField *qiyePersonTexfField;
-@property (weak, nonatomic) IBOutlet UITextField *phoneTextfield;
+@property (weak, nonatomic) IBOutlet YLDRangeTextField *qiyeNameTexfField;
+@property (weak, nonatomic) IBOutlet YLDRangeTextField *qiyeAddressTexfField;
+@property (weak, nonatomic) IBOutlet YLDRangeTextField *qiyePersonTexfField;
+@property (weak, nonatomic) IBOutlet YLDRangeTextField *phoneTextfield;
 @property (weak, nonatomic) IBOutlet UIImageView *imageV;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
 @property (weak, nonatomic) IBOutlet UILabel *resonLab;

@@ -25,6 +25,8 @@
     self.guanliBtn.layer.cornerRadius=20;
     self.vcTitle=@"发布成功";
     [self.yulanBtn addTarget:self action:@selector(yulanAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.guanliBtn addTarget:self action:@selector(AdministrationBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.fabuBtn addTarget:self action:@selector(fabuBtnAction) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)yulanAction
@@ -41,7 +43,10 @@
             type=1;
         }else if(self.buyDic) {
             type=2;
+        }else if(self.orderDic) {
+            type=3;
         }
+        [self.navigationController popViewControllerAnimated:NO];
         [self.delegate YLfabuSuccessWithAdministrationType:type];
     }
 }
@@ -53,7 +58,10 @@
             type=1;
         }else if(self.buyDic) {
             type=2;
+        }else if(self.orderDic) {
+            type=3;
         }
+        [self.navigationController popViewControllerAnimated:NO];
         [self.delegate YLfabuSuccessWithContinueType:type];
     }
 }

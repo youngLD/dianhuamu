@@ -7,8 +7,14 @@
 //
 
 #import "ZIKArrowViewController.h"
-
+@protocol YLDJJRNotPassViewControllerDelegate
+@optional
+-(void)shenheweitongguoChongxintijiaoDic:(NSDictionary *)dic WithwareStr:(NSString *)wareStr;
+@end
 @interface YLDJJRNotPassViewController : ZIKArrowViewController
 @property (weak, nonatomic) IBOutlet UILabel *notPassLab;
 @property (nonatomic,copy) NSString *wareStr;
+@property (weak, nonatomic) IBOutlet UILabel *nicaiLab;
+@property (copy,nonatomic)NSDictionary *dic;
+@property (nonatomic,weak) id<YLDJJRNotPassViewControllerDelegate> delegate;
 @end

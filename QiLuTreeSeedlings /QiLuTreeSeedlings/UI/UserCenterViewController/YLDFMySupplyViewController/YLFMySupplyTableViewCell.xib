@@ -220,6 +220,7 @@
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="addressLab" destination="OrT-kT-Nc3" id="T8m-6S-NVv"/>
+                <outlet property="bottomLineV" destination="dBt-JN-ogx" id="7Ho-8i-3yL"/>
                 <outlet property="bsV1" destination="P1T-Gi-HvD" id="LHZ-Ek-f94"/>
                 <outlet property="bsV2" destination="TDN-pb-u6d" id="lZa-iy-uld"/>
                 <outlet property="btnView" destination="P3b-Gq-mun" id="tvm-Tk-DM5"/>

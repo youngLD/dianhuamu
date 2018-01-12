@@ -21,22 +21,25 @@
         self.JJRView.hidden=NO;
         self.GCGSDDView.hidden=NO;
         self.GCGSFBView.hidden=NO;
-        self.jjrRightL.constant=0;
+        self.jjrRightL.constant=kWidth/3*2;
         self.lineV.hidden=NO;
+        self.ffVVV.hidden=NO;
     }else if ([APPDELEGATE.userModel.roles containsObject:@"engineering_company"])
     {
         self.JJRView.hidden=YES;
         self.GCGSDDView.hidden=NO;
         self.GCGSFBView.hidden=NO;
-        self.jjrRightL.constant=0;
+        self.jjrRightL.constant=kWidth/3*2;
         self.lineV.hidden=YES;
+        self.ffVVV.hidden=NO;
     }else if ([APPDELEGATE.userModel.roles containsObject:@"broker"])
     {
         self.JJRView.hidden=NO;
         self.GCGSDDView.hidden=YES;
         self.GCGSFBView.hidden=YES;
-        self.jjrRightL.constant=kWidth/3*2;
-        
+        self.jjrRightL.constant=0;
+        self.JJRW.constant=kWidth/3;
+        self.ffVVV.hidden=YES;
     }
     
 }

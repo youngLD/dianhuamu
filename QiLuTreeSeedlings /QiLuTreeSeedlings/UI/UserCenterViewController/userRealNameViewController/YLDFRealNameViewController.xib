@@ -16,7 +16,6 @@
                 <outlet property="backImageBtn" destination="G8Q-ch-gIF" id="uLG-TC-ZwJ"/>
                 <outlet property="beimiamImageV" destination="NTM-sV-xbH" id="4G1-Rq-iOT"/>
                 <outlet property="nameTextField" destination="S17-ax-m2L" id="Zj8-yT-vw7"/>
-                <outlet property="resonLab" destination="dTd-Io-Lxh" id="iHR-qs-FaQ"/>
                 <outlet property="tijiaoBtn" destination="v7K-5z-cwR" id="Jej-4f-goB"/>
                 <outlet property="topC" destination="ftt-D4-Uiz" id="LK8-HH-ZDu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -228,12 +227,6 @@
                         <action selector="tijiaoBtnAction:" destination="-1" eventType="touchUpInside" id="feY-Q2-Ua5"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTd-Io-Lxh">
-                    <rect key="frame" x="15" y="509" width="0.0" height="0.0"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.99215686270000003" green="0.2901960784" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -243,10 +236,8 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="fU2-PB-qNC" secondAttribute="trailing" id="YVW-DV-muU"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="v7K-5z-cwR" secondAttribute="bottom" constant="20" id="arc-qc-4xM"/>
                 <constraint firstItem="b99-Oq-HEA" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="bo1-FW-TZK"/>
-                <constraint firstItem="dTd-Io-Lxh" firstAttribute="top" secondItem="b99-Oq-HEA" secondAttribute="bottom" constant="15" id="fYo-9D-OHS"/>
                 <constraint firstItem="fU2-PB-qNC" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="ftt-D4-Uiz"/>
                 <constraint firstItem="v7K-5z-cwR" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="40" id="hiu-2A-ODM"/>
-                <constraint firstItem="dTd-Io-Lxh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="idn-Qb-C8Y"/>
                 <constraint firstItem="b99-Oq-HEA" firstAttribute="top" secondItem="fU2-PB-qNC" secondAttribute="bottom" constant="10" id="mu8-oU-ZsW"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

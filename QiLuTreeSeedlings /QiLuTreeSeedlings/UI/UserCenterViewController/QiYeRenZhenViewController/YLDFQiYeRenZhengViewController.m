@@ -21,6 +21,10 @@
         _topC.constant=54.0;
     }
     self.vcTitle=@"企业认证";
+    self.phoneTextfield.rangeNumber=11;
+    self.qiyeNameTexfField.rangeNumber=20;
+    self.qiyePersonTexfField.rangeNumber=8;
+    self.qiyeAddressTexfField.rangeNumber=20;
     if (self.dic) {
         NSDictionary *enterpriseApplydic=self.dic[@"enterpriseApply"];
         
@@ -30,9 +34,9 @@
         self.qiyeNameTexfField.text=enterpriseApplydic[@"name"];
         self.qiyePersonTexfField.text=enterpriseApplydic[@"linkman"];
         self.roleApplyAuditId=enterpriseApplydic[@"roleApplyAuditId"];
-        NSDictionary *roleApplyAuditDic=self.dic[@"roleApplyAudit"];
+//        NSDictionary *roleApplyAuditDic=self.dic[@"roleApplyAudit"];
         [self.imageV setImageWithURL:[NSURL URLWithString:self.license]];
-        self.resonLab.text=[NSString stringWithFormat:@"退回原因：%@",roleApplyAuditDic[@"auditReason"]];
+//        self.resonLab.text=[NSString stringWithFormat:@"退回原因：%@",roleApplyAuditDic[@"auditReason"]];
     }
     // Do any additional setup after loading the view from its nib.
 }

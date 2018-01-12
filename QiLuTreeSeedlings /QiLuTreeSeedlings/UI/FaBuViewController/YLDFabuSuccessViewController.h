@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btn2W;
 @property (nonatomic,copy)NSDictionary *supplyDic;
 @property (nonatomic,copy)NSDictionary *buyDic;
+@property (nonatomic,copy)NSDictionary *orderDic;
 @property (nonatomic,weak)id <YLDFabuSuccessDelegate> delegate;
 @end

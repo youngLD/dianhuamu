@@ -27,7 +27,7 @@
             if (name) {
                 NSString *xing=[name substringToIndex:1];
                 for (int i=0; i<name.length-1; i++) {
-                    [xing stringByAppendingString:@"*"];
+                    xing=[NSString stringWithFormat:@"%@*",xing];
                 }
                 self.nameLab.text=[NSString stringWithFormat:@"真实姓名：%@",xing];
                 NSString *idCard=dic[@"idCard"];

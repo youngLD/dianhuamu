@@ -18,8 +18,9 @@
 #import "YLDFabuSuccessViewController.h"
 #import "YLDFSupplyFabuViewController.h"
 #import "YLDFBuyFBViewController.h"
-#import "YLDFUserGCTableViewCell.h"
 #import "YLDFabuSuccessViewController.h"
+#import "YLDFUserGCTableViewCell.h"
+
 #import "GetCityDao.h"
 #import "YLDFabuSuccessViewController.h"
 #import "YLDFUserNormalInfoViewController.h"
@@ -37,7 +38,8 @@
 #import "YLDFEOrderFaBuOneViewController.h"
 #import "MyEngineeringOrderListViewController.h"
 #import "YLDJJRMyViewController.h"
-@interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate>
+#import "YLDJJRNotPassViewController.h"
+@interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate,YLDJJRNotPassViewControllerDelegate>
 
 @end
 
@@ -77,6 +79,7 @@
                 // Fallback on earlier versions
         }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(logoutSuccess) name:@"logoutSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(fabuSuccessWithOrderId:) name:@"GCDDFB" object:nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -206,10 +209,18 @@
                         vc.hidesBottomBarWhenPushed=YES;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
-                    if ([status isEqualToString:@"fail"]) {
-                        YLDFRealNameViewController * vc=[YLDFRealNameViewController new];
+                    if ([status isEqualToString:@"normal"]) {
+                        //                        [ToastView showTopToast:@"您的实名认证正在审核中，请耐心等待"];
+                        YLDFRealNameInfoViewController *vc=[YLDFRealNameInfoViewController new];
                         vc.hidesBottomBarWhenPushed=YES;
-                        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"fail"]) {
+                        YLDJJRNotPassViewController * vc=[YLDJJRNotPassViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+//                        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+                        vc.wareStr=@"实名";
+                        vc.delegate=self;
                         vc.dic=[responseObject objectForKey:@"data"];
                         [self.navigationController pushViewController:vc animated:YES];
                     }
@@ -246,10 +257,21 @@
 //                        [ToastView showTopToast:@"您的企业认证正在审核中，请耐心等待"];
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
                         [self.navigationController pushViewController:vc animated:YES];
-                    }if ([status isEqualToString:@"fail"]) {
-                        YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
+                    }
+                    if ([status isEqualToString:@"normal"]) {
+                        YLDFQiYeInfoViewController *vc=[YLDFQiYeInfoViewController new];
                         vc.hidesBottomBarWhenPushed=YES;
-                        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"fail"]) {
+                        
+
+                  
+                        YLDJJRNotPassViewController * vc=[YLDJJRNotPassViewController new];
+                        vc.hidesBottomBarWhenPushed=YES;
+            
+                        vc.wareStr=@"企业";
+                        vc.delegate=self;
                         vc.dic=[responseObject objectForKey:@"data"];
                         [self.navigationController pushViewController:vc animated:YES];
                     }
@@ -266,6 +288,24 @@
     if (sender.tag==14) {
         YLDFAddressListViewController *vc=[YLDFAddressListViewController new];
         vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+-(void)shenheweitongguoChongxintijiaoDic:(NSDictionary *)dic WithwareStr:(NSString *)wareStr
+{
+    if ([wareStr isEqualToString:@"实名"]) {
+         YLDFRealNameViewController* vc=[YLDFRealNameViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+      
+        vc.dic=dic;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if ([wareStr isEqualToString:@"企业"]) {
+        YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+        vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -361,6 +401,16 @@
     YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
     vc.hidesBottomBarWhenPushed=YES;
     vc.buyDic=buydic;
+    vc.delegate=self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+-(void)fabuSuccessWithOrderId:(NSNotification *)obj
+{
+    NSDictionary *orderDic = obj.object;
+    YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    vc.orderDic=orderDic;
+    vc.delegate=self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)fabusupplyBtnAction
@@ -375,8 +425,10 @@
     YLDFabuSuccessViewController *vc=[YLDFabuSuccessViewController new];
     vc.hidesBottomBarWhenPushed=YES;
     vc.supplyDic=supplydic;
+    vc.delegate=self;
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 -(void)mySupplyListAction
 {
     if(![APPDELEGATE isNeedLogin])
@@ -426,6 +478,11 @@
     }else if (type==2)
     {
         [self fabuBuyBtnAction];
+    }else if (type==3)
+    {
+        YLDFEOrderFaBuOneViewController *vc=[YLDFEOrderFaBuOneViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 -(void)YLfabuSuccessWithAdministrationType:(NSInteger)type{
@@ -434,8 +491,14 @@
     }else if (type==2)
     {
         [self myBuyLsitAction];
+    }else if (type==3)
+    {
+        YLDJJRMyViewController *vc=[YLDJJRMyViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
 -(void)logoutSuccess
 {
     [self.tableView reloadData];

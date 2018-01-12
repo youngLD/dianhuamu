@@ -23,6 +23,7 @@
     if (@available(iOS 11.0, *)) {
         self.topC.constant=60.f;
     }
+    [self.sureBtn addTarget:self action:@selector(sureBtnAction) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)sureBtnAction

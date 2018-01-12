@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *YLHV;
 @property (weak, nonatomic) IBOutlet UIImageView *GCV;
 @property (nonatomic,strong) NSArray *imageVAry;
+@property (weak, nonatomic) IBOutlet UIView *bottmLineV;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabW;
 +(YLDFMyBuyTableViewCell *)yldFMyBuyTableViewCell;
 +(YLDFMyBuyTableViewCell *)yldFListBuyTableViewCell;

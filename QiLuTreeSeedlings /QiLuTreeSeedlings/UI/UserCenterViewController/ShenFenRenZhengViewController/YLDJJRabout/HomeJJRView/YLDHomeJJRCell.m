@@ -16,10 +16,11 @@
 {
     self=[super init];
     if (self) {
-        double  kkk = kWidth*(12/40.f-0.0417);
+        double  kkk = kWidth*(12/40.f-0.0317);
         
-        double  fff = kWidth*0.0417;
-        self.hearView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-50, 5, 50, kkk+70)];
+        double  fff = kWidth*0.0317/2;
+        self.frame=CGRectMake(0, 0, kkk, kkk+70);
+        self.hearView=[[UIView alloc]initWithFrame:CGRectMake(kWidth-50, 5, 50, kkk+60)];
 
         UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, 20, kkk+20)];
         lab.textAlignment=NSTextAlignmentCenter;
@@ -33,9 +34,8 @@
         
         [self addSubview:self.hearView];
         self.viewAry=[NSMutableArray arrayWithCapacity:10];
-        self.frame=CGRectMake(0, 0, kkk, kkk+70);
-        self.backscrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 5, kWidth,kkk+70)];
-//        [self.backscrollview setBackgroundColor:[UIColor whiteColor]];
+        
+        self.backscrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kWidth,kkk+70)];
         self.backscrollview.delegate=self;
         [self addSubview:self.backscrollview];
         for (int i=0; i<10; i++) {
@@ -47,19 +47,17 @@
             [_viewAry addObject:view];
             [self.backscrollview addSubview:view];
             view.hidden=YES;
-            
         }
         UIView *vvvv=[[UIView alloc]initWithFrame:CGRectMake(10+fff*9+10*kkk, 0, fff, kkk+60)];
         [vvvv setBackgroundColor:[UIColor whiteColor]];
         [self.backscrollview addSubview:vvvv];
         
         [self.backscrollview setContentSize:CGSizeMake(kkk*10+fff*10+10, 0)];
-        
+        [self.backscrollview setBackgroundColor:[UIColor whiteColor]];
         UIView *lineView=[[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height-10, kWidth, 10)];
         [lineView setBackgroundColor:BGColor];
         [self addSubview:lineView];
-
-        
+  
     }
     
     return self;
@@ -115,13 +113,6 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
-    double  kkk = ([UIScreen mainScreen].bounds.size.width-60)/2.7;
-    CGRect tempFrame=self.sqV.frame;
-    tempFrame.origin.y=kkk+60+5;
-    tempFrame.size.width=kWidth;
-    tempFrame.size.height=60;
-    self.sqV.frame=tempFrame;
-    
 }
 -(void)actionBtn:(UIButton *)sender
 {

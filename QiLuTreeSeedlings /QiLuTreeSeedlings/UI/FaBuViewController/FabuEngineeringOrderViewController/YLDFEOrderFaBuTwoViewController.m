@@ -61,6 +61,7 @@
 //               YLDFUserCenterViewController *owr = (YLDFUserCenterViewController *)controller;
                     [ToastView showTopToast:@"发布成功"];
                     [self.navigationController popToViewController:controller animated:YES];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:@"GCDDFB" object:[responseObject objectForKey:@"data"]];
                 }
             }
        

@@ -244,6 +244,7 @@
                 <outlet property="LineToTimeLabC" destination="BTl-pP-tFO" id="hP4-Oq-ppd"/>
                 <outlet property="ShiMingV" destination="SNr-Aa-Cj6" id="Dnj-lL-LIX"/>
                 <outlet property="YLHV" destination="3pe-lQ-WIZ" id="JvY-IB-EJa"/>
+                <outlet property="bottmLineV" destination="lRe-Ix-Qvx" id="9Rq-vO-NXg"/>
                 <outlet property="btnView" destination="Y3z-8t-B0l" id="6eO-LZ-NyW"/>
                 <outlet property="cityLab" destination="456-eA-g8o" id="3bP-KN-pqi"/>
                 <outlet property="deleteBtn" destination="hMj-QS-EiL" id="aKu-b2-v1t"/>

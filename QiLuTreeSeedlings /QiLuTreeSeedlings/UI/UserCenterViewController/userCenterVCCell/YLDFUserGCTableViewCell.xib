@@ -127,7 +127,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b93-hz-g75">
-                        <rect key="frame" x="249.5" y="40" width="125.5" height="90"/>
+                        <rect key="frame" x="249.5" y="40" width="125" height="90"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userJjrInfo.png" translatesAutoresizingMaskIntoConstraints="NO" id="1Be-SG-jsr">
                                 <rect key="frame" x="52" y="22" width="22" height="22"/>
@@ -143,7 +143,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uB-Ti-RGc">
-                                <rect key="frame" x="0.0" y="0.0" width="125.5" height="90"/>
+                                <rect key="frame" x="0.0" y="0.0" width="125" height="90"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -151,6 +151,7 @@
                             <constraint firstItem="6uB-Ti-RGc" firstAttribute="leading" secondItem="b93-hz-g75" secondAttribute="leading" id="FvZ-dJ-nc4"/>
                             <constraint firstItem="1Be-SG-jsr" firstAttribute="top" secondItem="b93-hz-g75" secondAttribute="top" constant="22" id="T6n-79-uft"/>
                             <constraint firstItem="LYi-X6-McN" firstAttribute="top" secondItem="1Be-SG-jsr" secondAttribute="bottom" constant="12" id="VXN-Ap-VTM"/>
+                            <constraint firstAttribute="width" constant="125" id="fYq-xD-Dse"/>
                             <constraint firstItem="1Be-SG-jsr" firstAttribute="centerX" secondItem="b93-hz-g75" secondAttribute="centerX" id="hSB-vr-K8d"/>
                             <constraint firstAttribute="bottom" secondItem="6uB-Ti-RGc" secondAttribute="bottom" id="imd-Nf-Xdi"/>
                             <constraint firstAttribute="height" constant="90" id="mgo-5V-i2t"/>
@@ -167,12 +168,11 @@
                         </constraints>
                     </view>
                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLT-Zm-ZBa">
-                        <rect key="frame" x="126" y="40" width="124" height="90"/>
+                        <rect key="frame" x="126" y="40" width="30" height="90"/>
                     </button>
                 </subviews>
                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="b93-hz-g75" secondAttribute="trailing" id="38R-Hi-84D"/>
                     <constraint firstAttribute="bottom" secondItem="oLT-Zm-ZBa" secondAttribute="bottom" id="5fv-jE-1u8"/>
                     <constraint firstItem="0la-qP-1xw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5vU-Bf-6Ma"/>
                     <constraint firstItem="1gR-MQ-mIy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Eux-D4-DVk"/>
@@ -180,15 +180,14 @@
                     <constraint firstItem="52p-3q-r2e" firstAttribute="leading" secondItem="0la-qP-1xw" secondAttribute="trailing" id="IdF-3s-tLg"/>
                     <constraint firstItem="oLT-Zm-ZBa" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="Jf9-Ma-JWp"/>
                     <constraint firstItem="xf7-p7-99v" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="QcR-NO-0h7"/>
-                    <constraint firstItem="b93-hz-g75" firstAttribute="width" secondItem="xf7-p7-99v" secondAttribute="width" id="Sbn-zv-Mj6"/>
                     <constraint firstItem="1gR-MQ-mIy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="gxI-j1-Vjz"/>
                     <constraint firstItem="xf7-p7-99v" firstAttribute="leading" secondItem="0la-qP-1xw" secondAttribute="trailing" id="h1w-VC-sno"/>
                     <constraint firstItem="oLT-Zm-ZBa" firstAttribute="leading" secondItem="52p-3q-r2e" secondAttribute="trailing" id="h8C-Ed-2vQ"/>
-                    <constraint firstItem="b93-hz-g75" firstAttribute="leading" secondItem="oLT-Zm-ZBa" secondAttribute="trailing" id="hmb-FE-WEE"/>
                     <constraint firstItem="0la-qP-1xw" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="jcI-bQ-5HB"/>
                     <constraint firstItem="xf7-p7-99v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kHd-DM-qyi"/>
                     <constraint firstAttribute="bottomMargin" secondItem="52p-3q-r2e" secondAttribute="bottom" id="mBW-XM-Pun"/>
                     <constraint firstItem="b93-hz-g75" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="oam-aP-lnf"/>
+                    <constraint firstItem="b93-hz-g75" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="249.5" id="xDQ-IW-fOc"/>
                     <constraint firstAttribute="trailing" secondItem="1gR-MQ-mIy" secondAttribute="trailing" id="xOa-r6-bcN"/>
                     <constraint firstItem="b93-hz-g75" firstAttribute="leading" secondItem="xf7-p7-99v" secondAttribute="trailing" id="yuU-2W-Slw"/>
                 </constraints>
@@ -198,14 +197,16 @@
                 <outlet property="GCGSDDView" destination="0la-qP-1xw" id="5hX-sX-tx4"/>
                 <outlet property="GCGSFBView" destination="xf7-p7-99v" id="S2s-kf-38V"/>
                 <outlet property="JJRView" destination="b93-hz-g75" id="l3E-gO-M5F"/>
+                <outlet property="JJRW" destination="fYq-xD-Dse" id="XY2-cm-Ato"/>
                 <outlet property="fabuDingdanBtn" destination="oLT-Zm-ZBa" id="QCu-FQ-0aW"/>
+                <outlet property="ffVVV" destination="52p-3q-r2e" id="tKe-rp-2OP"/>
                 <outlet property="jingrenZLBtn" destination="6uB-Ti-RGc" id="cDq-Ou-PhA"/>
-                <outlet property="jjrRightL" destination="38R-Hi-84D" id="Bkk-lP-yWf"/>
+                <outlet property="jjrRightL" destination="xDQ-IW-fOc" id="h36-89-n89"/>
                 <outlet property="lineV" destination="iaC-tA-kMG" id="O4g-c6-3Fz"/>
                 <outlet property="view2W" destination="LFU-85-nvH" id="hFn-oR-p8U"/>
                 <outlet property="wodedingdanBtn" destination="p13-Tl-tnH" id="oQZ-7K-qla"/>
             </connections>
-            <point key="canvasLocation" x="76.5" y="54"/>
+            <point key="canvasLocation" x="262" y="51"/>
         </tableViewCell>
     </objects>
     <resources>

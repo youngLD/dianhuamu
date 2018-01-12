@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *beimiamImageV;
 @property (weak, nonatomic) IBOutlet UIButton *tijiaoBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
-@property (weak, nonatomic) IBOutlet UILabel *resonLab;
+
 @property (nonatomic,copy) NSDictionary *dic;
 @end

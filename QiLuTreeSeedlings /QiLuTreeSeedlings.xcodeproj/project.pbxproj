@@ -901,6 +901,10 @@
 		EAE2D72D2005C6C10089E11F /* YLDFEorderQuoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE2D72B2005C6C10089E11F /* YLDFEorderQuoteTableViewCell.xib */; };
 		EAE2D732200614940089E11F /* YLDFHomeFenYeViewConroller.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE2D730200614940089E11F /* YLDFHomeFenYeViewConroller.m */; };
 		EAE2D733200614940089E11F /* YLDFHomeFenYeViewConroller.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE2D731200614940089E11F /* YLDFHomeFenYeViewConroller.xib */; };
+		EAE30C672008B7C800FF5C7A /* YLDFEOrderDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE30C652008B7C800FF5C7A /* YLDFEOrderDetialViewController.m */; };
+		EAE30C682008B7C900FF5C7A /* YLDFEOrderDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE30C662008B7C800FF5C7A /* YLDFEOrderDetialViewController.xib */; };
+		EAE30C6C2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE30C6A2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m */; };
+		EAE30C6D2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE30C6B2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib */; };
 		EAE32DD61C7E97A600C4CEA2 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE32DB41C7E97A600C4CEA2 /* AFHTTPSessionManager.m */; };
 		EAE32DD71C7E97A600C4CEA2 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE32DB71C7E97A600C4CEA2 /* AFNetworkReachabilityManager.m */; };
 		EAE32DD81C7E97A600C4CEA2 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE32DB91C7E97A600C4CEA2 /* AFSecurityPolicy.m */; };
@@ -3057,6 +3061,12 @@
 		EAE2D72F200614940089E11F /* YLDFHomeFenYeViewConroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFHomeFenYeViewConroller.h; sourceTree = "<group>"; };
 		EAE2D730200614940089E11F /* YLDFHomeFenYeViewConroller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFHomeFenYeViewConroller.m; sourceTree = "<group>"; };
 		EAE2D731200614940089E11F /* YLDFHomeFenYeViewConroller.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFHomeFenYeViewConroller.xib; sourceTree = "<group>"; };
+		EAE30C642008B7C800FF5C7A /* YLDFEOrderDetialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFEOrderDetialViewController.h; sourceTree = "<group>"; };
+		EAE30C652008B7C800FF5C7A /* YLDFEOrderDetialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFEOrderDetialViewController.m; sourceTree = "<group>"; };
+		EAE30C662008B7C800FF5C7A /* YLDFEOrderDetialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFEOrderDetialViewController.xib; sourceTree = "<group>"; };
+		EAE30C692008B9DD00FF5C7A /* YLDFEOrderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFEOrderTableViewCell.h; sourceTree = "<group>"; };
+		EAE30C6A2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFEOrderTableViewCell.m; sourceTree = "<group>"; };
+		EAE30C6B2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFEOrderTableViewCell.xib; sourceTree = "<group>"; };
 		EAE32DB31C7E97A600C4CEA2 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		EAE32DB41C7E97A600C4CEA2 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		EAE32DB51C7E97A600C4CEA2 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -5097,6 +5107,7 @@
 		EA0B2BD01C59F6930018A7BD /* HomePageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EAE30C632008B79900FF5C7A /* YLDFEOrderDetialViewController */,
 				EAE2D72E200614800089E11F /* YLDFHomeFenYeViewConroller */,
 				EA8823E91FFF101B009294E4 /* YLDSHomePageViewController */,
 				EAEA07E11C5AF257003A0D8A /* HomePageViews */,
@@ -7460,6 +7471,19 @@
 				EAE2D731200614940089E11F /* YLDFHomeFenYeViewConroller.xib */,
 			);
 			path = YLDFHomeFenYeViewConroller;
+			sourceTree = "<group>";
+		};
+		EAE30C632008B79900FF5C7A /* YLDFEOrderDetialViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EAE30C642008B7C800FF5C7A /* YLDFEOrderDetialViewController.h */,
+				EAE30C652008B7C800FF5C7A /* YLDFEOrderDetialViewController.m */,
+				EAE30C662008B7C800FF5C7A /* YLDFEOrderDetialViewController.xib */,
+				EAE30C692008B9DD00FF5C7A /* YLDFEOrderTableViewCell.h */,
+				EAE30C6A2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m */,
+				EAE30C6B2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib */,
+			);
+			path = YLDFEOrderDetialViewController;
 			sourceTree = "<group>";
 		};
 		EAE32DAE1C7E97A600C4CEA2 /* AFNetworking */ = {
@@ -11038,6 +11062,7 @@
 				EAD151BD1FDA144A00390685 /* userxieyiSelcet@2x.png in Resources */,
 				EAE282532000548800B47FF7 /* brokerBS@2x.png in Resources */,
 				EA45FCEC1F4E64B20091CD50 /* runningC3@2x.png in Resources */,
+				EAE30C682008B7C900FF5C7A /* YLDFEOrderDetialViewController.xib in Resources */,
 				EAEFD4422004A5A000AC887C /* 未读红点.png in Resources */,
 				EA88872D1E0A6D2C0058EECE /* huihuaon@2x.png in Resources */,
 				EAEFD5252004A5A100AC887C /* ScanQR3@3x.png in Resources */,
@@ -11277,6 +11302,7 @@
 				EAF051011C92A2B700F435A9 /* mycompany@2x.png in Resources */,
 				FC74AD6C1D349F99009D8409 /* 站长通.png in Resources */,
 				EAB7819D1C8EA55600807B44 /* UserImage@2x.png in Resources */,
+				EAE30C6D2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib in Resources */,
 				EAF5A6B11E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.xib in Resources */,
 				EAD8CDC520035F0700FDC31C /* GCDDLiteSZ@2x.png in Resources */,
 				EA833D8A1CFE81B600D56AFB /* kefuweixin@2x.png in Resources */,
@@ -11894,6 +11920,7 @@
 				FCC291AE1DAB6F340019DFB9 /* EaseMessageCell.m in Sources */,
 				FC22767E1D177C9F0037B131 /* ZIKStationOrderOfferTableViewCell.m in Sources */,
 				EA5E6E4A1CFFCA57003D357C /* WoDeDingDanViewController.m in Sources */,
+				EAE30C6C2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m in Sources */,
 				FCC291671DAB6F330019DFB9 /* MJRefreshStateHeader.m in Sources */,
 				EAEFD4C92004A5A100AC887C /* YLDShopMessageViewController.m in Sources */,
 				FCC2912E1DAB6F330019DFB9 /* EMRotbotChatViewCell.m in Sources */,
@@ -12186,6 +12213,7 @@
 				EAD46E581F54F1680025C8C6 /* XHLaunchAdButton.m in Sources */,
 				FCC291201DAB6F330019DFB9 /* ContactListSelectViewController.m in Sources */,
 				EAEFD5022004A5A100AC887C /* ZIKNurseryListView.m in Sources */,
+				EAE30C672008B7C800FF5C7A /* YLDFEOrderDetialViewController.m in Sources */,
 				EA5252E61CE172410004639C /* YLDPickSelectVIew.m in Sources */,
 				EAEFD4702004A5A000AC887C /* UIAlertView+Blocks.m in Sources */,
 				FC2276741D177C9F0037B131 /* ZIKStationTabBarViewController.m in Sources */,

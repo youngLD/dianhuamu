@@ -19,7 +19,7 @@
     model.productNames=dic[@"product"];
     model.uid=dic[@"uid"];
     model.photo=dic[@"photo"];
-    model.comments=[[dic[@"comments"] objectForKey:@"comments"] integerValue];
+//    model.comments=[[dic[@"comments"] objectForKey:@"comments"] integerValue];
     model.explain=dic[@"explain"];
     model.defaultArea=dic[@"defaultArea"];
     if (model.defaultArea) {
@@ -43,7 +43,7 @@
 {
     YLDJJrModel *model=[YLDJJrModel new];
     model.name=dic[@"name"];
-    model.userUid=dic[@"memberUid"];
+    model.userUid=dic[@"partyId"];
     model.phone=dic[@"phone"];
     model.areaNames=dic[@"areaNames"];
     model.productNames=dic[@"product"];

@@ -17,6 +17,7 @@
     cell.ShiMingV.hidden=YES;
     cell.GCV.hidden=YES;
     cell.YLHV.hidden=YES;
+    [cell.lineImageV setImage:[ZIKFunction imageWithSize:cell.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
 //    cell.imageVAry=@[cell.ShiMingV,cell.qiyeV,cell.jjrV,cell.GCV,cell.YLHV];
     cell.titleLabW.constant=kWidth-30;
     
@@ -25,15 +26,16 @@
 +(YLDFMyBuyTableViewCell *)yldFListBuyTableViewCell
 {
     YLDFMyBuyTableViewCell *cell=[[[NSBundle mainBundle]loadNibNamed:@"YLDFMyBuyTableViewCell" owner:self options:nil] firstObject];
-    cell.LineToTimeLabC.constant=0;
+    cell.LineToTimeLabC.constant=5;
     cell.lineH.constant=1;
+    [cell.bottmLineV setBackgroundColor:kLineColor];
     [cell.btnView  removeFromSuperview];
     cell.qiyeV.hidden=YES;
     cell.jjrV.hidden=YES;
     cell.ShiMingV.hidden=YES;
     cell.GCV.hidden=YES;
     cell.YLHV.hidden=YES;
-
+    [cell.lineImageV setImage:[ZIKFunction imageWithSize:cell.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
     cell.imageVAry=@[cell.ShiMingV,cell.qiyeV,cell.jjrV,cell.GCV,cell.YLHV];
     return cell;
 }

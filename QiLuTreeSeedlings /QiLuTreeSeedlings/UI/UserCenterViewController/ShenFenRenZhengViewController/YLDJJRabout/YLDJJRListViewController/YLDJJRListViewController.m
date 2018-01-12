@@ -31,11 +31,16 @@
 //友盟
 #import "UMSocialControllerService.h"
 #import "UMSocial.h"
-@interface YLDJJRListViewController ()<UMSocialUIDelegate,UITableViewDelegate,UITableViewDataSource,AdvertDelegate,JJRScreenViewDelegate>
+
+#import "YLDFRZzhongViewController.h"
+#import "YLDFRealNameViewController.h"
+#import "ZIKVoucherCenterViewController.h"
+@interface YLDJJRListViewController ()<UMSocialUIDelegate,UITableViewDelegate,UITableViewDataSource,AdvertDelegate,JJRScreenViewDelegate,YLDJJRenShenQing1ViewControllerDelegate,YLDJJRNotPassViewControllerDelegate>
 @property (nonatomic,strong)NSMutableArray *dataAry;
 @property (nonatomic,strong)NSMutableArray *productTypeDataMArray;
 @property (nonatomic,copy)NSString *areaCode;
 @property (nonatomic,copy)NSString *productUid;
+@property (nonatomic,copy)NSString *lastTime;
 @property (nonatomic,assign)NSInteger pageNum;
 @property (nonatomic,strong)JJRScreenView *jjrScreenView;
 @property (nonatomic)NSArray *lunboAry;
@@ -98,20 +103,20 @@
 }
 -(void)getDateListPageWithPageNum:(NSString *)page
 {
-    [HTTPCLIENT jjrListWithareaCode:_areaCode withPage:page withPageSize:@"15" WithproductUid:_productUid Success:^(id responseObject) {
+    [HTTPCLIENT jjrListWithareaCode:_areaCode lastTime:nil  WithproductUid:_productUid Success:^(id responseObject) {
     if([[responseObject objectForKey:@"success"] integerValue])
     {
-        NSDictionary *dic=[responseObject objectForKey:@"result"];
-        if ([page isEqualToString:@"1"]) {
+       
+        if (self.lastTime==nil) {
             [self.dataAry removeAllObjects];
-            NSString *advertisementsStr=[dic objectForKey:@"advertisements"];
-            NSDictionary *advertisementsDic=[ZIKFunction dictionaryWithJsonString:advertisementsStr];
-            self.lunboAry=[YLDSadvertisementModel aryWithAry:[advertisementsDic objectForKey:@"result"]];
+//            NSString *advertisementsStr=[dic objectForKey:@"advertisements"];
+//            NSDictionary *advertisementsDic=[ZIKFunction dictionaryWithJsonString:advertisementsStr];
+//            self.lunboAry=[YLDSadvertisementModel aryWithAry:[advertisementsDic objectForKey:@"result"]];
             
         }
-        NSArray *content=[[[responseObject objectForKey:@"result"] objectForKey:@"brokers"] objectForKey:@"content"];
-        if (content.count>0) {
-            NSArray *dataAry=[YLDJJrModel yldJJrModelByAry:content];
+        NSArray *data=[responseObject objectForKey:@"data"];
+        if (data.count>0) {
+            NSArray *dataAry=[YLDJJrModel yldJJrModelByAry:data];
             [self.dataAry addObjectsFromArray:dataAry];
         }else{
             [ToastView showTopToast:@"暂无更多数据"];
@@ -263,86 +268,10 @@
         }];
         return;
     }
-    if (APPDELEGATE.userModel.goldsupplierStatus==11) {
-        YLDJJRMyViewController *vc=[YLDJJRMyViewController new];
-//        vc.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:vc animated:YES];
-    }else if (APPDELEGATE.userModel.goldsupplierStatus!=0) {
-        [ToastView showTopToast:@"您已具备身份，不需升级"];
-        return;
-    }else{
-        ShowActionV();
-        [HTTPCLIENT jjrshenheStatueSuccess:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                NSDictionary  *result=[responseObject objectForKey:@"result"];
-                NSInteger xx=[[result objectForKey:@"status"] integerValue];
-                if (xx==-1) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
-//                        vc.hidesBottomBarWhenPushed=YES;
-                        vc.type=xx;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                }
-                
-                if (xx==-2) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
-//                            vc.hidesBottomBarWhenPushed=YES;
-                            vc.type=xx;
-                            [self.navigationController pushViewController:vc animated:YES];
-                            
-                            
-                        });
-                        
-                    });
-                }
-                if (xx==0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        YLDJJRSHZViewController *vc=[YLDJJRSHZViewController new];
-//                        vc.hidesBottomBarWhenPushed=YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                }
-                if (xx==1){
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        YLDJJRMyViewController *vc=[YLDJJRMyViewController new];
-//                        vc.hidesBottomBarWhenPushed=YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    });
-                }
-                if (xx==2) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        YLDJJRNotPassViewController *vc=[[YLDJJRNotPassViewController alloc]init];
-//                        vc.hidesBottomBarWhenPushed=YES;
-                        NSString *msg=[result objectForKey:@"msg"];
-                        vc.wareStr=msg;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                    });
-                }
-                if (xx==3) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
-//                        vc.hidesBottomBarWhenPushed=YES;
-                        vc.type=xx;
-                        [self.navigationController pushViewController:vc animated:YES];
-                        
-                    });
-                }
-                
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-    }
+    [self jjrBtnAction:nil];
     
 }
+
 #pragma mark - 经纪人分享
 - (void)requestShareData {
     ShowActionV();
@@ -427,7 +356,143 @@
         CLog(@"%@",response);
     }
 }
+- (void)jjrBtnAction:(UIButton *)sender {
+    if ([APPDELEGATE.userModel.roles containsObject:@"users"]) {
+        if ([APPDELEGATE.userModel.roles containsObject:@"broker"])
+        {
+            [ToastView showTopToast:@"您已通过经纪人认证"];
+        }else{
+            ShowActionV();
+            [HTTPCLIENT jjrshenheStatueSuccess:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    NSDictionary *data=[responseObject objectForKey:@"data"];
+                    NSString *status=data[@"status"];
+                    
+                    if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                        YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
+                        vc.type=1;
+                        vc.deleagte=self;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+                        YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    if ([status isEqualToString:@"normal"]) {
+                        [ToastView showTopToast:@"您已通过经纪人认证"];
+                    }
+                    if ([status isEqualToString:@"fail"]) {
+                        
+                        YLDJJRNotPassViewController * vc=[YLDJJRNotPassViewController new];
+                        vc.wareStr=@"经纪人";
+                        vc.delegate=self;
+                        vc.dic=[responseObject objectForKey:@"data"];
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                        
+                    }
+                    if ([status isEqualToString:@"unpaid"]) {
+                        [ToastView showTopToast:@"您还未支付经纪人审核费"];
+                        ZIKVoucherCenterViewController *vc=[ZIKVoucherCenterViewController new];
+                        vc.dic=[responseObject objectForKey:@"data"];
+                        vc.infoType=6;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                    }
+                    
+                }else{
+                    [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+            
+        }
+    }else{
+        __weak typeof(self)weakSelf=self;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"实名认证" message:@"经纪人认证前需要实名认证，是否实名认证？" preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"实名认证" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ShowActionV();
+            
+            [weakSelf shimingrenzheng];
+            
+        }]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+-(void)shimingrenzheng
+{
+    [HTTPCLIENT getRealNameStateSuccess:^(id responseObject) {
+        if ([[responseObject objectForKey:@"success"] integerValue]) {
+            
+            NSDictionary *data=[responseObject objectForKey:@"data"];
+            NSString *status=data[@"status"];
+            
+            if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
+                YLDFRealNameViewController *vc=[YLDFRealNameViewController new];
+                //                vc.hidesBottomBarWhenPushed=YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
+                YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            if ([status isEqualToString:@"normal"]) {
+                
+                [APPDELEGATE reloadUserInfoSuccess:^(id responseObject) {
+                    [self jjrBtnAction:nil];
+                } failure:^(NSError *error) {
+                    
+                }];
+            }
+            if ([status isEqualToString:@"fail"]) {
+                YLDJJRNotPassViewController * vc=[YLDJJRNotPassViewController new];
 
+                vc.wareStr=@"实名";
+                vc.delegate=self;
+                vc.dic=[responseObject objectForKey:@"data"];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
+            
+        }else{
+            
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+-(void)shenheweitongguoChongxintijiaoDic:(NSDictionary *)dic WithwareStr:(NSString *)wareStr
+{
+    if ([wareStr isEqualToString:@"经纪人"]) {
+        [ToastView showTopToast:@"您的经纪人认证已被退回，请重新编辑"];
+        YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
+        vc.dic=dic;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
+    if ([wareStr isEqualToString:@"实名"]) {
+        YLDFRealNameViewController* vc=[YLDFRealNameViewController new];
+        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+        
+        vc.dic=dic;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+}
+-(void)jjrTiJiaoSuccessWithDic:(NSDictionary *)dic{
+    ZIKVoucherCenterViewController *vc=[ZIKVoucherCenterViewController new];
+    vc.dic=[dic objectForKey:@"data"];
+    vc.infoType=6;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(void)didFinishShareInShakeView:(UMSocialResponseEntity *)response
 {
     NSLog(@"finish share with response is %@",response);
