@@ -1929,6 +1929,10 @@ failure:(void (^)(NSError *error))failure;
 -(void)getEOrderDetialWithEngineeringProcurementId:(NSString *)engineeringProcurementId
                          Success:(void (^)(id responseObject))success
                          failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 工程订单报价
+-(void)eOrderBaoJiaWithobodyStr:(NSString *)bodyStr
+                        Success:(void (^)(id responseObject))success
+                        failure:(void (^)(NSError *error))failure;
 #pragma mark -获取消息列表
 -(void)systemMessageListWithType:(NSString *)noticeType
                     WithLastTime:(NSString *)lastTime

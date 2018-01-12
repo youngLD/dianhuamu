@@ -8616,6 +8616,38 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
+#pragma mark ---------- 工程订单报价
+-(void)eOrderBaoJiaWithobodyStr:(NSString *)bodyStr
+                       Success:(void (^)(id responseObject))success
+                       failure:(void (^)(NSError *error))failure
+{
+    
+    NSString *postURL            =[NSString stringWithFormat:@"%@party/procurement",AFBaseURLString];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSData *postData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
+    
+    
+}
 #pragma mark -获取消息列表
 -(void)systemMessageListWithType:(NSString *)noticeType
                     WithLastTime:(NSString *)lastTime
