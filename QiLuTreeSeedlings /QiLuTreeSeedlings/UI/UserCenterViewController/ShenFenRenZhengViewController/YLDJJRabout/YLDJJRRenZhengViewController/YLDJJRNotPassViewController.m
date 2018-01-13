@@ -14,7 +14,7 @@
 
 @implementation YLDJJRNotPassViewController
 - (IBAction)bianjiBtnAction:(id)sender {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
     if (self.delegate) {
         [self.delegate shenheweitongguoChongxintijiaoDic:self.dic WithwareStr:self.wareStr];
 

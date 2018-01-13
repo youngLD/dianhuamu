@@ -8,8 +8,10 @@
 
 #import "YLDFQiYeInfoViewController.h"
 #import "YLDFQYInfoEditViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import "BigImageViewShowView.h"
 @interface YLDFQiYeInfoViewController ()
-
+@property (nonatomic,strong)BigImageViewShowView *showV;
 @end
 
 @implementation YLDFQiYeInfoViewController
@@ -19,6 +21,7 @@
     self.addressLab.text=APPDELEGATE.qyModel.address;
     self.personLab.text=APPDELEGATE.qyModel.linkman;
     self.phoneLab.text=APPDELEGATE.qyModel.contactInformation;
+    [self.zhizhaoImageV setImageWithURL:[NSURL URLWithString:APPDELEGATE.qyModel.license]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,13 +29,19 @@
     if (@available(iOS 11.0, *)) {
         _topC.constant=44.0;
     }
+    self.showV=[[BigImageViewShowView alloc]initWithImageAry:@[APPDELEGATE.qyModel.license]];
+    [self.view addSubview:self.showV];
 
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)selectBtnAction:(UIButton *)sender {
-    YLDFQYInfoEditViewController *vc=[YLDFQYInfoEditViewController new];
-    vc.type=sender.tag;
-    [self.navigationController pushViewController:vc animated:YES];
+//    return;
+//    YLDFQYInfoEditViewController *vc=[YLDFQYInfoEditViewController new];
+//    vc.type=sender.tag;
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)zhizhaoBtnAction:(UIButton *)sender {
+    [self.showV showWithIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {

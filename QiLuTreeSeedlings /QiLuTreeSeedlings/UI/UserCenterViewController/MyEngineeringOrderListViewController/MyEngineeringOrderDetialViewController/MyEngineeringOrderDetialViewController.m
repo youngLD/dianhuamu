@@ -11,6 +11,7 @@
 #import "YLDFMyEOrderItemsTableViewCell.h"
 #import "YLDFEOrderModel.h"
 #import "YLDFMyOrderItemsModel.h"
+#import "YLDFEOrderQuoteListViewController.h"
 @interface MyEngineeringOrderDetialViewController ()<UITableViewDelegate,UITableViewDataSource,YLDFMyEOrderItemsTableViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *itemsAry;
 @property (nonatomic,strong)YLDFEOrderModel *model;
@@ -94,8 +95,6 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        
-        
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -121,7 +120,10 @@
 }
 -(void)itemLookUpActionWithModel:(YLDFMyOrderItemsModel *)model
 {
-    
+    YLDFEOrderQuoteListViewController *vc=[YLDFEOrderQuoteListViewController new];
+    vc.model=model;
+    vc.orderStr=self.model.engineeringProcurementId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

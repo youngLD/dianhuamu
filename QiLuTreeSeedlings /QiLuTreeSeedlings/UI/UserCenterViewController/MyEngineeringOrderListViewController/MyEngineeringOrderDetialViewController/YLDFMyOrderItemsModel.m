@@ -19,6 +19,7 @@
     model.quantity=dic[@"quantity"];
     model.quoteCount=[dic[@"quoteCount"] integerValue];
     model.status=dic[@"status"];
+    model.engineeringProcurementItemId=dic[@"engineeringProcurementItemId"];
     return model;
 }
 +(NSArray *)creatModelByAry:(NSArray *)ary

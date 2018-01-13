@@ -53,26 +53,15 @@
     [HTTPCLIENT jjrDetialWithUid:APPDELEGATE.userModel.access_id Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             NSDictionary *dic=[responseObject objectForKey:@"data"];
-//            YLDJJrModel *model=[YLDJJrModel yldJJrdetialModelByDic:dic];
-            
-            NSArray *cityCodeAry=dic[@"area"];
+
+            NSArray *cityAry=dic[@"area"];
             NSMutableString *cityStr=[NSMutableString new];
-            NSMutableArray *cityAry=[NSMutableArray array];
-            GetCityDao *citydao=[GetCityDao new];
-            [citydao openDataBase];
-            [cityCodeAry enumerateObjectsUsingBlock:^(NSString *cityCode, NSUInteger idx, BOOL * _Nonnull stop) {
-                NSDictionary *dic=[citydao getcityDicByCityCode:cityCode];
-            
-                [cityAry addObject:dic];
-            }];
-            [citydao closeDataBase];
             self.cityAry=cityAry;
             self.mrcode=dic[@"defaultArea"];
-            for (NSString *code in cityAry) {
-                 [cityStr appendFormat:@"%@,",code];
+            for (NSDictionary *dic in cityAry) {
+                 [cityStr appendFormat:@"%@,",dic[@"code"]];
                
             }
-            
             NSString *strs=[NSString stringWithFormat:@"%@",cityStr];
             if (strs.length>0) {
                 strs = [strs substringToIndex:[strs length] - 1];
@@ -108,7 +97,7 @@
                         tempFrame.origin.y=60+50*i;
                         view.frame=tempFrame;
 
-                        view.wareLab.text=dic[@"name"];
+                        view.wareLab.text=dic[@"shortName"];
                         [view.actionBtn addTarget:self action:@selector(selectMrCodeAction:) forControlEvents:UIControlEventTouchUpInside];
                         view.actionBtn.tag=i;
                         NSString *code=dic[@"code"];
@@ -199,7 +188,7 @@
     [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr Success:^(id responseObject){
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"修改成功"];
-
+            
             [self.pinzhongBtn setTitle:Str forState:UIControlStateNormal];
             
         }
@@ -301,13 +290,17 @@
     ShowActionV();
     NSMutableDictionary *dics=[NSMutableDictionary dictionary];
     dics[@"defaultArea"]=self.mrcode;
-    dics[@"businessArea"]=citysStr;
+    NSArray *businessAreaAry=[citysStr componentsSeparatedByString:@","];
+    dics[@"businessArea"]=businessAreaAry;
     NSString *bodyStr=[ZIKFunction convertToJsonData:dics];
     [HTTPCLIENT jjrdetialChangeWithbodyStr:bodyStr  Success:^(id responseObject){
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"修改成功"];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.quyuBtn setTitle:@"" forState:UIControlStateNormal];
                 for (UIView *view in self.areaView.subviews) {
+                    
                     if (view.tag!=20) {
                         [view removeFromSuperview];
                     }
@@ -400,7 +393,7 @@
 }
 -(void)rrrload
 {
-    if (![self.quyuBtn.titleLabel.text isEqualToString:@"请选择经营区域"]) {
+    if (_citysStr) {
         NSArray *cityArray = [_citysStr componentsSeparatedByString:@","];
         __block NSInteger numcount = 0;
         [_citys enumerateObjectsUsingBlock:^(ZIKCityModel *model, NSUInteger idx, BOOL * _Nonnull stop) {

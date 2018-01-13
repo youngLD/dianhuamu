@@ -12,6 +12,7 @@
 #import "YLDPickTimeView.h"
 #import "UIButton+AFNetworking.h"
 #import "RSKImageCropper.h"
+#import "JSONKit.h"
 @interface YLDZiZhiAddViewController ()<UINavigationControllerDelegate,UIActionSheetDelegate,RSKImageCropViewControllerDelegate,UIImagePickerControllerDelegate,YLDPickTimeDelegate>
 @property (nonatomic,weak)UIScrollView *backScrollView;
 @property (nonatomic,weak) UITextField *nameTextField;
@@ -63,16 +64,22 @@
     [self.view addSubview:backScrollView];
 
     [self reloadBackScrollView];
-    if (self.model) {
-        
-        self.nameTextField.text=self.model.companyQualification;
-        self.rankTextField.text=self.model.level;
-        self.organizationalField.text=self.model.issuingAuthority;
-        self.timeStr=self.model.acqueTime;
-        [self.timeBtn setTitle:self.model.acqueTime forState:UIControlStateNormal];
-        self.compressurl=self.model.attachment;
-        [self.imageBtn setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:self.model.attachment] placeholderImage:[UIImage imageNamed:@"添加图片"]];
-        [self.typeBtn setTitle:self.model.type forState:UIControlStateNormal];
+    if (self.dic) {
+        NSDictionary *roleApplyAudit=self.dic[@"roleApplyAudit"];
+        self.roleApplyAuditId=roleApplyAudit[@"roleApplyAuditId"];
+        NSArray *engineeringCompanyApplies=self.dic[@"engineeringCompanyApplies"];
+        if (engineeringCompanyApplies.count>0) {
+            NSDictionary *dic=[engineeringCompanyApplies firstObject];
+            self.nameTextField.text=dic[@"name"];
+            self.rankTextField.text=dic[@"level"];
+            self.organizationalField.text=dic[@"issuingAuthority"];;
+//            self.timeStr=self.model.acqueTime;
+//            [self.timeBtn setTitle:self.model.acqueTime forState:UIControlStateNormal];
+            self.compressurl=dic[@"photo"];
+            [self.imageBtn setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:dic[@"photo"]] placeholderImage:[UIImage imageNamed:@"添加图片"]];
+//            [self.typeBtn setTitle:self.model.type forState:UIControlStateNormal];
+        }
+    
 //        self.imageBtn
     }
     // Do any additional setup after loading the view.
@@ -83,7 +90,7 @@
  
     CGRect tempFrame=CGRectMake(0, 5, kWidth, 50);
 //    tempFrame.origin.y+=50;
-    self.nameTextField=[self makeViewWithName:@"资料名称" alert:@"请输入名称" unit:@"" withFrame:tempFrame];
+    self.nameTextField=[self makeViewWithName:@"资质名称" alert:@"请输入名称" unit:@"" withFrame:tempFrame];
     self.nameTextField.tag=20;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldChanged:)
@@ -112,7 +119,7 @@
     [phoneView setBackgroundColor:[UIColor whiteColor]];
     [self.backScrollView addSubview:phoneView];
     UILabel *nameLab=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, kWidth*0.3, 44)];
-    nameLab.text=@"资料图片";
+    nameLab.text=@"资质图片";
     [nameLab setTextColor:DarkTitleColor];
     [nameLab setFont:[UIFont systemFontOfSize:15]];
     
@@ -140,7 +147,7 @@
 -(void)sureBtnAction
 {
     if (self.nameTextField.text.length<=0) {
-        [ToastView showTopToast:@"请输入资料名称"];
+        [ToastView showTopToast:@"请输入资质名称"];
         return;
     }
 
@@ -159,7 +166,7 @@
 //    }
 
     if (self.compressurl.length<=0) {
-        [ToastView showTopToast:@"请上传资料图片"];
+        [ToastView showTopToast:@"请上传资质图片"];
         return;
     }
     if (self.type==1) {
@@ -168,10 +175,39 @@
         dic[@"level"]=self.rankTextField.text;
         dic[@"issuingAuthority"]=self.organizationalField.text;
         dic[@"photo"]=self.compressurl;
-        if (self.delegate) {
-            [self.delegate reloadViewWithModel:self.model andDic:dic];
-            [self.navigationController popViewControllerAnimated:YES];
+        NSMutableArray *honorData=[NSMutableArray array];
+        [honorData addObject:dic];
+        NSString *rongyuStr= [honorData JSONString];
+        ShowActionV();
+        if (dic) {
+            [HTTPCLIENT shengjiGCGSWithqualJson:rongyuStr WithroleApplyAuditId:self.roleApplyAuditId Success:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    [ToastView showTopToast:@"您的工程公司认证已提交，请耐心等待"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else
+                {
+                    [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
+        }else{
+            [HTTPCLIENT shengjiGCGSWithqualJson:rongyuStr Success:^(id responseObject) {
+                if ([[responseObject objectForKey:@"success"] integerValue]) {
+                    [ToastView showTopToast:@"您的工程公司认证已提交，请耐心等待"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else
+                {
+                    [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+                }
+            } failure:^(NSError *error) {
+                
+            }];
         }
+        
+       
+
+
     }
  
     
@@ -255,6 +291,7 @@
     [self.timeBtn setTitleColor:MoreDarkTitleColor forState:UIControlStateNormal];
     [self.timeBtn setTitle:timeStr forState:UIControlStateNormal];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

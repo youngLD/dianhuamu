@@ -12,7 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFEOrderQuoteListViewController">
             <connections>
+                <outlet property="mmNameLab" destination="aYf-bV-bbG" id="pNV-GO-FUu"/>
+                <outlet property="personNumLab" destination="Kzw-Ue-F1E" id="N7E-7t-bVW"/>
                 <outlet property="tableView" destination="zkI-k4-HVW" id="GCC-W1-6Kp"/>
+                <outlet property="topC" destination="3D9-V8-zDb" id="br4-Af-7r4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -34,12 +37,15 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苗木名称:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Hz-WD-2UR">
                             <rect key="frame" x="10" y="10" width="74" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="74" id="oSg-fh-bCi"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苗木名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYf-bV-bbG">
-                            <rect key="frame" x="88" y="10.5" width="69.5" height="20"/>
+                            <rect key="frame" x="88" y="10.5" width="138" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.2274509804" green="0.70588235290000001" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -55,6 +61,9 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已报价:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tZ1-Uf-LOk">
                             <rect key="frame" x="236" y="10" width="57" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="57" id="dGS-tm-JMX"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -62,6 +71,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.88755840063095093" green="0.98550766706466675" blue="0.94033664464950562" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="tZ1-Uf-LOk" firstAttribute="leading" secondItem="aYf-bV-bbG" secondAttribute="trailing" constant="10" id="40K-3h-pDS"/>
                         <constraint firstItem="tZ1-Uf-LOk" firstAttribute="centerY" secondItem="9Hz-WD-2UR" secondAttribute="centerY" id="4Nb-zf-x5o"/>
                         <constraint firstAttribute="trailing" secondItem="Kzw-Ue-F1E" secondAttribute="trailing" constant="8.5" id="Sc8-7W-JuK"/>
                         <constraint firstItem="aYf-bV-bbG" firstAttribute="centerY" secondItem="9Hz-WD-2UR" secondAttribute="centerY" id="Udm-Kr-BQe"/>

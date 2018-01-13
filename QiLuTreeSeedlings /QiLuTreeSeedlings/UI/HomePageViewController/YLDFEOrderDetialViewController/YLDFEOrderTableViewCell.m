@@ -34,6 +34,14 @@
     self.nameLab.text=model.itemName;
     self.mmNumLab.text=model.quantity;
     self.guigeLab.text=[NSString stringWithFormat:@"规格要求:%@",model.demand];
+    if ([model.status isEqualToString:@"已报价"]) {
+        self.baojiaBtn.enabled=NO;
+        [self.baojiaBtn setBackgroundColor:kRGB(214, 214, 214,1)];
+        
+    }else{
+        self.baojiaBtn.enabled=YES;
+        [self.baojiaBtn setBackgroundColor:kRGB(255, 152,31,1)];
+    }
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

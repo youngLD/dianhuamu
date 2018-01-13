@@ -56,14 +56,19 @@
         UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hidingSelf)];
         [self addGestureRecognizer:tap];
         CGRect pageFrame = CGRectMake(0, self.frame.size.height-20, self.frame.size.width, 20);
-        UIPageControl *pageController = [[UIPageControl alloc] initWithFrame:pageFrame];
-        [pageController setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
-        [self addSubview:pageController];
-        pageController.currentPageIndicatorTintColor = [UIColor colorWithRed:107/255.0f green:188/255.0f blue:85/255.0f alpha:1.0f];
+     
         
-        pageController.pageIndicatorTintColor = [UIColor whiteColor];
-        self.pageController = pageController;
-        [pageController setNumberOfPages:[imageAry count]];
+        if (imageAry.count>1) {
+            UIPageControl *pageController = [[UIPageControl alloc] initWithFrame:pageFrame];
+            [pageController setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
+            pageController.currentPageIndicatorTintColor = [UIColor colorWithRed:107/255.0f green:188/255.0f blue:85/255.0f alpha:1.0f];
+            
+            pageController.pageIndicatorTintColor = [UIColor whiteColor];
+            self.pageController = pageController;
+            [pageController setNumberOfPages:[imageAry count]];
+            [self addSubview:pageController];
+        }
+        
 
     }
     return self;

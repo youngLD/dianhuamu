@@ -1862,7 +1862,7 @@ failure:(void (^)(NSError *error))failure;
                          WithoutTradeNo:(NSString *)outTradeNo
                                 Success:(void (^)(id responseObject))success
                                 failure:(void (^)(NSError *error))failure;
-#pragma mark -经纪人详情
+#pragma mark -经纪人资料
 -(void)jjrDetialWithUid:(NSString *)uid
                 Success:(void (^)(id responseObject))success
                 failure:(void (^)(NSError *error))failure;
@@ -1971,5 +1971,9 @@ failure:(void (^)(NSError *error))failure;
                    Success:(void (^)(id responseObject))success
                    failure:(void (^)(NSError *error))failure;
 
-
+#pragma mark -经纪人详情
+-(void)jjrDetialWithpartyId:(NSString *)partyId
+               WithlastTime:(NSString *)lastTime
+                    Success:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure;
 @end

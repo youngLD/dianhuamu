@@ -10,5 +10,5 @@
 
 @interface YLDFRZzhongViewController : ZIKRightBtnSringViewController
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
-
+@property (nonatomic,copy)NSString *titleNameStr;
 @end

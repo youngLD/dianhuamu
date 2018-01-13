@@ -16,6 +16,7 @@
 @property (nonatomic,copy)NSString *quantity;
 @property (nonatomic,assign)NSInteger quoteCount;
 @property (nonatomic,copy)NSString *status;
+
 +(YLDFMyOrderItemsModel *)creatModelByDic:(NSDictionary *)dic;
 +(NSArray *)creatModelByAry:(NSArray *)ary;
 @end

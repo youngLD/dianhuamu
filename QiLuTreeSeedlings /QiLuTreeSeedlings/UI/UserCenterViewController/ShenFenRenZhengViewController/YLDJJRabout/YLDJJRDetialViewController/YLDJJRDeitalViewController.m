@@ -56,6 +56,7 @@
 @property (nonatomic,copy)NSString *shareTitle;
 @property (nonatomic,copy)NSString *shareUrl;
 @property (nonatomic,strong)UIImage *shareImage;
+@property (nonatomic,copy)NSString *lastTime;
 @end
 
 @implementation YLDJJRDeitalViewController
@@ -81,38 +82,14 @@
     self.sellPage=1;
     [self topActionView];
     [self sdsdsdasd];
-    YLDSPingLunSrView *VVVVZ=[[YLDSPingLunSrView alloc]initWithFrame:CGRectMake(0, kHeight, kWidth, kHeight)];
-    VVVVZ.delegate=self;
-    self.fabiaoV=VVVVZ;
-    [self.ppV.moreBtn addTarget:self action:@selector(morePLBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.ppV.pinglunBtn addTarget:self action:@selector(PLBtnAction) forControlEvents:UIControlEventTouchUpInside];
-   
-    [ChangyanSDK loadTopic:@"" topicTitle:nil topicSourceID:self.vzuid topicCategoryID:nil pageSize:@"5" hotSize:@"3" orderBy:nil style:@"indent" depth:nil subSize:nil completeBlock:^(CYStatusCode statusCode, NSString *responseStr)
-     {
-         if (statusCode==CYSuccess) {
-             NSDictionary *dic=[ZIKFunction dictionaryWithJsonString:responseStr];
-             weakSelf.topic_id=dic[@"topic_id"];
-             UILabel *lab=[self.plV viewWithTag:11];
-             lab.text =[NSString stringWithFormat:@"用户评论（%ld）",[dic[@"cmt_sum"] integerValue]] ;
-             APPDELEGATE.userModel.chanyanUser_id=[dic[@"user_id"] integerValue];
-             [weakSelf.pinglunAry removeAllObjects];
-             [weakSelf.pinglunAry addObjectsFromArray:[YLDSPingLunModel aryWithChangYanAry:dic[@"comments"]]];
-             [weakSelf.tableView reloadData];
-         }else{
-             [ToastView showTopToast:responseStr];
-         }
-         
-     }];
-
-    [HTTPCLIENT jjrDetialWithUid:self.uid Success:^(id responseObject) {
+  
+    [HTTPCLIENT jjrDetialWithpartyId:self.uid   WithlastTime:_lastTime Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
-            NSDictionary *broker=[[responseObject objectForKey:@"result"] objectForKey:@"broker"];
-            weakSelf.jjreModel=[YLDJJrModel yldJJrdetialModelByDic:broker];
-           NSArray *supplyAry=[HotSellModel hotSellAryByAry:[[responseObject objectForKey:@"result"] objectForKey:@"supplys"]];
-            [weakSelf.sellAry addObjectsFromArray:supplyAry];
-            NSArray *buysAry=[HotBuyModel creathotBuyModelAryByAry:[[responseObject objectForKey:@"result"] objectForKey:@"buys"]];
-            [weakSelf.buyAry addObjectsFromArray:buysAry];
-            [weakSelf.tableView reloadData];
+            NSDictionary *data=[responseObject objectForKey:@"data"];
+            NSDictionary *broker=[responseObject objectForKey:@"broker"];
+            YLDJJrModel *model=[YLDJJrModel yldJJrdetialModelByDic:broker];
+        }else{
+            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
     } failure:^(NSError *error) {
         
@@ -176,16 +153,16 @@
     }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0) {
         return 1;
     }
+//    if (section==1) {
+//       return  self.pinglunAry.count;
+//    }
     if (section==1) {
-       return  self.pinglunAry.count;
-    }
-    if (section==2) {
         if (_type==0) {
             return self.sellAry.count;
         }else{
@@ -203,12 +180,12 @@
  
         return tableView.rowHeight;
     }
+//    if (indexPath.section==1) {
+//        self.tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
+//        self.tableView.estimatedRowHeight = 90;
+//        return tableView.rowHeight;
+//    }
     if (indexPath.section==1) {
-        self.tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-        self.tableView.estimatedRowHeight = 90;
-        return tableView.rowHeight;
-    }
-    if (indexPath.section==2) {
         if (self.type==0) {
             id model=self.sellAry[indexPath.row];
             if ([model isKindOfClass:[HotSellModel class]]) {
@@ -278,67 +255,26 @@
         cell.model=self.jjreModel;
         return cell;
     }
+//    if (indexPath.section==1) {
+//        YLDSPingLunCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSPingLunCell"];
+//        if (!cell) {
+//            cell=[YLDSPingLunCell yldSPingLunCell];
+//            cell.zanBtn.hidden=YES;
+//            cell.deleteBtn.hidden=YES;
+//        }
+//        YLDSPingLunModel *model=self.pinglunAry[indexPath.row];
+////        cell.delgate=self;
+//        cell.model=model;
+//        return cell;
+//    }
     if (indexPath.section==1) {
-        YLDSPingLunCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSPingLunCell"];
-        if (!cell) {
-            cell=[YLDSPingLunCell yldSPingLunCell];
-            cell.zanBtn.hidden=YES;
-            cell.deleteBtn.hidden=YES;
-        }
-        YLDSPingLunModel *model=self.pinglunAry[indexPath.row];
-//        cell.delgate=self;
-        cell.model=model;
-        return cell;
-    }
-    if (indexPath.section==2) {
         if (self.type==1) {
             id model=self.buyAry[indexPath.row];
-            if ([model isKindOfClass:[HotBuyModel class]]) {
-                YLDTBuyListCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDTBuyListCell"];
-                if (!cell) {
-                    cell=[YLDTBuyListCell yldTBuyListCell];
-                    
-                }
-                cell.model=model;
-                return cell;
-            }else if([model isKindOfClass:[YLDSadvertisementModel class]])
-            {
-                YLDSadvertisementModel *model=self.buyAry[indexPath.row];
-                if (model.adsType==0) {
-                    YLDSBigImageVadCell *cell=[YLDSBigImageVadCell yldSBigImageVadCell];
-                    cell.model=model;
-                    return cell;
-                }else if (model.adsType==1){
-                    YLDStextAdCell *cell=[YLDStextAdCell yldStextAdCell];
-                    cell.model=model;
-                    return cell;
-                }else if (model.adsType==2){
-                    YLDTMoreBigImageADCell *cell=[YLDTMoreBigImageADCell yldTMoreBigImageADCell];
-                    cell.model=model;
-                    return cell;
-                }else if (model.adsType==3){
-                    YLDTADThreePicCell *cell=[YLDTADThreePicCell yldTADThreePicCell];
-                    cell.model=model;
-                    return cell;
-                }else if (model.adsType==6){
-                    YLDTLeftTextAdCell *cell=[YLDTLeftTextAdCell yldTLeftTextAdCell];
-                    cell.model=model;
-                    return cell;
-                }
-            }
             
-
         }
         if (self.type==0) {
             id model=self.sellAry[indexPath.row];
-            if ([model isKindOfClass:[HotSellModel class]]) {
-                YLDSsupplyBaseCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSsupplyBaseCell"];
-                if (!cell) {
-                    cell=[YLDSsupplyBaseCell yldSsupplyBaseCell];
-                }
-                cell.model=model;
-                return cell;
-            }
+            
 
         }
 

@@ -13,7 +13,7 @@
 {
     YLDJJrModel *model=[YLDJJrModel new];
     model.name=dic[@"name"];
-    model.userUid=dic[@"memberUid"];
+    model.userUid=dic[@"partyId"];
     model.phone=dic[@"phone"];
     model.areaNames=dic[@"areaNames"];
     model.productNames=dic[@"product"];
@@ -21,13 +21,13 @@
     model.photo=dic[@"photo"];
 //    model.comments=[[dic[@"comments"] objectForKey:@"comments"] integerValue];
     model.explain=dic[@"explain"];
-    model.defaultArea=dic[@"defaultArea"];
-    if (model.defaultArea) {
-        GetCityDao *citydao=[GetCityDao new];
-        [citydao openDataBase];
-        model.defaultAreaName=[citydao getCityNameByCityUid:model.defaultArea];
-        [citydao closeDataBase];
-    }
+    model.defaultAreaName=dic[@"defaultArea"];
+//    if (model.defaultArea) {
+//        GetCityDao *citydao=[GetCityDao new];
+//        [citydao openDataBase];
+//        model.defaultAreaName=[citydao getCityNameByCityUid:model.defaultArea];
+//        [citydao closeDataBase];
+//    }
     return model;
 }
 +(NSArray *)yldJJrModelByAry:(NSArray *)ary

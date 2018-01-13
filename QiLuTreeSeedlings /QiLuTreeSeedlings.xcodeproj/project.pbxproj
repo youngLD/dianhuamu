@@ -1307,6 +1307,13 @@
 		EAF520D21E52EE6C00A82A57 /* 底部菜单_消息off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF520D11E52EE6C00A82A57 /* 底部菜单_消息off@2x.png */; };
 		EAF5A6B01E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A6AE1E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.m */; };
 		EAF5A6B11E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF5A6AF1E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.xib */; };
+		EAF5D58C2009A6BD00F0D6E4 /* YLDFBaoJiaView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5D58B2009A6BD00F0D6E4 /* YLDFBaoJiaView.m */; };
+		EAF5D58E2009A6CA00F0D6E4 /* YLDFBaoJiaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF5D58D2009A6CA00F0D6E4 /* YLDFBaoJiaView.xib */; };
+		EAF5D5902009A84E00F0D6E4 /* baojiaTCHeader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF5D58F2009A84E00F0D6E4 /* baojiaTCHeader@2x.png */; };
+		EAF5D5922009AABE00F0D6E4 /* baojiatianjiaTUpian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF5D5912009AABE00F0D6E4 /* baojiatianjiaTUpian@2x.png */; };
+		EAF5D5942009AEDD00F0D6E4 /* tanchuangClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF5D5932009AEDD00F0D6E4 /* tanchuangClose@2x.png */; };
+		EAF5D5992009DA8B00F0D6E4 /* YLDFMyQuoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5D5972009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.m */; };
+		EAF5D59A2009DA8B00F0D6E4 /* YLDFMyQuoteListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAF5D5982009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.xib */; };
 		EAF788A01CDB090500C4A301 /* guoqibiaoqian.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF7889F1CDB090500C4A301 /* guoqibiaoqian.png */; };
 		EAF788A21CDB333700C4A301 /* guanbibiaoqian.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF788A11CDB333700C4A301 /* guanbibiaoqian.png */; };
 		EAF7EE3F1E67BE0F007CEA24 /* MoRentu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF7EE3E1E67BE0F007CEA24 /* MoRentu@2x.png */; };
@@ -3698,6 +3705,15 @@
 		EAF5A6AD1E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDSBuyBrifTableViewCell.h; sourceTree = "<group>"; };
 		EAF5A6AE1E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDSBuyBrifTableViewCell.m; sourceTree = "<group>"; };
 		EAF5A6AF1E66A5E300D74CC7 /* YLDSBuyBrifTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YLDSBuyBrifTableViewCell.xib; sourceTree = "<group>"; };
+		EAF5D58A2009A6BD00F0D6E4 /* YLDFBaoJiaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFBaoJiaView.h; sourceTree = "<group>"; };
+		EAF5D58B2009A6BD00F0D6E4 /* YLDFBaoJiaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFBaoJiaView.m; sourceTree = "<group>"; };
+		EAF5D58D2009A6CA00F0D6E4 /* YLDFBaoJiaView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFBaoJiaView.xib; sourceTree = "<group>"; };
+		EAF5D58F2009A84E00F0D6E4 /* baojiaTCHeader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baojiaTCHeader@2x.png"; sourceTree = "<group>"; };
+		EAF5D5912009AABE00F0D6E4 /* baojiatianjiaTUpian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baojiatianjiaTUpian@2x.png"; sourceTree = "<group>"; };
+		EAF5D5932009AEDD00F0D6E4 /* tanchuangClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tanchuangClose@2x.png"; sourceTree = "<group>"; };
+		EAF5D5962009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFMyQuoteListViewController.h; sourceTree = "<group>"; };
+		EAF5D5972009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFMyQuoteListViewController.m; sourceTree = "<group>"; };
+		EAF5D5982009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFMyQuoteListViewController.xib; sourceTree = "<group>"; };
 		EAF7889F1CDB090500C4A301 /* guoqibiaoqian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guoqibiaoqian.png; sourceTree = "<group>"; };
 		EAF788A11CDB333700C4A301 /* guanbibiaoqian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guanbibiaoqian.png; sourceTree = "<group>"; };
 		EAF7EE3E1E67BE0F007CEA24 /* MoRentu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoRentu@2x.png"; sourceTree = "<group>"; };
@@ -5118,6 +5134,7 @@
 		EA0B2BD11C59F6930018A7BD /* UserCenterViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EAF5D5952009DA6900F0D6E4 /* myQuoteListViewController */,
 				EAEFD2092004A59E00AC887C /* UserCenterViews */,
 				EAEFD1F820049A9D00AC887C /* MyEngineeringOrderListViewController */,
 				EAEFCD4F2004510600AC887C /* KeFuViewController */,
@@ -5346,6 +5363,9 @@
 		EA2726F81C8A735F000B0719 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAF5D5932009AEDD00F0D6E4 /* tanchuangClose@2x.png */,
+				EAF5D5912009AABE00F0D6E4 /* baojiatianjiaTUpian@2x.png */,
+				EAF5D58F2009A84E00F0D6E4 /* baojiaTCHeader@2x.png */,
 				EAE2D71C2005A7990089E11F /* myEorderItemClose@2x.png */,
 				EAE2D7182005A7470089E11F /* myEorderItemLook@2x.png */,
 				EAEFD2072004A02200AC887C /* MyEOYiGuoQi@2x.png */,
@@ -7482,6 +7502,9 @@
 				EAE30C692008B9DD00FF5C7A /* YLDFEOrderTableViewCell.h */,
 				EAE30C6A2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.m */,
 				EAE30C6B2008B9DD00FF5C7A /* YLDFEOrderTableViewCell.xib */,
+				EAF5D58A2009A6BD00F0D6E4 /* YLDFBaoJiaView.h */,
+				EAF5D58B2009A6BD00F0D6E4 /* YLDFBaoJiaView.m */,
+				EAF5D58D2009A6CA00F0D6E4 /* YLDFBaoJiaView.xib */,
 			);
 			path = YLDFEOrderDetialViewController;
 			sourceTree = "<group>";
@@ -8693,6 +8716,16 @@
 				EA8824201FFF1E8A009294E4 /* YLDFMessageViewController.xib */,
 			);
 			path = YLDSMessageViewController;
+			sourceTree = "<group>";
+		};
+		EAF5D5952009DA6900F0D6E4 /* myQuoteListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EAF5D5962009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.h */,
+				EAF5D5972009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.m */,
+				EAF5D5982009DA8A00F0D6E4 /* YLDFMyQuoteListViewController.xib */,
+			);
+			path = myQuoteListViewController;
 			sourceTree = "<group>";
 		};
 		EAF8A53F1C867D56008B99D2 /* Model */ = {
@@ -11008,6 +11041,7 @@
 				EA5108A31FF31D9300859F54 /* fabumoreAddImage@2x.png in Resources */,
 				EA4E64701D0E848900A7D731 /* kefuxitongyonghutouxiang.png in Resources */,
 				EA521DDE1EE53DEA00B5A040 /* jjrshenhezhong@2x.png in Resources */,
+				EAF5D58E2009A6CA00F0D6E4 /* YLDFBaoJiaView.xib in Resources */,
 				EA4A5F671FEE198100902E9B /* fabusuccessV@2x.png in Resources */,
 				EAF7EE411E67BEF9007CEA24 /* MoRentuLong@2x.png in Resources */,
 				EA45FCE61F4E64B20091CD50 /* runningC26@2x.png in Resources */,
@@ -11086,6 +11120,7 @@
 				EA58E5491FDBBF34004C80AE /* usersmallSupply@2x.png in Resources */,
 				EA181BFE1E495FD0005C87CB /* 首页-ico_地图找苗@2x.png in Resources */,
 				EA08F7CA1D191B0200471C33 /* ico_工作站-分站text.png in Resources */,
+				EAF5D5922009AABE00F0D6E4 /* baojiatianjiaTUpian@2x.png in Resources */,
 				EAEFD49E2004A5A000AC887C /* YLDADClickDetialViewController.xib in Resources */,
 				EAEBBD3B1FF0D57A007C53C2 /* daohuojiaoff@2x.png in Resources */,
 				EAE4768A1F283E20000CFF23 /* 广告账户-背景图标.png in Resources */,
@@ -11186,6 +11221,7 @@
 				EA3D4D8A1D1792CD0010B56D /* yihezuo.png in Resources */,
 				EA6BDA2C1D45B0EB00F317F2 /* SHOPBACKVIEW.png in Resources */,
 				EADCB6A41EF4FF850075C832 /* YLDJJRChangeAreaViewController.xib in Resources */,
+				EAF5D5902009A84E00F0D6E4 /* baojiaTCHeader@2x.png in Resources */,
 				EAEFD4912004A5A000AC887C /* YKDTADTuifeiViewController.xib in Resources */,
 				EAEFD4782004A5A000AC887C /* 支付订单-充值金额背景.png in Resources */,
 				EA17B5D21CC9D23A0054223B /* rightBtnImage@2x.png in Resources */,
@@ -11290,6 +11326,7 @@
 				EA03CCF11C9003AC0032BAD3 /* passwordLiteImage@2x.png in Resources */,
 				EA45FCE31F4E64B20091CD50 /* runningC23@2x.png in Resources */,
 				EA139ADE1EE9419A00199AF4 /* yldjjlSelctView.xib in Resources */,
+				EAF5D59A2009DA8B00F0D6E4 /* YLDFMyQuoteListViewController.xib in Resources */,
 				EA8A298B1DB0AC28002DA953 /* 苗小二_底部菜单_供应off@2x.png in Resources */,
 				EA6976121F3E9A3400C33394 /* TB_GongYingHome@2x.png in Resources */,
 				EAD151B01FD918A200390685 /* loginBack@2x.png in Resources */,
@@ -11609,6 +11646,7 @@
 				EA8A298C1DB0AC28002DA953 /* 苗小二_底部菜单_供应on@2x.png in Resources */,
 				EA45FCDE1F4E64B20091CD50 /* runningC19@2x.png in Resources */,
 				EA5B1C911F3C2AC60043EE54 /* miaoyuandi@2x.png in Resources */,
+				EAF5D5942009AEDD00F0D6E4 /* tanchuangClose@2x.png in Resources */,
 				FCC291461DAB6F330019DFB9 /* RedpacketMessageCell.xib in Resources */,
 				EAF050FF1C92A21D00F435A9 /* myReadMessage@2x.png in Resources */,
 				EAAFCFB51CBE265100EB894F /* 1miaomu1334.png in Resources */,
@@ -12131,6 +12169,7 @@
 				EA139AD41EE8FA2700199AF4 /* YLDJJRListCell.m in Sources */,
 				EA483B791EDFBADC00C2F5F8 /* YLDJJRSQtXView.m in Sources */,
 				FCC291401DAB6F330019DFB9 /* EMSearchDisplayController.m in Sources */,
+				EAF5D58C2009A6BD00F0D6E4 /* YLDFBaoJiaView.m in Sources */,
 				FC11CBEE1D37730800C3F47D /* ZIKTestAddImageViewController.m in Sources */,
 				EA6D58C61FD621B400605E05 /* YLDFLoginView.m in Sources */,
 				FC830FBC1D62FD2F001E0CC6 /* ZIKCaiGouDetailHaveBuyTopView.m in Sources */,
@@ -12337,6 +12376,7 @@
 				FCC291AA1DAB6F340019DFB9 /* EaseViewController.m in Sources */,
 				EAEFD4942004A5A000AC887C /* YLDADChongZhiMXViewController.m in Sources */,
 				EAEFD4832004A5A000AC887C /* YLDADnomelCell.m in Sources */,
+				EAF5D5992009DA8B00F0D6E4 /* YLDFMyQuoteListViewController.m in Sources */,
 				EAEFD5382004A5A100AC887C /* UIImage+FixOrientation.m in Sources */,
 				EA0E8B6E1D17E5EA007C20D8 /* YLDGongZuoZhanJianJieCell.m in Sources */,
 				FCC291061DAB6F330019DFB9 /* TTGlobalUICommon.m in Sources */,

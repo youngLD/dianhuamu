@@ -16,5 +16,6 @@
 @property (nonatomic,copy) NSString *linkman;
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *partyId;
+@property (nonatomic,copy) NSString *license;
 
 @end

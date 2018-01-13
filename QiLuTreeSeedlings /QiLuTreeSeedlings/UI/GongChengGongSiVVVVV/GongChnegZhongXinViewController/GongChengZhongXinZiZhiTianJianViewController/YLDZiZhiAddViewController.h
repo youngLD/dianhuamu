@@ -16,6 +16,8 @@
 @interface YLDZiZhiAddViewController : NomarBaseViewController
 @property (nonatomic,weak) id<YLDZiZhiAddDelegate> delegate;
 @property (nonatomic) NSInteger modelType;
+@property (nonatomic,copy)NSString *roleApplyAuditId;
+@property (nonatomic,copy)NSDictionary *dic;
 -(id)initWithType:(NSInteger)type;
 -(id)initWithModel:(GCZZModel *)model andType:(NSInteger )type;
 @end

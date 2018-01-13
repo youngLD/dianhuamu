@@ -206,6 +206,7 @@
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
 //                        [ToastView showTopToast:@"您的实名认证正在审核中，请耐心等待"];
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        vc.titleNameStr=@"实名";
                         vc.hidesBottomBarWhenPushed=YES;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
@@ -256,6 +257,8 @@
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
 //                        [ToastView showTopToast:@"您的企业认证正在审核中，请耐心等待"];
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        vc.titleNameStr=@"企业";
+                        vc.hidesBottomBarWhenPushed=YES;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"normal"]) {
@@ -296,7 +299,7 @@
     if ([wareStr isEqualToString:@"实名"]) {
          YLDFRealNameViewController* vc=[YLDFRealNameViewController new];
         vc.hidesBottomBarWhenPushed=YES;
-        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+//        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
       
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
@@ -304,7 +307,7 @@
     if ([wareStr isEqualToString:@"企业"]) {
         YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
         vc.hidesBottomBarWhenPushed=YES;
-        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+//        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }

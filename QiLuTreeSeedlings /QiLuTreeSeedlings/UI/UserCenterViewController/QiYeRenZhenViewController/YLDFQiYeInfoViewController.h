@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
 @property (weak, nonatomic) IBOutlet UILabel *personLab;
 @property (weak, nonatomic) IBOutlet UILabel *phoneLab;
+@property (weak, nonatomic) IBOutlet UIImageView *zhizhaoImageV;
 
 @end

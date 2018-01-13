@@ -8798,4 +8798,27 @@
     }];
     
 }
+#pragma mark -经纪人详情
+-(void)jjrDetialWithpartyId:(NSString *)partyId
+               WithlastTime:(NSString *)lastTime
+                    Success:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =[NSString stringWithFormat:@"brokers/%@",partyId];
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"lastTime"]             = lastTime;
+
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
 @end

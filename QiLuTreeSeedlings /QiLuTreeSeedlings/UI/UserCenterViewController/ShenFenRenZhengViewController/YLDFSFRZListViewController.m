@@ -10,10 +10,11 @@
 #import "YLDFRealNameViewController.h"
 #import "YLDJJRenShenQing1ViewController.h"
 #import "YLDFRZzhongViewController.h"
-#import "YLDGCGSZiZhiTiJiaoViewController.h"
+//#import "YLDGCGSZiZhiTiJiaoViewController.h"
 #import "ZIKVoucherCenterViewController.h"
 #import "YLDJJRNotPassViewController.h"
 #import "YLDFQiYeRenZhengViewController.h"
+#import "YLDZiZhiAddViewController.h"
 @interface YLDFSFRZListViewController ()<YLDJJRenShenQing1ViewControllerDelegate,YLDJJRNotPassViewControllerDelegate>
 
 @end
@@ -59,6 +60,7 @@
                     }
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        vc.titleNameStr=@"经纪人";
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"normal"]) {
@@ -121,11 +123,12 @@
                     NSString *status=data[@"status"];
                     
                     if ([status isEqualToString:@"not_apply"]||[status isEqualToString:@"expired"]) {
-                        YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+                        YLDZiZhiAddViewController *vc=[[YLDZiZhiAddViewController alloc]initWithType:1];
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
                         YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                        vc.titleNameStr=@"工程公司";
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     if ([status isEqualToString:@"normal"]) {
@@ -133,14 +136,12 @@
                     }
                     if ([status isEqualToString:@"fail"]) {
                         YLDJJRNotPassViewController *vc=[YLDJJRNotPassViewController new];
-                        vc.wareStr=@"经纪人";
+                        vc.wareStr=@"工程公司";
                         vc.delegate=self;
                         vc.dic=data;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
-                    if ([status isEqualToString:@"normal"]) {
-                        [ToastView showTopToast:@"您已通过工程公司认证"];
-                    }
+                
                     //
                 }else{
                     [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -192,7 +193,7 @@
             }
             if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
                 YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
-
+                vc.titleNameStr=@"实名";
                 [self.navigationController pushViewController:vc animated:YES];
             }
             if ([status isEqualToString:@"normal"]) {
@@ -235,6 +236,7 @@
             }
             if ([status isEqualToString:@"audited"]||[status isEqualToString:@"submission"]) {
                 YLDFRZzhongViewController *vc=[YLDFRZzhongViewController new];
+                vc.titleNameStr=@"企业";
                 [self.navigationController pushViewController:vc animated:YES];
             }
             if ([status isEqualToString:@"normal"]) {
@@ -264,27 +266,28 @@
 -(void)shenheweitongguoChongxintijiaoDic:(NSDictionary *)dic WithwareStr:(NSString *)wareStr
 {
     if ([wareStr isEqualToString:@"经纪人"]) {
-        [ToastView showTopToast:@"您的经纪人认证已被退回，请重新编辑"];
+//        [ToastView showTopToast:@"您的经纪人认证已被退回，请重新编辑"];
         YLDJJRenShenQing1ViewController *vc=[YLDJJRenShenQing1ViewController new];
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if ([wareStr isEqualToString:@"工程公司"]) {
-        [ToastView showTopToast:@"您的工程公司申请已被退回，请重新编辑"];
-        YLDGCGSZiZhiTiJiaoViewController *vc=[YLDGCGSZiZhiTiJiaoViewController new];
+//        [ToastView showTopToast:@"您的工程公司申请已被退回，请重新编辑"];
+        YLDZiZhiAddViewController *vc=[[YLDZiZhiAddViewController alloc]initWithType:1];
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if ([wareStr isEqualToString:@"实名"]) {
         YLDFRealNameViewController* vc=[YLDFRealNameViewController new];
-        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
+//        [ToastView showTopToast:@"您的实名认证已被退回，请重新编辑"];
         
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }
     if ([wareStr isEqualToString:@"企业"]) {
         YLDFQiYeRenZhengViewController * vc=[YLDFQiYeRenZhengViewController new];
-        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+//        [ToastView showTopToast:@"您的企业认证已被退回，请重新编辑"];
+        
         vc.dic=dic;
         [self.navigationController pushViewController:vc animated:YES];
     }

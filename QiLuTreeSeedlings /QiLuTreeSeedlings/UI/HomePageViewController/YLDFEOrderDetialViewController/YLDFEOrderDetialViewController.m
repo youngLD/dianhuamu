@@ -10,7 +10,10 @@
 #import "YLDFMyEorderDetialInfoTableViewCell.h"
 #import "YLDFEOrderModel.h"
 #import "YLDFEOrderTableViewCell.h"
-@interface YLDFEOrderDetialViewController ()<UITableViewDelegate,UITableViewDataSource,YLDFEOrderTableViewCellDelegate>
+#import "YLDFBaoJiaView.h"
+#import "YLDLoginViewController.h"
+#import "UINavController.h"
+@interface YLDFEOrderDetialViewController ()<UITableViewDelegate,UITableViewDataSource,YLDFEOrderTableViewCellDelegate,YLDFBaoJiaViewCellDelegate>
 @property (nonatomic,strong)NSMutableArray *itemsAry;
 @property (nonatomic,strong)YLDFEOrderModel *model;
 @end
@@ -44,7 +47,37 @@
 }
 -(void)itemBaojiaActionWithModel:(YLDFMyOrderItemsModel *)model
 {
-    
+    YLDFBaoJiaView *view=[YLDFBaoJiaView yldFBaoJiaView];
+    view.controller=self;
+    view.model=model;
+    view.delegate=self;
+    [self.view addSubview:view];
+    [view show];
+}
+-(void)itemsBaojiaActionWithModel:(YLDFMyOrderItemsModel *)model withDic:(NSDictionary *)dic
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+    [HTTPCLIENT eOrderBaoJiaWithobodyStr:bodyStr Success:^(id responseObject) {
+        if ([[responseObject objectForKey:@"success"] integerValue]) {
+            [ToastView showTopToast:@"报价成功"];
+            model.status=@"已报价";
+            NSInteger xx=[self.itemsAry indexOfObject:model];
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:xx inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -89,8 +122,7 @@
         cell.numLab.text= [NSString stringWithFormat:@"%ld",indexPath.row+1];
         return cell;
     }
-    UITableViewCell *cell=[[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    return cell;
+
    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

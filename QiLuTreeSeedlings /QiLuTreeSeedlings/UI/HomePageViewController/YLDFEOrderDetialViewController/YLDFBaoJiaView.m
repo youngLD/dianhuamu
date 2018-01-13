@@ -1,110 +1,83 @@
 //
-//  YLDFQiYeRenZhengViewController.m
+//  YLDFBaoJiaView.m
 //  QiLuTreeSeedlings
 //
-//  Created by 杨乐栋 on 2018/1/4.
+//  Created by 杨乐栋 on 2018/1/13.
 //  Copyright © 2018年 中亿科技. All rights reserved.
 //
 
-#import "YLDFQiYeRenZhengViewController.h"
-#import "UIImageView+AFNetworking.h"
-@interface YLDFQiYeRenZhengViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
-@property (nonatomic,copy)NSString *license;
-@property (nonatomic,copy)NSString *roleApplyAuditId;
-@end
-
-@implementation YLDFQiYeRenZhengViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    if (@available(iOS 11.0, *)) {
-        _topC.constant=54.0;
-    }
-    self.vcTitle=@"企业认证";
-    self.phoneTextfield.rangeNumber=11;
-    self.qiyeNameTexfField.rangeNumber=20;
-    self.qiyePersonTexfField.rangeNumber=8;
-    self.qiyeAddressTexfField.rangeNumber=20;
-    if (self.dic) {
-        NSDictionary *enterpriseApplydic=self.dic[@"enterpriseApply"];
-        self.phoneTextfield.text=enterpriseApplydic[@"contactInformation"];
-        self.license=enterpriseApplydic[@"license"];
-        self.qiyeAddressTexfField.text=enterpriseApplydic[@"address"];
-        self.qiyeNameTexfField.text=enterpriseApplydic[@"name"];
-        self.qiyePersonTexfField.text=enterpriseApplydic[@"linkman"];
-        self.roleApplyAuditId=enterpriseApplydic[@"roleApplyAuditId"];
-//        NSDictionary *roleApplyAuditDic=self.dic[@"roleApplyAudit"];
-        [self.imageV setImageWithURL:[NSURL URLWithString:self.license]];
-//        self.resonLab.text=[NSString stringWithFormat:@"退回原因：%@",roleApplyAuditDic[@"auditReason"]];
-    }
-    // Do any additional setup after loading the view from its nib.
+#import "YLDFBaoJiaView.h"
+#import "UIDefines.h"
+@implementation YLDFBaoJiaView
++(YLDFBaoJiaView *)yldFBaoJiaView
+{
+    YLDFBaoJiaView *view=[[[NSBundle mainBundle]loadNibNamed:@"YLDFBaoJiaView" owner:self options:nil] firstObject];
+    view.frame=CGRectMake(0, 0, kWidth, kHeight);
+    view.hidden=YES;
+    view.baojiaBtn.layer.masksToBounds =YES;
+    view.baojiaBtn.layer.cornerRadius=view.baojiaBtn.frame.size.height/2;
+    return view;
 }
-- (IBAction)ImageBtnAction:(UIButton *)sender {
+- (IBAction)imageBtnAction:(UIButton *)sender {
     [self openMenu];
+    
 }
-- (IBAction)tijiaoAction:(UIButton *)sender {
-    if (self.qiyeNameTexfField.text.length==0) {
-        [ToastView showTopToast:@"请输入企业名称"];
+- (IBAction)baojiaBtnAction:(UIButton *)sender {
+    if (self.baojiaTextField.text.length==0) {
+        [ToastView showTopToast:@"请输入报价"];
         return;
     }
-    if (self.qiyeAddressTexfField.text.length==0) {
-        [ToastView showTopToast:@"请输入企业地址"];
+    if (self.guigeTextField.text.length==0) {
+        [ToastView showTopToast:@"请输入规格说明"];
         return;
     }
-    if (self.qiyePersonTexfField.text.length<2||self.qiyePersonTexfField.text.length>8) {
-        [ToastView showTopToast:@"请输入企业法人"];
-        return;
-    }
-    if (self.phoneTextfield.text.length==0) {
-        [ToastView showTopToast:@"请输入企业联系方式"];
-        return;
-    }
-    if (self.license.length==0) {
-        [ToastView showTopToast:@"请添加营业执照"];
+    if (self.imageUrl==0) {
+        [ToastView showTopToast:@"请上传图片"];
         return;
     }
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
-    dic[@"address"]=self.qiyeAddressTexfField.text;
-    dic[@"contactInformation"]=self.phoneTextfield.text;
-    dic[@"linkman"]=self.qiyePersonTexfField.text;
-    dic[@"name"]=self.qiyeNameTexfField.text;
-    dic[@"license"]=self.license;
-    if (self.roleApplyAuditId.length>0) {
-     dic[@"roleApplyAuditId"]=self.roleApplyAuditId;
-        NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
-        ShowActionV();
-        [HTTPCLIENT enterpriseShenQingWithBodyStr:bodyStr WithroleApplyAuditId:self.roleApplyAuditId Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                [ToastView showTopToast:@"提交资料成功，请耐心等待审核"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-    }else{
-        ShowActionV();
-        NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
-        [HTTPCLIENT enterpriseShenQingWithBodyStr:bodyStr Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                [ToastView showTopToast:@"提交资料成功，请耐心等待审核"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-        } failure:^(NSError *error) {
-            
-        }];
+    NSMutableDictionary *imageDic=[NSMutableDictionary dictionary];
+    imageDic[@"attaType"]=@"picture";
+    imageDic[@"path"]=self.imageUrl;
+    NSArray *attas=@[imageDic];
+    dic[@"attas"]=attas;
+    dic[@"demand"]=self.guigeTextField.text;
+    dic[@"quoteType"]=@"order";
+    dic[@"quote"]=self.baojiaTextField.text;
+    dic[@"oibId"]=self.model.engineeringProcurementItemId;
+    [self hidingSelf];
+    if (self.delegate) {
+        [self.delegate itemsBaojiaActionWithModel:self.model withDic:dic];
     }
     
 }
+
+- (IBAction)closeBtnAction:(UIButton *)sender {
+    [self hidingSelf];
+}
+-(void)hidingSelf
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha=0;
+    } completion:^(BOOL finished) {
+        self.hidden=YES;
+        [self removeFromSuperview];
+    }];
+}
+-(void)show
+{
+    self.hidden=NO;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha=1;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
 -(void)openMenu
 {
-    [self.phoneTextfield resignFirstResponder];
-    [self.qiyeNameTexfField resignFirstResponder];
-    [self.qiyePersonTexfField resignFirstResponder];
-    [self.qiyeAddressTexfField resignFirstResponder];
+    [self.baojiaTextField resignFirstResponder];
+    [self.guigeTextField resignFirstResponder];
     __weak typeof(self)weakself =self;
     //在这里呼出下方菜单按钮项
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上传视频或照片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -129,7 +102,7 @@
         [weakself LocalPhoto];
     }]];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self.controller presentViewController:alertController animated:YES completion:nil];
 }
 //开始拍照
 -(void)takePhoto
@@ -142,7 +115,7 @@
         //设置拍照后的图片可被编辑
         picker.allowsEditing = NO;
         picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
+        [self.controller presentViewController:picker animated:YES completion:nil];
         
     }else
     {
@@ -161,8 +134,8 @@
     }
     pickerImage.delegate = self;
     pickerImage.allowsEditing = NO;
-    [self presentViewController:pickerImage animated:YES completion:^{
-        
+    [self.controller presentViewController:pickerImage animated:YES completion:^{
+
     }];
 }
 -(void)yasuotupianWithImage:(UIImage *)image  Success:(void (^)(NSData *imageData))success
@@ -229,7 +202,7 @@
             // 必填字段
             put.bucketName = @"miaoxintong";
             
-            NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",access_token] WithTypeStr:@"enterprise"];
+            NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",access_token] WithTypeStr:@"quote"];
             if (UIImagePNGRepresentation(image)) {
                 //返回为png图像。
                 
@@ -254,13 +227,13 @@
                         //Update UI in UI thread here
                         [ToastView showTopToast:@"上传图片成功"];
                         
-                            self.license=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
-                            [self.imageV setImage:[UIImage imageWithData:imageData]];
-                      
+                        self.imageUrl=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
+                        [self.imageV setImage:[UIImage imageWithData:imageData]];
+                        
                     });
                     
                 } else {
-
+                    
                     [ToastView showTopToast:@"上传图片失败"];
                     
                 }
@@ -269,21 +242,16 @@
         } failure:^(NSError *error) {
             
         }];
+        
+        
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
 */
 

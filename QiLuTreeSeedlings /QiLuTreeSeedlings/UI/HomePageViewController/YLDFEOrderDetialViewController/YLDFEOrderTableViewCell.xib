@@ -24,7 +24,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-Dl-hWM">
                                 <rect key="frame" x="8" y="10" width="20" height="20"/>
-                                <color key="backgroundColor" red="0.83854287859999999" green="0.85866004230000004" blue="0.87526500230000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.83854287859999999" green="0.83921568627450982" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="YQo-J3-kBg"/>
                                     <constraint firstAttribute="width" constant="20" id="bZq-Zs-7hF"/>
@@ -41,7 +41,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5Y-Hb-F2j">
                                 <rect key="frame" x="238" y="17" width="52" height="24"/>
-                                <color key="backgroundColor" red="1" green="0.59431028366088867" blue="0.12203671783208847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.59431028366088867" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="52" id="2Ta-Xl-seq"/>
                                     <constraint firstAttribute="height" constant="24" id="ew0-fn-XJT"/>

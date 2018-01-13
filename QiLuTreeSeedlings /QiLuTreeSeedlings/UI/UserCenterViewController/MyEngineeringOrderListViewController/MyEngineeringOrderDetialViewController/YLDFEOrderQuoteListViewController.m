@@ -8,7 +8,7 @@
 
 #import "YLDFEOrderQuoteListViewController.h"
 #import "YLDFEorderQuoteTableViewCell.h"
-@interface YLDFEOrderQuoteListViewController ()
+@interface YLDFEOrderQuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -17,9 +17,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle=@"报价详情";
+    
+    self.mmNameLab.text=self.model.itemName;
+    self.personNumLab.text=[NSString stringWithFormat:@"%ld人",self.model.quoteCount];
+    [HTTPCLIENT MyGongChengDingDanItemQuotesListWithitemId:self.model.engineeringProcurementItemId    WithorderId:self.orderStr Success:^(id responseObject) {
+        if ([[responseObject objectForKey:@"success"] integerValue]) {
+            
+        }else{
+            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
     // Do any additional setup after loading the view from its nib.
 }
-
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 0;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell=[UITableViewCell new];
+    return cell;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

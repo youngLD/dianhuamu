@@ -1,32 +1,34 @@
 //
-//  YLDFRZzhongViewController.m
+//  YLDFMyQuoteListViewController.m
 //  QiLuTreeSeedlings
 //
-//  Created by 杨乐栋 on 2018/1/6.
+//  Created by 杨乐栋 on 2018/1/13.
 //  Copyright © 2018年 中亿科技. All rights reserved.
 //
 
-#import "YLDFRZzhongViewController.h"
+#import "YLDFMyQuoteListViewController.h"
 
-@interface YLDFRZzhongViewController ()
-
+@interface YLDFMyQuoteListViewController ()
+@property (nonatomic,strong)UIButton *nowBtn;
 @end
 
-@implementation YLDFRZzhongViewController
+@implementation YLDFMyQuoteListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (@available(iOS 11.0, *)) {
-        _topC.constant=44.0;
+        self.topC.constant=44.f;
     }
-    self.vcTitle=@"认证";
-    if (self.titleNameStr) {
-        self.vcTitle=[NSString stringWithFormat:@"%@认证",self.titleNameStr];
-    }
+    self.vcTitle =@"我的报价";
     // Do any additional setup after loading the view from its nib.
 }
-- (IBAction)sureBtnAction:(UIButton *)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (IBAction)baoJiaBtnAction:(UIButton *)sender {
+    if (sender.selected) {
+        return;
+    }
+    self.nowBtn.selected=NO;
+    sender.selected=YES;
+    self.nowBtn=sender;
 }
 
 - (void)didReceiveMemoryWarning {
