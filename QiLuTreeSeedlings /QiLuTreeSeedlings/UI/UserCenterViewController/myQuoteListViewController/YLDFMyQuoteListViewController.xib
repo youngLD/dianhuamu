@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFMyQuoteListViewController">
             <connections>
                 <outlet property="moveView" destination="2B8-Ug-DhN" id="Yxq-GH-qfG"/>
+                <outlet property="tableView" destination="Dap-kL-8I4" id="lkU-Dr-jd9"/>
                 <outlet property="topC" destination="4W2-Wb-UHG" id="SjU-3T-FAk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -49,6 +50,7 @@
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2k-tI-P3e">
                             <rect key="frame" x="188" y="0.0" width="187" height="50"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="已结束">
                                 <color key="titleColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13270941840277778" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
@@ -94,6 +96,10 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dap-kL-8I4">
                     <rect key="frame" x="0.0" y="134" width="375" height="533"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="fUX-yI-eos"/>
+                        <outlet property="delegate" destination="-1" id="kJi-l4-IwY"/>
+                    </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

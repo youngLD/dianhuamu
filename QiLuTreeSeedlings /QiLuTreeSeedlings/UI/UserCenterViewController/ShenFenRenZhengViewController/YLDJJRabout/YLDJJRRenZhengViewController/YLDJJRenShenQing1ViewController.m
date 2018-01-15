@@ -260,7 +260,7 @@
     // 必填字段
     put.bucketName = @"miaoxintong";
     
-    NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_id] WithTypeStr:@"agent"];
+    NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_token] WithTypeStr:@"agent"];
    
     imageData=UIImagePNGRepresentation(croppedImage);
 

@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
 @property (nonatomic,copy) NSString *orderStr;
+@property (nonatomic,copy) NSString *quotesType;
 @property (nonatomic,strong) YLDFMyOrderItemsModel *model;
 @end

@@ -39,6 +39,7 @@
 #import "MyEngineeringOrderListViewController.h"
 #import "YLDJJRMyViewController.h"
 #import "YLDJJRNotPassViewController.h"
+#import "YLDFMyQuoteListViewController.h"
 @interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate,YLDJJRNotPassViewControllerDelegate>
 
 @end
@@ -69,7 +70,9 @@
     [super viewDidLoad];
     self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
-    
+    UIView *foodView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 50)];
+    [foodView setBackgroundColor:BGColor];
+    self.tableView.tableFooterView=foodView;
     self.tableView.bounces=NO;
     
         if (@available(iOS 11.0, *)) {
@@ -135,6 +138,7 @@
             [cell.fabuBuyBtn addTarget:self action:@selector(fabuBuyBtnAction) forControlEvents:UIControlEventTouchUpInside];
             [cell.mySupplyBtn addTarget:self action:@selector(mySupplyListAction) forControlEvents:UIControlEventTouchUpInside];
             [cell.myBuyBtn addTarget:self action:@selector(myBuyLsitAction) forControlEvents:UIControlEventTouchUpInside];
+            [cell.myBaojiaBtn addTarget:self action:@selector(myQuoqeListBtnAction) forControlEvents:UIControlEventTouchUpInside];
         }
         return cell;
     }
@@ -501,7 +505,23 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
+-(void)myQuoqeListBtnAction
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    YLDFMyQuoteListViewController *vc=[YLDFMyQuoteListViewController new];
+    vc.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(void)logoutSuccess
 {
     [self.tableView reloadData];

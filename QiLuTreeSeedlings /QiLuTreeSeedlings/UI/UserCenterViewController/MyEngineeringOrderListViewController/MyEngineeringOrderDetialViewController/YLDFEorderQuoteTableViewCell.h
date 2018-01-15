@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YLDFQuoteModel.h"
 @interface YLDFEorderQuoteTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *numLab;
 @property (weak, nonatomic) IBOutlet UILabel *personLab;
 @property (weak, nonatomic) IBOutlet UILabel *priceLab;
 @property (weak, nonatomic) IBOutlet UILabel *shuomingLab;
+@property (strong,nonatomic)YLDFQuoteModel *model;
 +(YLDFEorderQuoteTableViewCell *)yldFEorderQuoteTableViewCell;
 @end

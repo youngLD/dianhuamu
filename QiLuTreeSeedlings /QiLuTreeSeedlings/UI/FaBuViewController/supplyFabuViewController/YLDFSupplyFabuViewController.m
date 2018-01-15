@@ -80,6 +80,7 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
                     NSString *attaTypeId=dic[@"attaTypeId"];
                     if ([attaTypeId isEqualToString:@"picture"]) {
                         NSMutableDictionary *changeDic=[NSMutableDictionary dictionaryWithDictionary:dic];
+                        [changeDic removeObjectForKey:@"supplyAttaId"];
                         [self.imageUrlAry addObject:changeDic];
                     }
                 }
@@ -116,12 +117,12 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
     [dic setObject:self.keyWordTextView.text forKey:@"keywords"];
     [dic setObject:self.addressId forKey:@"addressId"];
     [dic setObject:self.imageUrlAry forKey:@"attas"];
-    if (self.supplyId) {
-        [dic setObject:self.supplyId forKey:@"supplyId"];
-    }
+//    if (self.supplyId) {
+//        [dic setObject:self.supplyId forKey:@"supplyId"];
+//    }
     NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
     ShowActionV();
-    [HTTPCLIENT supplyNewPushWithBody:bodyStr Success:^(id responseObject) {
+    [HTTPCLIENT supplyNewPushWithBody:bodyStr WithsupplyId:self.supplyId  Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             [ToastView showTopToast:@"发布成功"];
             [APPDELEGATE getdefaultAddress];

@@ -122,6 +122,7 @@
 {
     YLDFEOrderQuoteListViewController *vc=[YLDFEOrderQuoteListViewController new];
     vc.model=model;
+    vc.quotesType=self.model.quoteType;
     vc.orderStr=self.model.engineeringProcurementId;
     [self.navigationController pushViewController:vc animated:YES];
 }

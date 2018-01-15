@@ -168,7 +168,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLT-Zm-ZBa">
-                        <rect key="frame" x="126" y="40" width="30" height="90"/>
+                        <rect key="frame" x="126" y="40" width="125" height="90"/>
                     </button>
                 </subviews>
                 <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -184,6 +184,7 @@
                     <constraint firstItem="xf7-p7-99v" firstAttribute="leading" secondItem="0la-qP-1xw" secondAttribute="trailing" id="h1w-VC-sno"/>
                     <constraint firstItem="oLT-Zm-ZBa" firstAttribute="leading" secondItem="52p-3q-r2e" secondAttribute="trailing" id="h8C-Ed-2vQ"/>
                     <constraint firstItem="0la-qP-1xw" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="jcI-bQ-5HB"/>
+                    <constraint firstItem="oLT-Zm-ZBa" firstAttribute="width" secondItem="xf7-p7-99v" secondAttribute="width" id="jci-b7-iY9"/>
                     <constraint firstItem="xf7-p7-99v" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kHd-DM-qyi"/>
                     <constraint firstAttribute="bottomMargin" secondItem="52p-3q-r2e" secondAttribute="bottom" id="mBW-XM-Pun"/>
                     <constraint firstItem="b93-hz-g75" firstAttribute="top" secondItem="1gR-MQ-mIy" secondAttribute="bottom" id="oam-aP-lnf"/>
@@ -206,7 +207,7 @@
                 <outlet property="view2W" destination="LFU-85-nvH" id="hFn-oR-p8U"/>
                 <outlet property="wodedingdanBtn" destination="p13-Tl-tnH" id="oQZ-7K-qla"/>
             </connections>
-            <point key="canvasLocation" x="262" y="51"/>
+            <point key="canvasLocation" x="261.5" y="51"/>
         </tableViewCell>
     </objects>
     <resources>

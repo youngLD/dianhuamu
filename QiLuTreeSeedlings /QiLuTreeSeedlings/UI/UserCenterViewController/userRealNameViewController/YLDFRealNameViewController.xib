@@ -114,14 +114,14 @@
                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="realNameAddImageV.png" translatesAutoresizingMaskIntoConstraints="NO" id="4JF-s1-BeP">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="realNameAddImageV2.png" translatesAutoresizingMaskIntoConstraints="NO" id="4JF-s1-BeP">
                                     <rect key="frame" x="18" y="57" width="150" height="95"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="95" id="O6W-Hd-E3W"/>
                                         <constraint firstAttribute="width" constant="150" id="oeE-aC-Z37"/>
                                     </constraints>
                                 </imageView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="realNameAddImageV2.png" translatesAutoresizingMaskIntoConstraints="NO" id="NTM-sV-xbH">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="realNameAddImageV.png" translatesAutoresizingMaskIntoConstraints="NO" id="NTM-sV-xbH">
                                     <rect key="frame" x="18" y="172" width="150" height="95"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="95" id="CpR-pu-zCE"/>

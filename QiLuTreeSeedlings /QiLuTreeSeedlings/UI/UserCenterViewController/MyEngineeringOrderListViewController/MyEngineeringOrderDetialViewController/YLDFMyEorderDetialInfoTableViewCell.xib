@@ -30,7 +30,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工程订单名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqF-dB-QiS">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工程订单名称" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqF-dB-QiS">
                         <rect key="frame" x="15" y="20" width="290" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -67,7 +67,7 @@
                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用苗地:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwp-0V-bWp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用苗地:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwp-0V-bWp">
                         <rect key="frame" x="15" y="81" width="128.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -109,7 +109,6 @@
                     <constraint firstItem="pUS-0q-p4H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7uv-B5-zHs"/>
                     <constraint firstAttribute="bottom" secondItem="SgG-O9-CHZ" secondAttribute="bottom" constant="7" id="A4O-2K-enu"/>
                     <constraint firstItem="3Rg-lj-dVO" firstAttribute="leading" secondItem="pwp-0V-bWp" secondAttribute="trailing" constant="5" id="A5G-al-hsl"/>
-                    <constraint firstItem="3Rg-lj-dVO" firstAttribute="centerY" secondItem="pwp-0V-bWp" secondAttribute="centerY" id="BMa-bJ-srz"/>
                     <constraint firstItem="sJH-WG-lOF" firstAttribute="top" secondItem="VqF-dB-QiS" secondAttribute="bottom" constant="10" id="D07-sP-QUP"/>
                     <constraint firstItem="cTF-Wx-auO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="I6d-eG-7D1"/>
                     <constraint firstItem="pwp-0V-bWp" firstAttribute="top" secondItem="sJH-WG-lOF" secondAttribute="bottom" constant="10" id="LMA-I8-fEb"/>
@@ -127,6 +126,7 @@
                     <constraint firstAttribute="trailing" secondItem="UJD-Es-RUt" secondAttribute="trailing" constant="50" id="pgB-2G-mlU"/>
                     <constraint firstItem="AnO-88-YaK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pzT-If-oW9"/>
                     <constraint firstAttribute="trailing" secondItem="kfM-hU-2G2" secondAttribute="trailing" constant="15" id="qn2-8D-a44"/>
+                    <constraint firstItem="3Rg-lj-dVO" firstAttribute="top" secondItem="pwp-0V-bWp" secondAttribute="top" id="sER-pe-mwS"/>
                     <constraint firstAttribute="trailing" secondItem="3iO-pa-hCW" secondAttribute="trailing" constant="15" id="uCq-WW-Wti"/>
                     <constraint firstItem="UJD-Es-RUt" firstAttribute="leading" secondItem="aDx-zD-GGy" secondAttribute="trailing" constant="-6" id="v39-2i-Hp8"/>
                     <constraint firstItem="SgG-O9-CHZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="x7N-OZ-l49"/>

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineV;
 @property (weak, nonatomic) IBOutlet UIView *ffVVV;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *JJRW;
+
 +(YLDFUserGCTableViewCell *)yldFUserGCTableViewCell;
 -(void)cellReoldAction;
 @end

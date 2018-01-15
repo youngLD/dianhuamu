@@ -45,7 +45,19 @@
     model.name=dic[@"name"];
     model.userUid=dic[@"partyId"];
     model.phone=dic[@"phone"];
-    model.areaNames=dic[@"areaNames"];
+    NSArray *areas=dic[@"area"];
+    NSString *areaNames;
+    for (NSDictionary *areaDic in areas) {
+        if (areaNames) {
+            areaNames=[NSString stringWithFormat:@"%@,%@",areaNames,areaDic[@"name"]];
+        }else{
+             areaNames=areaDic[@"name"];
+        }
+        
+    }
+    
+//    model.areaNames = [areaNames substringToIndex:[areaNames length] - 1];
+   model.areaNames = areaNames;
     model.productNames=dic[@"product"];
     model.uid=dic[@"uid"];
     model.photo=dic[@"photo"];

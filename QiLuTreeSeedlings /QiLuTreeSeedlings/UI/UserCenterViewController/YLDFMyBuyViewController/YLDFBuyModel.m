@@ -31,6 +31,7 @@
     model.updateDate=dic[@"updateDate"];
     model.views=[dic[@"views"] integerValue];
     model.htmlUrl=dic[@"htmlUrl"];
+    model.lastTime=dic[@"lastTime"];
     return model;
 }
 +(NSArray *)YLDFBuyModelAryWithAry:(NSArray *)ary

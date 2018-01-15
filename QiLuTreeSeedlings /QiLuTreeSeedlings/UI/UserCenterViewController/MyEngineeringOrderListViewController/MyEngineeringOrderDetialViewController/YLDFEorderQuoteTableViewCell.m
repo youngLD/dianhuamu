@@ -7,7 +7,7 @@
 //
 
 #import "YLDFEorderQuoteTableViewCell.h"
-
+#import "UIDefines.h"
 @implementation YLDFEorderQuoteTableViewCell
 +(YLDFEorderQuoteTableViewCell *)yldFEorderQuoteTableViewCell
 {
@@ -15,6 +15,15 @@
     cell.numLab.layer.masksToBounds=YES;
     cell.numLab.layer.cornerRadius=4;
     return cell;
+}
+-(void)setModel:(YLDFQuoteModel *)model
+{
+    _model=model;
+    self.personLab.text=model.name;
+    self.priceLab.text=[NSString stringWithFormat:@"%@元",model.quote];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"规格说明:%@",model.demand]];
+    [str addAttribute:NSForegroundColorAttributeName value:titleLabColor range:NSMakeRange(0,5)];
+    self.shuomingLab.attributedText=str;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

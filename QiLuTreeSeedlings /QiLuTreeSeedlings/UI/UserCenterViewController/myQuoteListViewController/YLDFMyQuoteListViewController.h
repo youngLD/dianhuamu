@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZIKRightBtnSringViewController.h"
+
 @interface YLDFMyQuoteListViewController : ZIKRightBtnSringViewController
 @property (weak, nonatomic) IBOutlet UIView *moveView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
 @end

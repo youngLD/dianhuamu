@@ -74,6 +74,9 @@
             model.status=@"已报价";
             NSInteger xx=[self.itemsAry indexOfObject:model];
             [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:xx inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+        }else
+        {
+            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
     } failure:^(NSError *error) {
         

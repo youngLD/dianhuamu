@@ -8,16 +8,10 @@
 
 #import "YLDJJRDeitalViewController.h"
 #import "YLDJJRD1TableViewCell.h"
-#import "YLDSPingLunCell.h"
-#import "YLDSPingLunModel.h"
 #import "YLDJJrModel.h"
-#import "YLDTBuyListCell.h"
-#import "HotBuyModel.h"
-#import "YLDSsupplyBaseCell.h"
-#import "HotSellModel.h"
+
 #import "ChangyanSDK.h"
-#import "YLDJJRDPLView.h"
-#import "YLDSPingLunSrView.h"//评论框
+
 #import "UINavController.h"
 #import "YLDLoginViewController.h"
 #import "KMJRefresh.h"
@@ -25,7 +19,7 @@
 #import "SellDetialViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
-#import "YLDJJRPLListViewController.h"
+
 #import "ZIKMyShopViewController.h"
 #import "YLDSadvertisementModel.h"
 #import "YLDSBigImageVadCell.h"
@@ -37,19 +31,20 @@
 //友盟
 #import "UMSocialControllerService.h"
 #import "UMSocial.h"
-@interface YLDJJRDeitalViewController ()<UITableViewDelegate,UITableViewDataSource,fabiaoDelgate,UMSocialUIDelegate,MFMessageComposeViewControllerDelegate>
-@property (nonatomic,strong)NSMutableArray *pinglunAry;
+
+#import "YLDFSupplyModel.h"
+#import "YLDFBuyModel.h"
+#import "YLDFMyBuyTableViewCell.h"
+#import "YLFMySupplyTableViewCell.h"
+@interface YLDJJRDeitalViewController ()<UITableViewDelegate,UITableViewDataSource,UMSocialUIDelegate,MFMessageComposeViewControllerDelegate>
 @property (nonatomic,assign)NSInteger type;
-@property (nonatomic,strong)NSMutableArray *buyAry;
-@property (nonatomic,strong)NSMutableArray *sellAry;
+@property (nonatomic,strong)NSMutableArray *dataAry;
+
 @property (nonatomic,strong)YLDJJrModel *jjreModel;
 @property (nonatomic,strong)NSString *topic_id;
-@property (nonatomic,strong)YLDJJRDPLView *ppV;
-@property (nonatomic,strong)UIView *plV;
 @property (nonatomic,strong)UIView *gqV;
 @property (nonatomic,strong)UIView *moveView;
 @property (nonatomic,strong)UIButton *nowBtn;
-@property (nonatomic,strong)YLDSPingLunSrView *fabiaoV;
 @property (nonatomic,assign)NSInteger buyPage;
 @property (nonatomic,assign)NSInteger sellPage;
 @property (nonatomic,copy)NSString *shareText;
@@ -60,24 +55,21 @@
 @end
 
 @implementation YLDJJRDeitalViewController
-@synthesize buyAry,sellAry;
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     RemoveActionV();
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pinglunAry=[NSMutableArray array];
-    self.buyAry=[NSMutableArray array];
-    self.sellAry=[NSMutableArray array];
+    self.dataAry=[NSMutableArray array];
+
     [self rightbtnimage:[UIImage imageNamed:@"shareBlackB"] frame:CGRectMake(Width-50, 26, 35, 35)];
     __weak typeof(self) weakSelf = self;
     self.rightBarBtnBlock = ^{
         [weakSelf requestShareData];
     };
     self.vcTitle=@"苗木经纪人";
-    self.ppV=[YLDJJRDPLView yldJJRDPLView];
-    self.plV=[self pinglunView];
     self.buyPage=1;
     self.sellPage=1;
     [self topActionView];
@@ -86,8 +78,17 @@
     [HTTPCLIENT jjrDetialWithpartyId:self.uid   WithlastTime:_lastTime Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             NSDictionary *data=[responseObject objectForKey:@"data"];
-            NSDictionary *broker=[responseObject objectForKey:@"broker"];
+            NSDictionary *broker=[data objectForKey:@"broker"];
             YLDJJrModel *model=[YLDJJrModel yldJJrdetialModelByDic:broker];
+            self.jjreModel=model;
+            
+            NSArray *supplysAry=data[@"supplys"];
+            NSArray *modelAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+            YLDFSupplyModel *smodel=[modelAry lastObject];
+            _lastTime=smodel.lastTime;
+            [self.dataAry addObjectsFromArray:modelAry];
+            
+            [self.tableView reloadData];
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
@@ -97,10 +98,10 @@
     [self.tableView addFooterWithCallback:^{
         if (weakSelf.type==1) {
             weakSelf.buyPage+=1;
-            [weakSelf getdataWithPage:[NSString stringWithFormat:@"%ld",weakSelf.buyPage]];
+            [weakSelf getdataWithPage:nil];
         }else{
             weakSelf.sellPage+=1;
-            [weakSelf getdataWithPage:[NSString stringWithFormat:@"%ld",weakSelf.sellPage]];
+            [weakSelf getdataWithPage:nil];
         }
     }];
 
@@ -108,49 +109,61 @@
 }
 -(void)getdataWithPage:(NSString *)page
 {
-    NSString *type=nil;
-    if (self.type==1) {
-        type=@"buys";
-    }else{
-        type=@"supplys";
-    }
+   
     ShowActionV();
-    [HTTPCLIENT jjrgqListWithUid:self.uid WtihType:type Withpage:page WithpageSize:@"10" Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            if (self.type==0) {
-                if ([page isEqualToString:@"1"]) {
-                    [self.sellAry removeAllObjects];
+    if (self.type==1) {
+        [HTTPCLIENT jjrbuysWithpartyId:self.uid WithlastTime:_lastTime Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                if (!_lastTime) {
+                    [self.dataAry removeAllObjects];
                 }
-                NSArray *ary=[[responseObject objectForKey:@"result"] objectForKey:@"supplys"];
-                if (ary.count==0) {
-                    [ToastView showTopToast:@"暂无数据"];
+                NSArray *buysAry=[responseObject objectForKey:@"data"];
+                if (buysAry.count>0) {
+                    NSArray *modelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buysAry];
+                    YLDFBuyModel *model=[modelAry lastObject];
+                    _lastTime=model.lastTime;
+                    [self.dataAry addObjectsFromArray:modelAry];
                 }else{
-                    NSArray *aa = [HotSellModel hotSellAryByAry:ary];
-                    [self.sellAry addObjectsFromArray:aa];
+                    [ToastView showTopToast:@"暂无更多数据"];
                 }
+                
+                [self.tableView reloadData];
             }else{
-                if ([page isEqualToString:@"1"]) {
-                    [self.buyAry removeAllObjects];
-                }
-                NSArray *ary=[[responseObject objectForKey:@"result"] objectForKey:@"buys"];
-                if (ary.count==0) {
-                    [ToastView showTopToast:@"暂无数据"];
-                }else{
-                    NSArray *aa = [HotBuyModel creathotBuyModelAryByAry:ary];
-                    [self.buyAry addObjectsFromArray:aa];
-                }
-
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
             }
-        }
-        [self.tableView reloadData];
-        if ([self.tableView isFooterRefreshing]) {
             [self.tableView footerEndRefreshing];
-        }
-    } failure:^(NSError *error) {
-        if ([self.tableView isFooterRefreshing]) {
+        } failure:^(NSError *error) {
             [self.tableView footerEndRefreshing];
-        }
-    }];
+        }];
+    }else{
+        
+        [HTTPCLIENT jjrDetialWithpartyId:self.uid   WithlastTime:_lastTime Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSDictionary *data=[responseObject objectForKey:@"data"];
+                if (!_lastTime) {
+                    [self.dataAry removeAllObjects];
+                }
+                NSArray *supplysAry=data[@"supplys"];
+                if (supplysAry.count>0) {
+                    NSArray *modelAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+                    [self.dataAry addObjectsFromArray:modelAry];
+                    YLDFSupplyModel *model=[modelAry lastObject];
+                    _lastTime=model.lastTime;
+                }else{
+                    [ToastView showTopToast:@"暂无更多数据"];
+                }
+                
+                [self.tableView reloadData];
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+            [self.tableView footerEndRefreshing];
+        } failure:^(NSError *error) {
+            [self.tableView footerEndRefreshing];
+        }];
+    }
+//    ShowActionV();
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -159,16 +172,8 @@
     if (section==0) {
         return 1;
     }
-//    if (section==1) {
-//       return  self.pinglunAry.count;
-//    }
     if (section==1) {
-        if (_type==0) {
-            return self.sellAry.count;
-        }else{
-           
-            return self.buyAry.count;
-        }
+      return  [self.dataAry count];
         
     }
     return 0;
@@ -180,65 +185,14 @@
  
         return tableView.rowHeight;
     }
-//    if (indexPath.section==1) {
-//        self.tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-//        self.tableView.estimatedRowHeight = 90;
-//        return tableView.rowHeight;
-//    }
-    if (indexPath.section==1) {
-        if (self.type==0) {
-            id model=self.sellAry[indexPath.row];
-            if ([model isKindOfClass:[HotSellModel class]]) {
-                return 190;
-            }else if([model isKindOfClass:[YLDSadvertisementModel class]])
-            {
-                YLDSadvertisementModel * model=self.sellAry[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-            }
 
-            
-        }else{
-            id model=self.buyAry[indexPath.row];
-            if ([model isKindOfClass:[HotBuyModel class]]) {
-                return 90;
-            }else if([model isKindOfClass:[YLDSadvertisementModel class]])
-            {
-                YLDSadvertisementModel * model=self.buyAry[indexPath.row];
-                if (model.adsType==1) {
-                    return 160;
-                }else if (model.adsType==0)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==2)
-                {
-                    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-                    tableView.estimatedRowHeight = (kWidth-20)*0.5606+25+60;
-                    return tableView.rowHeight;
-                }else if (model.adsType==3)
-                {
-                    return (kWidth-20)*0.24242+25+60;
-                }else if (model.adsType==6)
-                {
-                    return 160;
-                }
-            }
-            
+    if (indexPath.section==1) {
+        id model=self.dataAry[indexPath.row];
+        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+            return 182;
+        }
+        if ([model isKindOfClass:[YLDFBuyModel class]]) {
+            return 141;
         }
     }
     return 1;
@@ -255,29 +209,26 @@
         cell.model=self.jjreModel;
         return cell;
     }
-//    if (indexPath.section==1) {
-//        YLDSPingLunCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDSPingLunCell"];
-//        if (!cell) {
-//            cell=[YLDSPingLunCell yldSPingLunCell];
-//            cell.zanBtn.hidden=YES;
-//            cell.deleteBtn.hidden=YES;
-//        }
-//        YLDSPingLunModel *model=self.pinglunAry[indexPath.row];
-////        cell.delgate=self;
-//        cell.model=model;
-//        return cell;
-//    }
+
     if (indexPath.section==1) {
-        if (self.type==1) {
-            id model=self.buyAry[indexPath.row];
-            
+        id model=self.dataAry[indexPath.row];
+        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+            YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
+            if (!cell) {
+                cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
+                
+            }
+            cell.model=self.dataAry[indexPath.row];
+            return cell;
         }
-        if (self.type==0) {
-            id model=self.sellAry[indexPath.row];
-            
-
+        if ([model  isKindOfClass:[YLDFBuyModel class]]) {
+            YLDFMyBuyTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFMyBuyTableViewCell"];
+            if (!cell) {
+                cell=[YLDFMyBuyTableViewCell yldFListBuyTableViewCell];
+            }
+            cell.model=self.dataAry[indexPath.row];
+            return cell;
         }
-
     }
     UITableViewCell *cell=[UITableViewCell new];
     
@@ -285,44 +236,20 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section==1) {
-        return 60;
+        return 5;
     }else{
         return 0.01;
     }
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    if (section==1) {
-        return self.ppV;
-    }else{
+
         UIView *view=[UIView new];
         return view;
-    }
+
 }
--(void)morePLBtnAction
-{
-    YLDJJRPLListViewController *vc=[YLDJJRPLListViewController new];
-    vc.topic_id=self.topic_id;
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
--(void)PLBtnAction
-{
-    if(![APPDELEGATE isNeedLogin])
-    {
-        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
-        [ToastView showTopToast:@"请先登录"];
-        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
-        
-        [self presentViewController:navVC animated:YES completion:^{
-            
-        }];
-        return;
-    }
-    [self.view addSubview:self.fabiaoV];
-    [self.fabiaoV showAction];
-}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section==2||section==1) {
+    if (section==1) {
         return 50;
     }else{
         return 0.1;
@@ -330,57 +257,17 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view=[UIView new];
-    if (section==2) {
+    if (section==1) {
         return self.gqV;
     }
-    if (section==1) {
-        return self.plV;
-    }
+
     return view;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section==2) {
-        if (self.type==0) {
-            HotSellModel *model=self.sellAry[indexPath.row];
-            
-            SellDetialViewController *sellDetialViewC=[[SellDetialViewController alloc]initWithUid:model];
-
-            [self.navigationController pushViewController:sellDetialViewC animated:YES];
-
-        }else{
-            if (self.type==1) {
-                id model = self.buyAry[indexPath.row];
-                if ([model isKindOfClass:[HotBuyModel class]]) {
-                    HotBuyModel *model=self.buyAry[indexPath.row];
-                    BuyDetialInfoViewController *vc=[[BuyDetialInfoViewController alloc]initWithSaercherInfo:model.uid];
-                    [self.navigationController pushViewController:vc animated:YES];
-                }
-                if ([model isKindOfClass:[YLDSadvertisementModel class]]) {
-                    YLDSadvertisementModel *model=self.buyAry[indexPath.row];
-                    if (model.adType==0) {
-                        YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                        advc.urlString=model.content;
-                        [self.navigationController pushViewController:advc animated:YES];
-                    }else if (model.adType==1)
-                    {
-                        YLDSADViewController *advc=[[YLDSADViewController alloc]init];
-                        advc.urlString=model.link;
-                        [self.navigationController pushViewController:advc animated:YES];
-                    }else if (model.adType==2)
-                    {
-                        ZIKMyShopViewController *shopVC = [[ZIKMyShopViewController alloc] init];
-                        shopVC.memberUid = model.shop;
-                        shopVC.type = 1;
-                        [self.navigationController pushViewController:shopVC animated:YES];
-                    }
-                }
-
-            }
-        }
-    }
+   
 }
 - (void)topActionView {
     NSArray *ary=@[@"供应",@"求购"];
@@ -430,14 +317,11 @@
     sender.selected=YES;
     _nowBtn.selected=NO;
     _nowBtn=sender;
-    if (sender.tag==0) {
+   
        
-        self.type=0;
-    }
-    if (sender.tag==1) {
-        self.type=1;
-    }
-    [self.tableView reloadData];
+    self.type=sender.tag;
+    self.lastTime=nil;
+    [self getdataWithPage:nil];
     CGRect frame=_moveView.frame;
     frame.origin.x=kWidth/2*(sender.tag);
     [UIView animateWithDuration:0.3 animations:^{
@@ -445,64 +329,6 @@
     }];
 }
 
--(UIView *)pinglunView
-{
-    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 50)];
-    UIImageView *imageV=[[UIImageView alloc]initWithFrame:CGRectMake(15, 49.5, kWidth-30, 0.5)];
-    [view setBackgroundColor:[UIColor whiteColor]];
-    [imageV setBackgroundColor:kLineColor];
-    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(15, 10, 200, 30)];
-    [lab setTextColor:MoreDarkTitleColor];
-    lab.tag=11;
-    [lab setTextAlignment:NSTextAlignmentLeft];
-    [view addSubview:lab];
-    [view addSubview:imageV];
-    return view;
-}
--(void)fabiaoActionWithStr:(NSString *)comment
-{
-    __weak typeof(self) weakself=self;
-    ShowActionV();
-    [ChangyanSDK submitComment:self.topic_id content:comment replyID:nil score:@"5" appType:40 picUrls:nil metadata:@"" completeBlock:^(CYStatusCode statusCode, NSString *responseStr) {
-    
-        [weakself getcommentsWithPageNum:@"1"];
-        [weakself.fabiaoV clearAvtion];
-        RemoveActionV();
-    }];
-    
-}
--(void)getcommentsWithPageNum:(NSString *)pageNum
-{
-    __weak typeof(self) weakself=self;
-    [ChangyanSDK getTopicComments:[NSString stringWithFormat:@"%@",self.topic_id] pageSize:@"5" pageNo:pageNum orderBy:nil style:@"floor" depth:nil subSize:@"5" completeBlock:^(CYStatusCode statusCode, NSString *responseStr) {
-        if (statusCode == CYSuccess)
-        {
-            if([pageNum isEqualToString:@"1"])
-            {
-                [weakself.pinglunAry removeAllObjects];
-            }
-            NSDictionary *dic=[ZIKFunction dictionaryWithJsonString:responseStr];
-            UILabel *lab=[self.plV viewWithTag:11];
-            lab.text =[NSString stringWithFormat:@"用户评论（%ld）",[dic[@"cmt_sum"] integerValue]] ;
-            NSArray *commentsAry=dic[@"comments"];
-            
-            if (commentsAry.count>0) {
-                YLDSPingLunModel *model=[YLDSPingLunModel modelWithChangYanDic:[commentsAry lastObject]];
-                YLDSPingLunModel *model2=[weakself.pinglunAry lastObject];
-                if (model.uid!=model2.uid) {
-                    [weakself.pinglunAry addObjectsFromArray:[YLDSPingLunModel aryWithChangYanAry:commentsAry]];
-                    
-                    [weakself.tableView reloadData];
-                }
-                
-            }else{
-//                [ToastView showTopToast:@"暂无更多评论"];
-            }
-//            self.commentV.commentNum=[dic[@"cmt_sum"] integerValue];
-        }
-
-    }];
-}
 -(void)sdsdsdasd
 {
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, kHeight-50, kWidth, 50)];

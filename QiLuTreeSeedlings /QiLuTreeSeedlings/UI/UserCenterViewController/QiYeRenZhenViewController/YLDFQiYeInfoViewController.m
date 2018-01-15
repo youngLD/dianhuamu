@@ -21,7 +21,10 @@
     self.addressLab.text=APPDELEGATE.qyModel.address;
     self.personLab.text=APPDELEGATE.qyModel.linkman;
     self.phoneLab.text=APPDELEGATE.qyModel.contactInformation;
-    [self.zhizhaoImageV setImageWithURL:[NSURL URLWithString:APPDELEGATE.qyModel.license]];
+    
+    if (APPDELEGATE.qyModel.license) {
+        [self.zhizhaoImageV setImageWithURL:[NSURL URLWithString:APPDELEGATE.qyModel.license]];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,9 +32,10 @@
     if (@available(iOS 11.0, *)) {
         _topC.constant=44.0;
     }
-    self.showV=[[BigImageViewShowView alloc]initWithImageAry:@[APPDELEGATE.qyModel.license]];
-    [self.view addSubview:self.showV];
-
+    if (APPDELEGATE.qyModel.license) {
+        self.showV=[[BigImageViewShowView alloc]initWithImageAry:@[APPDELEGATE.qyModel.license]];
+        [self.view addSubview:self.showV];
+    }
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)selectBtnAction:(UIButton *)sender {

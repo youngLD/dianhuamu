@@ -22,15 +22,17 @@
         self.GCGSDDView.hidden=NO;
         self.GCGSFBView.hidden=NO;
         self.jjrRightL.constant=kWidth/3*2;
+        self.JJRW.constant=kWidth/3;
         self.lineV.hidden=NO;
         self.ffVVV.hidden=NO;
+        [self.lineV setBackgroundColor:kLineColor];
     }else if ([APPDELEGATE.userModel.roles containsObject:@"engineering_company"])
     {
         self.JJRView.hidden=YES;
         self.GCGSDDView.hidden=NO;
         self.GCGSFBView.hidden=NO;
         self.jjrRightL.constant=kWidth/3*2;
-        self.lineV.hidden=YES;
+        [self.lineV setBackgroundColor:[UIColor whiteColor]];
         self.ffVVV.hidden=NO;
     }else if ([APPDELEGATE.userModel.roles containsObject:@"broker"])
     {

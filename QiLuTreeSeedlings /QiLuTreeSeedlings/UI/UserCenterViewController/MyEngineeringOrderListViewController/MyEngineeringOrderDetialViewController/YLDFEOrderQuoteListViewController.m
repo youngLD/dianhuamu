@@ -8,8 +8,10 @@
 
 #import "YLDFEOrderQuoteListViewController.h"
 #import "YLDFEorderQuoteTableViewCell.h"
+#import "YLDFQuoteModel.h"
+#import "YLDFQuoteDetialViewController.h"
 @interface YLDFEOrderQuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic,copy)NSArray *dataAry;
 @end
 
 @implementation YLDFEOrderQuoteListViewController
@@ -19,10 +21,19 @@
     self.vcTitle=@"报价详情";
     
     self.mmNameLab.text=self.model.itemName;
-    self.personNumLab.text=[NSString stringWithFormat:@"%ld人",self.model.quoteCount];
+//    self.personNumLab.text=[NSString stringWithFormat:@"%ld人",self.model.quoteCount];
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [HTTPCLIENT MyGongChengDingDanItemQuotesListWithitemId:self.model.engineeringProcurementItemId    WithorderId:self.orderStr Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
+            NSDictionary *data=[responseObject objectForKey:@"data"];
+//            if (data[@"quoteCount"]) {
+//                self.personNumLab.text=[NSString stringWithFormat:@"%@人",data[@"quoteCount"]];
+//            }
             
+            NSArray *quotes=data[@"quotes"];
+            self.personNumLab.text=[NSString stringWithFormat:@"%ld人",quotes.count];
+            self.dataAry=[YLDFQuoteModel creatByAry:quotes];
+            [self.tableView reloadData];
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
@@ -32,14 +43,26 @@
     // Do any additional setup after loading the view from its nib.
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return self.dataAry.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+    tableView.estimatedRowHeight=83.0;
+    tableView.rowHeight=UITableViewAutomaticDimension;
+    return tableView.rowHeight;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell=[UITableViewCell new];
+    YLDFEorderQuoteTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFEorderQuoteTableViewCell"];
+    if (!cell) {
+        cell=[YLDFEorderQuoteTableViewCell yldFEorderQuoteTableViewCell];
+    }
+    cell.model=self.dataAry[indexPath.row];
     return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YLDFQuoteDetialViewController *vc=[YLDFQuoteDetialViewController new];
+    vc.model=self.dataAry[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

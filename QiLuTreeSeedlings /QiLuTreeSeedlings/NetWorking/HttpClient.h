@@ -185,10 +185,7 @@
 -(void)collectBuyWithSupplyID:(NSString *)supply_id
                       Success:(void (^)(id responseObject))success
                       failure:(void (^)(NSError *error))failure;
-#pragma mark -取消收藏
--(void)deletesenderCollectWithIds:(NSString *)ids
-                               Success:(void (^)(id responseObject))success
-                               failure:(void (^)(NSError *error))failure;
+
 #pragma mark -我的求购列表
 -(void)myBuyInfoListWtihPage:(NSString *)page
                    WithState:(NSString *)state
@@ -1680,6 +1677,7 @@ failure:(void (^)(NSError *error))failure;
                         failure:(void (^)(NSError *error))failure;
 #pragma mark -new供应发布
 -(void)supplyNewPushWithBody:(NSString *)bodyStr
+                WithsupplyId:(NSString *)supplyId
                      Success:(void (^)(id responseObject))success
                      failure:(void (^)(NSError *error))failure;
 #pragma mark -new供应列表
@@ -1974,6 +1972,25 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark -经纪人详情
 -(void)jjrDetialWithpartyId:(NSString *)partyId
                WithlastTime:(NSString *)lastTime
+                    Success:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure;
+#pragma mark -经纪人求购列表
+-(void)jjrbuysWithpartyId:(NSString *)partyId
+               WithlastTime:(NSString *)lastTime
+                    Success:(void (^)(id responseObject))success
+                    failure:(void (^)(NSError *error))failure;
+#pragma mark -取消收藏
+-(void)deletesenderCollectWithIds:(NSString *)ids
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
+#pragma mark -添加收藏
+-(void)collectActionWithIds:(NSString *)ids
+       WithcollectionTypeId:(NSString *)collectionTypeId
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
+#pragma mark -我的收藏
+-(void)myCollectListWithIds:(NSString *)ids
+       WithcollectionTypeId:(NSString *)collectionTypeId
                     Success:(void (^)(id responseObject))success
                     failure:(void (^)(NSError *error))failure;
 @end

@@ -95,6 +95,10 @@
         [ToastView showTopToast:@"请输入苗木规格"];
         return;
     }
+    if (self.numTextField.text.length<=0) {
+        [ToastView showTopToast:@"请输入求购数量"];
+        return;
+    }
     if (self.addressId.length<=0) {
         [ToastView showTopToast:@"请选择地址"];
         return;
@@ -120,6 +124,7 @@
     }
     [party setObject:self.addressId forKey:@"addressId"];
     NSString *partyStr=[ZIKFunction convertToJsonData:party];
+    ShowActionV();
     if(!self.buyIdstr)
     {
         [HTTPCLIENT buyNewPushWithBody:partyStr Success:^(id responseObject) {
