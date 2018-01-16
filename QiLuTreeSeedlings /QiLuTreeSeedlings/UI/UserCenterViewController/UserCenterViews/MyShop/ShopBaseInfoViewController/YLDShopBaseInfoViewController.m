@@ -42,7 +42,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.vcTitle=@"基本信息";
+    self.vcTitle=@"我的店铺";
     UITableView *tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
     tableView.delegate=self;
     tableView.dataSource=self;
@@ -97,8 +97,6 @@
 {
     if (indexPath.row==0) {
      
-    
-        
         YLDGCZXTouxiangTableViewCell *  cell=[YLDGCZXTouxiangTableViewCell yldGCZXTouxiangTableViewCell];
 
         cell.titleLab.text=@"店铺头像";
@@ -122,49 +120,11 @@
             
         }
         if (indexPath.row==2) {
-            cell.titleLab.text=@"店铺简介";
-            cell.NameLab.text=[self.dic objectForKey:@"brief"];
+            cell.titleLab.text=@"预览店铺";
             
         }
-        if (indexPath.row==3) {
-            cell.titleLab.text=@"联系人";
-            cell.NameLab.text=[self.dic objectForKey:@"chargelPerson"];
-//            cell.NameLab.text=APPDELEGATE.GCGSModel.address;
-            
+           return cell;
         }
-        if (indexPath.row==4) {
-            cell.titleLab.text=@"联系方式";
-           cell.NameLab.text=[self.dic objectForKey:@"phone"];
-            
-        }
-        if (indexPath.row==5) {
-            cell.titleLab.text=@"所在地";
-            NSString *are1=[self.dic objectForKey:@"areaAddress"];
-            NSString *are2=[self.dic objectForKey:@"shopAddress"];
-
-            if (are1.length>0) {
-                cell.NameLab.text=[NSString stringWithFormat:@"%@%@",are1,are2];
-            }
-            
-        }
-        if (indexPath.row==5) {
-            cell.lineV.hidden=YES;
-        }else
-        {
-            cell.lineV.hidden=NO;
-            if (indexPath.row==2) {
-                CGRect frame=cell.lineV.frame;
-                frame.size.height=10;
-                frame.origin.x=0;
-                frame.size.width=kWidth;
-                cell.lineV.frame=frame;
-                [cell.lineV setBackgroundColor:BGColor];
-                
-            }
-        }
-        return cell;
-    }
-    
 }
 #pragma mark - 图片添加
 //头像点击事件

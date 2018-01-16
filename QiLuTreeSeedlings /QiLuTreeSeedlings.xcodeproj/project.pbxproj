@@ -32,6 +32,9 @@
 		EA03CCF11C9003AC0032BAD3 /* passwordLiteImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA03CCF01C9003AC0032BAD3 /* passwordLiteImage@2x.png */; };
 		EA040FB61C8809B000E43B5E /* ScreeningView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA040FB51C8809B000E43B5E /* ScreeningView.m */; };
 		EA040FBF1C8826D900E43B5E /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA040FBE1C8826D900E43B5E /* ToastView.m */; };
+		EA0678F7200D973A005C8972 /* YLDDataCacheHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0678F6200D973A005C8972 /* YLDDataCacheHelp.m */; };
+		EA0678FB200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0678F9200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.m */; };
+		EA0678FC200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA0678FA200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.xib */; };
 		EA08D4C61E975C1A00F70DA6 /* miaoshangtt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA08D4C51E975C1A00F70DA6 /* miaoshangtt@2x.png */; };
 		EA08F2211E614CCE005F87A1 /* YLDSNewsListNoPicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA08F21F1E614CCE005F87A1 /* YLDSNewsListNoPicCell.m */; };
 		EA08F2221E614CCE005F87A1 /* YLDSNewsListNoPicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA08F2201E614CCE005F87A1 /* YLDSNewsListNoPicCell.xib */; };
@@ -1892,6 +1895,11 @@
 		EA040FB51C8809B000E43B5E /* ScreeningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreeningView.m; sourceTree = "<group>"; };
 		EA040FBD1C8826D900E43B5E /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
 		EA040FBE1C8826D900E43B5E /* ToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastView.m; sourceTree = "<group>"; };
+		EA0678F5200D973A005C8972 /* YLDDataCacheHelp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDDataCacheHelp.h; sourceTree = "<group>"; };
+		EA0678F6200D973A005C8972 /* YLDDataCacheHelp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDDataCacheHelp.m; sourceTree = "<group>"; };
+		EA0678F8200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFHomeScrollTableViewCell.h; sourceTree = "<group>"; };
+		EA0678F9200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFHomeScrollTableViewCell.m; sourceTree = "<group>"; };
+		EA0678FA200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFHomeScrollTableViewCell.xib; sourceTree = "<group>"; };
 		EA08D4C51E975C1A00F70DA6 /* miaoshangtt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "miaoshangtt@2x.png"; sourceTree = "<group>"; };
 		EA08F21E1E614CCE005F87A1 /* YLDSNewsListNoPicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDSNewsListNoPicCell.h; sourceTree = "<group>"; };
 		EA08F21F1E614CCE005F87A1 /* YLDSNewsListNoPicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDSNewsListNoPicCell.m; sourceTree = "<group>"; };
@@ -6946,6 +6954,11 @@
 				EA8824001FFF101B009294E4 /* YLDSHomePageViewController.xib */,
 				EA8824011FFF101B009294E4 /* YLDSmodels */,
 				EA8824081FFF101B009294E4 /* YLDSsupplyBaseCell */,
+				EA0678F5200D973A005C8972 /* YLDDataCacheHelp.h */,
+				EA0678F6200D973A005C8972 /* YLDDataCacheHelp.m */,
+				EA0678F8200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.h */,
+				EA0678F9200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.m */,
+				EA0678FA200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.xib */,
 			);
 			name = YLDSHomePageViewController;
 			path = QiLuTreeSeedlings/UI/GaiBan/YLDSHomePageViewController;
@@ -11343,6 +11356,7 @@
 				EAE5093B200C482900600A98 /* quoteDetialPushShop@2x.png in Resources */,
 				EAEFD5402004A5A100AC887C /* YLDPersonMessageViewController.xib in Resources */,
 				EA181BFA1E495E26005C87CB /* 首页-ico_资材商城@2x.png in Resources */,
+				EA0678FC200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.xib in Resources */,
 				EA32F4461E5AC74200B6AEC2 /* icon_screen_small@2x.png in Resources */,
 				EA4152CE1FFE1CE60044194E /* YLDFQiYeRenZhengViewController.xib in Resources */,
 				EA833D8C1CFE81E300D56AFB /* callkefuBtn@2x.png in Resources */,
@@ -11958,6 +11972,7 @@
 				FC45C3F01D2CABF30038D22A /* ZIKMyTeamModel.m in Sources */,
 				EA86109D1D8648E900D3FCBC /* YLDJPGYSListModel.m in Sources */,
 				FCC291A11DAB6F330019DFB9 /* EaseEmojiEmoticons.m in Sources */,
+				EA0678FB200DDDEE005C8972 /* YLDFHomeScrollTableViewCell.m in Sources */,
 				EAEFD4D42004A5A100AC887C /* ZIKMySupplyCreateModel.m in Sources */,
 				EA5108AD1FF385A600859F54 /* YLFMySupplyTableViewCell.m in Sources */,
 				EAEFD4542004A5A000AC887C /* ZIKExchangeViewController.m in Sources */,
@@ -12789,6 +12804,7 @@
 				EAEFD4D02004A5A100AC887C /* UIScrollView+KMJExtension.m in Sources */,
 				EAEFD49D2004A5A000AC887C /* YLDADClickDetialViewController.m in Sources */,
 				EA27271B1C8A7D8E000B0719 /* FMDatabaseQueue.m in Sources */,
+				EA0678F7200D973A005C8972 /* YLDDataCacheHelp.m in Sources */,
 				FC8047A31D6EE21E004191A5 /* ZIKStationBuyViewController.m in Sources */,
 				EAEFD53D2004A5A100AC887C /* NSString+Helper.m in Sources */,
 				FCBE03621D8CEDBF0062CDFF /* SDWebImageDownloaderOperation.m in Sources */,

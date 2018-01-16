@@ -40,6 +40,8 @@
 #import "YLDJJRMyViewController.h"
 #import "YLDJJRNotPassViewController.h"
 #import "YLDFMyQuoteListViewController.h"
+#import "YLDShopMessageViewController.h"
+#import "YLDShopBaseInfoViewController.h"
 @interface YLDFUserCenterViewController ()<UITableViewDelegate,UITableViewDataSource,supplyFabuDelegate,buyFabuDelegate,YLDFabuSuccessDelegate,YLDJJRNotPassViewControllerDelegate>
 
 @end
@@ -74,7 +76,7 @@
     [foodView setBackgroundColor:BGColor];
     self.tableView.tableFooterView=foodView;
     self.tableView.bounces=NO;
-    
+    [self.tableView setBackgroundColor:BGColor];
         if (@available(iOS 11.0, *)) {
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         } else {
@@ -291,6 +293,11 @@
             }];
         }
         
+    }
+    if (sender.tag==13) {
+        YLDShopMessageViewController *vc=[YLDShopMessageViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     if (sender.tag==14) {
         YLDFAddressListViewController *vc=[YLDFAddressListViewController new];

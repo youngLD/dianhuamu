@@ -21,6 +21,7 @@
 @property (nonatomic,copy) NSString *htmlUrl;
 @property (nonatomic,copy) NSString *addressId;
 @property (nonatomic,copy) NSString *keywords;
+@property (nonatomic,copy) NSString *phone;
 @property (nonatomic,assign)BOOL isSelect;
 @property (nonatomic,copy) NSArray *attacs;
 +(YLDFSupplyModel *)YLDFSupplyModelWithDic:(NSDictionary *)dic;

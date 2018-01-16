@@ -42,7 +42,7 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "537704620.334429"
+                  timestampString = "537782400.985649"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -57,7 +57,7 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "537704620.3359849"
+                  timestampString = "537782400.987208"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -72,7 +72,7 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/StationAuthority/StationCenter/Controller/ShowList/ZIKAddShowListViewController.m"
-                  timestampString = "537704620.3375061"
+                  timestampString = "537782400.988732"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
@@ -633,7 +633,7 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/QiYeRenZhenViewController/YLDFQiYeRenZhengViewController.h"
-                  timestampString = "537704620.425743"
+                  timestampString = "537782401.075929"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "12"
@@ -648,7 +648,7 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/QiYeRenZhenViewController/YLDFQiYeRenZhengViewController.h"
-                  timestampString = "537704620.427292"
+                  timestampString = "537782401.077457"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "12"
@@ -681,11 +681,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "QiLuTreeSeedlings/UI/UserCenterViewController/YLDFUserCenterViewController.m"
-            timestampString = "537704620.0013"
+            timestampString = "537782400.6449161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "-cell1ActionWithBtn:"
             landmarkType = "7">
             <Locations>
@@ -697,11 +697,11 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/YLDFUserCenterViewController.m"
-                  timestampString = "537704620.433323"
+                  timestampString = "537782401.083391"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "250"
-                  endingLineNumber = "250"
+                  startingLineNumber = "252"
+                  endingLineNumber = "252"
                   offsetFromSymbolStart = "1552">
                </Location>
                <Location
@@ -712,11 +712,11 @@
                   moduleName = "QiLuTreeSeedlings"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/YLDFUserCenterViewController.m"
-                  timestampString = "537704620.434863"
+                  timestampString = "537782401.084946"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "251"
-                  endingLineNumber = "251"
+                  startingLineNumber = "253"
+                  endingLineNumber = "253"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
@@ -736,6 +736,198 @@
             endingLineNumber = "15"
             landmarkName = "+creatByAry:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+            timestampString = "537782400.645256"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "-tijiaoBtnAction:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[YLDGCGSZiZhiTiJiaoViewController tijiaoBtnAction:]"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+                  timestampString = "537782401.090873"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "408">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[YLDGCGSZiZhiTiJiaoViewController tijiaoBtnAction:]_block_invoke"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+                  timestampString = "537782401.0924211"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+            timestampString = "537782400.645309"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "-tijiaoBtnAction:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[YLDGCGSZiZhiTiJiaoViewController tijiaoBtnAction:]"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+                  timestampString = "537782401.09562"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "134"
+                  endingLineNumber = "134"
+                  offsetFromSymbolStart = "660">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__52-[YLDGCGSZiZhiTiJiaoViewController tijiaoBtnAction:]_block_invoke_2"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/UserCenterViewController/UserCenterViews/YLDShenFenShengJiViewController/YLDGCGSZiZhiTiJiaoViewConroller/YLDGCGSZiZhiTiJiaoViewController.m"
+                  timestampString = "537782401.09716"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "135"
+                  endingLineNumber = "135"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+            timestampString = "537782400.6453561"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "-sureBtnAction"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[YLDZiZhiAddViewController sureBtnAction]"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+                  timestampString = "537782401.100732"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "1804">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__42-[YLDZiZhiAddViewController sureBtnAction]_block_invoke_2"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+                  timestampString = "537782401.102336"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+            timestampString = "537782400.645399"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-sureBtnAction"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[YLDZiZhiAddViewController sureBtnAction]"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+                  timestampString = "537782401.105691"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "183"
+                  endingLineNumber = "183"
+                  offsetFromSymbolStart = "1552">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__42-[YLDZiZhiAddViewController sureBtnAction]_block_invoke"
+                  moduleName = "QiLuTreeSeedlings"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yangledong/Desktop/dianhuamu/QiLuTreeSeedlings%20/QiLuTreeSeedlings/UI/GongChengGongSiVVVVV/GongChnegZhongXinViewController/GongChengZhongXinZiZhiTianJianViewController/YLDZiZhiAddViewController.m"
+                  timestampString = "537782401.107263"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -179,7 +179,7 @@
         [honorData addObject:dic];
         NSString *rongyuStr= [honorData JSONString];
         ShowActionV();
-        if (dic) {
+        if (self.dic) {
             [HTTPCLIENT shengjiGCGSWithqualJson:rongyuStr WithroleApplyAuditId:self.roleApplyAuditId Success:^(id responseObject) {
                 if ([[responseObject objectForKey:@"success"] integerValue]) {
                     [ToastView showTopToast:@"您的工程公司认证已提交，请耐心等待"];

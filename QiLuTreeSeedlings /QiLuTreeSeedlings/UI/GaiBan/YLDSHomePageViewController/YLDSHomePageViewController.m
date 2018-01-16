@@ -75,8 +75,13 @@
 #import "YLDJJRListViewController.h"
 #import "YLDJJRDeitalViewController.h"
 #import "YLDFEOrderDetialViewController.h"
+#import "YLDFSupplyViewController.h"
+#import "YLDFBuyDetialViewController.h"
+#import "YLDDataCacheHelp.h"
+#import "YLDFHomeScrollTableViewCell.h"
+#define pageSize 5
 #define TopBtnW 90
-@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDEngineeringOrderTableViewCellDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate>
+@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *searchTopV;
 @property (nonatomic,strong)NSMutableArray *orderMArr;//工程订单
@@ -93,14 +98,12 @@
 @property (nonatomic)CGRect rect;
 @property (nonatomic)BOOL what;
 @property (nonatomic,strong)UIView *topView1;
-
 @property (nonatomic)BOOL paySuccess;
 @property (nonatomic,strong)UIButton *goTopBtn;
 @property (nonatomic,strong)NSArray *borkers;
 @property (nonatomic,assign)NSInteger lastType;
 @property (nonatomic,strong)UIButton *ActionVNowBtn;
 @property (nonatomic,strong)UIButton *qiugouNowBtn;
-//@property (nonatomic,copy)NSString *qiugouState;
 @property (nonatomic,strong)UIButton *cityBtn;
 @property (nonatomic,strong)CLLocationManager *locationManager;
 @property (nonatomic,copy)NSString *lastTime;
@@ -113,6 +116,15 @@
 @property (nonatomic,strong)YLDHomeJJRCell *JJRLView;
 @property (nonatomic,assign)CGFloat GGW;
 @property (nonatomic,assign)CGFloat JJRW;
+@property (nonatomic,assign)NSInteger supplyPage;
+@property (nonatomic,assign)NSInteger buyPage;
+@property (nonatomic,assign)NSInteger orderPage;
+@property (nonatomic,strong)YLDDataCacheHelp *dataCache;
+@property (nonatomic,strong)UIView *footerView;
+@property (nonatomic,assign)BOOL topBtnChange;
+@property (nonatomic,copy) NSArray *sellAry;
+@property (nonatomic,copy) NSArray *buyAry;
+@property (nonatomic,copy) NSArray *orderAry;
 @end
 
 @implementation YLDSHomePageViewController
@@ -130,7 +142,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataAry =[NSMutableArray array];
+    self.dataCache=[[YLDDataCacheHelp alloc]initWithC:4];
+    self.supplyPage=1;
+    self.buyPage=1;
+    self.orderPage=1;
+    self.PageCount=1;
     [self getnewClassAction];
+   
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushMessageForSaoMa:) name:@"saosaokanxinwen" object:nil];
     self.PageCount=1;
     _GGW=0.368*kWidth;
@@ -192,7 +210,7 @@
     self.nowBtn.selected=NO;
     self.nowBtn=sender;
     sender.selected=YES;
-
+  
     NSInteger  tag=sender.tag;
     CGFloat actionW=(tag-0.5)*TopBtnW;
     if(actionW>kWidth/2&&actionW<self.topScrollV.contentSize.width-kWidth/2)
@@ -213,8 +231,20 @@
 -(void)topActionVBtnAction:(UIButton *)sender
 {
     self.ActionVNowBtn.selected=NO;
-    _lastTime=nil;
+//    _lastTime=nil;
     sender.selected=YES;
+    if (self.ActionVNowBtn != sender) {
+        self.topBtnChange=YES;
+        if (_lastType==0) {
+            self.sellAry=self.dataAry;
+        }
+        if (_lastType==1) {
+            self.buyAry=self.dataAry;
+        }
+        if (_lastType==2) {
+            self.orderAry=self.dataAry;
+        }
+    }
     self.lastType=sender.tag;
     self.ActionVNowBtn=sender;
     CGRect frame=self.topActionMoveV.frame;
@@ -247,11 +277,7 @@
 
 
 #pragma mark ---------TableView相关----------
--(void)cellOpenBtnActionWithCell:(YLDEngineeringOrderTableViewCell *)cell
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
-}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     return 1;
@@ -259,27 +285,34 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    if (section == 0) {
-        return  self.dataAry.count;
- 
-    }
+//    if (section == 0) {
+//        NSInteger row=pageSize*self.PageCount;
+//        if (row>self.dataAry.count) {
+//            return  self.dataAry.count;
+//        }else{
+//            return row;
+//        }
+//    
+//    }
     return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.section==0) {
-        id model=self.dataAry[indexPath.row];
-        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
-           return 182;
-        }
-        if ([model isKindOfClass:[YLDFBuyModel class]]) {
-            return 141;
-        }
-        if ([model isKindOfClass:[YLDFEOrderModel class]]) {
-            tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-            tableView.estimatedRowHeight = 185;
-            return tableView.rowHeight;
-        }
+        return kHeight-64-50-44;
+        
+//        id model=self.dataAry[indexPath.row];
+//        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+//           return 182;
+//        }
+//        if ([model isKindOfClass:[YLDFBuyModel class]]) {
+//            return 141;
+//        }
+//        if ([model isKindOfClass:[YLDFEOrderModel class]]) {
+//            tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
+//            tableView.estimatedRowHeight = 185;
+//            return tableView.rowHeight;
+//        }
         
     }
    
@@ -332,52 +365,46 @@
     
     return 0.01;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section==0) {
-        id model=self.dataAry[indexPath.row];
-        if ([model  isKindOfClass:[YLDFEOrderModel class]])
-        {
-            YLDFEOrderModel *modelz=self.dataAry[indexPath.row];
-            YLDFEOrderDetialViewController *vc=[YLDFEOrderDetialViewController new];
-            vc.hidesBottomBarWhenPushed=YES;
-            vc.orderId=modelz.engineeringProcurementId;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        
-    }
-}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     if (indexPath.section==0) {
-        id model=self.dataAry[indexPath.row];
-        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
-            YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
-            if (!cell) {
-                cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
-                
-            }
-            cell.model=self.dataAry[indexPath.row];
-            return cell;
+        YLDFHomeScrollTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFHomeScrollTableViewCell"];
+        if (!cell) {
+            cell=[[YLDFHomeScrollTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLDFHomeScrollTableViewCell"];
+            cell.selected=YES;
         }
-        if ([model  isKindOfClass:[YLDFBuyModel class]]) {
-            YLDFMyBuyTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFMyBuyTableViewCell"];
-            if (!cell) {
-                cell=[YLDFMyBuyTableViewCell yldFListBuyTableViewCell];
-            }
-            cell.model=self.dataAry[indexPath.row];
-            return cell;
-        }
-        if ([model  isKindOfClass:[YLDFEOrderModel class]]) {
-            YLDEngineeringOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDEngineeringOrderTableViewCell"];
-            if (!cell) {
-                cell=[YLDEngineeringOrderTableViewCell yldEngineeringOrderTableViewCell];
-                cell.delegate=self;
-            }
-            cell.model=self.dataAry[indexPath.row];
-            return cell;
-        }
+        return cell;
+//        if (self.dataAry.count>indexPath.row) {
+//            id model=self.dataAry[indexPath.row];
+//            if ([model isKindOfClass:[YLDFSupplyModel class]]) {
+//                YLFMySupplyTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLFMySupplyTableViewCell"];
+//                if (!cell) {
+//                    cell=[YLFMySupplyTableViewCell yldFListSupplyTableViewCell];
+//
+//                }
+//                cell.model=self.dataAry[indexPath.row];
+//                return cell;
+//            }
+//            if ([model  isKindOfClass:[YLDFBuyModel class]]) {
+//                YLDFMyBuyTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFMyBuyTableViewCell"];
+//                if (!cell) {
+//                    cell=[YLDFMyBuyTableViewCell yldFListBuyTableViewCell];
+//                }
+//                cell.model=self.dataAry[indexPath.row];
+//                return cell;
+//            }
+//            if ([model  isKindOfClass:[YLDFEOrderModel class]]) {
+//                YLDEngineeringOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDEngineeringOrderTableViewCell"];
+//                if (!cell) {
+//                    cell=[YLDEngineeringOrderTableViewCell yldEngineeringOrderTableViewCell];
+//                    cell.delegate=self;
+//                }
+//                cell.model=self.dataAry[indexPath.row];
+//                return cell;
+//            }
+//        }
+        
         
         
     }
@@ -784,17 +811,24 @@
 {
     //供应
     if (_lastType==0) {
-        [HTTPCLIENT SupplynewLsitWithQuery:nil WithlastTime:_lastTime Success:^(id responseObject) {
+        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
+        YLDFSupplyModel *model=[cocheAry lastObject];
+        self.supplyPage=1;
+        [HTTPCLIENT SupplynewLsitWithQuery:nil WithlastTime:model.lastTime Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
-                if (!_lastTime) {
-                    [self.dataAry removeAllObjects];
-                }
                 NSDictionary *data=[responseObject objectForKey:@"data"];
-                NSArray *supplys=data[@"supplys"];
-                NSArray *supplysModelAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplys];
-                YLDFSupplyModel *model=[supplysModelAry lastObject];
-                self.lastTime=model.lastTime;
-                [self.dataAry addObjectsFromArray:supplysModelAry];
+                NSArray *supplysAry=data[@"supplys"];
+                if (supplysAry.count==0) {
+                    [ToastView showTopToast:@"已无更多数据"];
+                }else{
+                    NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+                    YLDFSupplyModel *model=[supplyDataAry lastObject];
+                    _lastTime=model.lastTime;
+                    [self.dataCache replaceDataWithDataAry:supplyDataAry WithIndex:0];
+                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:0 withPage:self.supplyPage WithPageSize:pageSize];
+                    
+                    [self.dataAry addObjectsFromArray:modelAry];
+                }
                 [self.tableView reloadData];
             }else{
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -807,18 +841,27 @@
         }];
     }
     if (_lastType==1) {
-        [HTTPCLIENT BuysNewLsitWithQuery:nil WithlastTime:_lastTime Success:^(id responseObject) {
+        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
+        YLDFSupplyModel *model=[cocheAry lastObject];
+        self.buyPage=1;
+        [HTTPCLIENT BuysNewLsitWithQuery:nil WithlastTime:model.lastTime Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
-                if (!_lastTime) {
-                    [self.dataAry removeAllObjects];
-                }
+
                 NSDictionary *data=[responseObject objectForKey:@"data"];
                 NSArray *buys=data[@"buys"];
-                NSArray *buysModelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buys];
-                YLDFBuyModel *model=[buysModelAry lastObject];
-                self.lastTime=model.lastTime;
-                [self.dataAry addObjectsFromArray:buysModelAry];
-                [self.tableView reloadData];
+                if (buys.count>1) {
+                    NSArray *buysModelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buys];
+                    YLDFBuyModel *model=[buysModelAry lastObject];
+                    self.lastTime=model.lastTime;
+                    [self.dataCache replaceDataWithDataAry:buysModelAry WithIndex:1];
+                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:1 withPage:self.buyPage WithPageSize:pageSize];
+                    
+                    [self.dataAry addObjectsFromArray:modelAry];
+                    [self.tableView reloadData];
+                }else{
+                    [ToastView showTopToast:@"已无更多数据"];
+                }
+                
             }else{
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
             }
@@ -831,19 +874,32 @@
         }];
     }
     if (_lastType==2) {
-        [HTTPCLIENT getEOrderListWithLastTime:_lastTime Success:^(id responseObject) {
+        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
+        YLDFSupplyModel *model=[cocheAry lastObject];
+         self.orderPage=1;
+        [HTTPCLIENT getEOrderListWithLastTime:model.lastTime Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
                 if (!_lastTime) {
                     [self.dataAry removeAllObjects];
                 }
                 NSArray *order=[responseObject objectForKey:@"data"];
                
-                NSArray *orderModelAry=[YLDFEOrderModel creatModeByAry:order];
-                YLDFEOrderModel *model=[orderModelAry lastObject];
-                self.lastTime=model.lastTime;
-                [self.dataAry addObjectsFromArray:orderModelAry];
+               
                 
-                [self.tableView reloadData];
+                if (order.count>0) {
+                     NSArray *orderModelAry=[YLDFEOrderModel creatModeByAry:order];
+                    YLDFEOrderModel *model=[orderModelAry lastObject];
+                    self.lastTime=model.lastTime;
+                   
+                    [self.dataCache replaceDataWithDataAry:orderModelAry WithIndex:2];
+                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:1 withPage:self.orderPage WithPageSize:pageSize];
+                    
+                    [self.dataAry addObjectsFromArray:modelAry];
+                    [self.tableView reloadData];
+                }else{
+                    [ToastView showTopToast:@"暂无更多数据"];
+                }
+                
             }else{
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
             }
@@ -854,7 +910,7 @@
             [self.tableView.mj_header endRefreshing];
         }];
     }
-    if (_lastType==2) {
+    if (_lastType==3) {
         [self.tableView footerEndRefreshing];
         [self.tableView.mj_header endRefreshing];
     }
@@ -878,9 +934,11 @@
             if (self.lastType==0) {
                 NSArray *supplysAry=result[@"supplys"];
                 NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+                [self.dataCache replaceDataWithDataAry:supplyDataAry WithIndex:0];
+                NSArray *modelAry=[self.dataCache getDataAryWithIndex:0 withPage:1 WithPageSize:pageSize];
                 YLDFSupplyModel *model=[supplyDataAry lastObject];
                 _lastTime=model.lastTime;
-                [self.dataAry addObjectsFromArray:supplyDataAry];
+                [self.dataAry addObjectsFromArray:modelAry];
                 
                 [self.tableView reloadData];
             }
@@ -1286,8 +1344,50 @@
             weakSelf.PageCount=1;
             [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
         }else{
-            self.lastTime=nil;
-            [weakSelf reloadTableVVVWithLastType];
+            
+            weakSelf.PageCount=1;
+            NSInteger page=1;
+            if (weakSelf.tableView.tableFooterView) {
+                weakSelf.tableView.tableFooterView=nil;
+                [weakSelf tianjiafooterAction];
+            }
+            if (weakSelf.lastType==0) {
+                weakSelf.supplyPage++;
+                page=weakSelf.supplyPage;
+            }
+            if (weakSelf.lastType==1) {
+                weakSelf.buyPage++;
+                page=weakSelf.buyPage;
+            }
+            if (weakSelf.lastType==2) {
+                weakSelf.orderPage++;
+                page=weakSelf.orderPage;
+            }
+             NSArray *dataAry = [weakSelf.dataCache getDataAryWithIndex:weakSelf.lastType withPage:page WithPageSize:pageSize];
+            if (dataAry.count==0) {
+               [weakSelf reloadTableVVVWithLastType];
+            }else{
+                
+                NSMutableArray *tempAry=[NSMutableArray arrayWithArray:dataAry];
+                [tempAry addObjectsFromArray:self.dataAry];
+                [weakSelf.dataAry removeAllObjects];
+                [weakSelf.dataAry addObjectsFromArray:tempAry];
+//                if (weakSelf.topBtnChange) {
+//                    [weakSelf.dataAry removeAllObjects];
+//                    if (weakSelf.lastType==0) {
+//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.sellAry];
+//                    }
+//                    if (weakSelf.lastType==1) {
+//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.buyAry];
+//                    }
+//                    if (weakSelf.lastType==2) {
+//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.orderAry];
+//                    }
+//                    weakSelf.topBtnChange=NO;
+//                }
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }
         
         
@@ -1303,9 +1403,23 @@
 
      self.tableView.mj_header = header;
     
+    [self tianjiafooterAction];
     
+}
+-(void)tianjiafooterAction
+{
+    __weak typeof(self) weakSelf=self;
     [self.tableView addFooterWithCallback:^{
-        [weakSelf reloadTableVVVWithLastType];
+        weakSelf.PageCount++;
+        NSInteger xx=weakSelf.PageCount*pageSize;
+        [weakSelf.tableView footerEndRefreshing];
+        if (xx<=self.dataAry.count) {
+            [weakSelf.tableView reloadData];
+        }else
+        {
+            [weakSelf.tableView removeFooter];
+            weakSelf.tableView.tableFooterView=weakSelf.footerView;
+        }
     }];
 }
 #pragma mark ----------悬浮按钮----------

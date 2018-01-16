@@ -50,7 +50,7 @@
         self.citys=(NSMutableArray *)[self citysz];
     });
     ShowActionV();
-    [HTTPCLIENT jjrDetialWithUid:APPDELEGATE.userModel.access_id Success:^(id responseObject) {
+    [HTTPCLIENT jjrDetialWithUid:nil Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             NSDictionary *dic=[responseObject objectForKey:@"data"];
 

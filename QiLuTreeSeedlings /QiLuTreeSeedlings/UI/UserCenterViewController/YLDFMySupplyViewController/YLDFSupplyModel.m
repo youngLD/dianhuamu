@@ -22,9 +22,10 @@
     model.area=dic[@"area"];
     model.attacs=dic[@"attacs"];
     model.views=[dic[@"views"] integerValue];
-    model.htmlUrl=dic[@"htmlUrl"];
+    model.htmlUrl=dic[@"url"];
     model.addressId=dic[@"addressId"];
     model.keywords=dic[@"keywords"];
+    model.phone=dic[@"phone"];
     return model;
 }
 +(NSArray *)YLDFSupplyModelAryWithAry:(NSArray *)ary

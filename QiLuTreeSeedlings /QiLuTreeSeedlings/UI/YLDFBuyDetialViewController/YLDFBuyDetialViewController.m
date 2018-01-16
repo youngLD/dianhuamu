@@ -8,7 +8,7 @@
 
 #import "YLDFBuyDetialViewController.h"
 
-@interface YLDFBuyDetialViewController ()
+@interface YLDFBuyDetialViewController ()<UIWebViewDelegate>
 
 @end
 
@@ -19,6 +19,11 @@
     self.vcTitle = @"求购详情";
     if (@available(iOS 11.0, *)) {
         self.topC.constant=44.f;
+    }
+    self.webView.scalesPageToFit = YES;
+    if (self.model.htmlUrl) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.model.htmlUrl]];
+        [self.webView loadRequest:request];
     }
     // Do any additional setup after loading the view from its nib.
 }
@@ -35,7 +40,18 @@
 }
 - (IBAction)callBtnAction:(UIButton *)sender {
 }
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    //    ShowActionV();
+}
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    RemoveActionV();
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:( NSError *)error {
+    [ToastView showTopToast:@"加载失败"];
+    RemoveActionV();
+}
 /*
 #pragma mark - Navigation
 

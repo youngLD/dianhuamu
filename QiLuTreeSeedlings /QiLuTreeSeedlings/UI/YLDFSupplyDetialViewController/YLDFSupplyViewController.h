@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ZIKRightBtnSringViewController.h"
+#import "YLDFSupplyModel.h"
 @interface YLDFSupplyViewController : ZIKRightBtnSringViewController
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
-
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic,strong)YLDFSupplyModel *model;
 @end
