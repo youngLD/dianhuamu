@@ -26,7 +26,7 @@
         self.addBGV.hidden=YES;
         self.addressPersonLab.text=APPDELEGATE.addressModel.linkman;
         self.addressPhoneLab.text=APPDELEGATE.addressModel.phone;
-        self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",APPDELEGATE.addressModel.province,APPDELEGATE.addressModel.city,APPDELEGATE.addressModel.county];
+        self.addressLab.text=APPDELEGATE.addressModel.area;
     }
     self.vcTitle=@"求购发布";
     self.guigeTextFiled.placeholder=@"请输入苗木规格说明";
@@ -62,7 +62,7 @@
                 self.addressId=self.model.addressId;
                YLDFAddressModel *addressModel = [ZIKFunction GetAddressModelWithAddressId:self.addressId];
                 if (addressModel.addressId.length>0) {
-                    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",addressModel.province,addressModel.city,addressModel.county];
+                    self.addressLab.text=addressModel.area;
                     self.addressPersonLab.text=addressModel.linkman;
                     self.addressPhoneLab.text=addressModel.phone;
                 }

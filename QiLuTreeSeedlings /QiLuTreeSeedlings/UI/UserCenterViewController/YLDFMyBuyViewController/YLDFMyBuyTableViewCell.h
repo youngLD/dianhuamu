@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *jjrV;
 @property (weak, nonatomic) IBOutlet UIImageView *YLHV;
 @property (weak, nonatomic) IBOutlet UIImageView *GCV;
+@property (weak, nonatomic) IBOutlet UIImageView *BSV6;
+@property (weak, nonatomic) IBOutlet UIImageView *BSV7;
 @property (nonatomic,strong) NSArray *imageVAry;
 @property (weak, nonatomic) IBOutlet UIView *bottmLineV;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleLabW;

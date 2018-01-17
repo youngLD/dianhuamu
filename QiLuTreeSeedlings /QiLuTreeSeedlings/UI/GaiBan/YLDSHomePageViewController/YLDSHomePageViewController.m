@@ -81,7 +81,7 @@
 #import "YLDFHomeScrollTableViewCell.h"
 #define pageSize 5
 #define TopBtnW 90
-@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate>
+@interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate,YLDFHomeScrollTableViewCellDelegate>
 @property (nonatomic,strong)UITableView *tableView;
 @property (nonatomic,strong)UIView *searchTopV;
 @property (nonatomic,strong)NSMutableArray *orderMArr;//工程订单
@@ -125,6 +125,7 @@
 @property (nonatomic,copy) NSArray *sellAry;
 @property (nonatomic,copy) NSArray *buyAry;
 @property (nonatomic,copy) NSArray *orderAry;
+@property (nonatomic,strong)YLDFHomeScrollTableViewCell *sobCell;
 @end
 
 @implementation YLDSHomePageViewController
@@ -234,26 +235,27 @@
 //    _lastTime=nil;
     sender.selected=YES;
     if (self.ActionVNowBtn != sender) {
-        self.topBtnChange=YES;
-        if (_lastType==0) {
-            self.sellAry=self.dataAry;
-        }
-        if (_lastType==1) {
-            self.buyAry=self.dataAry;
-        }
-        if (_lastType==2) {
-            self.orderAry=self.dataAry;
-        }
+//        self.topBtnChange=YES;
+//        if (_lastType==0) {
+//            self.sellAry=self.dataAry;
+//        }
+//        if (_lastType==1) {
+//            self.buyAry=self.dataAry;
+//        }
+//        if (_lastType==2) {
+//            self.orderAry=self.dataAry;
+//        }
     }
-    self.lastType=sender.tag;
+    self.lastType=sender.tag-1;
     self.ActionVNowBtn=sender;
     CGRect frame=self.topActionMoveV.frame;
-    frame.origin.x=sender.tag*(kWidth/4);
+    frame.origin.x=(sender.tag-1)*(kWidth/4);
    
     [UIView animateWithDuration:0.3 animations:^{
         if(self.tableView.tableHeaderView!=nil)
         {
             self.tableView.tableHeaderView=nil;
+            self.tableView.bounces=NO;
             [self.tableView setBackgroundColor:BGColor];
             if (self.goTopBtn.hidden==YES) {
                 self.goTopBtn.hidden=NO;
@@ -270,8 +272,8 @@
         self.topActionMoveV.frame=frame;
         
     }];
-    
-    [self.tableView.mj_header beginRefreshing];
+    self.sobCell.actionIndex=sender.tag-1;
+//    [self.tableView.mj_header beginRefreshing];
 }
 
 
@@ -300,19 +302,6 @@
 
     if (indexPath.section==0) {
         return kHeight-64-50-44;
-        
-//        id model=self.dataAry[indexPath.row];
-//        if ([model isKindOfClass:[YLDFSupplyModel class]]) {
-//           return 182;
-//        }
-//        if ([model isKindOfClass:[YLDFBuyModel class]]) {
-//            return 141;
-//        }
-//        if ([model isKindOfClass:[YLDFEOrderModel class]]) {
-//            tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
-//            tableView.estimatedRowHeight = 185;
-//            return tableView.rowHeight;
-//        }
         
     }
    
@@ -372,7 +361,9 @@
         YLDFHomeScrollTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFHomeScrollTableViewCell"];
         if (!cell) {
             cell=[[YLDFHomeScrollTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"YLDFHomeScrollTableViewCell"];
-            cell.selected=YES;
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+            self.sobCell=cell;
+            cell.delegate=self;
         }
         return cell;
 //        if (self.dataAry.count>indexPath.row) {
@@ -412,6 +403,46 @@
     UITableViewCell *cell=[UITableViewCell new];
     
     return cell;
+}
+-(void)scrollViewSelectWithModel:(id)model
+{
+    if ([model  isKindOfClass:[YLDFEOrderModel class]])
+    {
+        YLDFEOrderModel *modelz=(YLDFEOrderModel *)model;
+        YLDFEOrderDetialViewController *vc=[YLDFEOrderDetialViewController new];
+        vc.hidesBottomBarWhenPushed=YES;
+        vc.orderId=modelz.engineeringProcurementId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if([model isKindOfClass:[YLDFSupplyModel class]])
+    {
+        YLDFSupplyModel *modelz=(YLDFSupplyModel *)model;
+        YLDFSupplyViewController *vc=[YLDFSupplyViewController new];
+        vc.model=modelz;
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if ([model isKindOfClass:[YLDFBuyModel class]]) {
+        YLDFBuyModel *modelz=(YLDFBuyModel *)model;
+        YLDFBuyDetialViewController *vc=[YLDFBuyDetialViewController new];
+        vc.model=modelz;
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+}
+-(void)scrollViewEndWithIndex:(NSInteger)index
+{
+    self.ActionVNowBtn.selected=NO;
+    UIButton *btn = [self.topActionV viewWithTag:index+1];
+    btn.selected=YES;
+    self.ActionVNowBtn=btn;
+    CGRect frame=self.topActionMoveV.frame;
+    frame.origin.x=index*(kWidth/4);
+    [UIView animateWithDuration:0.3 animations:^{
+        self.topActionMoveV.frame=frame;
+    }];
+//      self.
 }
 -(void)moreBtnAction:(UIButton *)sender{
     
@@ -596,7 +627,7 @@
         [btn setTitle:ary[i] forState:UIControlStateNormal];
         [btn setTitleColor:titleLabColor  forState:UIControlStateNormal];
         [btn setTitleColor:MoreDarkTitleColor  forState:UIControlStateSelected];
-        btn.tag=i;
+        btn.tag=i+1;
         [btn addTarget:self action:@selector(topActionVBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         if (i==0) {
             btn.selected=YES;
@@ -607,9 +638,11 @@
     UIView *linV=[[UIView alloc]initWithFrame:CGRectMake(0, 49.5, kWidth, 0.5)];
     [linV setBackgroundColor:kLineColor];
     [view addSubview:linV];
+    linV.tag=12;
     UIView *moveView=[[UIView alloc]initWithFrame:CGRectMake(0, 47, kWidth/4, 3)];
     [moveView setBackgroundColor:NavColor];
     [view addSubview:moveView];
+    moveView.tag=123;
     self.topActionMoveV=moveView;
     [view setBackgroundColor:[UIColor whiteColor]];
     
@@ -645,32 +678,18 @@
     self.tableView.frame=CGRectMake(0, 0, kWidth, kHeight-44);
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
+    self.sobCell.scrollEnable=NO;
+    self.tableView.bounces=YES;
     [UIView animateWithDuration:0.3 animations:^{
         [self BackchangeNav];
         self.tableView.tableHeaderView=self.heardView;
         [self.tableView.tableHeaderView addSubview:self.hearActionView];
     } completion:^(BOOL finished) {
-//    [self setBgContentOffsetAnimation:0];
         
     }];
-    
-    
-//
-
-    
-    
-    
+ 
 }
--(void)setBgContentOffsetAnimation:(CGFloat )OffsetY
 
-{    [UIView animateWithDuration:0.3 animations:^
-      
-    {
-        self.tableView.contentOffset = CGPointMake(0, OffsetY);
-        
-    }];
-    
-}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.tag==112) {
@@ -730,7 +749,8 @@
                         [self changeNav];
 
                     }
-                    
+                    self.sobCell.scrollEnable=YES;
+                    self.tableView.bounces=NO;
                     [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                     
                 }
@@ -764,7 +784,7 @@
             [scrollView setContentOffset:CGPointMake(0, _JJRW+_GGW+40+100) animated:YES];
 
         }else{
-//            [self setBgContentOffsetAnimation:0];
+
             [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
         }
     }
@@ -933,14 +953,17 @@
             _JJRLView.modelAry=self.borkers;
             if (self.lastType==0) {
                 NSArray *supplysAry=result[@"supplys"];
-                NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
-                [self.dataCache replaceDataWithDataAry:supplyDataAry WithIndex:0];
-                NSArray *modelAry=[self.dataCache getDataAryWithIndex:0 withPage:1 WithPageSize:pageSize];
-                YLDFSupplyModel *model=[supplyDataAry lastObject];
-                _lastTime=model.lastTime;
-                [self.dataAry addObjectsFromArray:modelAry];
-                
-                [self.tableView reloadData];
+                if (self.sobCell.firstAry==nil) {
+                    self.sobCell.firstAry=supplysAry;
+                }
+//                NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
+//                [self.dataCache replaceDataWithDataAry:supplyDataAry WithIndex:0];
+//                NSArray *modelAry=[self.dataCache getDataAryWithIndex:0 withPage:1 WithPageSize:pageSize];
+//                YLDFSupplyModel *model=[supplyDataAry lastObject];
+//                _lastTime=model.lastTime;
+//                [self.dataAry addObjectsFromArray:modelAry];
+//
+//                [self.tableView reloadData];
             }
       
 
@@ -1425,17 +1448,17 @@
 #pragma mark ----------悬浮按钮----------
 -(void)CreatXuanfuBtn
 {
-    UIButton *fabuQiuGBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-170, 70, 70)];
+    UIButton *fabuQiuGBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-130, 70, 70)];
     [fabuQiuGBtn setImage:[UIImage imageNamed:@"shouyeQiugouxuanfu"] forState:UIControlStateNormal];
     [fabuQiuGBtn setImage:[UIImage imageNamed:@"shouyeQiugouxuanfu"] forState:UIControlStateHighlighted];
     [fabuQiuGBtn addTarget:self action:@selector(wodeqiugouFabuBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:fabuQiuGBtn];
-    UIButton *fabuGongyingBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-240, 70, 70)];
+    UIButton *fabuGongyingBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-80, kHeight-210, 70, 70)];
     [fabuGongyingBtn setImage:[UIImage imageNamed:@"shouyeGongyingxuanfu"] forState:UIControlStateNormal];
     [fabuGongyingBtn setImage:[UIImage imageNamed:@"shouyeGongyingxuanfu"] forState:UIControlStateHighlighted];
     [fabuGongyingBtn addTarget:self action:@selector(wodegongyingFabuAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:fabuGongyingBtn];
-    self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-70, kHeight-100, 50, 50)];
+    self.goTopBtn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-70, kHeight-270, 50, 50)];
     [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateNormal];
     [self.goTopBtn setImage:[UIImage imageNamed:@"goTopAciotn"] forState:UIControlStateHighlighted];
     [self.view addSubview:self.goTopBtn];

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLDFBuyDetialViewController">
             <connections>
+                <outlet property="baojiaBtn" destination="aRe-eL-pLW" id="NXw-Jw-H72"/>
                 <outlet property="topC" destination="UXq-GO-wyI" id="mKu-P4-ApT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="EMf-SE-n1c" id="N3S-ob-kYc"/>
@@ -193,15 +194,28 @@
                         <constraint firstAttribute="bottom" secondItem="hBt-Hs-EIz" secondAttribute="bottom" id="ugp-Kp-5ta"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRe-eL-pLW">
+                    <rect key="frame" x="290" y="365" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="Lna-S6-hf8"/>
+                        <constraint firstAttribute="height" constant="70" id="bHd-D6-b0w"/>
+                    </constraints>
+                    <state key="normal" image="detialBJ.png"/>
+                    <connections>
+                        <action selector="baojiaBtnAction:" destination="-1" eventType="touchUpInside" id="eCx-Vr-I0y"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="OND-em-ffZ" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="BCt-bL-PxZ"/>
                 <constraint firstItem="OND-em-ffZ" firstAttribute="bottom" secondItem="Q5M-cg-NOt" secondAttribute="bottom" id="Cpf-vI-gFT"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="aRe-eL-pLW" secondAttribute="trailing" constant="15" id="O5o-6h-Vh6"/>
                 <constraint firstItem="EMf-SE-n1c" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Ofm-Qe-uK6"/>
                 <constraint firstItem="OND-em-ffZ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="UGn-PZ-26M"/>
                 <constraint firstItem="EMf-SE-n1c" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="64" id="UXq-GO-wyI"/>
                 <constraint firstItem="EMf-SE-n1c" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="dtP-Cy-4YA"/>
+                <constraint firstItem="OND-em-ffZ" firstAttribute="top" secondItem="aRe-eL-pLW" secondAttribute="bottom" constant="180" id="r51-SX-vhO"/>
                 <constraint firstItem="OND-em-ffZ" firstAttribute="top" secondItem="EMf-SE-n1c" secondAttribute="bottom" id="v65-i3-0Lq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
@@ -209,6 +223,7 @@
         </view>
     </objects>
     <resources>
+        <image name="detialBJ.png" width="60" height="60"/>
         <image name="mybuydetialshare.png" width="16" height="16"/>
         <image name="quoteDetialCallBG.png" width="180" height="50"/>
         <image name="quoteDetialCallde.png" width="91" height="20"/>

@@ -867,6 +867,11 @@
 		EADCB6A71EF50FF60075C832 /* YLDJJRTSView.m in Sources */ = {isa = PBXBuildFile; fileRef = EADCB6A61EF50FF60075C832 /* YLDJJRTSView.m */; };
 		EADCB6A91EF510050075C832 /* YLDJJRTSView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADCB6A81EF510050075C832 /* YLDJJRTSView.xib */; };
 		EADCB6AB1EF512760075C832 /* jingjirenTS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADCB6AA1EF512760075C832 /* jingjirenTS@2x.png */; };
+		EADFC8D4200EFDE4004AC690 /* YLDFShopDeitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADFC8D2200EFDE4004AC690 /* YLDFShopDeitalViewController.m */; };
+		EADFC8D5200EFDE4004AC690 /* YLDFShopDeitalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EADFC8D3200EFDE4004AC690 /* YLDFShopDeitalViewController.xib */; };
+		EADFC8D8200F17CE004AC690 /* detialSCoff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADFC8D6200F17CE004AC690 /* detialSCoff@2x.png */; };
+		EADFC8D9200F17CE004AC690 /* detialSCon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADFC8D7200F17CE004AC690 /* detialSCon@2x.png */; };
+		EADFC8DB200F2015004AC690 /* detialBJ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EADFC8DA200F2015004AC690 /* detialBJ@2x.png */; };
 		EAE039911F677D3800413AD5 /* YLDTYXMQHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE039901F677D3800413AD5 /* YLDTYXMQHomeView.m */; };
 		EAE039941F6781C500413AD5 /* YXMQHCVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE039931F6781C500413AD5 /* YXMQHCVIew.m */; };
 		EAE039961F6781E000413AD5 /* YXMQHCVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE039951F6781E000413AD5 /* YXMQHCVIew.xib */; };
@@ -3045,6 +3050,12 @@
 		EADCB6A61EF50FF60075C832 /* YLDJJRTSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDJJRTSView.m; sourceTree = "<group>"; };
 		EADCB6A81EF510050075C832 /* YLDJJRTSView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YLDJJRTSView.xib; sourceTree = "<group>"; };
 		EADCB6AA1EF512760075C832 /* jingjirenTS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jingjirenTS@2x.png"; sourceTree = "<group>"; };
+		EADFC8D1200EFDE4004AC690 /* YLDFShopDeitalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLDFShopDeitalViewController.h; sourceTree = "<group>"; };
+		EADFC8D2200EFDE4004AC690 /* YLDFShopDeitalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLDFShopDeitalViewController.m; sourceTree = "<group>"; };
+		EADFC8D3200EFDE4004AC690 /* YLDFShopDeitalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YLDFShopDeitalViewController.xib; sourceTree = "<group>"; };
+		EADFC8D6200F17CE004AC690 /* detialSCoff@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detialSCoff@2x.png"; sourceTree = "<group>"; };
+		EADFC8D7200F17CE004AC690 /* detialSCon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detialSCon@2x.png"; sourceTree = "<group>"; };
+		EADFC8DA200F2015004AC690 /* detialBJ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detialBJ@2x.png"; sourceTree = "<group>"; };
 		EAE0398F1F677D3800413AD5 /* YLDTYXMQHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDTYXMQHomeView.h; sourceTree = "<group>"; };
 		EAE039901F677D3800413AD5 /* YLDTYXMQHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDTYXMQHomeView.m; sourceTree = "<group>"; };
 		EAE039921F6781C500413AD5 /* YXMQHCVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXMQHCVIew.h; sourceTree = "<group>"; };
@@ -5180,6 +5191,7 @@
 		EA0B2BD11C59F6930018A7BD /* UserCenterViewController */ = {
 			isa = PBXGroup;
 			children = (
+				EADFC8D0200EFDBA004AC690 /* YLDFShopDetialViewController */,
 				EAF5D5952009DA6900F0D6E4 /* myQuoteListViewController */,
 				EAEFD2092004A59E00AC887C /* UserCenterViews */,
 				EAEFD1F820049A9D00AC887C /* MyEngineeringOrderListViewController */,
@@ -5429,6 +5441,9 @@
 		EA2726F81C8A735F000B0719 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EADFC8DA200F2015004AC690 /* detialBJ@2x.png */,
+				EADFC8D6200F17CE004AC690 /* detialSCoff@2x.png */,
+				EADFC8D7200F17CE004AC690 /* detialSCon@2x.png */,
 				EAE5093A200C482900600A98 /* quoteDetialPushShop@2x.png */,
 				EAE50938200C47CC00600A98 /* quoteDetialCallde@2x.png */,
 				EAE50936200C47B200600A98 /* quoteDetialCallBG@2x.png */,
@@ -7533,6 +7548,16 @@
 				EAEFCD6020048A7700AC887C /* YLDFEngineeringMMEidtViewController.xib */,
 			);
 			path = FabuEngineeringOrderViewController;
+			sourceTree = "<group>";
+		};
+		EADFC8D0200EFDBA004AC690 /* YLDFShopDetialViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EADFC8D1200EFDE4004AC690 /* YLDFShopDeitalViewController.h */,
+				EADFC8D2200EFDE4004AC690 /* YLDFShopDeitalViewController.m */,
+				EADFC8D3200EFDE4004AC690 /* YLDFShopDeitalViewController.xib */,
+			);
+			path = YLDFShopDetialViewController;
 			sourceTree = "<group>";
 		};
 		EAE2D70820059B5E0089E11F /* MyEngineeringOrderDetialViewController */ = {
@@ -11501,10 +11526,12 @@
 				EA88240D1FFF101C009294E4 /* YLDHomeTTCell.xib in Resources */,
 				EADCB6AB1EF512760075C832 /* jingjirenTS@2x.png in Resources */,
 				EA1CF4191CACD4E300AF2D82 /* loading08@2x.png in Resources */,
+				EADFC8DB200F2015004AC690 /* detialBJ@2x.png in Resources */,
 				EAF050EC1C928E3300F435A9 /* homePageNomer@2x.png in Resources */,
 				EA5108B01FF38F0000859F54 /* supplyListTime@2x.png in Resources */,
 				EA57C64A1FF0A0C000F5FC9B /* useroff@2x.png in Resources */,
 				EA32F4431E5A96E500B6AEC2 /* 选择发布类型_发布工程订单@2x.png in Resources */,
+				EADFC8D9200F17CE004AC690 /* detialSCon@2x.png in Resources */,
 				FC22767F1D177C9F0037B131 /* ZIKStationOrderOfferTableViewCell.xib in Resources */,
 				EAE476931F2863EC000CFF23 /* koufeijilu@2x.png in Resources */,
 				FCBE033C1D8CD0500062CDFF /* ZIKStationShowListViewController.xib in Resources */,
@@ -11647,6 +11674,7 @@
 				EA32F42E1E5A8C8A00B6AEC2 /* 消息页_系统消息@2x.png in Resources */,
 				FC67890B1D87875700AB1429 /* 印章-分站.png in Resources */,
 				EAE49A5E1EEA6B990086A7DE /* YLDJJRD1TableViewCell.xib in Resources */,
+				EADFC8D8200F17CE004AC690 /* detialSCoff@2x.png in Resources */,
 				EA552E871D0D42B200FB88A0 /* YLDMyDingdanTableViewCell.xib in Resources */,
 				FC67890C1D87875700AB1429 /* 合作苗企43x43.png in Resources */,
 				FC6789021D87875700AB1429 /* ZIKHeZuoMiaoQiHeaderFooterView.xib in Resources */,
@@ -11798,6 +11826,7 @@
 				FC049A041D740814000EA713 /* ZIKShowListDetailViewController.xib in Resources */,
 				EAE2824F2000548800B47FF7 /* enterpriseBS@2x.png in Resources */,
 				FC74AD691D3496A5009D8409 /* 列表-铜牌牌供应商.png in Resources */,
+				EADFC8D5200EFDE4004AC690 /* YLDFShopDeitalViewController.xib in Resources */,
 				EAA90A611E9CADA300E9D4B0 /* myfollowYLH@2x.png in Resources */,
 				EAF050FD1C92A1A900F435A9 /* myBuyV@2x.png in Resources */,
 				FC6789081D87875700AB1429 /* ZIKMiaoQiDetailHeaderFooterView.xib in Resources */,
@@ -12012,6 +12041,7 @@
 				EA6585391D812A2B00BC5183 /* YLDJPGYSBaseTabBarController.m in Sources */,
 				EA8E293F1ED284DD00BA72E8 /* SDTimeLineCellModel.m in Sources */,
 				EA5E6E3B1CFFCA02003D357C /* YLDBaoJiaGuanLiViewController.m in Sources */,
+				EADFC8D4200EFDE4004AC690 /* YLDFShopDeitalViewController.m in Sources */,
 				FCC291B01DAB6F340019DFB9 /* EaseBubbleView+File.m in Sources */,
 				FC6789191D87875700AB1429 /* ZIKMiaoQiTabBarViewController.m in Sources */,
 				FCC291361DAB6F330019DFB9 /* PushNotificationViewController.m in Sources */,

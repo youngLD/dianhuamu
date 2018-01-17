@@ -47,16 +47,16 @@
     }
     
     
-    [HTTPCLIENT getMyShopBaseMessageUpDataWithType:@"4" value:self.textView.text Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            [ToastView showTopToast:@"修改成功，即将返回"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+//    [HTTPCLIENT getMyShopBaseMessageUpDataWithType:@"4" value:self.textView.text Success:^(id responseObject) {
+//        if ([[responseObject objectForKey:@"success"] integerValue]) {
+//            [ToastView showTopToast:@"修改成功，即将返回"];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }else{
+//            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//        
+//    }];
     
     
 }

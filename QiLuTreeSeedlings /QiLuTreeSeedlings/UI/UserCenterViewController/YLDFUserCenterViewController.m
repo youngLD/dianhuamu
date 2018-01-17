@@ -295,7 +295,7 @@
         
     }
     if (sender.tag==13) {
-        YLDShopMessageViewController *vc=[YLDShopMessageViewController new];
+        YLDShopBaseInfoViewController *vc=[YLDShopBaseInfoViewController new];
         vc.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

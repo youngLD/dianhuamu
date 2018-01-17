@@ -45,9 +45,12 @@
         [ToastView showTopToast:@"请输入简介内容"];
         return;
     }
-    [HTTPCLIENT getMyShopBaseMessageUpDataWithType:@"2" value:self.textView.text Success:^(id responseObject) {
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    dic[@"description"]=self.textView.text;
+    NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+    [HTTPCLIENT getMyShopBaseMessageUpDataWithbodyStr:bodyStr Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
-            [ToastView showTopToast:@"修改成功，即将返回"];
+            [ToastView showTopToast:@"修改成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
@@ -55,6 +58,16 @@
     } failure:^(NSError *error) {
         
     }];
+//    [HTTPCLIENT getMyShopBaseMessageUpDataWithType:@"2" value:self.textView.text Success:^(id responseObject) {
+//        if ([[responseObject objectForKey:@"success"] integerValue]) {
+//            [ToastView showTopToast:@"修改成功，即将返回"];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }else{
+//            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//
+//    }];
     
 }
 - (void)didReceiveMemoryWarning {

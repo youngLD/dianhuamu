@@ -7,7 +7,8 @@
 //
 
 #import "YLDFSupplyViewController.h"
-
+#import "YLDLoginViewController.h"
+#import "UINavController.h"
 @interface YLDFSupplyViewController ()<UIWebViewDelegate>
 
 @end
@@ -26,8 +27,51 @@
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.model.htmlUrl]];
         [self.webView loadRequest:request];
     }
-    
+    [self.back2Btn removeFromSuperview];
+    self.back2Btn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-55, self.navBackView.frame.size.height-40, 50, 30)];
+    [self.back2Btn setImage:[UIImage imageNamed:@"detialSCoff"] forState:UIControlStateNormal];
+    [self.back2Btn setImage:[UIImage imageNamed:@"detialSCon"] forState:UIControlStateSelected];
+    [self.back2Btn addTarget:self action:@selector(collectionAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBackView addSubview:self.back2Btn];
     // Do any additional setup after loading the view from its nib.
+}
+-(void)collectionAction:(UIButton *)sender
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    ShowActionV();
+    if (!sender.selected) {
+        [HTTPCLIENT collectActionWithIds:self.model.supplyId WithcollectionTypeId:@"supply" Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                [ToastView showTopToast:@"收藏成功"];
+                sender.selected=YES;
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }else{
+        [HTTPCLIENT deletesenderCollectWithIds:self.model.supplyId Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                [ToastView showTopToast:@"取消收藏"];
+                sender.selected=NO;
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 - (IBAction)goShopBtnAction:(UIButton *)sender {
 }

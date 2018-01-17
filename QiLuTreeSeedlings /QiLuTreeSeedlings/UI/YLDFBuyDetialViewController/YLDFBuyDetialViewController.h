@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZIKArrowViewController.h"
+#import "ZIKRightBtnSringViewController.h"
 #import "YLDFBuyModel.h"
-@interface YLDFBuyDetialViewController : ZIKArrowViewController
+@interface YLDFBuyDetialViewController : ZIKRightBtnSringViewController
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topC;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIButton *baojiaBtn;
 @property (nonatomic,strong)YLDFBuyModel *model;
 @end

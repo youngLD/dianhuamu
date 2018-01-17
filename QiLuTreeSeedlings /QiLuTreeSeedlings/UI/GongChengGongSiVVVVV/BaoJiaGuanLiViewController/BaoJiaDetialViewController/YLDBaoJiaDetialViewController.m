@@ -19,6 +19,7 @@
 #import "YLDZhanZhangMessageViewController.h"
 #import "YLDJPGYSDetialViewController.h"
 #import "ZIKMiaoQiDetailTableViewController.h"
+#import "BigImageViewShowView.h"
 @interface YLDBaoJiaDetialViewController ()<UITableViewDelegate,UITableViewDataSource,YLDSearchNavViewDelegate,YLDBaoJiaMessageCellDelegate>
 @property (nonatomic,strong)UIView *moveView;
 @property (nonatomic,strong)UIButton *nowBtn;

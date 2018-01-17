@@ -160,7 +160,7 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ShowActionV();
-            NSMutableString *idstr;
+            NSMutableString *idstr =[NSMutableString string];
             for (YLDFSupplyModel *model in _selectAry) {
                 [idstr appendFormat:@"%@,",model.supplyId];
             }
@@ -191,7 +191,7 @@
     }
     __weak typeof(self)weakself =self;
     
-    NSMutableString *idstr;
+    NSMutableString *idstr =[NSMutableString string];
     for (YLDFSupplyModel *model in _selectAry) {
         [idstr appendFormat:@"%@,",model.supplyId];
     }
@@ -235,7 +235,7 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSMutableString *idstr;
+        NSMutableString *idstr=[NSMutableString string];
         for (YLDFSupplyModel *model in _selectAry) {
             [idstr appendFormat:@"%@,",model.supplyId];
         }
@@ -271,7 +271,7 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSMutableString *idstr;
+        NSMutableString *idstr=[NSMutableString string];
         for (YLDFSupplyModel *model in _selectAry) {
             [idstr appendFormat:@"%@,",model.supplyId];
         }

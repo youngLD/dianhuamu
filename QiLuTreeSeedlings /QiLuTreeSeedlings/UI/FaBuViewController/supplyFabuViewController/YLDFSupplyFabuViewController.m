@@ -36,7 +36,7 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
         self.noAddresssBV.hidden=YES;
        self.personNameLab.text=APPDELEGATE.addressModel.linkman;
         self.phoneLab.text=APPDELEGATE.addressModel.phone;
-        self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",APPDELEGATE.addressModel.province,APPDELEGATE.addressModel.city,APPDELEGATE.addressModel.county];
+        self.addressLab.text=APPDELEGATE.addressModel.area;
     }
     
     self.vcTitle=@"供应发布";
@@ -71,7 +71,7 @@ UITextFieldDelegate,YLDFAddressListViewControllerDelegate,YLDFAddressManagementD
                 self.keyWordTextView.text=model.keywords;
                 YLDFAddressModel *addressModel = [ZIKFunction GetAddressModelWithAddressId:self.addressId];
                 if (addressModel.addressId.length>0) {
-                    self.addressLab.text=[NSString stringWithFormat:@"%@%@%@",addressModel.province,addressModel.city,addressModel.county];
+                    self.addressLab.text=addressModel.area;
                     self.personNameLab.text=addressModel.linkman;
                     self.phoneLab.text=addressModel.phone;
                 }

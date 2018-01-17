@@ -26,6 +26,7 @@
     model.addressId=dic[@"addressId"];
     model.keywords=dic[@"keywords"];
     model.phone=dic[@"phone"];
+    model.roles=dic[@"roles"];
     return model;
 }
 +(NSArray *)YLDFSupplyModelAryWithAry:(NSArray *)ary
@@ -37,4 +38,5 @@
     }
     return Ary;
 }
+
 @end

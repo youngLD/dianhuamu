@@ -8,8 +8,10 @@
 
 #import "YLDFQuoteDetialViewController.h"
 #import "UIImageView+AFNetworking.h"
-@interface YLDFQuoteDetialViewController ()
+#import "BigImageViewShowView.h"
 #import "ZIKFunction.h"
+@interface YLDFQuoteDetialViewController ()
+
 @end
 
 @implementation YLDFQuoteDetialViewController
@@ -27,6 +29,7 @@
     self.priceLab.text=[NSString stringWithFormat:@"%@元",self.model.quote];
     self.guigeLab.text=[NSString stringWithFormat:@"规格说明:%@",self.model.demand];
     NSString *headerImagePath=self.model.headPortrait;
+    [self.lineImageV setImage:[ZIKFunction imageWithSize:self.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
     if (headerImagePath) {
         [self.imgeV setImageWithURL:[NSURL URLWithString:headerImagePath]];
     }

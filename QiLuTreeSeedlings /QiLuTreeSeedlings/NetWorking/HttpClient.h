@@ -1051,12 +1051,7 @@ failure:(void (^)(NSError *error))failure;
 -(void)getMyShopHomePageMessageSuccess:(void (^)(id responseObject))success
                               failure:(void (^)(NSError *error))failure;
 
-#pragma mark ---------- 店铺基本信息 -----------
--(void)getMyShopBaseMessageSuccess:(void (^)(id responseObject))success
-                              failure:(void (^)(NSError *error))failure;
-#pragma mark ---------- 店铺基本信息修改-----------
--(void)getMyShopBaseMessageUpDataWithType:(NSString *)type value:(NSString *)value Success:(void (^)(id responseObject))success
-                          failure:(void (^)(NSError *error))failure;
+
 #pragma mark ---------- 店铺地址信息修改-----------
 -(void)UpDataMyShopAddressWithshopProvince:(NSString *)shopProvince
                               WithshopCity:(NSString *)shopCity
@@ -1993,4 +1988,11 @@ failure:(void (^)(NSError *error))failure;
        WithcollectionTypeId:(NSString *)collectionTypeId
                     Success:(void (^)(id responseObject))success
                     failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 店铺基本信息 -----------
+-(void)getMyShopBaseMessageSuccess:(void (^)(id responseObject))success
+                           failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 店铺基本信息修改-----------
+-(void)getMyShopBaseMessageUpDataWithbodyStr:(NSString *)bodyStr  Success:(void (^)(id responseObject))success
+                                     failure:(void (^)(NSError *error))failure;
+
 @end

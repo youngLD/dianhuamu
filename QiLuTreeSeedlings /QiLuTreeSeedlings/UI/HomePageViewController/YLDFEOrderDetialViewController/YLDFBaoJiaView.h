@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "YLDRangeTextField.h"
 #import "YLDFMyOrderItemsModel.h"
+#import "YLDFBuyModel.h"
 @protocol YLDFBaoJiaViewCellDelegate
 @optional
 -(void)itemsBaojiaActionWithModel:(YLDFMyOrderItemsModel *)model withDic:(NSDictionary *)dic;
-
+-(void)itemsBaojiaActionWithBuyModel:(YLDFBuyModel *)model withDic:(NSDictionary *)dic;
 @end
 @interface YLDFBaoJiaView : UIView<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet YLDRangeTextField *baojiaTextField;
@@ -24,6 +25,7 @@
 @property (nonatomic,copy)NSString *imageUrl;
 @property (nonatomic,weak) UIViewController *controller;
 @property (nonatomic,strong)YLDFMyOrderItemsModel *model;
+@property (nonatomic,strong)YLDFBuyModel *buyModel;
 @property (nonatomic,weak)id <YLDFBaoJiaViewCellDelegate> delegate;
 +(YLDFBaoJiaView *)yldFBaoJiaView;
 -(void)show;

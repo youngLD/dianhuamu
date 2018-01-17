@@ -24,6 +24,7 @@
 @property (nonatomic,copy) NSString *phone;
 @property (nonatomic,assign)BOOL isSelect;
 @property (nonatomic,copy) NSArray *attacs;
+@property (nonatomic,copy) NSArray *roles;
 +(YLDFSupplyModel *)YLDFSupplyModelWithDic:(NSDictionary *)dic;
 +(NSArray *)YLDFSupplyModelAryWithAry:(NSArray *)ary;
 @end

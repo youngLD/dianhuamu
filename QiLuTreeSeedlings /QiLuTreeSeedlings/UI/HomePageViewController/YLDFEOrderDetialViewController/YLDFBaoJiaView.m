@@ -37,17 +37,29 @@
     }
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     NSMutableDictionary *imageDic=[NSMutableDictionary dictionary];
+    
     imageDic[@"attaType"]=@"picture";
     imageDic[@"path"]=self.imageUrl;
     NSArray *attas=@[imageDic];
     dic[@"attas"]=attas;
     dic[@"demand"]=self.guigeTextField.text;
-    dic[@"quoteType"]=@"order";
+    
     dic[@"quote"]=self.baojiaTextField.text;
-    dic[@"oibId"]=self.model.engineeringProcurementItemId;
+    if (self.model) {
+        dic[@"quoteType"]=@"order";
+        dic[@"oibId"]=self.model.engineeringProcurementItemId;
+    }else if (self.buyModel)
+    {
+        dic[@"quoteType"]=@"buy";
+        dic[@"oibId"]=self.buyModel.buyId;
+    }
+    
     [self hidingSelf];
-    if (self.delegate) {
+    if (self.delegate&&self.model) {
         [self.delegate itemsBaojiaActionWithModel:self.model withDic:dic];
+    }
+    if (self.delegate&&self.buyModel) {
+        [self.delegate itemsBaojiaActionWithBuyModel:self.buyModel withDic:dic];
     }
     
 }

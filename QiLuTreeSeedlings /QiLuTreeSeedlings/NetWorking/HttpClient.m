@@ -4273,57 +4273,6 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
-#pragma mark ---------- 店铺基本信息 -----------
--(void)getMyShopBaseMessageSuccess:(void (^)(id responseObject))success
-                           failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL            = @"api/apishopInfo";
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSString *str                = [userdefaults objectForKey:kdeviceToken];
-    
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"access_token"]     = APPDELEGATE.userModel.access_token;
-    parmers[@"access_id"]        = APPDELEGATE.userModel.access_id;
-    parmers[@"client_id"]        = kclient_id;
-    parmers[@"client_secret"]    = kclient_secret;
-    parmers[@"device_id"]        = str;
-    
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
-#pragma mark ---------- 店铺基本信息修改-----------
--(void)getMyShopBaseMessageUpDataWithType:(NSString *)type value:(NSString *)value Success:(void (^)(id responseObject))success
-                                  failure:(void (^)(NSError *error))failure{
-    NSString *postURL            = @"api/apishopUpdate";
-    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
-    NSString *str                = [userdefaults objectForKey:kdeviceToken];
-    
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"access_token"]     = APPDELEGATE.userModel.access_token;
-    parmers[@"access_id"]        = APPDELEGATE.userModel.access_id;
-    parmers[@"client_id"]        = kclient_id;
-    parmers[@"client_secret"]    = kclient_secret;
-    parmers[@"device_id"]        = str;
-    parmers[@"type"]             = type;
-    parmers[@"value"]            = value;
-    ShowActionV();
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
 #pragma mark ---------- 店铺地址信息修改-----------
 -(void)UpDataMyShopAddressWithshopProvince:(NSString *)shopProvince
                               WithshopCity:(NSString *)shopCity
@@ -8833,7 +8782,7 @@
                           failure:(void (^)(NSError *error))failure
 {
   
-    NSString *postURL = [NSString stringWithFormat:@"party/collections?collectionIds=%@",ids];
+    NSString *postURL = [NSString stringWithFormat:@"party/collections"];
     [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
     NSMutableDictionary *parmers=[NSMutableDictionary dictionary];
     parmers[@"collectionIds"]=ids;
@@ -8896,5 +8845,50 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
     
+}
+#pragma mark ---------- 店铺基本信息 -----------
+-(void)getMyShopBaseMessageSuccess:(void (^)(id responseObject))success
+                           failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            = @"partys/shop";
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
+#pragma mark ---------- 店铺基本信息修改-----------
+-(void)getMyShopBaseMessageUpDataWithbodyStr:(NSString *)bodyStr  Success:(void (^)(id responseObject))success
+                                  failure:(void (^)(NSError *error))failure{
+    NSString *postURL            = [NSString stringWithFormat:@"%@partys/shop",AFBaseURLString];
+    
+    
+    NSData *postData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PUT" URLString:postURL parameters:nil error:nil];
+    request.timeoutInterval= 30.f;
+    [request setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    [request setValue:kclient_id forHTTPHeaderField:@"client_id"];
+    [request setValue:kclient_secret forHTTPHeaderField:@"client_secret"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // 设置body
+    [request setHTTPBody:postData];
+    [[self dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (!error) {
+            success(responseObject);
+            RemoveActionV();
+        } else {
+            failure(error);
+            RemoveActionV();
+            [HttpClient HTTPERRORMESSAGE:error];
+            
+        }
+    }] resume];
 }
 @end

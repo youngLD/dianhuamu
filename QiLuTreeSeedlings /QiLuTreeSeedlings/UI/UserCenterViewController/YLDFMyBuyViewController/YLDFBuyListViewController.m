@@ -68,6 +68,14 @@
     searchV.delegate=self;
     [searchV setobss];
     [self.navBackView addSubview:searchV];
+    self.deleteView=[YLDFDeleteOrRefreshView yldFDeleteOrRefreshView];
+    
+    [self.deleteView.colseBtn addTarget:self action:@selector(deleteViewColseBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.deleteView.deleteBtn addTarget:self action:@selector(deleteViewDelteBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.deleteView.refreshBtn addTarget:self action:@selector(deleteViewRefreshBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.openView=[YLDFOpenOrDeleteView yldFOpenOrDeleteView];
+    [self.openView.openBtn addTarget:self action:@selector(openViewOpenBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.openView.deleteBtn addTarget:self action:@selector(openViewDeleteBtnAction) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)getDataList
@@ -142,7 +150,7 @@
 -(void)deleteViewDelteBtnAction
 {
     if (_selectAry.count==0) {
-        [ToastView showTopToast:@"您还没有选择任何供应噢！"];
+        [ToastView showTopToast:@"您还没有选择任何求购噢！"];
         return;
     }
     [self deleteViewAction];
@@ -152,13 +160,13 @@
 -(void)deleteViewColseBtnAction:(UIButton *)sender
 {
     if (_selectAry.count==0) {
-        [ToastView showTopToast:@"您还没有选择任何供应噢！"];
+        [ToastView showTopToast:@"您还没有选择任何求购噢！"];
         return;
     }
     __weak typeof(self)weakself =self;
     if (_nowBtn.tag==1) {
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"下架供应" message:@"您确定要下架该供应，下架后可在已下架的供应中重新上架。" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"下架求购" message:@"您确定要下架该求购，下架后可在已下架的求购中重新上架。" preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
@@ -168,11 +176,11 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             ShowActionV();
-            NSMutableString *idstr;
+            NSMutableString *idstr=[NSMutableString string];
             for (YLDFBuyModel *model in _selectAry) {
                 [idstr appendFormat:@"%@,",model.buyId];
             }
-            [HTTPCLIENT mySupplyCloseWithSupplyIds:idstr Success:^(id responseObject) {
+            [HTTPCLIENT buyCloseWithbuyIds:idstr Success:^(id responseObject) {
                 if ([[responseObject objectForKey:@"success"] integerValue]) {
                     [ToastView showTopToast:@"下架成功"];
                     weakself.lastTime=nil;
@@ -194,16 +202,16 @@
 -(void)deleteViewRefreshBtnAction
 {
     if (_selectAry.count==0) {
-        [ToastView showTopToast:@"您还没有选择任何供应噢！"];
+        [ToastView showTopToast:@"您还没有选择任何求购噢！"];
         return;
     }
     __weak typeof(self)weakself =self;
     
-    NSMutableString *idstr;
+    NSMutableString *idstr=[NSMutableString string];
     for (YLDFBuyModel *model in _selectAry) {
         [idstr appendFormat:@"%@,",model.buyId];
     }
-    [HTTPCLIENT mySupplyRefreshWithSupplyIds:idstr Success:^(id responseObject) {
+    [HTTPCLIENT buyRefreshWithbuyIds:idstr Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
 
             for (YLDFBuyModel *model in weakself.selectAry) {
@@ -222,7 +230,7 @@
 -(void)openViewDeleteBtnAction
 {
     if (_selectAry.count==0) {
-        [ToastView showTopToast:@"您还没有选择任何供应噢！"];
+        [ToastView showTopToast:@"您还没有选择任何求购噢！"];
         return;
     }
     [self deleteViewAction];
@@ -230,11 +238,11 @@
 -(void)openViewOpenBtnAction
 {
     if (_selectAry.count==0) {
-        [ToastView showTopToast:@"您还没有选择任何供应噢！"];
+        [ToastView showTopToast:@"您还没有选择任何求购噢！"];
         return;
     }
     __weak typeof(self)weakself =self;
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上架供应" message:@"您确定要上架该供应吗？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"上架求购" message:@"您确定要上架该求购吗？" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -243,13 +251,13 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSMutableString *idstr;
+        NSMutableString *idstr=[NSMutableString string];
         for (YLDFBuyModel *model in _selectAry) {
             [idstr appendFormat:@"%@,",model.buyId];
         }
         ShowActionV();
         
-        [HTTPCLIENT mySupplyOpenWithSupplyIds:idstr Success:^(id responseObject) {
+        [HTTPCLIENT buyOpenWithbuyIds:idstr withPartyId:nil Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
                 [ToastView showTopToast:@"上架成功"];
                 weakself.lastTime=nil;
@@ -270,7 +278,7 @@
 {
     __weak typeof(self)weakself =self;
     //在这里呼出下方菜单按钮项
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"删除供应" message:@"您确定要删除该供应，删除后无法恢复。" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"删除求购" message:@"您确定要删除该求购，删除后无法恢复。" preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -279,14 +287,14 @@
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSMutableString *idstr;
+        NSMutableString *idstr=[NSMutableString string];
         for (YLDFBuyModel *model in _selectAry) {
             [idstr appendFormat:@"%@,",model.buyId];
         }
         
         ShowActionV();
         
-        [HTTPCLIENT mySupplyDeleteWithSupplyIds:idstr Success:^(id responseObject) {
+        [HTTPCLIENT buyDeleteWithbuyIds:idstr withPartyId:nil  Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
                 [ToastView showTopToast:@"删除成功"];
                 weakself.lastTime=nil;

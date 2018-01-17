@@ -13,6 +13,7 @@
 +(YLFMySupplyTableViewCell *)yldFMySupplyTableViewCell
 {
     YLFMySupplyTableViewCell *cell=[[[NSBundle mainBundle]loadNibNamed:@"YLFMySupplyTableViewCell" owner:self options:nil] firstObject];
+    cell.titleW.constant=kWidth-30;
     return cell;
 }
 +(YLFMySupplyTableViewCell *)yldFListSupplyTableViewCell
@@ -22,6 +23,7 @@
     cell.lineTotimeLabC=0;
     [cell.btnView removeFromSuperview];
     [cell.bottomLineV setBackgroundColor:kLineColor];
+   cell.titleW.constant=kWidth-30; cell.imageAry=@[cell.bsV1,cell.bsV2,cell.bsV3,cell.bsV4,cell.bsV5,cell.bsV6,cell.bsV7];
     return cell;
 }
 - (IBAction)deleteBtnAction:(id)sender {
@@ -51,6 +53,30 @@
     }else{
         self.selected = NO;
     }
+//    self.titleW.constant=kWidth/3;
+    if (model.roles>0) {
+        CGFloat wwww=[self getTitleLabWidthWithText:[NSString stringWithFormat:@"供应%@%@",model.productName,model.demand] WithFont:19 withJx:2 WithBiaoSNum:model.roles.count-1];
+        self.titleW.constant=wwww;
+        for (UIImageView *view in self.imageAry) {
+            view.hidden=YES;
+        }
+        
+        NSInteger bsVIndex=0;
+        for (int i=0; i<model.roles.count; i++) {
+            NSDictionary *dic=self.model.roles[i];
+            NSString *roleTypeId=dic[@"roleTypeId"];
+            if (![roleTypeId isEqualToString:@"normal"]) {
+                UIImageView *imageV=self.imageAry[bsVIndex];
+                [imageV setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@BS",roleTypeId]]];
+                imageV.hidden=NO;
+                bsVIndex ++;
+                if (bsVIndex>=7) {
+                    break;
+                }
+            }
+        }
+    }
+    
     if ([model.status isEqualToString:@"open"]) {
         self.refreshBtnW.constant=51;
         self.refreshToEditL.constant=15;
@@ -87,6 +113,21 @@
             }
         }
     }
+}
+-(CGFloat)getTitleLabWidthWithText:(NSString *)text WithFont:(NSInteger)font withJx:(CGFloat)jx WithBiaoSNum:(NSInteger)bsNum
+{
+    CGFloat width=kWidth-30;
+    if (bsNum!=0) {
+        CGRect textR = [ZIKFunction getCGRectWithContent:text height:self.titleLab.frame.size.height font:19];
+        CGFloat textBSW=textR.size.width+bsNum*22.f;
+        if (textBSW<width) {
+            width=textR.size.width;
+        }else
+        {
+            width=width-bsNum*22.f;
+        }
+    }
+    return width;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

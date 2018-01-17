@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol YLDFHomeScrollTableViewCellDelegate
+-(void)scrollViewEndWithIndex:(NSInteger )index;
+-(void)scrollViewSelectWithModel:(id)model;
+@end
 @interface YLDFHomeScrollTableViewCell : UITableViewCell
 @property (strong, nonatomic)  UIScrollView *scrollView;
 @property (strong,nonatomic) NSMutableArray *tableViewAry;
 @property (assign,nonatomic)NSInteger lastType;
+@property (nonatomic,strong) NSArray *firstAry;
+@property (nonatomic,assign) NSInteger scrollEnable;
+@property (nonatomic,assign) NSInteger actionIndex;
+@property (nonatomic,weak) id <YLDFHomeScrollTableViewCellDelegate> delegate;
 @end

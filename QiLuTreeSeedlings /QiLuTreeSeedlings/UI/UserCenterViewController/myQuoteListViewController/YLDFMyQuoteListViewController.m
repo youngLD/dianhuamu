@@ -49,6 +49,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.moveView.frame=frame;
     }];
+    self.lastTime=nil;
     [self.tableView headerBeginRefreshing];
 }
 -(void)getdataList
@@ -76,6 +77,7 @@
         }else{
             [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
+        [self.tableView reloadData];
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
     } failure:^(NSError *error) {

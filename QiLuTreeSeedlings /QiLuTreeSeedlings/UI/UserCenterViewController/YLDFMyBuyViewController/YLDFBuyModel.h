@@ -31,6 +31,7 @@
 @property (nonatomic,copy) NSString *area;
 @property (nonatomic,copy) NSString *htmlUrl;
 @property (nonatomic,copy) NSString *baseUrl;
+@property (nonatomic,strong)NSArray *roles;
 +(YLDFBuyModel *)YLDFBuyModelWithDic:(NSDictionary *)dic;
 +(NSArray *)YLDFBuyModelAryWithAry:(NSArray *)ary;
 @end

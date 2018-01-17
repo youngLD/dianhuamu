@@ -12,11 +12,14 @@
 +(YLDFMyBuyTableViewCell *)yldFMyBuyTableViewCell
 {
     YLDFMyBuyTableViewCell *cell=[[[NSBundle mainBundle]loadNibNamed:@"YLDFMyBuyTableViewCell" owner:self options:nil] firstObject];
+    cell.titleLabW.constant=kWidth-30;
     cell.qiyeV.hidden=YES;
     cell.jjrV.hidden=YES;
     cell.ShiMingV.hidden=YES;
     cell.GCV.hidden=YES;
     cell.YLHV.hidden=YES;
+    cell.BSV7.hidden=YES;
+    cell.BSV6.hidden=YES;
     [cell.lineImageV setImage:[ZIKFunction imageWithSize:cell.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
 //    cell.imageVAry=@[cell.ShiMingV,cell.qiyeV,cell.jjrV,cell.GCV,cell.YLHV];
     cell.titleLabW.constant=kWidth-30;
@@ -36,7 +39,7 @@
     cell.GCV.hidden=YES;
     cell.YLHV.hidden=YES;
     [cell.lineImageV setImage:[ZIKFunction imageWithSize:cell.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
-    cell.imageVAry=@[cell.ShiMingV,cell.qiyeV,cell.jjrV,cell.GCV,cell.YLHV];
+    cell.titleLabW.constant=kWidth-30; cell.imageVAry=@[cell.ShiMingV,cell.qiyeV,cell.jjrV,cell.GCV,cell.YLHV,cell.BSV6,cell.BSV7];
     return cell;
 }
 -(void)setModel:(YLDFBuyModel *)model
@@ -47,7 +50,28 @@
     }else{
         self.selected = NO;
     }
-    
+    if (model.roles>0) {
+        CGFloat wwww=[self getTitleLabWidthWithText:[NSString stringWithFormat:@"求购%@%@",model.productName,model.demand] WithFont:19 withJx:2 WithBiaoSNum:model.roles.count-1];
+        self.titleLabW.constant=wwww;
+        for (UIImageView *view in self.imageVAry) {
+            view.hidden=YES;
+        }
+        
+        NSInteger bsVIndex=0;
+        for (int i=0; i<model.roles.count; i++) {
+            NSDictionary *dic=self.model.roles[i];
+            NSString *roleTypeId=dic[@"roleTypeId"];
+            if (![roleTypeId isEqualToString:@"normal"]) {
+                UIImageView *imageV=self.imageVAry[bsVIndex];
+                [imageV setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@BS",roleTypeId]]];
+                imageV.hidden=NO;
+                bsVIndex ++;
+                if (bsVIndex>=7) {
+                    break;
+                }
+            }
+        }
+    }
     if ([model.status isEqualToString:@"open"]) {
         self.refreshBtnW.constant=51;
         self.refreshToEditL.constant=15;
@@ -94,13 +118,16 @@
 {
     CGFloat width=kWidth-30;
     if (bsNum!=0) {
-       CGRect textR = [ZIKFunction getCGRectWithContent:text height:self.titleLab.frame.size.height font:19];
-        CGFloat textBSW=textR.size.width+bsNum*23.f;
+        CGRect textR = [ZIKFunction getCGRectWithContent:text height:self.titleLab.frame.size.height font:19];
+        CGFloat textBSW=textR.size.width+bsNum*22.f;
         if (textBSW<width) {
             width=textR.size.width;
-        };
+        }else
+        {
+            width=width-bsNum*22.f;
+        }
     }
-     return width;
+    return width;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

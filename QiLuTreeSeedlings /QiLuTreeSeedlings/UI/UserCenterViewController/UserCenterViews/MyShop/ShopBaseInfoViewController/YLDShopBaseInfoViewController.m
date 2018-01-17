@@ -22,15 +22,20 @@
 @property (nonatomic,weak)UITableView *tableView;
 @property (nonatomic,weak)YLDGCZXTouxiangTableViewCell *touxiangCell;
 @property (nonatomic,copy) NSDictionary *dic;
+@property (nonatomic,copy) NSString *txUrl;
 @end
 
 @implementation YLDShopBaseInfoViewController
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.navigationController.navigationBar.hidden==NO) {
+        self.navigationController.navigationBar.hidden=YES;
+    }
     [HTTPCLIENT getMyShopBaseMessageSuccess:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
-            self.dic=[[responseObject objectForKey:@"result"] objectForKey:@"shopinfo"];
+            self.dic=[responseObject objectForKey:@"data"];
+            self.txUrl=self.dic[@"headPortrait"];
             [self.tableView reloadData];
         }else
         {
@@ -60,38 +65,27 @@
         [self addPicture];
     }
     if (indexPath.row==1) {
-        YLDShopNameViewController *vc=[[YLDShopNameViewController alloc]initWithMessage:[self.dic objectForKey:@"shopName"]];
+        YLDShopNameViewController *vc=[[YLDShopNameViewController alloc]initWithMessage:[self.dic objectForKey:@"name"]];
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.row==2) {
         
-        YLDShopJianJieViewController *vc=[[YLDShopJianJieViewController alloc]initWithMessage:[self.dic objectForKey:@"brief"]];
-        [self.navigationController pushViewController:vc animated:YES];
+
     }
     if (indexPath.row==3) {
-        
-        YLDShopPresonViewController *vc=[[YLDShopPresonViewController alloc]initWithMessage:[self.dic objectForKey:@"chargelPerson"]];
+        YLDShopJianJieViewController *vc=[[YLDShopJianJieViewController alloc]initWithMessage:[self.dic objectForKey:@"description"]];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (indexPath.row==4) {
-        
-        YLDShopPhoneViewController *vc=[[YLDShopPhoneViewController alloc]initWithMessage:[self.dic objectForKey:@"phone"]];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    if (indexPath.row==5) {
-        LYDShopAddressViewController *vc=[[LYDShopAddressViewController alloc]initWithshopProvince:[self.dic objectForKey:@"shopProvince"] withshopCity:[self.dic objectForKey:@"shopCity"] withshopCounty:[self.dic objectForKey:@"shopCounty"] withshopAddress:[self.dic objectForKey:@"shopAddress"] WithareaAddress:[self.dic objectForKey:@"areaAddress"]];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    return 4;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row==2) {
-        return 60;
-    }
-    return 50;
+    tableView.rowHeight = UITableViewAutomaticDimension;//设置cell的高度为自动计算，只有才xib或者storyboard上自定义的cell才会生效，而且需要设置好约束
+    tableView.estimatedRowHeight = 50;
+    return tableView.rowHeight;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -100,9 +94,9 @@
         YLDGCZXTouxiangTableViewCell *  cell=[YLDGCZXTouxiangTableViewCell yldGCZXTouxiangTableViewCell];
 
         cell.titleLab.text=@"店铺头像";
-        NSString *urlStr=[self.dic objectForKey:@"shopHeadUrl"];
-        if (urlStr.length>0) {
-               [cell.imagev setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:[UIImage imageNamed:@"Store.png"]];
+//        NSString *urlStr=[self.dic objectForKey:@"headPortrait"];
+        if (self.txUrl.length>0) {
+               [cell.imagev setImageWithURL:[NSURL URLWithString:self.txUrl] placeholderImage:[UIImage imageNamed:@"Store.png"]];
         }else{
             [cell.imagev setImage:[UIImage imageNamed:@"Store.png"]];
         }
@@ -116,15 +110,30 @@
         }
         if (indexPath.row==1) {
             cell.titleLab.text=@"店铺名称";
-            cell.NameLab.text=[self.dic objectForKey:@"shopName"];
+            NSString *name=[self.dic objectForKey:@"name"];
+            if (name) {
+                cell.NameLab.text=name;
+            }
+            
             
         }
         if (indexPath.row==2) {
             cell.titleLab.text=@"预览店铺";
             
         }
-           return cell;
+        if (indexPath.row==3) {
+            cell.titleLab.text=@"店铺简介";
+            NSString *description=[self.dic objectForKey:@"description"];
+            if (description) {
+                cell.NameLab.text=description;
+            }
+            
         }
+  
+           return cell;
+        
+        }
+    
 }
 #pragma mark - 图片添加
 //头像点击事件
@@ -193,7 +202,7 @@
 - (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage
 {
     
-    [self requestUploadHeadImage:croppedImage];
+    [self upDataIamge:croppedImage];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -206,41 +215,100 @@
     [self.navigationController pushViewController:imageCropVC animated:YES];
 }
 #pragma mark - 请求上传图片
-- (void)requestUploadHeadImage:(UIImage *)image {
+
+- (void)upDataIamge:(UIImage *)croppedImage
+{
+    //  [ToastView showTopToast:@"正在上传图片"];
     
-    NSData* imageData;
+    //    ShowActionV();
+    //先把图片转成NSData
+    NSData *imageData;
     
-    //判断图片是不是png格式的文件
-    if (UIImagePNGRepresentation(image)) {
+    OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+    // 必填字段
+    put.bucketName = @"miaoxintong";
+    
+    NSString * nameStr =  [ZIKFunction creatFilePathWithHeardStr:[NSString stringWithFormat:@"member/image/%@",APPDELEGATE.userModel.access_token] WithTypeStr:@"ShopHeader"];
+    
+    imageData=UIImagePNGRepresentation(croppedImage);
+    
+    NSString *urlstr;
+    if (imageData) {
+        put.objectKey = [NSString stringWithFormat:@"%@.png",nameStr];
+        
+    }else{
+        put.objectKey = [NSString stringWithFormat:@"%@.jpeg",nameStr];
+        
+    }
+    urlstr=[NSString stringWithFormat:@"http://img.miaoxintong.cn/%@",put.objectKey];
+    
+    //        dispatch_sync(dispatch_get_main_queue(), ^{
+    
+    self.txUrl=urlstr;
+    [self.touxiangCell.imagev setImage:croppedImage];
+    
+    
+    //        });
+    
+    if (imageData) {
         //返回为png图像。
-        imageData = UIImagePNGRepresentation(image);
+        //        imageData = UIImagePNGRepresentation(croppedImage);
+        put.contentType=@"image/png";
+        
+        
     }else {
         //返回为JPEG图像。
-        imageData = UIImageJPEGRepresentation(image, 0.0001);
-    }
-    if (imageData.length>=1024*1024) {
-        CGSize newSize = {150,150};
-        imageData =  [self imageWithImageSimple:image scaledToSize:newSize];
-    }
-    NSString *myStringImageFile = [imageData base64EncodedStringWithOptions:(NSDataBase64Encoding64CharacterLineLength)];
-    
-    [HTTPCLIENT upDataImageIOS:myStringImageFile workstationUid:nil companyUid:nil type:nil saveTyep:@"4" Success:^(id responseObject) {
-        if ([[responseObject objectForKey:@"success"] integerValue]) {
-            
-            NSString *backUrl=[[responseObject objectForKey:@"result"] objectForKey:@"compressurl"];
-            
-            [self.touxiangCell.imagev setImageWithURL:[NSURL URLWithString:backUrl] placeholderImage:[UIImage imageNamed:@"Store.png"]];
-            [ToastView showTopToast:@"上传成功"];
-        }else
-        {
-            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-        }
-    } failure:^(NSError *error) {
         
+        imageData = UIImageJPEGRepresentation(croppedImage, 0.5);
+        put.contentType=@"image/jpeg";
+        
+        
+    }
+    
+    
+    if (croppedImage.size.width>200) {
+        CGFloat xD=200.f/croppedImage.size.width;
+        CGSize newSize = {200,croppedImage.size.height*xD};
+        imageData =  [self imageWithImageSimple:croppedImage scaledToSize:newSize];
+        
+    }
+    
+    put.uploadingData = imageData; // 直接上传NSData
+    // 可选字段，可不设置
+    put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+        // 当前上传段长度、当前已经上传总长度、一共需要上传的总长度
+    };
+    
+    OSSTask * putTask = [APPDELEGATE.client putObject:put];
+    
+    [putTask continueWithBlock:^id(OSSTask *task) {
+        if (!task.error) {
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                //Update UI in UI thread here
+                NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+                dic[@"headPortrait"]=self.txUrl;
+                NSString *bodyStr=[ZIKFunction convertToJsonData:dic];
+                
+                [HTTPCLIENT getMyShopBaseMessageUpDataWithbodyStr:bodyStr Success:^(id responseObject) {
+                    if ([[responseObject objectForKey:@"success"] integerValue]) {
+                        [ToastView showTopToast:@"修改成功"];
+                    }
+                } failure:^(NSError *error) {
+                    RemoveActionV();
+                }];
+                
+                
+            });
+            
+        }
+        return nil;
     }];
     
+    
+    
+    
 }
-
 -(NSData*)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize)newSize
 {
     // Create a graphics image context

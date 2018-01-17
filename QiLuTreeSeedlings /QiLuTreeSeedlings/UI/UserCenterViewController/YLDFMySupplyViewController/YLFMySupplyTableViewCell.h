@@ -18,6 +18,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
 @property (weak, nonatomic) IBOutlet UIImageView *bsV1;
 @property (weak, nonatomic) IBOutlet UIImageView *bsV2;
+@property (weak, nonatomic) IBOutlet UIImageView *bsV3;
+@property (weak, nonatomic) IBOutlet UIImageView *bsV4;
+@property (weak, nonatomic) IBOutlet UIImageView *bsV5;
+@property (weak, nonatomic) IBOutlet UIImageView *bsV6;
+@property (weak, nonatomic) IBOutlet UIImageView *bsV7;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleW;
 @property (weak, nonatomic) IBOutlet UIImageView *imageV2;
 @property (weak, nonatomic) IBOutlet UIImageView *imageV1;
@@ -38,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineW;
 @property (weak, nonatomic) IBOutlet UIView *btnView;
 @property (weak, nonatomic) IBOutlet UIView *bottomLineV;
+@property (nonatomic,strong)NSArray *imageAry;
 +(YLFMySupplyTableViewCell *)yldFMySupplyTableViewCell;
 +(YLFMySupplyTableViewCell *)yldFListSupplyTableViewCell;
 @end
