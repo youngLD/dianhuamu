@@ -139,10 +139,7 @@
             WithAccessID:(NSString *)access_id
                  Success:(void (^)(id responseObject))success
                  failure:(void (^)(NSError *error))failure;
-#pragma mark-热门搜索
--(void)hotkeywordWithkeywordCount:(NSString *)keyWordCount
-                          Success:(void (^)(id responseObject))success
-                          failure:(void (^)(NSError *error))failure;
+
 
 #pragma mark-供应检索
 -(void)sellSearchWithPage:(NSString*)page
@@ -1419,10 +1416,6 @@ failure:(void (^)(NSError *error))failure;
 -(void)GCGSOrderItemOpenWithUid:(NSString *)uid andOrdeUid:(NSString *)orderUid Withstatus:(NSString *)status Success:(void (^)(id responseObject))success
                            failure:(void (^)(NSError *error))failure;
 
-#pragma mark ---------- 搜索店铺----------
--(void)shopSearchWithPage:(NSString *)page WithpageSize:(NSString *)pageSize Withkeyword:(NSString *)keyword Success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError *error))failure;
-
 #pragma mark ---------- 机器人客服模糊查询 -----------
 - (void)robotReplysWithKeyword:(NSString *)keyword
                        Success:(void (^)(id responseObject))success
@@ -1916,6 +1909,7 @@ failure:(void (^)(NSError *error))failure;
                                                        failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 工程订单列表
 -(void)getEOrderListWithLastTime:(NSString *)lastTime
+                     Withkeyword:(NSString *)keyword
                          Success:(void (^)(id responseObject))success
                          failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 工程订单详情
@@ -1983,6 +1977,10 @@ failure:(void (^)(NSError *error))failure;
        WithcollectionTypeId:(NSString *)collectionTypeId
                           Success:(void (^)(id responseObject))success
                           failure:(void (^)(NSError *error))failure;
+#pragma mark -获取收藏状态
+-(void)collectStateWithId:(NSString *)ids
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
 #pragma mark -我的收藏
 -(void)myCollectListWithIds:(NSString *)ids
        WithcollectionTypeId:(NSString *)collectionTypeId
@@ -1994,5 +1992,20 @@ failure:(void (^)(NSError *error))failure;
 #pragma mark ---------- 店铺基本信息修改-----------
 -(void)getMyShopBaseMessageUpDataWithbodyStr:(NSString *)bodyStr  Success:(void (^)(id responseObject))success
                                      failure:(void (^)(NSError *error))failure;
-
+#pragma mark -求购报价状态
+-(void)buyQuoteStateWithId:(NSString *)ids
+                  Success:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure;
+#pragma mark -下载网络文件
+-(void)downNetFileWithdownUrl:(NSString *)downUrl
+                     savePath:(NSString *)savePath
+                      Success:(void (^)(id responseObject))success
+                      failure:(void (^)(NSError *error))failure;
+#pragma mark-热门搜索
+-(void)hotkeywordWithkeywordCount:(NSString *)keyWordCount
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure;
+#pragma mark ---------- 搜索店铺----------
+-(void)shopSearchWithLastTime:(NSString *)lastTime Withkeyword:(NSString *)keyword Success:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure;
 @end

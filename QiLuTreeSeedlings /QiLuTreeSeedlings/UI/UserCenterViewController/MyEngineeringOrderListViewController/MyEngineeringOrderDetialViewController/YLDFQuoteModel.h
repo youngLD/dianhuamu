@@ -11,6 +11,7 @@
 @interface YLDFQuoteModel : NSObject
 @property (nonatomic,copy) NSString *demand;
 @property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *nickname;
 @property (nonatomic,copy) NSString *partyId;
 @property (nonatomic,copy) NSString *phone;
 @property (nonatomic,copy) NSString *quote;

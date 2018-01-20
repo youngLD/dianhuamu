@@ -12,10 +12,13 @@
 //友盟分享
 #import "UMSocialControllerService.h"
 #import "UMSocial.h"
-#import "YLDFBuyFBViewController.h"
 //end 友盟分享
+#import "YLDFBuyFBViewController.h"
+#import "YLDFEorderQuoteTableViewCell.h"
+#import "YLDFQuoteDetialViewController.h"
+#import "YLDFQuoteModel.h"
 @interface YLDFmyBuyDetialViewController ()<UITableViewDelegate,UITableViewDataSource,UMSocialUIDelegate,buyFabuDelegate>
-@property (nonatomic,strong) NSMutableArray *dataAry;
+@property (nonatomic,strong) NSArray *dataAry;
 @property (nonatomic,copy) NSString *shareTitle;
 @property (nonatomic,copy) NSString *shareUrl;
 @end
@@ -59,10 +62,12 @@
     [HTTPCLIENT myBuyDetialWithbuyIds:self.model.buyId Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]) {
             NSDictionary *dic=[responseObject objectForKey:@"data"];
-            self.deltalModel=[YLDFBuyModel YLDFBuyModelWithDic:dic[@"buy"]];
+            self.deltalModel=[YLDFBuyModel YLDFBuyModelWithDic:dic];
+            NSArray *quotes=dic[@"quotes"];
+            self.dataAry=[YLDFQuoteModel creatByAry:quotes];
             [self.tableView reloadData];
         }else{
-            [ToastView showTopToast:[responseObject objectForKey:@"success"]];
+            [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
         }
     } failure:^(NSError *error) {
         
@@ -87,7 +92,9 @@
         tableView.rowHeight=UITableViewAutomaticDimension;
         return tableView.rowHeight;
     }else{
-        return 100;
+        tableView.estimatedRowHeight=83.0;
+        tableView.rowHeight=UITableViewAutomaticDimension;
+        return tableView.rowHeight;
     }
 
 }
@@ -107,9 +114,20 @@
        return cell;
     }else
     {
-        UITableViewCell *cell=[UITableViewCell new];
+        YLDFEorderQuoteTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"YLDFEorderQuoteTableViewCell"];
+        if (!cell) {
+            cell=[YLDFEorderQuoteTableViewCell yldFEorderQuoteTableViewCell];
+        }
+        cell.numLab.text=[NSString stringWithFormat:@"%ld",indexPath.row];
+        cell.model=self.dataAry[indexPath.row];
         return cell;
     }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YLDFQuoteDetialViewController *vc=[YLDFQuoteDetialViewController new];
+    vc.model=self.dataAry[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section==1) {
@@ -131,6 +149,8 @@
         CGRect frame=view.frame;
         frame.size.width=kWidth;
         view.frame=frame;
+        view.baojianumLab.text=[NSString stringWithFormat:@"%ld人",self.dataAry.count];
+        return view;
     }
     UIView *view=[UIView new];
     return view;

@@ -26,13 +26,16 @@
     model.quantity=dic[@"quantity"];
     model.quoteTypeId=dic[@"quoteTypeId"];
     model.staticUrl=dic[@"staticUrl"];
-    model.status=dic[@"status"];
+//    model.status=dic[@"status"];
     model.area=dic[@"area"];
     model.updateDate=dic[@"updateDate"];
     model.views=[dic[@"views"] integerValue];
     model.htmlUrl=dic[@"htmlUrl"];
     model.lastTime=dic[@"lastTime"];
     model.roles=dic[@"roles"];
+    model.phone=dic[@"phone"];
+    model.linkman=dic[@"linkman"];
+    model.attacs=dic[@"attacs"];
     return model;
 }
 +(NSArray *)YLDFBuyModelAryWithAry:(NSArray *)ary

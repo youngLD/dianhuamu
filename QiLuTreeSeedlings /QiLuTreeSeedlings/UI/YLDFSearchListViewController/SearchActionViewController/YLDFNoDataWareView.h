@@ -1,0 +1,15 @@
+//
+//  YLDFNoDataWareView.h
+//  QiLuTreeSeedlings
+//
+//  Created by 杨乐栋 on 2018/1/19.
+//  Copyright © 2018年 中亿科技. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface YLDFNoDataWareView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *wareLab;
+@property (weak, nonatomic) IBOutlet UIButton *fabuBtn;
++(YLDFNoDataWareView *)yldFNoDataWareView;
+@end

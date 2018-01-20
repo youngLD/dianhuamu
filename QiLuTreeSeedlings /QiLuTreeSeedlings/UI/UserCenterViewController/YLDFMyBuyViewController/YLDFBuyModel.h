@@ -32,6 +32,9 @@
 @property (nonatomic,copy) NSString *htmlUrl;
 @property (nonatomic,copy) NSString *baseUrl;
 @property (nonatomic,strong)NSArray *roles;
+@property (nonatomic,copy) NSString *phone;
+@property (nonatomic,copy) NSString *linkman;
+@property (nonatomic,copy) NSArray *attacs;
 +(YLDFBuyModel *)YLDFBuyModelWithDic:(NSDictionary *)dic;
 +(NSArray *)YLDFBuyModelAryWithAry:(NSArray *)ary;
 @end

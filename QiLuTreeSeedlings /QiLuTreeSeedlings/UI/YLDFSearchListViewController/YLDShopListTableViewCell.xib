@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="YLDShopListTableViewCell" id="KGk-i7-Jjw" customClass="YLDShopListTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="95.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shopListImageV.png" translatesAutoresizingMaskIntoConstraints="NO" id="atD-Kb-3Nd">
+                        <rect key="frame" x="15" y="14" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="ATV-Wn-YUF"/>
+                            <constraint firstAttribute="height" constant="25" id="ZU6-DO-f1z"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZF-cF-cP4">
+                        <rect key="frame" x="48" y="16.5" width="175" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="705-w3-uWP">
+                        <rect key="frame" x="233" y="15.5" width="67" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="CJV-YV-RSB"/>
+                            <constraint firstAttribute="width" constant="67" id="Qda-GJ-6cX"/>
+                        </constraints>
+                        <state key="normal" image="quoteDetialPushShop.png"/>
+                        <connections>
+                            <action selector="goShopBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="i9U-cX-sBA"/>
+                        </connections>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vxX-b6-Cvf">
+                        <rect key="frame" x="10" y="54" width="300" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="9a8-5A-yAO"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="店铺简介：" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vC2-Gy-H4z">
+                        <rect key="frame" x="15" y="60" width="290" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="YAN-Wf-phh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B00-aW-kWP">
+                        <rect key="frame" x="10" y="53.5" width="300" height="31"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="IFN-Vc-xsl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" title=" 查看简介" image="shopListOpen.png">
+                            <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" title=" 收起简介" image="shopListClose.png"/>
+                        <connections>
+                            <action selector="cheCkBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ncy-25-wU4"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrR-Yn-vOi">
+                        <rect key="frame" x="0.0" y="85.5" width="320" height="10"/>
+                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="lEW-pz-c3D"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="FrR-Yn-vOi" secondAttribute="trailing" id="4aV-xl-buT"/>
+                    <constraint firstItem="705-w3-uWP" firstAttribute="leading" secondItem="5ZF-cF-cP4" secondAttribute="trailing" constant="10" id="CdT-JG-mIy"/>
+                    <constraint firstAttribute="trailing" secondItem="vxX-b6-Cvf" secondAttribute="trailing" constant="10" id="DJq-dW-tfB"/>
+                    <constraint firstItem="5ZF-cF-cP4" firstAttribute="leading" secondItem="atD-Kb-3Nd" secondAttribute="trailing" constant="8" id="DPX-5D-dxh"/>
+                    <constraint firstAttribute="trailing" secondItem="B00-aW-kWP" secondAttribute="trailing" constant="10" id="Hpu-Uf-8zt"/>
+                    <constraint firstItem="5ZF-cF-cP4" firstAttribute="centerY" secondItem="atD-Kb-3Nd" secondAttribute="centerY" id="N1a-qg-EoM"/>
+                    <constraint firstItem="vC2-Gy-H4z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Qyy-yX-FOT"/>
+                    <constraint firstAttribute="bottom" secondItem="FrR-Yn-vOi" secondAttribute="bottom" id="TRx-G1-hDR"/>
+                    <constraint firstItem="atD-Kb-3Nd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="Us7-lH-Wzo"/>
+                    <constraint firstItem="vxX-b6-Cvf" firstAttribute="top" secondItem="atD-Kb-3Nd" secondAttribute="bottom" constant="15" id="aik-KV-8s1"/>
+                    <constraint firstItem="FrR-Yn-vOi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="atL-hi-DTW"/>
+                    <constraint firstItem="B00-aW-kWP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="brE-Zk-mHx"/>
+                    <constraint firstItem="705-w3-uWP" firstAttribute="centerY" secondItem="atD-Kb-3Nd" secondAttribute="centerY" id="enc-Xn-UZY"/>
+                    <constraint firstAttribute="bottom" secondItem="B00-aW-kWP" secondAttribute="bottom" constant="11" id="gW4-F0-qaY"/>
+                    <constraint firstAttribute="trailing" secondItem="705-w3-uWP" secondAttribute="trailing" constant="20" id="ghM-FP-he6"/>
+                    <constraint firstItem="vC2-Gy-H4z" firstAttribute="top" secondItem="vxX-b6-Cvf" secondAttribute="bottom" constant="5" id="kzO-Ee-kHc"/>
+                    <constraint firstAttribute="trailing" secondItem="vC2-Gy-H4z" secondAttribute="trailing" constant="15" id="qNk-MU-01f"/>
+                    <constraint firstAttribute="bottom" secondItem="vC2-Gy-H4z" secondAttribute="bottom" constant="17.5" id="tCx-Az-w5X"/>
+                    <constraint firstItem="atD-Kb-3Nd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="wBx-rA-1Lk"/>
+                    <constraint firstItem="vxX-b6-Cvf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="zRx-GK-sLF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="checkBtn" destination="B00-aW-kWP" id="B6Z-Hs-es8"/>
+                <outlet property="goShopBtn" destination="705-w3-uWP" id="nSv-aK-gQA"/>
+                <outlet property="imageV" destination="atD-Kb-3Nd" id="5L9-HI-PBt"/>
+                <outlet property="jianjieLab" destination="vC2-Gy-H4z" id="7Xo-Uj-L27"/>
+                <outlet property="jianjieLabH" destination="YAN-Wf-phh" id="ksI-oa-HUu"/>
+                <outlet property="jjBottL" destination="tCx-Az-w5X" id="C3A-7g-7t8"/>
+                <outlet property="lineView" destination="vxX-b6-Cvf" id="O7H-xd-MpV"/>
+                <outlet property="nameLab" destination="5ZF-cF-cP4" id="Dyf-LV-McA"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="quoteDetialPushShop.png" width="67" height="23"/>
+        <image name="shopListClose.png" width="14" height="14"/>
+        <image name="shopListImageV.png" width="25" height="25"/>
+        <image name="shopListOpen.png" width="14" height="14"/>
+    </resources>
+</document>

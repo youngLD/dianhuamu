@@ -25,13 +25,13 @@
     self.headerImageV.layer.masksToBounds=YES;
     self.headerImageV.layer.cornerRadius=self.headerImageV.frame.size.width/2;
     
-    self.nameLab.text=self.model.name;
+    self.nameLab.text=self.model.nickname;
     self.priceLab.text=[NSString stringWithFormat:@"%@元",self.model.quote];
     self.guigeLab.text=[NSString stringWithFormat:@"规格说明:%@",self.model.demand];
     NSString *headerImagePath=self.model.headPortrait;
     [self.lineImageV setImage:[ZIKFunction imageWithSize:self.lineImageV.frame.size borderColor:kLineColor borderWidth:1]];
     if (headerImagePath) {
-        [self.imgeV setImageWithURL:[NSURL URLWithString:headerImagePath]];
+        [self.headerImageV setImageWithURL:[NSURL URLWithString:headerImagePath]];
     }
     NSString *mmImagePath=[self.model.attacs firstObject][@"path"];
     if (mmImagePath) {

@@ -19,7 +19,7 @@
 -(void)setModel:(YLDFQuoteModel *)model
 {
     _model=model;
-    self.personLab.text=model.name;
+    self.personLab.text=model.nickname;
     self.priceLab.text=[NSString stringWithFormat:@"%@元",model.quote];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"规格说明:%@",model.demand]];
     [str addAttribute:NSForegroundColorAttributeName value:titleLabColor range:NSMakeRange(0,5)];

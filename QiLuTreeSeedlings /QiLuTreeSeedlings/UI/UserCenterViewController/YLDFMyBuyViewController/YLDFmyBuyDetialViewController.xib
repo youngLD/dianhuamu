@@ -54,7 +54,7 @@
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fiB-7z-v6a">
-                            <rect key="frame" x="0.0" y="1" width="124.5" height="1"/>
+                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="1"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="PMk-eR-QwG"/>
@@ -64,7 +64,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="93P-L3-crj" secondAttribute="bottom" id="27k-ar-EbC"/>
-                        <constraint firstItem="fiB-7z-v6a" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" constant="1" id="47K-5c-ugf"/>
+                        <constraint firstItem="fiB-7z-v6a" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" id="47K-5c-ugf"/>
                         <constraint firstItem="93P-L3-crj" firstAttribute="top" secondItem="qBb-uz-ct8" secondAttribute="top" id="Hbb-hs-VjJ"/>
                         <constraint firstAttribute="bottom" secondItem="g2r-74-ALi" secondAttribute="bottom" id="OSG-yo-m67"/>
                         <constraint firstAttribute="trailing" secondItem="WUe-in-LWL" secondAttribute="trailing" id="TKq-K3-3Mt"/>
@@ -80,9 +80,9 @@
                         <constraint firstItem="fiB-7z-v6a" firstAttribute="leading" secondItem="qBb-uz-ct8" secondAttribute="leading" id="y83-M8-7Sf"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-qT-LDf">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="D9q-qT-LDf">
                     <rect key="frame" x="0.0" y="84" width="375" height="531"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="n5O-NZ-PjD"/>
                         <outlet property="delegate" destination="-1" id="PUP-Ya-Oio"/>

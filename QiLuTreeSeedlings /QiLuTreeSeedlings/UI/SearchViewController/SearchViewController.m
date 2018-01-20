@@ -8,7 +8,7 @@
 
 #import "SearchViewController.h"
 #import "UIDefines.h"
-#import "searchHistoryViewCell.h"
+
 #import "SearchSuccessView.h"
 #import "ScreeningView.h"
 #import "BuyDetialInfoViewController.h"

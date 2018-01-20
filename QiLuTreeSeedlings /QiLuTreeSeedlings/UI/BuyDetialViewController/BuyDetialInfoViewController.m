@@ -34,7 +34,7 @@
 
 #import "ZIKStationOrderDetailViewController.h"//站长订单详情
 #import "ZIKCaiGouDetailHaveBuyTopView.h"//站长中心定制信息已购买详情顶部页面
-#import "ZIKHeZuoMiaoQiKeFuViewController.h"
+//#import "ZIKHeZuoMiaoQiKeFuViewController.h"
 #import "YLDSCommentAView.h"//评论框
 #import "YLDSPingLunSrView.h"
 #import "YLDSPingLunModel.h"
@@ -701,8 +701,8 @@ static BOOL isHezuo = NO;
     return view;
 }
 - (void)kefuBtnClcik {
-    ZIKHeZuoMiaoQiKeFuViewController *kefuVC = [[ZIKHeZuoMiaoQiKeFuViewController alloc] initWithNibName:@"ZIKHeZuoMiaoQiKeFuViewController" bundle:nil];
-    [self.navigationController pushViewController:kefuVC animated:YES];
+//    ZIKHeZuoMiaoQiKeFuViewController *kefuVC = [[ZIKHeZuoMiaoQiKeFuViewController alloc] initWithNibName:@"ZIKHeZuoMiaoQiKeFuViewController" bundle:nil];
+//    [self.navigationController pushViewController:kefuVC animated:YES];
 }
 -(UIView *)lianxiMessageShareView
 {

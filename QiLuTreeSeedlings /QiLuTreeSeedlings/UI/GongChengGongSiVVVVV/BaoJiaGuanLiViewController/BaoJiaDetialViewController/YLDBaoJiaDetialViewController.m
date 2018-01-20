@@ -18,7 +18,7 @@
 #import "YLDHeZuoDetialViewController.h"
 #import "YLDZhanZhangMessageViewController.h"
 #import "YLDJPGYSDetialViewController.h"
-#import "ZIKMiaoQiDetailTableViewController.h"
+//#import "ZIKMiaoQiDetailTableViewController.h"
 #import "BigImageViewShowView.h"
 @interface YLDBaoJiaDetialViewController ()<UITableViewDelegate,UITableViewDataSource,YLDSearchNavViewDelegate,YLDBaoJiaMessageCellDelegate>
 @property (nonatomic,strong)UIView *moveView;
@@ -299,10 +299,10 @@
         }
       
         if ([model.type isEqualToString:@"8"]) {
-            ZIKMiaoQiDetailTableViewController *mqdVC = [[ZIKMiaoQiDetailTableViewController alloc]initWithNibName:@"ZIKMiaoQiDetailTableViewController" bundle:nil];
-            mqdVC.uid = model.quotationUid;
-//            mqdVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:mqdVC animated:YES];
+//            ZIKMiaoQiDetailTableViewController *mqdVC = [[ZIKMiaoQiDetailTableViewController alloc]initWithNibName:@"ZIKMiaoQiDetailTableViewController" bundle:nil];
+//            mqdVC.uid = model.quotationUid;
+////            mqdVC.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:mqdVC animated:YES];
         }
     }
 }

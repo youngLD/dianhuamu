@@ -568,26 +568,7 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
-#pragma mark-热门搜索
--(void)hotkeywordWithkeywordCount:(NSString *)keyWordCount
-                          Success:(void (^)(id responseObject))success
-                          failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL = @"apihotkeyword";
-    NSDictionary *parameters=[NSDictionary dictionaryWithObjectsAndKeys:
-                              @"10",@"keywordCount",
-                             	  nil];
-    [self POST:postURL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
+
 #pragma mark-供应检索
 -(void)sellSearchWithPage:(NSString*)page
              WithPageSize:(NSString *)pageSize
@@ -5662,26 +5643,7 @@
     }];
 }
 
-#pragma mark ---------- 搜索店铺----------
--(void)shopSearchWithPage:(NSString *)page WithpageSize:(NSString *)pageSize Withkeyword:(NSString *)keyword Success:(void (^)(id responseObject))success
-                  failure:(void (^)(NSError *error))failure
-{
-    NSString *postURL             = @"searchshoplist";
-    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
-    parmers[@"page"]              = page;
-    parmers[@"pageSize"]          = pageSize;
-    parmers[@"keyword"]           = keyword;
-    ShowActionV();
-    [self POST:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        RemoveActionV();
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-        RemoveActionV();
-        [HttpClient HTTPERRORMESSAGE:error];
-    }];
-}
+
 
 
 #pragma mark ---------- 机器人客服模糊查询 -----------
@@ -7312,7 +7274,7 @@
     [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
     NSMutableDictionary *parameters=[NSMutableDictionary dictionary];
     
-    ShowActionV();
+//    ShowActionV();
     [self GET:postURL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -7377,7 +7339,6 @@
     [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
     NSMutableDictionary *parameters=[NSMutableDictionary dictionary];
     
-    ShowActionV();
     [self GET:postURL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -7645,7 +7606,7 @@
     }
     [self.requestSerializer setValue:str forHTTPHeaderField:@"device_id"];
     NSMutableDictionary *parmers=[NSMutableDictionary dictionary];
-    parmers[@"page"]=page;
+    parmers[@"lastTime"]=page;
     
     ShowActionV();
     [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -8414,6 +8375,7 @@
 }
 #pragma mark ---------- 工程订单列表
 -(void)getEOrderListWithLastTime:(NSString *)lastTime
+                     Withkeyword:(NSString *)keyword
                          Success:(void (^)(id responseObject))success
                          failure:(void (^)(NSError *error))failure
 {
@@ -8423,6 +8385,7 @@
     ShowActionV();
     NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
     parmers[@"lastTime"]=lastTime;
+    parmers[@"keyword"]=keyword;
     [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -8822,6 +8785,29 @@
         [HttpClient HTTPERRORMESSAGE:error];
     }];
 }
+#pragma mark -获取收藏状态
+-(void)collectStateWithId:(NSString *)ids
+                  Success:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =@"party/collections/status";
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"collectionId"]             = ids;
+    
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+    
+}
 #pragma mark -我的收藏
 -(void)myCollectListWithLastTime:(NSString *)lastTime
        WithcollectionTypeId:(NSString *)collectionTypeId
@@ -8890,5 +8876,95 @@
             
         }
     }] resume];
+}
+#pragma mark -求购报价状态
+-(void)buyQuoteStateWithId:(NSString *)ids
+                   Success:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL            =@"party/quotes/status";
+    [self.requestSerializer setValue:[NSString stringWithFormat:@"Bearer %@",APPDELEGATE.userModel.access_token] forHTTPHeaderField:@"Authorization"];
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"oibId"]             = ids;
+    
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
+-(void)downNetFileWithdownUrl:(NSString *)downUrl
+                       savePath:(NSString *)savePath
+                   Success:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure{
+    NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:downUrl]];
+    
+   [self downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+        //下载进度
+//        NSLog(@"%@",downloadProgress);
+       
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//
+////            self.pro.progress=downloadProgress.fractionCompleted;
+//
+//        }];
+       
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
+        //下载到哪个文件夹
+        
+        return [NSURL fileURLWithPath:savePath];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        success(filePath);
+        //下载完成了
+//        NSLog(@"下载完成了 %@",filePath);
+    }];
+}
+#pragma mark-热门搜索
+-(void)hotkeywordWithkeywordCount:(NSString *)keyWordCount
+                          Success:(void (^)(id responseObject))success
+                          failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL = @"products/hot";
+
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"pageSize"]             = keyWordCount;
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
+}
+#pragma mark ---------- 搜索店铺----------
+-(void)shopSearchWithLastTime:(NSString *)lastTime Withkeyword:(NSString *)keyword Success:(void (^)(id responseObject))success
+                      failure:(void (^)(NSError *error))failure
+{
+    NSString *postURL             = @"shops";
+    NSMutableDictionary *parmers = [[NSMutableDictionary alloc] init];
+    parmers[@"lastTime"]           = lastTime;
+    parmers[@"keyword"]           = keyword;
+    ShowActionV();
+    [self GET:postURL parameters:parmers progress:^(NSProgress * _Nonnull uploadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        RemoveActionV();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+        RemoveActionV();
+        [HttpClient HTTPERRORMESSAGE:error];
+    }];
 }
 @end

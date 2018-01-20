@@ -31,10 +31,10 @@
         [ToastView showTopToast:@"请输入规格说明"];
         return;
     }
-    if (self.imageUrl==0) {
-        [ToastView showTopToast:@"请上传图片"];
-        return;
-    }
+//    if (self.imageUrl==0) {
+//        [ToastView showTopToast:@"请上传图片"];
+//        return;
+//    }
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     NSMutableDictionary *imageDic=[NSMutableDictionary dictionary];
     

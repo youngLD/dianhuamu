@@ -14,26 +14,56 @@
 @end
 
 @implementation YLDFSupplyViewController
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self checkCollectState];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    if (@available(iOS 11.0, *)) {
 //        self.topC.constant=44.f;
 //    }
 //    self.webView.delegate=self;
-    self.webView.scalesPageToFit = YES;
+    
     self.vcTitle=@"供应详情";
     if (self.model.htmlUrl) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.model.htmlUrl]];
         [self.webView loadRequest:request];
     }
+    self.webView.scalesPageToFit = YES;
     [self.back2Btn removeFromSuperview];
     self.back2Btn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-55, self.navBackView.frame.size.height-40, 50, 30)];
     [self.back2Btn setImage:[UIImage imageNamed:@"detialSCoff"] forState:UIControlStateNormal];
     [self.back2Btn setImage:[UIImage imageNamed:@"detialSCon"] forState:UIControlStateSelected];
     [self.back2Btn addTarget:self action:@selector(collectionAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBackView addSubview:self.back2Btn];
+    
     // Do any additional setup after loading the view from its nib.
+}
+-(void)checkCollectState
+{
+    if ([APPDELEGATE isNeedLogin]) {
+        self.back2Btn.enabled=NO;
+        [HTTPCLIENT collectStateWithId:self.model.supplyId Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSInteger data=[[responseObject objectForKey:@"data"] integerValue];
+                if (data) {
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=YES;
+                }else{
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=NO;
+                }
+            }else{
+                
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+    
 }
 -(void)collectionAction:(UIButton *)sender
 {
@@ -86,6 +116,13 @@
     }else
     {
         [ToastView showTopToast:@"暂无联系方式"];
+    }
+    if ([APPDELEGATE isNeedLogin]) {
+        [HTTPCLIENT supplyDetialCallActionWithSupplyId:self.model.supplyId Success:^(id responseObject) {
+            
+        } failure:^(NSError *error) {
+            
+        }];
     }
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YLDFShopModel.h"
 @interface YLDFShopDeitalViewController : UIViewController
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *shareW;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *navView;
+@property (weak, nonatomic) IBOutlet UIButton *back2Btn;
+@property (nonatomic,strong)YLDFShopModel *model;
 @end

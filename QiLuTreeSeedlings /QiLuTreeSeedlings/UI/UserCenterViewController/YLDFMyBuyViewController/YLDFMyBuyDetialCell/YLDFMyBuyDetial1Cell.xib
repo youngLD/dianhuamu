@@ -108,7 +108,7 @@
                                     <constraint firstAttribute="height" constant="1" id="eVZ-RA-Ce5"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   发布人" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a8-fT-F0l">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   联系人" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a8-fT-F0l">
                                 <rect key="frame" x="15" y="13" width="61.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UfL-9o-4xm"/>

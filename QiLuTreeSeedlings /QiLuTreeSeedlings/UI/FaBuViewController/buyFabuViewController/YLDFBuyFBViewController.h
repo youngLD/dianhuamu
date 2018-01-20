@@ -29,6 +29,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
 @property (weak, nonatomic) IBOutlet UIButton *selectAddressBtn;
 @property (weak, nonatomic) IBOutlet UIButton *fabuBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *GGH;
+@property (weak, nonatomic) IBOutlet UIView *YYBGView;
+@property (weak, nonatomic) IBOutlet UIButton *YYPlayBtn;
+@property (weak, nonatomic) IBOutlet UILabel *YYtimeLab;
+@property (weak, nonatomic) IBOutlet UIImageView *YYPlayImageV;
 @property (nonatomic,weak)id <buyFabuDelegate> delegate;
 @property (nonatomic,copy) NSString *buyIdstr;
 @property (nonatomic,strong)YLDFBuyModel *model;

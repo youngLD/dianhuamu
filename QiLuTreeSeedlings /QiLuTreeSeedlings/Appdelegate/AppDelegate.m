@@ -51,8 +51,8 @@
 //阿里推送配置
 #import <UserNotifications/UserNotifications.h>
 #import <CloudPushSDK/CloudPushSDK.h>
-#define kAiLAppKey          @"24696567"
-#define kAiLAppSecret       @"eb9ddf820ef02651b630fc9a0a828ddc"
+#define kAiLAppKey          @"24776540"
+#define kAiLAppSecret       @"7e8334d4d1fefe4fe82f367329578321"
 @interface AppDelegate ()<CLLocationManagerDelegate,WXApiDelegate,EAIntroDelegate,UIAlertViewDelegate,EMCallManagerDelegate,EMChatManagerDelegate,UNUserNotificationCenterDelegate>
 @property (nonatomic,strong)EAIntroView *intro;
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
@@ -1324,9 +1324,7 @@
         switch (resp.errCode) {
             case WXSuccess:
                 strMsg = @"支付结果：成功！";
-                //                [[NSNotificationCenter defaultCenter] postNotificationName:@"PaySuccessNotification" object:nil userInfo:nil];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"PaySuccessNotification" object:nil];//SinglePaySuccessNotification
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"SinglePaySuccessNotification" object:nil];
+
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"PaySuccessNotification" object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CaiGouSinglePaySuccessNotification" object:nil];
                 if (!self.isFromSingleVoucherCenter) {

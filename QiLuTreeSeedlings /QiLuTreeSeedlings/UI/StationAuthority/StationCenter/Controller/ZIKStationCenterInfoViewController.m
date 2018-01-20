@@ -13,7 +13,6 @@
 #import "UIImageView+AFNetworking.h"
 #import "MasterInfoModel.h"
 
-#import "ZIKMiaoQiZhongXinModel.h"
 #import "ZIKChangeBriefViewController.h"
 #import "ZIKFunction.h"
 @interface ZIKStationCenterInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,RSKImageCropViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
@@ -135,7 +134,7 @@
         if (indexPath.row == 1) {
             cell.detailTextLabel.text = APPDELEGATE.userModel.name;
         } else if (indexPath.row == 2) {
-            cell.detailTextLabel.text = self.miaoModel.phone;
+//            cell.detailTextLabel.text = self.miaoModel.phone;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         } else if (indexPath.row == 3) {
             cell.detailTextLabel.text = APPDELEGATE.userModel.brief;
@@ -180,7 +179,7 @@
         if (indexPath.row == 1) {
             changeInfoVC.setString = APPDELEGATE.userModel.name;
         } else if (indexPath.row == 2) {
-            changeInfoVC.setString = self.miaoModel.phone;
+//            changeInfoVC.setString = self.miaoModel.phone;
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             return;
         }

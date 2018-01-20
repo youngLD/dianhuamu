@@ -19,7 +19,12 @@
 @end
 
 @implementation YLDFEOrderDetialViewController
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self checkCollectState];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle = @"订单详情";
@@ -43,6 +48,12 @@
     } failure:^(NSError *error) {
         
     }];
+    [self.back2Btn removeFromSuperview];
+    self.back2Btn=[[UIButton alloc]initWithFrame:CGRectMake(kWidth-55, self.navBackView.frame.size.height-40, 50, 30)];
+    [self.back2Btn setImage:[UIImage imageNamed:@"detialSCoff"] forState:UIControlStateNormal];
+    [self.back2Btn setImage:[UIImage imageNamed:@"detialSCon"] forState:UIControlStateSelected];
+    [self.back2Btn addTarget:self action:@selector(collectionAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navBackView addSubview:self.back2Btn];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)itemBaojiaActionWithModel:(YLDFMyOrderItemsModel *)model
@@ -144,6 +155,67 @@
     UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kWidth, 0.1)];
     [view setBackgroundColor:kRGB(240, 240, 240, 1)];
     return view;
+}
+-(void)checkCollectState
+{
+    if ([APPDELEGATE isNeedLogin]) {
+        self.back2Btn.enabled=NO;
+        [HTTPCLIENT collectStateWithId:self.model.engineeringProcurementId Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSInteger data=[[responseObject objectForKey:@"data"] integerValue];
+                if (data) {
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=YES;
+                }else{
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=NO;
+                }
+            }else{
+                
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+    
+}
+-(void)collectionAction:(UIButton *)sender
+{
+    if(![APPDELEGATE isNeedLogin])
+    {
+        YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
+        [ToastView showTopToast:@"请先登录"];
+        UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
+        
+        [self presentViewController:navVC animated:YES completion:^{
+            
+        }];
+        return;
+    }
+    if (!sender.selected) {
+        [HTTPCLIENT collectActionWithIds:self.model.engineeringProcurementId WithcollectionTypeId:@"order" Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                [ToastView showTopToast:@"收藏成功"];
+                sender.selected=YES;
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }else{
+        [HTTPCLIENT deletesenderCollectWithIds:self.model.engineeringProcurementId Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                [ToastView showTopToast:@"取消收藏"];
+                sender.selected=NO;
+            }else{
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

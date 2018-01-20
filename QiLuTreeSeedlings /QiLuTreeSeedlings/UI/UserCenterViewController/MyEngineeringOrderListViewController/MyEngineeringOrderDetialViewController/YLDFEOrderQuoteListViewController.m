@@ -57,6 +57,7 @@
         cell=[YLDFEorderQuoteTableViewCell yldFEorderQuoteTableViewCell];
     }
     cell.model=self.dataAry[indexPath.row];
+    cell.numLab.text=[NSString stringWithFormat:@"%ld",indexPath.row];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

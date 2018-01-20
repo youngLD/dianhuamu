@@ -6,7 +6,7 @@
 //  Copyright © 2016年 中亿科技. All rights reserved.
 //
 
-#import "ZIKGongyingWeihuViewController.h"
+#import "ZIKGongyingweihuViewController.h"
 #import "YYModel.h"//类型转换
 #import "KMJRefresh.h"//MJ刷新
 //#import "ZIKShopBuyModel.h"

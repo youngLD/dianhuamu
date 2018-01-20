@@ -15,7 +15,12 @@
 @end
 
 @implementation YLDFBuyDetialViewController
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self checkCollectState];
+    [self checkquoteState];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.vcTitle = @"求购详情";
@@ -34,6 +39,30 @@
     [self.back2Btn addTarget:self action:@selector(collectionAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBackView addSubview:self.back2Btn];
     // Do any additional setup after loading the view from its nib.
+}
+-(void)checkCollectState
+{
+    if ([APPDELEGATE isNeedLogin]) {
+        self.back2Btn.enabled=NO;
+        [HTTPCLIENT collectStateWithId:self.model.buyId Success:^(id responseObject) {
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSInteger data=[[responseObject objectForKey:@"data"] integerValue];
+                if (data) {
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=YES;
+                }else{
+                    self.back2Btn.enabled=YES;
+                    self.back2Btn.selected=NO;
+                }
+            }else{
+                
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+    
 }
 -(void)collectionAction:(UIButton *)sender
 {
@@ -63,7 +92,7 @@
         [HTTPCLIENT deletesenderCollectWithIds:self.model.buyId Success:^(id responseObject) {
             if ([[responseObject objectForKey:@"success"] integerValue]) {
                 [ToastView showTopToast:@"取消收藏"];
-                sender.selected=YES;
+                sender.selected=NO;
             }else{
                 [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
             }
@@ -83,6 +112,20 @@
 - (IBAction)chatBtnAction:(UIButton *)sender {
 }
 - (IBAction)callBtnAction:(UIButton *)sender {
+    if (self.model.phone.length>0) {
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.model.phone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }else
+    {
+        [ToastView showTopToast:@"暂无联系方式"];
+    }
+    if ([APPDELEGATE isNeedLogin]) {
+        [HTTPCLIENT buyDetialCallActionWithBuyId:self.model.buyId Success:^(id responseObject) {
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 - (IBAction)baojiaBtnAction:(UIButton *)sender {
     
@@ -123,6 +166,27 @@
     } failure:^(NSError *error) {
         
     }];
+}
+-(void)checkquoteState
+{
+    if ([APPDELEGATE isNeedLogin]) {
+    [HTTPCLIENT buyQuoteStateWithId:self.model.buyId Success:^(id responseObject) {
+        
+            if ([[responseObject objectForKey:@"success"] integerValue]) {
+                NSInteger data=[[responseObject objectForKey:@"data"] integerValue];
+                if (data) {
+                    self.model.status=@"已报价";
+                }else{
+                    self.model.status=nil;
+                }
+            }else{
+                
+                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
+            }
+    } failure:^(NSError *error) {
+        
+    }];
+    }
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     //    ShowActionV();

@@ -79,6 +79,7 @@
 #import "YLDFBuyDetialViewController.h"
 #import "YLDDataCacheHelp.h"
 #import "YLDFHomeScrollTableViewCell.h"
+#import "YLDFSearchListViewController.h"
 #define pageSize 5
 #define TopBtnW 90
 @interface YLDSHomePageViewController ()<CLLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource,CircleViewsDelegate,AdvertDelegate,YLDSearchActionVCDelegate,YLDHomeJJRCellDelegate,YLDPickLocationDelegate,UITabBarControllerDelegate,YLDFabuSuccessDelegate,supplyFabuDelegate,buyFabuDelegate,YLDFHomeScrollTableViewCellDelegate>
@@ -826,116 +827,7 @@
     frame.origin.y=0;
     self.topView1.frame=frame;
 }
-#pragma mark ---------网络请求----------
--(void)reloadTableVVVWithLastType
-{
-    //供应
-    if (_lastType==0) {
-        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
-        YLDFSupplyModel *model=[cocheAry lastObject];
-        self.supplyPage=1;
-        [HTTPCLIENT SupplynewLsitWithQuery:nil WithlastTime:model.lastTime Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                NSDictionary *data=[responseObject objectForKey:@"data"];
-                NSArray *supplysAry=data[@"supplys"];
-                if (supplysAry.count==0) {
-                    [ToastView showTopToast:@"已无更多数据"];
-                }else{
-                    NSArray *supplyDataAry=[YLDFSupplyModel YLDFSupplyModelAryWithAry:supplysAry];
-                    YLDFSupplyModel *model=[supplyDataAry lastObject];
-                    _lastTime=model.lastTime;
-                    [self.dataCache replaceDataWithDataAry:supplyDataAry WithIndex:0];
-                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:0 withPage:self.supplyPage WithPageSize:pageSize];
-                    
-                    [self.dataAry addObjectsFromArray:modelAry];
-                }
-                [self.tableView reloadData];
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView footerEndRefreshing];
-        } failure:^(NSError *error) {
-            [self.tableView footerEndRefreshing];
-            [self.tableView.mj_header endRefreshing];
-        }];
-    }
-    if (_lastType==1) {
-        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
-        YLDFSupplyModel *model=[cocheAry lastObject];
-        self.buyPage=1;
-        [HTTPCLIENT BuysNewLsitWithQuery:nil WithlastTime:model.lastTime Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
 
-                NSDictionary *data=[responseObject objectForKey:@"data"];
-                NSArray *buys=data[@"buys"];
-                if (buys.count>1) {
-                    NSArray *buysModelAry=[YLDFBuyModel YLDFBuyModelAryWithAry:buys];
-                    YLDFBuyModel *model=[buysModelAry lastObject];
-                    self.lastTime=model.lastTime;
-                    [self.dataCache replaceDataWithDataAry:buysModelAry WithIndex:1];
-                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:1 withPage:self.buyPage WithPageSize:pageSize];
-                    
-                    [self.dataAry addObjectsFromArray:modelAry];
-                    [self.tableView reloadData];
-                }else{
-                    [ToastView showTopToast:@"已无更多数据"];
-                }
-                
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-            [self.tableView footerEndRefreshing];
-            [self.tableView.mj_header endRefreshing];
-        } failure:^(NSError *error) {
-          
-            [self.tableView footerEndRefreshing];
-            [self.tableView.mj_header endRefreshing];
-        }];
-    }
-    if (_lastType==2) {
-        NSArray *cocheAry=self.dataCache.cacheAry[_lastType];
-        YLDFSupplyModel *model=[cocheAry lastObject];
-         self.orderPage=1;
-        [HTTPCLIENT getEOrderListWithLastTime:model.lastTime Success:^(id responseObject) {
-            if ([[responseObject objectForKey:@"success"] integerValue]) {
-                if (!_lastTime) {
-                    [self.dataAry removeAllObjects];
-                }
-                NSArray *order=[responseObject objectForKey:@"data"];
-               
-               
-                
-                if (order.count>0) {
-                     NSArray *orderModelAry=[YLDFEOrderModel creatModeByAry:order];
-                    YLDFEOrderModel *model=[orderModelAry lastObject];
-                    self.lastTime=model.lastTime;
-                   
-                    [self.dataCache replaceDataWithDataAry:orderModelAry WithIndex:2];
-                    NSArray *modelAry=[self.dataCache getDataAryWithIndex:1 withPage:self.orderPage WithPageSize:pageSize];
-                    
-                    [self.dataAry addObjectsFromArray:modelAry];
-                    [self.tableView reloadData];
-                }else{
-                    [ToastView showTopToast:@"暂无更多数据"];
-                }
-                
-            }else{
-                [ToastView showTopToast:[responseObject objectForKey:@"msg"]];
-            }
-            [self.tableView footerEndRefreshing];
-            [self.tableView.mj_header endRefreshing];
-        } failure:^(NSError *error) {
-            [self.tableView footerEndRefreshing];
-            [self.tableView.mj_header endRefreshing];
-        }];
-    }
-    if (_lastType==3) {
-        [self.tableView footerEndRefreshing];
-        [self.tableView.mj_header endRefreshing];
-    }
-    
-}
 -(void)getDataListWithPageNum:(NSString *)num
 {
     [HTTPCLIENT getHomePageInfoSuccess:^(id responseObject) {
@@ -1079,33 +971,26 @@
 -(void)circleViewsPush:(NSInteger)index{
     
     if (index==0) {
-        SearchViewController *searVC=[[SearchViewController alloc]initWithSearchType:3];
+        YLDFSearchListViewController *searVC=[[YLDFSearchListViewController alloc]init];
+        searVC.searchType=2;
         searVC.hidesBottomBarWhenPushed=YES;
         [self.navigationController pushViewController:searVC animated:YES];
         return;
     }
     if (index==1) {
-        SearchViewController *searVC=[[SearchViewController alloc]initWithSearchType:1];
+        YLDFSearchListViewController *searVC=[[YLDFSearchListViewController alloc]init];
         searVC.hidesBottomBarWhenPushed=YES;
+        searVC.searchType=1;
         [self.navigationController pushViewController:searVC animated:YES];
         return;
     }
     if (index==2) {
-        if (![APPDELEGATE isNeedLogin]) {
-            YLDLoginViewController *loginViewController=[[YLDLoginViewController alloc]init];
-            [ToastView showTopToast:@"请先登录"];
-            UINavController *navVC=[[UINavController alloc]initWithRootViewController:loginViewController];
-            
-            [self presentViewController:navVC animated:YES completion:^{
-                
-            }];
-            return ;
-        }
-        ZIKOrderViewController *orderVC=[[ZIKOrderViewController alloc]init];
-        orderVC.vcTitle=@"工程订单";
-        orderVC.title=@" 工程订单 ";
-        orderVC.hidesBottomBarWhenPushed=YES;
-        [self.navigationController pushViewController:orderVC animated:YES];
+       
+        YLDFSearchListViewController *searVC=[[YLDFSearchListViewController alloc]init];
+        searVC.hidesBottomBarWhenPushed=YES;
+        searVC.searchType=3;
+        [self.navigationController pushViewController:searVC animated:YES];
+        return;
     }
     if (index==3) {
         YLDHomeMoreViewController *vc=[[YLDHomeMoreViewController alloc]init];
@@ -1351,9 +1236,7 @@
         [idleImages addObject:image];
         
     }
-    
-    
-    
+   
     NSMutableArray *pullingImages = [NSMutableArray array];
 
     UIImage *image = [UIImage imageNamed:@"runningC1"];
@@ -1366,51 +1249,6 @@
         if (weakSelf.tableView.tableHeaderView!=nil) {
             weakSelf.PageCount=1;
             [weakSelf getDataListWithPageNum:[NSString stringWithFormat:@"%ld",weakSelf.PageCount]];
-        }else{
-            
-            weakSelf.PageCount=1;
-            NSInteger page=1;
-            if (weakSelf.tableView.tableFooterView) {
-                weakSelf.tableView.tableFooterView=nil;
-                [weakSelf tianjiafooterAction];
-            }
-            if (weakSelf.lastType==0) {
-                weakSelf.supplyPage++;
-                page=weakSelf.supplyPage;
-            }
-            if (weakSelf.lastType==1) {
-                weakSelf.buyPage++;
-                page=weakSelf.buyPage;
-            }
-            if (weakSelf.lastType==2) {
-                weakSelf.orderPage++;
-                page=weakSelf.orderPage;
-            }
-             NSArray *dataAry = [weakSelf.dataCache getDataAryWithIndex:weakSelf.lastType withPage:page WithPageSize:pageSize];
-            if (dataAry.count==0) {
-               [weakSelf reloadTableVVVWithLastType];
-            }else{
-                
-                NSMutableArray *tempAry=[NSMutableArray arrayWithArray:dataAry];
-                [tempAry addObjectsFromArray:self.dataAry];
-                [weakSelf.dataAry removeAllObjects];
-                [weakSelf.dataAry addObjectsFromArray:tempAry];
-//                if (weakSelf.topBtnChange) {
-//                    [weakSelf.dataAry removeAllObjects];
-//                    if (weakSelf.lastType==0) {
-//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.sellAry];
-//                    }
-//                    if (weakSelf.lastType==1) {
-//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.buyAry];
-//                    }
-//                    if (weakSelf.lastType==2) {
-//                        [weakSelf.dataAry addObjectsFromArray:weakSelf.orderAry];
-//                    }
-//                    weakSelf.topBtnChange=NO;
-//                }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
-            }
         }
         
         
@@ -1425,26 +1263,10 @@
    [header setImages:idleImages duration:1.2 forState:MJRefreshStateRefreshing];
 
      self.tableView.mj_header = header;
-    
-    [self tianjiafooterAction];
+
     
 }
--(void)tianjiafooterAction
-{
-    __weak typeof(self) weakSelf=self;
-    [self.tableView addFooterWithCallback:^{
-        weakSelf.PageCount++;
-        NSInteger xx=weakSelf.PageCount*pageSize;
-        [weakSelf.tableView footerEndRefreshing];
-        if (xx<=self.dataAry.count) {
-            [weakSelf.tableView reloadData];
-        }else
-        {
-            [weakSelf.tableView removeFooter];
-            weakSelf.tableView.tableFooterView=weakSelf.footerView;
-        }
-    }];
-}
+
 #pragma mark ----------悬浮按钮----------
 -(void)CreatXuanfuBtn
 {

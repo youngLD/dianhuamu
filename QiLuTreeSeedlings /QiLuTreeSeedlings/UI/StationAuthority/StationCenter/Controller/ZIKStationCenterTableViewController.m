@@ -8,7 +8,7 @@
 
 #import "ZIKStationCenterTableViewController.h"
 #import "ZIKStationCenterTableViewHeaderView.h"
-#import "ZIKStationCenterContentTableViewCell.h"
+//#import "ZIKStationCenterContentTableViewCell.h"
 #import "UIDefines.h"
 #import "ZIKMyHonorViewController.h"
 #import "MasterInfoModel.h"
@@ -141,12 +141,12 @@ static NSString *SectionHeaderViewIdentifier = @"StationCenterSectionHeaderViewI
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        ZIKStationCenterContentTableViewCell *cell = [ZIKStationCenterContentTableViewCell cellWithTableView:tableView];
-        if (self.masterModel) {
-            [cell configureCell:self.masterModel];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+//        ZIKStationCenterContentTableViewCell *cell = [ZIKStationCenterContentTableViewCell cellWithTableView:tableView];
+//        if (self.masterModel) {
+//            [cell configureCell:self.masterModel];
+//        }
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        return cell;
     } else if (indexPath.section == 1) {
       static NSString *cellID = @"cellID";
         UITableViewCell *twocell = [tableView dequeueReusableCellWithIdentifier:cellID];

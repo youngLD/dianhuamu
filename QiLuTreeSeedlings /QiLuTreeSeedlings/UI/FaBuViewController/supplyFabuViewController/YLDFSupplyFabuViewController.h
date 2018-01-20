@@ -39,6 +39,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *lineV;
 @property (weak, nonatomic) IBOutlet UIImageView *addressBGV;
 @property (weak, nonatomic) IBOutlet UIView *noAddresssBV;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *GGH;
+@property (weak, nonatomic) IBOutlet UIView *YYBGview;
+@property (weak, nonatomic) IBOutlet UIButton *YYPlayBtn;
+@property (weak, nonatomic) IBOutlet UILabel *YYtimeLab;
+@property (weak, nonatomic) IBOutlet UIImageView *YYPlayImageV;
+
 @property (nonatomic,copy) NSString *supplyId;
 @property (nonatomic,strong)YLDFSupplyModel *model;
 @property (nonatomic,weak)id <supplyFabuDelegate> delegate;

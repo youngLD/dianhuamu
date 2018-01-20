@@ -12,7 +12,7 @@
 -(void)addTextWithAry:(NSArray *)ary
 {
     for (int i=0; i<ary.count; i++) {
-        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(65, 10+i*31, 220, 21)];
+        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(65, 12.5+i*31, 220, 21)];
         [lab setTextColor:yellowButtonColor];
         [lab setFont:[UIFont systemFontOfSize:15]];
         [lab setText:ary[i]];

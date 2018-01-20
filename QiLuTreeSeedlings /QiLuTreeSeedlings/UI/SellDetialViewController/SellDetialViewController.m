@@ -27,7 +27,7 @@
 #import "UMSocial.h"
 
 #import "ZIKMyShopViewController.h"
-#import "ZIKHeZuoMiaoQiKeFuViewController.h"
+//#import "ZIKHeZuoMiaoQiKeFuViewController.h"
 
 #import "YLDLoginViewController.h"
 #import "UINavController.h"
@@ -270,8 +270,8 @@
 
 }
 - (void)kefuBtnClcik {
-    ZIKHeZuoMiaoQiKeFuViewController *kefuVC = [[ZIKHeZuoMiaoQiKeFuViewController alloc] initWithNibName:@"ZIKHeZuoMiaoQiKeFuViewController" bundle:nil];
-    [self.navigationController pushViewController:kefuVC animated:YES];
+//    ZIKHeZuoMiaoQiKeFuViewController *kefuVC = [[ZIKHeZuoMiaoQiKeFuViewController alloc] initWithNibName:@"ZIKHeZuoMiaoQiKeFuViewController" bundle:nil];
+//    [self.navigationController pushViewController:kefuVC animated:YES];
 }
 - (void)shopBtnAction {
   

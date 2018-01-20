@@ -20,8 +20,11 @@
     _model=model;
     self.shuzhongNameLab.text=model.productName;
     self.timeLab.text=model.updateDate;
-    self.addressLab.text=model.area;
-    self.personLab.text=APPDELEGATE.userModel.nickname;
+    if (model.area) {
+      self.addressLab.text=model.area;
+    }
+    
+    self.personLab.text=model.linkman;
     self.viewsLab.text=[NSString stringWithFormat:@"%ld",model.views];
     self.numLab.text=[NSString stringWithFormat:@"%@",model.quantity];
     NSString *baojiaStr;

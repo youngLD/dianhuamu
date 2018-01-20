@@ -47,7 +47,7 @@
 #import "YLDLoginViewController.h"
 #import "UINavController.h"
 #import "KMJRefresh.h"
-
+//#import "IQKeyboardManager.h"
 #define kTimeLineTableViewCellId @"SDTimeLineCell"
 
 static CGFloat textFieldH = 40;
@@ -58,7 +58,7 @@ static CGFloat textFieldH = 40;
 @property (nonatomic, assign) BOOL isReplayingComment;
 @property (nonatomic, strong) NSIndexPath *currentEditingIndexthPath;
 @property (nonatomic, copy) NSString *commentToUser;
-@property (nonatomic, assign)NSInteger pageCount;
+@property (nonatomic, copy)NSString * lastTime;
 @property (nonatomic, assign)BOOL isfreach;
 @end
 
@@ -73,12 +73,10 @@ static CGFloat textFieldH = 40;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
     [_textField resignFirstResponder];
 }
 - (void)viewDidLoad
@@ -86,8 +84,6 @@ static CGFloat textFieldH = 40;
     [super viewDidLoad];
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
-    
-    self.pageCount=1;
     
 
     UIBarButtonItem* rightButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"miaoshangqufabu"] style:UIBarButtonItemStylePlain target:self action:@selector(fabuBtnAction)];
@@ -121,8 +117,9 @@ static CGFloat textFieldH = 40;
     
     __weak typeof(self) weakSelf=self;
    [self.tableView addHeaderWithCallback:^{
-       weakSelf.pageCount=1;
-       [weakSelf creatModelsWithCount:1];
+       weakSelf.lastTime=nil;
+       
+       [weakSelf creatModelsWithCount:nil];
    }];
     
     
@@ -130,8 +127,8 @@ static CGFloat textFieldH = 40;
 
     
     [self.tableView addFooterWithCallback:^{
-        weakSelf.pageCount+=1;
-        [weakSelf creatModelsWithCount:weakSelf.pageCount];
+       
+        [weakSelf creatModelsWithCount:nil];
     }];
     [self.tableView headerBeginRefreshing];
     SDTimeLineTableHeaderView *headerView = [SDTimeLineTableHeaderView new];
@@ -148,7 +145,7 @@ static CGFloat textFieldH = 40;
     [self.tableView registerClass:[SDTimeLineCell class] forCellReuseIdentifier:kTimeLineTableViewCellId];
     
     [self setupTextField];
-    
+    _textField.inputAccessoryView=[UIView new];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [LEETheme startTheme:DAY];
     
@@ -249,10 +246,10 @@ static CGFloat textFieldH = 40;
     __weak typeof(self)weakself=self;
 //    __weak typeof(_refreshFooter) weakRefreshFooter = _refreshFooter;
 //    __weak typeof(_refreshHeader) weakRefreshHeader = _refreshHeader;
-    [HTTPCLIENT weimiaoshangListWithPage:[NSString stringWithFormat:@"%ld",count]  Success:^(id responseObject) {
+    [HTTPCLIENT weimiaoshangListWithPage:self.lastTime  Success:^(id responseObject) {
         if ([[responseObject objectForKey:@"success"] integerValue]==1) {
-            NSArray *qary=[[responseObject objectForKey:@"data"] objectForKey:@"content"];
-            if (weakself.pageCount==1) {
+            NSArray *qary=[responseObject objectForKey:@"data"];
+            if (weakself.lastTime==nil) {
                 [self.dataArray removeAllObjects];
             }else{
                 if (qary.count==0) {
@@ -263,9 +260,9 @@ static CGFloat textFieldH = 40;
             for (int i=0; i<qary.count; i++) {
                 SDTimeLineCellModel *model = [SDTimeLineCellModel new];
                 NSDictionary *dic =qary[i];
-                NSDictionary *person=dic[@"person"];
-                model.name=person[@"nickname"];
-                model.iconName=person[@"headPortrait"];
+
+                model.name=dic[@"nickname"];
+                model.iconName=dic[@"headPortrait"];
                 model.msgContent =dic[@"content"];
                 NSArray *attas=dic[@"attas"];
                 NSMutableArray *imageAry=[NSMutableArray array];
@@ -273,7 +270,7 @@ static CGFloat textFieldH = 40;
                     [imageAry addObject:imageDic[@"path"]];
                 }
                 model.picNamesArray=imageAry;
-                model.memberUid=dic[@"createdByPartyId"];
+                model.memberUid=dic[@"partyId"];
                 NSDate* date = [NSDate oss_dateFromString:dic[@"createdDate"]];
                 model.timec = [ZIKFunction compareCurrentTime:date];
                 model.uid=dic[@"circleId"];
@@ -508,17 +505,17 @@ static CGFloat textFieldH = 40;
         
         
         if (self.isReplayingComment) {
-            commentItemModel.firstUserName = APPDELEGATE.userModel.name;
-            commentItemModel.firstUserId = APPDELEGATE.userModel.name;
+            commentItemModel.firstUserName = APPDELEGATE.userModel.nickname;
+            commentItemModel.firstUserId = APPDELEGATE.userModel.nickname;
             commentItemModel.secondUserName = self.commentToUser;
             commentItemModel.secondUserId = self.commentToUser;
             commentItemModel.commentString = textField.text;
             
             self.isReplayingComment = NO;
         } else {
-            commentItemModel.firstUserName = APPDELEGATE.userModel.name;
+            commentItemModel.firstUserName = APPDELEGATE.userModel.nickname;
             commentItemModel.commentString = textField.text;
-            commentItemModel.firstUserId = APPDELEGATE.userModel.name;
+            commentItemModel.firstUserId = APPDELEGATE.userModel.nickname;
         }
         [temp insertObject:commentItemModel atIndex:0];
         model.commentItemsArray = [temp copy];

@@ -34,13 +34,23 @@
                         <color key="textColor" red="0.60206061241610742" green="0.60544253355704702" blue="0.60289953859060408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t2Y-GX-sGG">
+                        <rect key="frame" x="10" y="48.5" width="300" height="1"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="aOR-Md-th1"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="t2Y-GX-sGG" secondAttribute="trailing" constant="10" id="BY1-WX-BHp"/>
                     <constraint firstItem="BiF-g6-VYo" firstAttribute="leading" secondItem="qwb-Qm-xgx" secondAttribute="trailing" constant="10" id="NOV-F3-leE"/>
+                    <constraint firstAttribute="bottom" secondItem="t2Y-GX-sGG" secondAttribute="bottom" id="Rmy-x2-Ee4"/>
                     <constraint firstAttribute="trailingMargin" secondItem="BiF-g6-VYo" secondAttribute="trailing" constant="5" id="Vth-8V-KXX"/>
                     <constraint firstItem="BiF-g6-VYo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="6" id="YNB-WX-L8y"/>
                     <constraint firstItem="qwb-Qm-xgx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="aNK-qn-Yiv"/>
                     <constraint firstAttribute="bottomMargin" secondItem="BiF-g6-VYo" secondAttribute="bottom" constant="6" id="cfu-Ez-slr"/>
+                    <constraint firstItem="t2Y-GX-sGG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pqp-Ub-o6g"/>
                     <constraint firstItem="qwb-Qm-xgx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="vU3-Uj-JFI"/>
                 </constraints>
             </tableViewCellContentView>

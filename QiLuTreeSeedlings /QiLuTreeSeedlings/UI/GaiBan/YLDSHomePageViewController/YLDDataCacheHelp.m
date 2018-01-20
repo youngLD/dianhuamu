@@ -41,11 +41,11 @@
         NSMutableArray *indexAry=[NSMutableArray arrayWithArray:self.cacheAry[index]];
         if (indexAry.count>(page-1)*pagesize) {
             NSInteger beginIndex;
-            if (page<=1) {
-                beginIndex=0;
-            }else{
-                beginIndex=(page-1)*pagesize-1;
-            }
+//            if (page<=1) {
+//                beginIndex=0;
+//            }else{
+                beginIndex=(page-1)*pagesize;
+//            }
             if (indexAry.count>=page*pagesize) {
                 NSArray *dataAry=[indexAry subarrayWithRange:NSMakeRange(beginIndex, pagesize)];
                 return dataAry;

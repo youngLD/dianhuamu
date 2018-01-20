@@ -12,7 +12,7 @@
 #import "YLDJPGYSBaseTabBarController.h"
 #import "ZIKStationTabBarViewController.h"
 #import "YLDGongChengGongSiViewController.h"
-#import "ZIKMiaoQiTabBarViewController.h"
+//#import "ZIKMiaoQiTabBarViewController.h"
 #import "YLDMXETabBarViewController.h"
 #import "YLDJJRMyViewController.h"
 #import "YLDLoginViewController.h"
@@ -109,9 +109,9 @@
             
             if (APPDELEGATE.userModel.goldsupplierStatus==8) {
                 
-                ZIKMiaoQiTabBarViewController *hezuoTabBarVC = [[ZIKMiaoQiTabBarViewController alloc] init];
-     
-                [self.navigationController pushViewController:hezuoTabBarVC animated:YES];
+//                ZIKMiaoQiTabBarViewController *hezuoTabBarVC = [[ZIKMiaoQiTabBarViewController alloc] init];
+//     
+//                [self.navigationController pushViewController:hezuoTabBarVC animated:YES];
             }
             if (APPDELEGATE.userModel.goldsupplierStatus==9) {
                 

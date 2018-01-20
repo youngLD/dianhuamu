@@ -119,12 +119,12 @@
     CGFloat width=kWidth-30;
     if (bsNum!=0) {
         CGRect textR = [ZIKFunction getCGRectWithContent:text height:self.titleLab.frame.size.height font:19];
-        CGFloat textBSW=textR.size.width+bsNum*22.f;
+        CGFloat textBSW=textR.size.width+bsNum*21.f;
         if (textBSW<width) {
-            width=textR.size.width;
+            width=textR.size.width+5;
         }else
         {
-            width=width-bsNum*22.f;
+            width=width-bsNum*21.f;
         }
     }
     return width;
